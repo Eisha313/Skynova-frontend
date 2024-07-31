@@ -232,15 +232,15 @@ export default function LoginForm() {
           <p className="text-red-500 text-sm mt-2">{errors.form}</p>
         )}
         
-          <a href="/forgetpassword" className="text-sm text-blue-600">
-            Forgot Password?
-          </a>
-          <button
-            type="submit"
-            className="w-full p-2 bg-blue-600 text-white rounded"
-          >
-            Log In
-          </button>
+        <a href="/forgetpassword" className="text-sm text-blue-600">
+          Forgot Password?
+        </a>
+        <button
+          type="submit"
+          className="w-full p-2 bg-blue-600 text-white rounded"
+        >
+          Log In
+        </button>
         
       </form>
       <p className="text-center text-sm text-gray-600 mt-2">or continue with</p>
