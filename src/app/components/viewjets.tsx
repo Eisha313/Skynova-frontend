@@ -1,6 +1,4 @@
-'use client';
-
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Search from '../components/Search';
 import Sort from '../components/SortJets';
 import Pagination from '../components/Pagination';
@@ -27,7 +25,8 @@ const ViewJets: React.FC = () => {
   const [jetsPerPage] = useState(8);
   const [selectedJet, setSelectedJet] = useState<Jet | null>(null);
   const router = useRouter();
-  const fetchJets = async () => {
+
+  const fetchJets = useCallback(async () => {
     try {
       const response = await fetch('http://localhost:4000/jets/viewJets');
       const data = await response.json();
@@ -42,12 +41,11 @@ const ViewJets: React.FC = () => {
     } catch (error) {
       console.error('Error fetching jets:', error);
     }
-  };
-  useEffect(() => {
-   
+  }, [searchTerm, sortField]);
 
+  useEffect(() => {
     fetchJets();
-  }, [searchTerm, sortField, currentPage]);
+  }, [fetchJets, currentPage]);
 
   const indexOfLastJet = currentPage * jetsPerPage;
   const indexOfFirstJet = indexOfLastJet - jetsPerPage;
@@ -143,7 +141,7 @@ const ViewJets: React.FC = () => {
                     {jet.status}
                   </span>
                 </td>
-               
+                
                 <td className="py-2 px-4 border-b border-gray-200 text-center">
                   <div className="flex justify-left items-center space-x-2">
                     <button onClick={() => handleJetClick(jet)} className="text-blue-600 hover:text-blue-900">
@@ -188,4 +186,3 @@ const ViewJets: React.FC = () => {
 };
 
 export default ViewJets;
-
