@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useState } from 'react';
 import Search from '../components/Search';
 import Sort from '../components/SortJets';
