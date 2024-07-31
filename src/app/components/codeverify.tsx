@@ -1,10 +1,10 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 
-export default function CodeVerification() {
+const CodeVerificationForm: React.FC = () => {
   const [resetCode, setCode] = useState<string>('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [successMessage, setSuccessMessage] = useState<string>('');
@@ -33,7 +33,7 @@ export default function CodeVerification() {
         setSuccessMessage('Code verified successfully.');
         setErrors({});
         setTimeout(() => {
-          router.push('/setpassword'); 
+          router.push(`/setpassword?email=${email}&resetCode=${resetCode}`); // Ensure resetCode is passed to the next page
         }, 1000); 
       } else {
         const errorData = await response.json();
@@ -67,7 +67,7 @@ export default function CodeVerification() {
             onChange={(e) => setCode(e.target.value)}
             className="w-full p-2 border rounded"
           />
-          {errors.code && (
+          {errors.resetCode && (
             <p className="text-red-500 text-sm mt-1">{errors.resetCode}</p>
           )}
         </div>
@@ -83,4 +83,12 @@ export default function CodeVerification() {
       )}
     </div>
   );
-}
+};
+
+const CodeVerification: React.FC = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <CodeVerificationForm />
+  </Suspense>
+);
+
+export default CodeVerification;
