@@ -150,6 +150,7 @@
 // export default NonverbalQuestionForm;
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 interface Option {
   label: string;
@@ -262,7 +263,15 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
               }
             }}
           />
-          {image && <img src={image} alt="Question" className="mt-2 w-32 h-32 object-cover" />}
+          {image && (
+            <Image
+              src={image}
+              alt="Question"
+              width={128} // Adjust the width as needed
+              height={128} // Adjust the height as needed
+              className="mt-2 object-cover"
+            />
+          )}
         </div>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2">
@@ -287,7 +296,13 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
                 }}
               />
               {option.image && (
-                <img src={option.image} alt={`Option ${option.label}`} className="mt-2 w-32 h-32 object-cover" />
+                <Image
+                  src={option.image}
+                  alt={`Option ${option.label}`}
+                  width={128} // Adjust the width as needed
+                  height={128} // Adjust the height as needed
+                  className="mt-2 object-cover"
+                />
               )}
             </div>
           ))}
@@ -339,4 +354,5 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
 };
 
 export default NonverbalQuestionForm;
+
 

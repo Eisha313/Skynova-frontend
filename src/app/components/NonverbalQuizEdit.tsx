@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image'; // Import Image component
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -118,7 +119,13 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
                   className="border p-2 flex-grow"
                 />
                 {option && (
-                  <img src={option} alt={`Option ${optIndex + 1}`} className="mt-2 w-32 h-32 object-cover" />
+                  <Image
+                    src={option}
+                    alt={`Option ${optIndex + 1}`}
+                    width={128} // Adjust the width as needed
+                    height={128} // Adjust the height as needed
+                    className="mt-2 object-cover"
+                  />
                 )}
               </li>
             ))}

@@ -106,6 +106,7 @@
 // export default Modal;
 
 import React from 'react';
+import Image from 'next/image';
 
 interface User {
   id: number;
@@ -127,7 +128,7 @@ const Modal: React.FC<ModalProps> = ({ user, onClose }) => {
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-2xl font-semibold mb-4">Aviator Details</h2>
         <div className="mb-4">
-          <img
+          <Image
             src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`} // Adjust as necessary
             alt={user.name}
             className="w-24 h-24 rounded-full mb-4"

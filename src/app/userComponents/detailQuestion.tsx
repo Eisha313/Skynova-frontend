@@ -1,5 +1,6 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { format, parseISO } from 'date-fns';
 
@@ -25,7 +26,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
     const [question, setQuestion] = useState<Question | null>(null);
     const [answer, setAnswer] = useState<string>('');
 
-    const fetchQuestion = async () => {
+    const fetchQuestion = useCallback(async () => {
         try {
             const response = await fetch(`http://192.168.18.26:3000/communityQuestions/viewCommunityQuestion/${id}`);
             if (response.ok) {
@@ -43,11 +44,11 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
         } catch (error) {
             console.error('Error:', error);
         }
-    };
+    }, [id]);
 
     useEffect(() => {
         fetchQuestion();
-    }, [id]);
+    }, [fetchQuestion]);
 
     const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setAnswer(e.target.value);

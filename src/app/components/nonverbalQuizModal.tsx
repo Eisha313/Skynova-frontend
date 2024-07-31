@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 
 interface Question {
   _id: string;
@@ -43,11 +44,26 @@ const NonverbalQuizModal: React.FC<NonverbalQuizModalProps> = ({ isOpen, onClose
               <ul className="space-y-2 mt-2">
                 {question.options.map((option, index) => (
                   <li key={index}>
-                    <img src={option} alt={`Option ${index + 1}`} className="w-32 h-32 object-cover" />
+                    <Image
+                      src={option}
+                      alt={`Option ${index + 1}`}
+                      width={128} // Adjust the width as needed
+                      height={128} // Adjust the height as needed
+                      className="object-cover"
+                    />
                   </li>
                 ))}
               </ul>
-              <p className="mt-2"><strong>Correct Answer:</strong> <img src={question.answer} alt="Correct Answer" className="w-32 h-32 object-cover" /></p>
+              <p className="mt-2">
+                <strong>Correct Answer:</strong>
+                <Image
+                  src={question.answer}
+                  alt="Correct Answer"
+                  width={128} // Adjust the width as needed
+                  height={128} // Adjust the height as needed
+                  className="object-cover"
+                />
+              </p>
             </li>
           ))}
         </ul>

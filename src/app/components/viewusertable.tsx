@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export interface User {
   id: number; 
@@ -42,10 +43,12 @@ const UserTable: React.FC<UserTableProps> = ({ users, onView, onDelete, onUpdate
             <tr key={user.backendId}>
               <td className="py-2 px-4 border-b border-gray-200">{index + 1}</td>
               <td className="py-2 px-4 border-b border-gray-200">
-                <img
-                  src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`} // Adjust as necessary
+                <Image
+                  src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`}
                   alt={user.name}
-                  className="w-8 h-8 rounded-full"
+                  width={32} // or your desired width
+                  height={32} // or your desired height
+                  className="rounded-full"
                 />
               </td>
               <td className="py-2 px-4 border-b border-gray-200">{user.name}</td>

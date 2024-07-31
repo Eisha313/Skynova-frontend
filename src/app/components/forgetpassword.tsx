@@ -79,9 +79,7 @@ export default function ForgotPassword() {
       {successMessage && (
         <p className="text-green-600 text-sm text-center mt-2">{successMessage}</p>
       )}
-      <p className="text-center text-sm text-gray-600 mt-2">
-        Didn't receive the email? <a href="#" className="text-blue-600">Try again</a>
-      </p>
+      <p>Don&apos;t forget to reset your password.</p>
     </div>
   );
 }
