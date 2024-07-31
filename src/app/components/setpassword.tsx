@@ -1,9 +1,9 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function SetPassword() {
+const SetPasswordForm: React.FC = () => {
   const [resetPassword, setNewPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
@@ -13,7 +13,6 @@ export default function SetPassword() {
   const resetCode = searchParams.get('resetCode') || '';
 
   useEffect(() => {
-    
     if (!email || !resetCode) {
       router.push('/forgetpassword'); // Redirect if parameters are missing
     }
@@ -87,4 +86,12 @@ export default function SetPassword() {
       </form>
     </div>
   );
-}
+};
+
+const SetPassword: React.FC = () => (
+  <Suspense fallback={<div>Loading...</div>}>
+    <SetPasswordForm />
+  </Suspense>
+);
+
+export default SetPassword;
