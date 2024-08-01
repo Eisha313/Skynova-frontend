@@ -29,9 +29,10 @@ export default function Home() {
           <button className="flex-grow px-2 py-2 text-sm md:text-base lg:text-lg bg-none text-white rounded-lg border-2 border-transparent hover:border-white focus:outline-none focus:ring-2 focus:ring-blue-300">
             Medical Test
           </button>
-          <button className="flex-grow px-2 px-4 py-2 text-sm md:text-base lg:text-lg bg-none text-white rounded-lg border-2 border-transparent hover:border-white focus:outline-none focus:ring-2 focus:ring-blue-300">
-            Mission
-          </button>
+          <Link href="/certificate-page"> <button className="px-2 py-2 text-sm md:text-base lg:text-lg bg-none text-white rounded-lg border-2 border-transparent hover:border-white focus:outline-none focus:ring-2 focus:ring-blue-300">
+              Certificates
+            </button>
+            </Link>
           <button className="flex-grow px-2 px-4 py-2 text-sm md:text-base lg:text-lg bg-none text-white rounded-lg border-2 border-transparent hover:border-white focus:outline-none focus:ring-2 focus:ring-blue-300">
             Button 6
           </button>
