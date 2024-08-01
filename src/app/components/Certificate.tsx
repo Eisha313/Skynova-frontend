@@ -29,7 +29,7 @@ const Certificate: React.FC<CertificateProps> = ({ title, description, date }) =
     } else if (title.toLowerCase().includes('advanced')) {
       return 'text-orange-700';
     } else {
-      return 'text-blue-500'; // default 
+      return 'text-blue-500'; 
     }
   };
 
