@@ -21,7 +21,7 @@ const CodeVerificationForm: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://192.168.18.26:3000/users/verifyCode', {
+      const response = await fetch('http://192.168.18.54:3000/users/verifyCode', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

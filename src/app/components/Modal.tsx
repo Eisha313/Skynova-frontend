@@ -131,6 +131,8 @@ const Modal: React.FC<ModalProps> = ({ user, onClose }) => {
           <Image
             src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`} // Adjust as necessary
             alt={user.name}
+            width={32}
+            height={32}
             className="w-24 h-24 rounded-full mb-4"
           />
           <p><strong>ID:</strong> {user.id}</p>

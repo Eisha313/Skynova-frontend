@@ -1,11 +1,11 @@
 import React from 'react';
 import Sidebar from '../../../components/sidebarDashboard';
 import Header from '../../../components/header';
-import QuizManager from '../../../components/verbalcomponent';
+
 import Link from 'next/link';
 
 
-import EditQuiz from '../../../components/verbalquizedit';
+import EditQuiz from '../../../components/quizedit';
 
 const EditPage = ({params}:{
     params:{

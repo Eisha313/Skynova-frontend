@@ -92,7 +92,7 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://localhost:4000/certificates/viewCertificate/${id}`)
+      fetch(`http://192.168.18.54:3000/certificates/viewCertificate/${id}`)
         .then((res) => res.json())
         .then((data) => {
           

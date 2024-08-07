@@ -1,13 +1,53 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
 
-interface DropdownContextType {
+
+
+
+
+
+// 'use client'
+// import React, { createContext, useContext, useState } from 'react';
+
+// interface DropdownContextProps {
+//   openDropdown: string | null;
+//   setOpenDropdown: (dropdown: string | null) => void;
+//   currentPath: string;
+//   setCurrentPath: (path: string) => void;
+// }
+
+// const DropdownContext = createContext<DropdownContextProps>({
+//   openDropdown: null,
+//   setOpenDropdown: () => {},
+//   currentPath: '',
+//   setCurrentPath: () => {},
+// });
+
+// export const DropdownProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+//   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
+//   const [currentPath, setCurrentPath] = useState<string>('');
+
+//   return (
+//     <DropdownContext.Provider value={{ openDropdown, setOpenDropdown, currentPath, setCurrentPath }}>
+//       {children}
+//     </DropdownContext.Provider>
+//   );
+// };
+
+// export const useDropdown = () => useContext(DropdownContext);
+'use client';
+
+import React, { createContext, useContext, useState } from 'react';
+
+interface DropdownContextProps {
   openDropdown: string | null;
-  setOpenDropdown: (text: string | null) => void;
+  setOpenDropdown: (dropdown: string | null) => void;
 }
 
-const DropdownContext = createContext<DropdownContextType | undefined>(undefined);
+const DropdownContext = createContext<DropdownContextProps>({
+  openDropdown: null,
+  setOpenDropdown: () => {},
+});
 
-export const DropdownProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const DropdownProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   return (
@@ -17,10 +57,4 @@ export const DropdownProvider: React.FC<{ children: ReactNode }> = ({ children }
   );
 };
 
-export const useDropdown = () => {
-  const context = useContext(DropdownContext);
-  if (context === undefined) {
-    throw new Error('useDropdown must be used within a DropdownProvider');
-  }
-  return context;
-};
+export const useDropdown = () => useContext(DropdownContext);

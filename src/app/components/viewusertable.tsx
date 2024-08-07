@@ -46,8 +46,8 @@ const UserTable: React.FC<UserTableProps> = ({ users, onView, onDelete, onUpdate
                 <Image
                   src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`}
                   alt={user.name}
-                  width={32} // or your desired width
-                  height={32} // or your desired height
+                  width={33} 
+                  height={33} 
                   className="rounded-full"
                 />
               </td>

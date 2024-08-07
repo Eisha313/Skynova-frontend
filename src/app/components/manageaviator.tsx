@@ -21,7 +21,7 @@ const ManageAviator: React.FC = () => {
     if (id) {
       const fetchAviator = async () => {
         try {
-          const response = await fetch(`http://192.168.18.26:3000/aviators/viewAviator/${id}`);
+          const response = await fetch(`http://192.168.18.54:3000/aviators/viewAviator/${id}`);
           if (!response.ok) throw new Error('Network response was not ok');
           const data = await response.json();
           setAviator({

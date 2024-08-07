@@ -17,9 +17,9 @@ interface QuizDetail {
   questions: Question[];
 }
 interface EditQuizProps {
-  params: { title: string };
+  params: { id: string };
 }
-const QuizEdit = ({ title }: { title: string }
+const QuizEdit = ({ id }: { id: string }
 ) => {
   const router = useRouter();
   
@@ -30,7 +30,7 @@ const QuizEdit = ({ title }: { title: string }
     
     const fetchQuiz = async () => {
       try {
-        const response = await fetch(`http://192.168.18.26:3000/verbalQuizzes/viewVerbalQuiz/${title}`);
+        const response = await fetch(`http://192.168.18.54:3000/verbalQuizzes/viewVerbalQuiz/${id}`);
         if (response.ok) {
           const data = await response.json();
           setQuiz(data);
@@ -42,15 +42,15 @@ const QuizEdit = ({ title }: { title: string }
       }
     };
 
-    if (title) {
+    if (id) {
       fetchQuiz();
     }
-  }, [title]);
+  }, [id]);
   
 
   const handleSaveQuiz = async () => {
     try {
-      const response = await fetch(`http://192.168.18.26:3000/verbalQuizzes/updateVerbalQuiz/${title}`, {
+      const response = await fetch(`http://192.168.18.54:3000/verbalQuizzes/updateVerbalQuiz/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

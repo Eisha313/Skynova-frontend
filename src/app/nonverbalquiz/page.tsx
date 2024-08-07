@@ -9,7 +9,7 @@ const NonverbalPage: React.FC = () => {
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header />
-        <main className="flex-1 p-4 bg-white">
+        <main className="flex-1 overflow-auto p-4 bg-white">
           <NonverbalQuizManager />
         </main>
       </div>

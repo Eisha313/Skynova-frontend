@@ -35,7 +35,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch('http://192.168.18.26:3000/verbalQuizzes/viewVerbalQuizzes');
+        const response = await fetch('http://192.168.18.54:3000/verbalQuizzes/viewVerbalQuizzes');
         if (response.ok) {
           const data = await response.json();
           setQuizzes(data);
@@ -53,7 +53,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
 
   const handleQuizClick = async (quizId: string) => {
     try {
-      const response = await fetch(`http://192.168.18.26:3000/verbalQuizzes/viewVerbalQuiz/${quizId}`);
+      const response = await fetch(`http://192.168.18.54:3000/verbalQuizzes/viewVerbalQuiz/${quizId}`);
       if (response.ok) {
         const data = await response.json();
         setSelectedQuiz(data);
@@ -73,7 +73,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
 
   const handleDeleteQuiz = async (quizId: string) => {
     try {
-      const response = await fetch(`http://192.168.18.26:3000/verbalQuizzes/deleteVerbalQuiz/${quizId}`, {
+      const response = await fetch(`http://192.168.18.54:3000/verbalQuizzes/deleteVerbalQuiz/${quizId}`, {
         method: 'DELETE',
       });
       if (response.ok) {
@@ -109,7 +109,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
               >
                 <FaEye />
               </div>
-              <Link href={`verbalquiz/${quiz.title}/edit`}>
+              <Link href={`verbalquiz/${quiz._id}/edit`}>
                 <div className="text-blue-500 hover:text-blue-700 cursor-pointer">
                   <FaEdit />
                 </div>

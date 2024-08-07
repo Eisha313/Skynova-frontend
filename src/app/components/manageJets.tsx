@@ -10,11 +10,11 @@ const ManageJets: React.FC = () => {
   const handleSaveJet = async (formData: FormData) => {
     try {
       const response = editingJet
-        ? await fetch(`http://192.168.18.26:3000/jets/${editingJet._id}`, {
+        ? await fetch(`http://192.168.18.54:3000/jets/${editingJet._id}`, {
             method: 'PUT',
             body: formData,
           })
-        : await fetch('http://192.168.18.26:3000/jets/createJet', {
+        : await fetch('http://192.168.18.54:3000/jets/createJet', {
             method: 'POST',
             body: formData,
           });
