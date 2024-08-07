@@ -21,35 +21,22 @@
 
 // export default EditUser;
 // src/app/addaviator/[id]/page.tsx
-import { GetStaticPaths, GetStaticProps } from 'next';
+// src/app/addaviator/[id]/page.tsx
+import React from 'react';
 import AddAviatorForm from '../components/addaviatoronsave';
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  // Fetch or define paths for static generation
-  const paths = [{ params: { id: 'example-id' } }];
-
-  return {
-    paths,
-    fallback: 'blocking', // or 'false' for no fallback
-  };
-};
-
-export const getStaticProps: GetStaticProps = async (context) => {
-  const id = context.params?.id as string;
-
-  return {
-    props: {
-      id,
-    },
-  };
-};
-
 interface Props {
-  id: string;
+  params: {
+    id: string;
+  };
 }
 
-const EditUser: React.FC<Props> = ({ id }) => {
+const EditUser: React.FC<Props> = ({ params }) => {
+  const { id } = params;
+
   return <AddAviatorForm id={id} />;
 };
+
+// Note: No need for getStaticProps or getStaticPaths in the App Router
 
 export default EditUser;
