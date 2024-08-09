@@ -25,7 +25,7 @@ const NonverbalQuizForm = () => {
 
   const fetchQuizIdByTitle = async (title: string): Promise<string | null> => {
     try {
-      const response = await fetch('http://192.168.18.54:3000/nonVerbalQuizzes/viewNonVerbalQuizzes');
+      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes');
       if (response.ok) {
         const data = await response.json();
         const quiz = data.find((quiz: { title: string; _id: string }) => quiz.title === title);
@@ -46,7 +46,7 @@ const NonverbalQuizForm = () => {
 
   const handleQuizCreation = async (title: string, description: string) => {
     try {
-      const response = await fetch('http://192.168.18.54:3000/nonVerbalQuizzes/createNonVerbalQuiz', {
+      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/createNonVerbalQuiz', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

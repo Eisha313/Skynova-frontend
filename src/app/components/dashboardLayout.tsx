@@ -149,7 +149,8 @@ import { FaUser, FaQuestionCircle } from 'react-icons/fa';
 import { ChartComponent } from '@/components/barChartComponent';
 import { PieChartComponent } from '@/components/pieChartComponent';
 
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://192.168.18.54:3000';
+// const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://192.168.18.54:3000';
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'sky-nova-8ccaddc754ce.herokuapp.com';
 
 interface Stats {
   totalAviators: number;

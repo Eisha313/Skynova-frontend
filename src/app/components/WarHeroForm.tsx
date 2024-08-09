@@ -163,7 +163,7 @@ const WarHeroForm: React.FC<WarHeroFormProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://192.168.18.54:3000/viewWarHero/${id}`)
+      axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/viewWarHero/${id}`)
         .then((response) => {
           const data = response.data;
           if (data.length > 0) {
@@ -195,7 +195,7 @@ const WarHeroForm: React.FC<WarHeroFormProps> = ({ id }) => {
 
     try {
       const method = id ? 'PATCH' : 'POST';
-      const url = id ? `hhttp://192.168.18.54:3000/updateWarHero/${id}` : 'http://192.168.18.54:3000/createwarHero';
+      const url = id ? `hhttp://sky-nova-8ccaddc754ce.herokuapp.com/updateWarHero/${id}` : 'sky-nova-8ccaddc754ce.herokuapp.com/createwarHero';
       const response = await axios({
         method,
         url,

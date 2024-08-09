@@ -1,8 +1,6 @@
 
-
-
-// 'use client';
-// import { useState, useEffect } from 'react';
+// 'use client'
+// import React, { useState, useEffect } from 'react';
 // import Link from 'next/link';
 // import Pagination from './Pagination';
 // import Sort from './Sort';
@@ -11,7 +9,7 @@
 // import DownloadPDF from './DownloadPDF';
 // import UserTable from './viewusertable';
 // import Modal from './Modal';
-
+// import themeColors from './global/color'; // Import theme colors
 
 // interface User {
 //   id: number; 
@@ -36,7 +34,7 @@
 //   useEffect(() => {
 //     const fetchUsers = async () => {
 //       try {
-//         const response = await fetch(`http://localhost:4000/aviators/viewAviators?page=${currentPage}`);
+//         const response = await fetch(`http://192.168.18.54:3000/aviators/viewAviators?page=${currentPage}`);
 //         if (!response.ok) throw new Error('Network response was not ok');
 //         const data = await response.json();
         
@@ -94,7 +92,7 @@
 
 //   const handleDelete = async (userId: number) => {
 //     try {
-//       const response = await fetch(`http://192.168.18.26:3000/aviators/deleteAviator/${userId}`, {
+//       const response = await fetch(`http://192.168.18.54:3000/aviators/deleteAviator/${userId}`, {
 //         method: 'DELETE'
 //       });
 
@@ -112,7 +110,7 @@
 
 //   const handleUpdate = async (userId: number, updatedData: Partial<User>) => {
 //     try {
-//       const response = await fetch(`http://localhost:4000/aviators/updateAviator/${userId}`, {
+//       const response = await fetch(`http://192.168.18.54:3000/aviators/updateAviator/${userId}`, {
 //         method: 'PATCH',
 //         headers: { 'Content-Type': 'application/json' },
 //         body: JSON.stringify(updatedData)
@@ -150,20 +148,13 @@
 
 //   return (
 //     <div className="manage-users p-4 bg-gray-100">
-//       <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4 space-y-4 md:space-y-0">
-//         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
+//       <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
+//         <h2 className="text-xl font-semibold">All Users</h2>
+//         <div className="flex flex-1 justify-end space-x-2">
 //           <Search onSearchChange={handleSearchChange} />
-//           <Sort onSortChange={handleSortChange} />
 //           <Filter onFilterChange={handleFilterChange} />
-//         </div>
-//         <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-//           <Link href="/addaviator" className="bg-blue-500 text-white px-4 py-2 rounded-md text-center">Add User</Link>
-//           <Pagination
-//             currentPage={currentPage}
-//             totalPages={totalPages}
-//             onPageChange={setCurrentPage}
-//           />
-//           <DownloadPDF users={filteredUsers} />
+//           <DownloadPDF users={filteredUsers} borderColor="primary" />
+//           <Link href="/addaviator" className="bg-blue-500 text-white px-4 py-2 rounded-md text-center">+</Link>
 //         </div>
 //       </div>
 //       <UserTable
@@ -184,8 +175,8 @@
 // };
 
 // export default ManageUsers;
-'use client';
-import { useState, useEffect } from 'react';
+'use client'
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Pagination from './Pagination';
 import Sort from './Sort';
@@ -194,7 +185,7 @@ import Filter from './Filter';
 import DownloadPDF from './DownloadPDF';
 import UserTable from './viewusertable';
 import Modal from './Modal';
-import Image from 'next/image'; // Import the next/image component
+import { themeColors } from './global/color'; // Correct import
 
 interface User {
   id: number; 
@@ -219,7 +210,7 @@ const ManageUsers: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://192.168.18.54:3000/aviators/viewAviators?page=${currentPage}`);
+        const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/viewAviators?page=${currentPage}`);
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         
@@ -277,7 +268,7 @@ const ManageUsers: React.FC = () => {
 
   const handleDelete = async (userId: number) => {
     try {
-      const response = await fetch(`http://192.168.18.54:3000/aviators/deleteAviator/${userId}`, {
+      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/deleteAviator/${userId}`, {
         method: 'DELETE'
       });
 
@@ -295,7 +286,7 @@ const ManageUsers: React.FC = () => {
 
   const handleUpdate = async (userId: number, updatedData: Partial<User>) => {
     try {
-      const response = await fetch(`http://192.168.18.54:3000/aviators/updateAviator/${userId}`, {
+      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${userId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData)
@@ -333,20 +324,19 @@ const ManageUsers: React.FC = () => {
 
   return (
     <div className="manage-users p-4 bg-gray-100">
-      <div className="flex flex-col md:flex-row md:justify-between items-start md:items-center mb-4 space-y-4 md:space-y-0">
-        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
+      <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
+        <h2 className="text-xl font-semibold">All Users</h2>
+        <div className="flex flex-1 justify-end space-x-2">
           <Search onSearchChange={handleSearchChange} />
-          <Sort onSortChange={handleSortChange} />
           <Filter onFilterChange={handleFilterChange} />
-        </div>
-        <div className="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0">
-          <Link href="/addaviator" className="bg-blue-500 text-white px-4 py-2 rounded-md text-center">Add User</Link>
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={setCurrentPage}
-          />
-          <DownloadPDF users={filteredUsers} />
+          <DownloadPDF users={filteredUsers}  />
+          <Link 
+            href="/addaviator" 
+            className="px-4 py-2 rounded-md text-center bg-eisha text-white flex iem-center"
+          
+          >
+            Add User
+          </Link>
         </div>
       </div>
       <UserTable

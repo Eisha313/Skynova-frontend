@@ -19,7 +19,7 @@ const ComplaintDetail: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchComplaint = async () => {
       try {
-        const response = await axios.get(`http://192.168.18.54:3000/complaints/viewComplaint/${id}`);
+        const response = await axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/complaints/viewComplaint/${id}`);
         setComplaint(response.data[0]);
       } catch (error) {
         console.error('Error fetching complaint:', error);

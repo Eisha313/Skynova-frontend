@@ -30,7 +30,7 @@ const QuizEdit = ({ id }: { id: string }
     
     const fetchQuiz = async () => {
       try {
-        const response = await fetch(`http://192.168.18.54:3000/verbalQuizzes/viewVerbalQuiz/${id}`);
+        const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuiz/${id}`);
         if (response.ok) {
           const data = await response.json();
           setQuiz(data);
@@ -50,7 +50,7 @@ const QuizEdit = ({ id }: { id: string }
 
   const handleSaveQuiz = async () => {
     try {
-      const response = await fetch(`http://192.168.18.54:3000/verbalQuizzes/updateVerbalQuiz/${id}`, {
+      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/updateVerbalQuiz/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',

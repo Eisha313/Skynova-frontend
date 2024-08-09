@@ -113,7 +113,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ id }) => {
     if (id) {
       const fetchReport = async () => {
         try {
-          const response = await fetch(`http://192.168.18.54:3000/reports/viewReport/${id}`);
+          const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/reports/viewReport/${id}`);
           if (!response.ok) throw new Error('Failed to fetch report');
           const data = await response.json();
           const report = data[0];
@@ -133,7 +133,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ id }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        id ? `http://192.168.18.54:3000/reports/updateReport/${id}` : 'http://192.168.18.54:3000/reports/createReport',
+        id ? `http://sky-nova-8ccaddc754ce.herokuapp.com/reports/updateReport/${id}` : 'http://sky-nova-8ccaddc754ce.herokuapp.com/reports/createReport',
         {
           method: id ? 'PATCH' : 'POST',
           headers: { 'Content-Type': 'application/json' },

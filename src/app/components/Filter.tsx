@@ -36,7 +36,8 @@ const Filter: FC<FilterProps> = ({ onFilterChange }) => {
 
   return (
     <select onChange={handleFilterChange}>
-      <option value="">All</option>
+      
+      <option value="">Filter</option>
       <option value="active">Active</option>
       <option value="inactive">Inactive</option>
     </select>

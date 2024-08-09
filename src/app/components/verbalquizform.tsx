@@ -20,7 +20,7 @@ const VerbalQuizForm = () => {
 
   const fetchQuizIdByTitle = async (title: string): Promise<string | null> => {
     try {
-      const response = await fetch('http://192.168.18.54:3000/verbalquizzes/viewVerbalQuizzes');
+      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/verbalquizzes/viewVerbalQuizzes');
       if (response.ok) {
         const data = await response.json();
         const quiz = data.find((quiz: { title: string; _id: string }) => quiz.title === title);
@@ -44,7 +44,7 @@ const VerbalQuizForm = () => {
     setError(null); // Clear any previous error
 
     try {
-      const response = await fetch('http://192.168.18.54:3000/verbalQuizzes/createVerbalQuiz', {
+      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/createVerbalQuiz', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const VerbalQuizForm = () => {
     }
 
     try {
-      const response = await fetch('http://192.168.18.54:3000/verbalQuestions/createVerbalQuestion', {
+      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuestions/createVerbalQuestion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

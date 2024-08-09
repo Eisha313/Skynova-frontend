@@ -23,7 +23,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://192.168.18.54:3000/certificates/viewCertificate/${id}`)
+      fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`)
         .then((res) => res.json())
         .then((data) => {
           if (data) {
@@ -42,7 +42,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
   const handleGenerateAndSave = (e: React.FormEvent) => {
     e.preventDefault();
     const method = id ? 'PATCH' : 'POST';
-    const url = id ? `http://192.168.18.54:3000/certificates/updateCertificate/${id}` : 'http://192.168.18.54:3000/certificates/createCertificates';
+    const url = id ? `http://sky-nova-8ccaddc754ce.herokuapp.com/certificates/updateCertificate/${id}` : 'http://sky-nova-8ccaddc754ce.herokuapp.com/certificates/createCertificates';
     fetch(url, {
       method,
       headers: {

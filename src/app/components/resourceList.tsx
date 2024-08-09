@@ -19,7 +19,7 @@ const ResourceList: React.FC = () => {
     useEffect(() => {
         const fetchResources = async () => {
             try {
-                const response = await axios.get('http://192.168.18.54:3000/resources/viewResources');
+                const response = await axios.get('http://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResources');
                 setResources(response.data);
             } catch (error) {
                 setError('Failed to fetch resources.');
@@ -31,7 +31,7 @@ const ResourceList: React.FC = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            await axios.delete(`http://192.168.18.54:3000/resources/deleteResource/${id}`);
+            await axios.delete(`http://sky-nova-8ccaddc754ce.herokuapp.com/resources/deleteResource/${id}`);
             setResources(resources.filter(resource => resource._id !== id));
         } catch (error) {
             setError('Failed to delete resource.');

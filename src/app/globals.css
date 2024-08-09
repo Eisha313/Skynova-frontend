@@ -30,7 +30,10 @@
     --chart-3: 12 76% 61%;
     --chart-4: 0, 0%, 30%;
     --chart-5: 120 12% 22%;
+
+    --eisha: #2d3748;
   }
+ 
 
   .dark {
     --background: 222.2 84% 4.9%;
@@ -68,4 +71,26 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  /* background: #888; */
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #2563EB;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #2563EB;
 }

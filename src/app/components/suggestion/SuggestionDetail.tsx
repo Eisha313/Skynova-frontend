@@ -60,7 +60,7 @@ const SuggestionDetail: React.FC<SuggestionDetailProps> = ({ id }) => {
   useEffect(() => {
     const fetchSuggestion = async () => {
       try {
-        const response = await axios.get(`http://192.168.18.54:3000/suggestions/viewSuggestion/${id}`);
+        const response = await axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestion/${id}`);
         setSuggestion(response.data[0]);
       } catch (error) {
         console.error('Error fetching suggestion:', error);
@@ -71,7 +71,7 @@ const SuggestionDetail: React.FC<SuggestionDetailProps> = ({ id }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://192.168.18.54:3000/suggestions/deleteSuggestion/${id}`);
+      await axios.delete(`http://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/deleteSuggestion/${id}`);
       window.location.href = '/suggestions'; // Redirect after deletion
     } catch (error) {
       console.error('Error deleting suggestion:', error);

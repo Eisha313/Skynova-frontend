@@ -26,7 +26,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://192.168.18.54:3000/resources/viewResource/${id}`)
+      fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResource/${id}`)
         .then((res) => res.json())
         .then((data) => {
           if (data) {
@@ -45,23 +45,23 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Prepare form data
+    
     const formData = new FormData();
     formData.append('title', resource.title);
     formData.append('type', resource.type);
     if (resource.description) formData.append('description', resource.description);
 
-    // Log form data for debugging
+    
     console.log('Form Data:', Array.from(formData.entries()));
 
     try {
-      // Determine request method and URL
+    
       const method = id ? 'PATCH' : 'POST';
       const url = id 
-        ? `http://192.168.18.54:3000/resources/updateResource/${id}` 
-        : 'http://192.168.18.54:3000/resources/createResource';
+        ? `http://sky-nova-8ccaddc754ce.herokuapp.com/resources/updateResource/${id}` 
+        : 'http://sky-nova-8ccaddc754ce.herokuapp.com/resources/createResource';
       
-      // Make API request
+     
       const response = await axios({
         method,
         url,
@@ -71,26 +71,26 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
         },
       });
   
-      // Handle successful response
+      
       setGeneratedResource(response.data);
       setShowResource(true);
       router.push('/view-resource');
     } catch (error) {
-      // Enhanced error handling
+     
       console.error('Error saving resource:', error);
       if (axios.isAxiosError(error)) {
         if (error.response) {
-          // Server responded with a status other than 2xx
+          
           setError(`Error: ${error.response.status} - ${error.response.statusText}`);
         } else if (error.request) {
-          // Request was made but no response received
+       
           setError('No response received from server.');
         } else {
-          // Error setting up the request
+        
           setError('Error in request setup.');
         }
       } else {
-        // Non-Axios error
+       
         setError('An unexpected error occurred.');
       }
     }

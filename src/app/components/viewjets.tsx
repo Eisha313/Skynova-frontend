@@ -217,7 +217,7 @@ const ViewJets: React.FC = () => {
 
   const fetchJets = useCallback(async () => {
     try {
-      const response = await fetch('http://192.168.18.54:3000/jets/viewJets');
+      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/jets/viewJets');
       const data = await response.json();
       const filteredJets = data
         .filter((jet: Jet) =>
@@ -270,7 +270,7 @@ const ViewJets: React.FC = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`http://192.168.18.54:3000/jets/deleteJet/${jetId}`, {
+      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/jets/deleteJet/${jetId}`, {
         method: 'DELETE',
       });
       if (!response.ok) {

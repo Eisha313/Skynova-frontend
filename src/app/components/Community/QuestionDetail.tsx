@@ -186,7 +186,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 
     const fetchQuestion = useCallback(async () => {
         try {
-            const response = await fetch(`http://192.168.18.54:3000/communityQuestions/viewCommunityQuestion/${id}`);
+            const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestion/${id}`);
             if (response.ok) {
                 const data = await response.json();
                 const questionData = data[0]; 
@@ -215,7 +215,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
     const handleAnswerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://192.168.18.54:3000/communityAnswers/createCommunityAnswer`, {
+            const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/communityAnswers/createCommunityAnswer`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -237,7 +237,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 
     const handleDelete = async (answerId: number) => {
         try {
-            const response = await fetch(`http://192.168.18.54:3000/communityAnswers/deleteCommunityAnswer/${answerId}`, {
+            const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/communityAnswers/deleteCommunityAnswer/${answerId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Failed to delete the answer');

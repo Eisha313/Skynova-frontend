@@ -21,7 +21,7 @@ const ManageAviator: React.FC = () => {
     if (id) {
       const fetchAviator = async () => {
         try {
-          const response = await fetch(`http://192.168.18.54:3000/aviators/viewAviator/${id}`);
+          const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/viewAviator/${id}`);
           if (!response.ok) throw new Error('Network response was not ok');
           const data = await response.json();
           setAviator({
@@ -44,7 +44,7 @@ const ManageAviator: React.FC = () => {
 
   const handleSaveAviator = async (aviator: Aviator) => {
     try {
-      const response = await fetch(`http://192.168.18.26:3000/aviators/${aviator.id ? `updateAviator/${aviator.id}` : 'addAviator'}`, {
+      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/${aviator.id ? `updateAviator/${aviator.id}` : 'addAviator'}`, {
         method: aviator.id ? 'PATCH' : 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -29,7 +29,7 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await fetch(`http://192.168.18.54:3000/nonverbalQuizzes/viewNonverbalQuiz/${id}`);
+        const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/nonverbalQuizzes/viewNonverbalQuiz/${id}`);
         if (response.ok) {
           const data = await response.json();
           setQuiz(data);
@@ -48,7 +48,7 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
 
   const handleSaveQuiz = async () => {
     try {
-      const response = await fetch(`http://192.168.18.54:3000/nonverbalQuizzes/updateNonverbalQuiz/${id}`, {
+      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/nonverbalQuizzes/updateNonverbalQuiz/${id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
