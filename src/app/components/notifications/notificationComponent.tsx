@@ -100,7 +100,7 @@ const NotificationsList: React.FC = () => {
     useEffect(() => {
         const fetchNotifications = async () => {
             try {
-                const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/notifications/viewNotifications');
+                const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/notifications/viewNotifications');
                 if (!response.ok) throw new Error('Failed to fetch notifications');
                 const data = await response.json();
                 const mappedNotifications: Notification[] = data.map((notification: any) => ({
@@ -119,7 +119,7 @@ const NotificationsList: React.FC = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/notifications/deleteNotification/${id}`, {
+            const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/notifications/deleteNotification/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Failed to delete notification');

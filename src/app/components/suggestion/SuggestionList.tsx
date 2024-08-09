@@ -82,7 +82,7 @@ const SuggestionsList = () => {
     useEffect(() => {
         const fetchSuggestions = async () => {
             try {
-                const response = await axios.get('http://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestion');
+                const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestion');
                 setSuggestions(response.data);
             } catch (error) {
                 console.error('Error fetching suggestions:', error);
@@ -93,7 +93,7 @@ const SuggestionsList = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            await axios.delete(`http://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/deleteSuggestion/${id}`);
+            await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/deleteSuggestion/${id}`);
             // Refresh the list after deletion
             setSuggestions(suggestions.filter(suggestion => suggestion._id !== id));
         } catch (error) {

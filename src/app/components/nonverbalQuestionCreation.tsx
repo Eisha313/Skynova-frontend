@@ -52,7 +52,7 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
     };
 
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuestions/createNonVerbalQuestion', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuestions/createNonVerbalQuestion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

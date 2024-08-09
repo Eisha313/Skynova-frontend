@@ -133,7 +133,7 @@ const ReportForm: React.FC<ReportFormProps> = ({ id }) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        id ? `http://sky-nova-8ccaddc754ce.herokuapp.com/reports/updateReport/${id}` : 'http://sky-nova-8ccaddc754ce.herokuapp.com/reports/createReport',
+        id ? `https://sky-nova-8ccaddc754ce.herokuapp.com/reports/updateReport/${id}` : 'https://sky-nova-8ccaddc754ce.herokuapp.com/reports/createReport',
         {
           method: id ? 'PATCH' : 'POST',
           headers: { 'Content-Type': 'application/json' },

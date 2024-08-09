@@ -96,7 +96,7 @@ const CommunityQuestions: React.FC = () => {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await fetch('http://192.168.18.54:3000/communityQuestions/viewCommunityQuestions');
+                const response = await fetch('https://192.168.18.54:3000/communityQuestions/viewCommunityQuestions');
                 if (!response.ok) throw new Error('response was not okay');
                 const data = await response.json();
                 const mappedQuestions: Question[] = data.map((question: any) => ({
@@ -114,7 +114,7 @@ const CommunityQuestions: React.FC = () => {
 
     const handleDelete = async (id: number) => {
         try {
-            const response = await fetch(`http://192.168.18.54:3000/communityQuestions/deleteCommunityQuestion/${id}`, {
+            const response = await fetch(`https://192.168.18.54:3000/communityQuestions/deleteCommunityQuestion/${id}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Failed to delete the question');

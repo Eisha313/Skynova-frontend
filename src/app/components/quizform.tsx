@@ -20,7 +20,7 @@ const QuizForm = () => {
 
   const fetchQuizIdByTitle = async (title: string): Promise<string | null> => {
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuizzes');
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuizzes');
       if (response.ok) {
         const data = await response.json();
         const quiz = data.find((quiz: { title: string; _id: string }) => quiz.title === title);
@@ -44,7 +44,7 @@ const QuizForm = () => {
     setError(null); // Clear any previous error
 
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/createQuizzes', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/createQuizzes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const QuizForm = () => {
     }
 
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/quizQuestions/createQuizQuestion', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizQuestions/createQuizQuestion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

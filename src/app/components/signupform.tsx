@@ -54,7 +54,7 @@ export default function SignupForm() {
       };
 
       try {
-        const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/users/signup', {
+        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/signup', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

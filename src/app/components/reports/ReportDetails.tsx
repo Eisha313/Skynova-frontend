@@ -73,7 +73,7 @@ const ReportDetails: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchReport = async () => {
       try {
-        const response = await axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/reports/viewReport/${id}`);
+        const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/reports/viewReport/${id}`);
         setReport(response.data[0]);
       } catch (error) {
         console.error('Error fetching report:', error);

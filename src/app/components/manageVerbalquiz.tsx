@@ -35,7 +35,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuizzes');
+        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuizzes');
         if (response.ok) {
           const data = await response.json();
           setQuizzes(data);
@@ -53,7 +53,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
 
   const handleQuizClick = async (quizId: string) => {
     try {
-      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuiz/${quizId}`);
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuiz/${quizId}`);
       if (response.ok) {
         const data = await response.json();
         setSelectedQuiz(data);
@@ -73,7 +73,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
 
   const handleDeleteQuiz = async (quizId: string) => {
     try {
-      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/deleteVerbalQuiz/${quizId}`, {
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/deleteVerbalQuiz/${quizId}`, {
         method: 'DELETE',
       });
       if (response.ok) {

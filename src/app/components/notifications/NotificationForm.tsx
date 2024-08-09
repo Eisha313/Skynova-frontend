@@ -16,7 +16,7 @@ const NotificationForm: React.FC<NotificationFormProps> = ({ id }) => {
         if (id) {
             const fetchNotification = async () => {
                 try {
-                    const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/notifications/viewNotification/${id}`);
+                    const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/notifications/viewNotification/${id}`);
                     if (!response.ok) throw new Error('Failed to fetch notification');
                     const data = await response.json();
                     const notification = data[0];
@@ -34,7 +34,7 @@ const NotificationForm: React.FC<NotificationFormProps> = ({ id }) => {
         e.preventDefault();
         try {
             const response = await fetch(
-                id ? `http://sky-nova-8ccaddc754ce.herokuapp.com/notifications/updateNotification/${id}` : 'http://sky-nova-8ccaddc754ce.herokuapp.com/notifications/createNotification',
+                id ? `https://sky-nova-8ccaddc754ce.herokuapp.com/notifications/updateNotification/${id}` : 'https://sky-nova-8ccaddc754ce.herokuapp.com/notifications/createNotification',
                 {
                     method: id ? 'PATCH' : 'POST',
                     headers: {

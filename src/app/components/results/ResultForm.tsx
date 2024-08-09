@@ -126,7 +126,7 @@ const ResultForm: React.FC<{ id?: string }> = ({ id }) => {
       setIsEditing(true);
       const fetchResult = async () => {
         try {
-          const response = await axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResult/${id}`);
+          const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResult/${id}`);
           const result = response.data[0];
           setType(result.type);
           setDescription(result.description);
@@ -145,10 +145,10 @@ const ResultForm: React.FC<{ id?: string }> = ({ id }) => {
 
     try {
       if (isEditing) {
-        await axios.patch(`http://sky-nova-8ccaddc754ce.herokuapp.com/results/updateResult/${id}`, resultData);
+        await axios.patch(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/updateResult/${id}`, resultData);
         alert('Result updated successfully');
       } else {
-        await axios.post('http://sky-nova-8ccaddc754ce.herokuapp.com/results/createResults', resultData);
+        await axios.post('https://sky-nova-8ccaddc754ce.herokuapp.com/results/createResults', resultData);
         alert('Result created successfully');
       }
       router.push('/results');

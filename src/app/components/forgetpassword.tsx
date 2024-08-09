@@ -19,7 +19,7 @@ export default function ForgotPassword() {
     }
 
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/users/forgetpassword', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/forgetpassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

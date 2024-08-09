@@ -10,11 +10,11 @@ const ManageJets: React.FC = () => {
   const handleSaveJet = async (formData: FormData) => {
     try {
       const response = editingJet
-        ? await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/jets/${editingJet._id}`, {
+        ? await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/jets/${editingJet._id}`, {
             method: 'PUT',
             body: formData,
           })
-        : await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/jets/createJet', {
+        : await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/jets/createJet', {
             method: 'POST',
             body: formData,
           });

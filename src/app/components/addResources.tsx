@@ -26,7 +26,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResource/${id}`)
+      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResource/${id}`)
         .then((res) => res.json())
         .then((data) => {
           if (data) {
@@ -58,8 +58,8 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
     
       const method = id ? 'PATCH' : 'POST';
       const url = id 
-        ? `http://sky-nova-8ccaddc754ce.herokuapp.com/resources/updateResource/${id}` 
-        : 'http://sky-nova-8ccaddc754ce.herokuapp.com/resources/createResource';
+        ? `https://sky-nova-8ccaddc754ce.herokuapp.com/resources/updateResource/${id}` 
+        : 'https://sky-nova-8ccaddc754ce.herokuapp.com/resources/createResource';
       
      
       const response = await axios({

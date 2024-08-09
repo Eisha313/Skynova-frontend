@@ -90,7 +90,7 @@ const AddAviatorForm: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchAviator = async () => {
       try {
-        const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/viewAviator/${id}`);
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/viewAviator/${id}`);
     
         if (response.ok) {
           const data = await response.json();
@@ -112,7 +112,7 @@ const AddAviatorForm: React.FC<{ id: string }> = ({ id }) => {
 
   const handleSave = async (aviator: Aviator) => {
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

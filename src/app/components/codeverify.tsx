@@ -21,7 +21,7 @@ const CodeVerificationForm: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/users/verifyCode', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/verifyCode', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -167,7 +167,7 @@ export default function LoginForm() {
     }
 
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/users/login', { 
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/login', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

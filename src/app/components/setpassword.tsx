@@ -31,7 +31,7 @@ const SetPasswordForm: React.FC = () => {
     }
 
     try {
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/users/resetPassword', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/resetPassword', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

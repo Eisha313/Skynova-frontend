@@ -314,7 +314,7 @@ import {
 } from "./ui/chart"
 
 // Base URL for the API
-const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://sky-nova-8ccaddc754ce.herokuapp.com';
+const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sky-nova-8ccaddc754ce.herokuapp.com';
 
 const chartConfig: ChartConfig = {
   complaints: {

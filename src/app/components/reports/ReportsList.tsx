@@ -108,7 +108,7 @@ const ReportsList: React.FC = () => {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const response = await axios.get('http://sky-nova-8ccaddc754ce.herokuapp.com/reports/viewReport');
+        const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/reports/viewReport');
         console.log(response.data); // Log the response data
         setReports(response.data);
       } catch (error) {
@@ -121,7 +121,7 @@ const ReportsList: React.FC = () => {
   const handleDelete = async (id: string) => {
     console.log('Deleting report with id:', id); // Log the id
     try {
-      await axios.delete(`http://sky-nova-8ccaddc754ce.herokuapp.com/reports/deleteReport/${id}`);
+      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/reports/deleteReport/${id}`);
       setReports(reports.filter((report) => report._id !== id));
     } catch (error) {
       console.error('Error deleting report:', error);

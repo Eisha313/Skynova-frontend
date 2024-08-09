@@ -17,7 +17,7 @@ const ComplaintList: React.FC = () => {
   useEffect(() => {
     const fetchComplaints = async () => {
       try {
-        const response = await axios.get('http://sky-nova-8ccaddc754ce.herokuapp.com/complaints/viewComplaints');
+        const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/viewComplaints');
         setComplaints(response.data);
       } catch (error) {
         console.error('Error fetching complaints:', error);
@@ -28,7 +28,7 @@ const ComplaintList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`http://sky-nova-8ccaddc754ce.herokuapp.com/complaints/deleteComplaint/${id}`);
+      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/deleteComplaint/${id}`);
       setComplaints(complaints.filter((complaint) => complaint._id !== id));
     } catch (error) {
       console.error('Error deleting complaint:', error);

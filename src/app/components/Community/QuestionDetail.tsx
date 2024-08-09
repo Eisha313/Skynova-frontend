@@ -237,7 +237,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 
     const handleDelete = async (answerId: number) => {
         try {
-            const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/communityAnswers/deleteCommunityAnswer/${answerId}`, {
+            const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/communityAnswers/deleteCommunityAnswer/${answerId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) throw new Error('Failed to delete the answer');

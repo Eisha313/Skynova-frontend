@@ -24,7 +24,7 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
   useEffect(() => {
     const fetchResource = async () => {
       try {
-        const response = await axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResource/${id}`);
+        const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResource/${id}`);
         console.log(response.data); // Debugging
         const resourceData = response.data.length > 0 ? response.data[0] : null;
         setResource(resourceData);

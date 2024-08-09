@@ -210,7 +210,7 @@ const ManageUsers: React.FC = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/viewAviators?page=${currentPage}`);
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/viewAviators?page=${currentPage}`);
         if (!response.ok) throw new Error('Network response was not ok');
         const data = await response.json();
         
@@ -268,7 +268,7 @@ const ManageUsers: React.FC = () => {
 
   const handleDelete = async (userId: number) => {
     try {
-      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/deleteAviator/${userId}`, {
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/deleteAviator/${userId}`, {
         method: 'DELETE'
       });
 
@@ -286,7 +286,7 @@ const ManageUsers: React.FC = () => {
 
   const handleUpdate = async (userId: number, updatedData: Partial<User>) => {
     try {
-      const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${userId}`, {
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${userId}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedData)

@@ -273,7 +273,7 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ aviator, onSave }) => {
   
     try {
       // Prepare the data for submission
-      const response = await fetch('http://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
