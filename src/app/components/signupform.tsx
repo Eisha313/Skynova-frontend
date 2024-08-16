@@ -11,7 +11,7 @@ export default function SignupForm() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
-  const [role, setRole] = useState<string>('admin');
+  const [role, setRole] = useState<string>('Admin');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const router = useRouter();
 
@@ -63,11 +63,11 @@ export default function SignupForm() {
         });
 
         if (response.ok) {
-          // Successfully signed up
+          
           router.push('/login');
         } else {
           const errorData = await response.json();
-          // Handle specific error messages from backend
+        
           if (errorData.error) {
             setErrors({ form: errorData.error });
           } else if (errorData.errors) {

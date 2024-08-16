@@ -19,7 +19,7 @@ interface QuizDetail {
 interface EditQuizProps {
   params: { title: string };
 }
-const QuizEdit = ({ title }: { title: string }
+const QuizEditSimple = ({ title }: { title: string }
 ) => {
   const router = useRouter();
   
@@ -30,7 +30,7 @@ const QuizEdit = ({ title }: { title: string }
     
     const fetchQuiz = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuiz/${title}`);
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${title}`);
         if (response.ok) {
           const data = await response.json();
           setQuiz(data);
@@ -136,4 +136,4 @@ const QuizEdit = ({ title }: { title: string }
   );
 };
 
-export default QuizEdit;
+export default QuizEditSimple;

@@ -5,9 +5,10 @@ import Header from '../../../components/header';
 import Link from 'next/link';
 
 
-import EditQuiz from '../../../components/quizedit';
 
-const EditPage = ({params}:{
+import QuizEditSimple from '../../../components/quizedit';
+
+const EditPageSimple = ({params}:{
     params:{
         title:string
     }
@@ -24,11 +25,11 @@ const EditPage = ({params}:{
         
         
         <main className="flex-1 p-4 bg-white">
-          <EditQuiz title={title}/>
+          <QuizEditSimple title={title}/>
         </main>
       </div>
     </div>
   );
 };
 
-export default EditPage;
+export default EditPageSimple;

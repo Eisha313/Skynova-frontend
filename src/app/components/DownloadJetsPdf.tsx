@@ -3,6 +3,7 @@
 import React from 'react';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import { MdDownload } from 'react-icons/md';
 
 interface Jet {
   _id: string;
@@ -48,9 +49,13 @@ const DownloadPDF: React.FC<DownloadPDFProps> = ({ jets }) => {
   };
 
   return (
-    <button onClick={handleDownload} className="bg-red-500 text-white px-4 py-2 rounded-md">
-      Download PDF
-    </button>
+    <button
+        onClick={handleDownload}
+      
+        className="text-gray-800 px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300"
+      >
+        <MdDownload  />
+      </button>
   );
 };
 

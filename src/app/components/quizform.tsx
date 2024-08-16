@@ -44,7 +44,7 @@ const QuizForm = () => {
     setError(null); // Clear any previous error
 
     try {
-      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/createQuizzes', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/createQuiz', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const QuizForm = () => {
     }
 
     try {
-      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizQuestions/createQuizQuestion', {
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/questions/createQuestion', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

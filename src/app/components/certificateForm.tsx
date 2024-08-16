@@ -42,7 +42,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
   const handleGenerateAndSave = (e: React.FormEvent) => {
     e.preventDefault();
     const method = id ? 'PATCH' : 'POST';
-    const url = id ? `https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/updateCertificate/${id}` : 'http://sky-nova-8ccaddc754ce.herokuapp.com/certificates/createCertificates';
+    const url = id ? `https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/updateCertificate/${id}` : 'https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/createCertificates';
     fetch(url, {
       method,
       headers: {

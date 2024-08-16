@@ -143,9 +143,10 @@ import { useRouter } from 'next/navigation';
 export default function LoginForm() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
-  const [role, setRole] = useState<string>('admin');
+  const [role, setRole] = useState<string>('Admin');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const router = useRouter();
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -153,38 +154,57 @@ export default function LoginForm() {
     const validationErrors: { [key: string]: string } = {};
 
     if (!email) {
-      validationErrors.email = 'Email is required';
+        validationErrors.email = 'Email is required';
     } else if (!/\S+@\S+\.\S+/.test(email)) {
-      validationErrors.email = 'Email is invalid';
+        validationErrors.email = 'Email is invalid';
     }
     if (!password) {
-      validationErrors.password = 'Password is required';
+        validationErrors.password = 'Password is required';
     }
 
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
+        setErrors(validationErrors);
+        return;
     }
 
     try {
-      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/login', { 
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, password, role }),
-      });
+        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password, role }),
+        });
+        console.log(email, password, role)
 
-      if (response.ok) {
-        router.push('/forgetpassword');
-      } else {
-        const errorData = await response.json();
-        setErrors({ form: errorData.error });
-      }
+        if (response.ok) {
+            const data = await response.json();
+            // console.log(data)
+
+           
+            const token = data.token;
+            const userRole = data.role;
+            // console.log(userRole)
+
+            
+            localStorage.setItem('token', token);
+
+          
+            if (userRole === 'Aviator') {
+                router.push('/userRender/viewCommunityQuestions');
+            } else if (userRole === 'Admin') {
+              
+                router.push('/dashboard');
+            }
+        } else {
+            const errorData = await response.json();
+            setErrors({ form: errorData.error });
+        }
     } catch (error) {
-      setErrors({ form: 'An error occurred. Please try again.' });
+        setErrors({ form: 'An error occurred. Please try again.' });
     }
-  };
+};
+
 
   return (
     <div className="w-full max-w-md bg-white p-4 rounded-lg shadow-md border border-gray-200">

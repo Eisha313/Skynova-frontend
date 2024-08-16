@@ -1,6 +1,6 @@
 // components/QuizModal.tsx
 import React from 'react';
-import { Aviator } from './addaviator'; // Adjust import as needed
+import { Aviator } from './addaviator'; 
 
 interface QuizModalProps {
   isOpen: boolean;

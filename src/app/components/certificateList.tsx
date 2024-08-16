@@ -152,15 +152,19 @@
 import { FaEdit, FaTrash, FaEye } from 'react-icons/fa';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
+import Search from './Search'
+import DownloadPDF from './DownloadCertificates'
 
 type Certificate = {
   _id: string;
+  id: number;
   type: string;
   description: string;
 };
 
 const CertificateList: React.FC = () => {
   const [certificates, setCertificates] = useState<Certificate[]>([]);
+  const [filteredCertificate, setFilteredCertificate] = useState<Certificate[]>([]);
 
   useEffect(() => {
     fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificates')
@@ -179,17 +183,37 @@ const CertificateList: React.FC = () => {
       })
       .catch((error) => console.error('Error deleting certificate:', error));
   };
+  const handleSearchChange = (searchTerm: string) => {
+    const lowerCaseSearchTerm = searchTerm.toLowerCase();
+    const filtered = certificates.filter(certificate =>
+      certificate.type.toLowerCase().includes(lowerCaseSearchTerm) ||
+      certificate.description.toLowerCase().includes(lowerCaseSearchTerm) 
+      
+    );
+    setFilteredCertificate(filtered);
+  };
+ 
 
   return (
     <div className="container mx-auto p-4">
-      <div className="flex flex-col sm:flex-row justify-between items-center mb-4">
-        <div className="text-center sm:flex-grow sm:text-left">
-          <h2 className="text-3xl font-bold">Certificates</h2>
+       <div className="flex flex-wrap justify-between items-center mb-4">
+        <h1 className="text-2xl font-bold">All Certificates</h1>
+        <div className="flex flex-wrap  space-x-4">
+          
+          <Search onSearchChange={handleSearchChange} />
+          {/* <Sort onSortChange={handleSortChange} /> */}
+          {/* <Filter onFilterChange={handleFilterChange}/> */}
+          <DownloadPDF certificates={certificates} />
+          <Link 
+            href="/add-certificate" 
+            className="px-4 py-2 rounded-md text-center bg-eisha text-white flex iem-center"
+          
+          >
+            Add Cerificate
+          </Link>
         </div>
-        <Link href="/add-certificate" className="mt-4 sm:mt-0 bg-blue-500 text-white px-4 py-2 rounded-lg border border-blue-500 hover:bg-blue-600">
-          Create Certificate
-        </Link>
       </div>
+       
       <div className="mt-4 grid gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {certificates.map((certificate) => (
           <div key={certificate._id} className="relative bg-white shadow-md rounded p-4 mb-4 border border-gray-300">

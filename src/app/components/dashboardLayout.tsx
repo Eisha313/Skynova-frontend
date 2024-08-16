@@ -225,45 +225,45 @@ const Dashboard: React.FC = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <InfoContainer
             icon={<FaUser />}
-            heading="Total Aviators"
+            heading="Manage Aviators"
             count={stats.totalAviators}
             link="/viewuser"
           />
           <InfoContainer
             icon={<FaQuestionCircle />}
-            heading="Total Jets"
+            heading="Manage Jets"
             count={stats.totalJets}
-            link="/jets"
+            link="/viewjets"
           />
           <InfoContainer
             icon={<FaQuestionCircle />}
-            heading="Total Cockpits"
+            heading="Manage Cockpits"
             count={stats.totalCockpits}
             link="/cockpits"
           />
           <InfoContainer
             icon={<FaQuestionCircle />}
-            heading="Total Missions"
+            heading="Manage Missions"
             count={stats.totalMissions}
             link="/missions"
           />
           <InfoContainer
             icon={<FaQuestionCircle />}
-            heading="Total Quizzes"
+            heading="Manage Quizzes"
             count={stats.totalQuizzes}
-            link="/quizzes"
+            link="/quizPage"
           />
           <InfoContainer
             icon={<FaQuestionCircle />}
-            heading="Total Resources"
+            heading="Manage Resources"
             count={stats.totalResources}
-            link="/viewresources"
+            link="/view-resource"
           />
           <InfoContainer
             icon={<FaQuestionCircle />}
-            heading="Total Suggestions"
+            heading="Manage Suggestions"
             count={stats.totalSuggestions}
-            link="/suggestions"
+            link="/suggestion/viewsuggestion"
           />
         </div>
         <div className="mt-8 flex justify-center">
