@@ -386,7 +386,7 @@
 import { useState, useEffect } from 'react';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import Link from 'next/link';
-import QuizModal from './verbalQuizModal';
+import QuizModal from './quizmodal';
 import Search from './Search';
 
 interface Quiz {
@@ -401,7 +401,7 @@ interface Question {
   answer: string;
 }
 
-interface QuizDetail extends Quiz {
+export interface QuizDetail extends Quiz {
   description: string;
   questions: Question[];
 }
@@ -534,7 +534,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   }
 
   return (
-    <div className="container mx-auto p-4 bg-gray-100 shadow-md ">
+    <div className="container mx-auto p-4 bg-gray-100 shadow-md">
       {error && <p className="text-red-500">{error}</p>}
       
       <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
@@ -564,7 +564,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
             <th className="p-4 border-b text-left cursor-pointer" onClick={() => handleSort('title')}>
               Title {renderArrow('title')}
             </th>
-            <th className="py-3 px-4 border-b border-gray-300 text-center">Actions</th> {/* Centered the Actions heading */}
+            <th className="py-3 px-4 border-b border-gray-300 text-center">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -579,7 +579,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
                 />
               </td>
               <td className="p-4 border-b">{quiz.title}</td>
-              <td className="py-2 px-4 border-b border-gray-200 text-center"> {/* Centered actions */}
+              <td className="py-2 px-4 border-b border-gray-200 text-center">
                 <button
                   onClick={() => handleQuizClick(quiz._id)}
                   className="text-blue-500 hover:underline mr-2 bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400"
@@ -607,7 +607,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   
       {isModalOpen && selectedQuiz && (
         <QuizModal
-          quiz={selectedQuiz}
+          quizDetails={selectedQuiz} // Use quizDetails here
           isOpen={isModalOpen}
           onClose={handleCloseModal}
         />
