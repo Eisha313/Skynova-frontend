@@ -165,6 +165,7 @@
 
 // export default Chat;
 // userComponents/chat/chatComponent.tsx
+'use client'
 import React, { useState, useEffect } from 'react';
 import { useWebSocket } from '../websocket';
 
