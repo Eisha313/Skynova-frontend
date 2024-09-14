@@ -1,6 +1,11 @@
+
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import '@mantine/core/styles.css';
+import ClientProviders from "./components/clientProvider";
+import RouteGuard from "./components/guard/routeGuard";
+import useAutoLogout from "./components/timeout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +19,14 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  //  useAutoLogout();
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ClientProviders>
+          <RouteGuard>{children}</RouteGuard>
+        </ClientProviders>
+      </body>
     </html>
   );
 }

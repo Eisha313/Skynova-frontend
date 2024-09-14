@@ -1,42 +1,22 @@
-// // // src/app/addaviator/page.tsx
-// // import AddAviatorForm from "../components/addaviatoronsave";
 
-// // export default function ForgotPasswordPage() {
-// //   return (
-// //     <AddAviatorForm />
-// //   );
-// // }
-// 'use client';
-
-// import React from 'react';
-// import AddAviatorForm from '../components/addaviatoronsave';
-// import { useSearchParams } from 'next/navigation';
-
-// const EditUser: React.FC = () => {
-//   const searchParams = useSearchParams();
-//   const id = searchParams.get('id'); // Replace 'id' with the actual query parameter name
-
-//   return <AddAviatorForm id={id || ''} />;
-// };
-
-// export default EditUser;
-// src/app/addaviator/[id]/page.tsx
-// src/app/addaviator/[id]/page.tsx
 import React from 'react';
-import AddAviatorForm from '../components/addaviatoronsave';
+import AviatorForm from '../components/addaviator';
+import Sidebar from '../components/sidebarDashboard';
+import Header from '../components/header';
 
-interface Props {
-  params: {
-    id: string;
-  };
-}
-
-const EditUser: React.FC<Props> = ({ params }) => {
-  const { id } = params;
-
-  return <AddAviatorForm id={id} />;
+const CreateAviatorPage: React.FC = () => {
+  return (
+    <div className="flex h-screen overflow-hidden">
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
+        <Header />
+        <main className="flex-1 p-4 bg-white overflow-auto">
+          <AviatorForm />
+        </main>
+      </div>
+    </div>
+  );
 };
 
-// Note: No need for getStaticProps or getStaticPaths in the App Router
+export default CreateAviatorPage;
 
-export default EditUser;

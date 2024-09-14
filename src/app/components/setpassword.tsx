@@ -37,6 +37,7 @@ const SetPasswordForm: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email, resetCode, resetPassword }),
+        credentials:'include'
       });
 
       if (response.ok) {

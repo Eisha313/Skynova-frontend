@@ -163,7 +163,7 @@ const WarHeroForm: React.FC<WarHeroFormProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/viewWarHero/${id}`)
+      axios.get(`http://sky-nova-8ccaddc754ce.herokuapp.com/viewWarHero/${id}`,{withCredentials:true})
         .then((response) => {
           const data = response.data;
           if (data.length > 0) {
@@ -203,6 +203,7 @@ const WarHeroForm: React.FC<WarHeroFormProps> = ({ id }) => {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
+        withCredentials: true,
       });
 
       router.push('/warheroes');

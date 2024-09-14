@@ -103,7 +103,7 @@ const SuggestionForm = ({ id }: SuggestionFormProps) => {
     const fetchSuggestion = async () => {
       try {
         if (id) {
-          const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestion/${id}`);
+          const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestion/${id}`,{withCredentials:true});
           const suggestion = response.data[0];
           setTitle(suggestion?.title || '');
           setDescription(suggestion?.description || '');
@@ -121,10 +121,10 @@ const SuggestionForm = ({ id }: SuggestionFormProps) => {
     try {
       if (id) {
         // Edit existing suggestion
-        await axios.patch(`https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/updateSuggestion/${id}`, { title, description });
+        await axios.patch(`https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/updateSuggestion/${id}`, { title, description ,withCredentails:true});
       } else {
         // Create new suggestion
-        await axios.post('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/createSuggestion', { title, description });
+        await axios.post('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/createSuggestion', { title, description,withCredentials:true });
       }
       alert('Suggestion saved');
       router.push('/suggestion/viewsuggestion');

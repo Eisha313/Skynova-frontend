@@ -20,7 +20,7 @@ const VerbalQuizForm = () => {
 
   const fetchQuizIdByTitle = async (title: string): Promise<string | null> => {
     try {
-      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/verbalquizzes/viewVerbalQuizzes');
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/verbalquizzes/viewVerbalQuizzes',{credentials:'include'});
       if (response.ok) {
         const data = await response.json();
         const quiz = data.find((quiz: { title: string; _id: string }) => quiz.title === title);
@@ -50,6 +50,7 @@ const VerbalQuizForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ title, description }),
+        credentials:'include'
       });
 
       if (response.ok) {
@@ -85,6 +86,7 @@ const VerbalQuizForm = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ ...question, quizId }),
+        credentials:'include'
       });
 
       if (response.ok) {

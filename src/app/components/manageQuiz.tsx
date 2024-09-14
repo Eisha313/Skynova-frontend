@@ -425,7 +425,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuizzes');
+        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuizzes',{credentials:'include'});
         if (response.ok) {
           const data = await response.json();
           setQuizzes(data);
@@ -452,7 +452,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
 
   const handleQuizClick = async (quizId: string) => {
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${quizId}`);
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${quizId}`,{credentials:'include'});
       if (response.ok) {
         const data = await response.json();
         setSelectedQuiz(data);
@@ -482,6 +482,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
     try {
       const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/deleteQuiz/${quizId}`, {
         method: 'DELETE',
+        credentials:'include'
       });
       if (response.ok) {
         setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));

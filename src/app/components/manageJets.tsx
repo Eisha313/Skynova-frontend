@@ -13,10 +13,12 @@ const ManageJets: React.FC = () => {
         ? await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/jets/${editingJet._id}`, {
             method: 'PUT',
             body: formData,
+            credentials:'include'
           })
         : await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/jets/createJet', {
             method: 'POST',
             body: formData,
+            credentials:'include'
           });
 
       if (!response.ok) {

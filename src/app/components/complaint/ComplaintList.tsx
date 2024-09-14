@@ -106,6 +106,7 @@ const [filteredComplaint,setFilteredComplaints]=useState<Complaint[]>([])
     try {
       const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/viewComplaints', {
         params: { page, limit },
+        withCredentials:true
       });
       setComplaints(response.data.data);
       setTotalPages(response.data.meta.totalPages);
@@ -123,7 +124,7 @@ const [filteredComplaint,setFilteredComplaints]=useState<Complaint[]>([])
   };
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/deleteComplaint/${id}`);
+      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/deleteComplaint/${id}`,{withCredentials:true});
       setComplaints(complaints.filter((complaint) => complaint._id !== id));
     } catch (error) {
       console.error('Error deleting complaint:', error);

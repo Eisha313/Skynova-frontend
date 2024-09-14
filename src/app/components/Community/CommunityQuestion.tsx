@@ -184,7 +184,8 @@ const CommunityQuestions: React.FC = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions');
+        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions',{
+          credentials: 'include',});
         if (!response.ok) throw new Error('response was not okay');
         const data = await response.json();
         const mappedQuestions: Question[] = data.map((question: any) => ({
@@ -202,8 +203,9 @@ const CommunityQuestions: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/deleteCommunityQuestion/${id}`, {
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/deleteCommunityQuestion/${id}`,{
         method: 'DELETE',
+        credentials: 'include',
       });
       if (!response.ok) throw new Error('Failed to delete the question');
       setQuestions(questions.filter((question) => question.id !== id));

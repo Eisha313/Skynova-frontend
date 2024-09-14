@@ -57,6 +57,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { truncate } from 'fs/promises';
 
 interface Report {
   id: string;
@@ -73,7 +74,7 @@ const ReportDetails: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchReport = async () => {
       try {
-        const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/reports/viewReport/${id}`);
+        const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/reports/viewReport/${id}`,{withCredentials:true});
         setReport(response.data[0]);
       } catch (error) {
         console.error('Error fetching report:', error);

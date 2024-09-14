@@ -111,7 +111,7 @@ const ComplaintForm: React.FC<{ id?: string }> = ({ id }) => {
       setIsEditing(true);
       const fetchComplaint = async () => {
         try {
-          const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/viewComplaint/${id}`);
+          const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/viewComplaint/${id}`,{  withCredentials:true,});
           const complaint = response.data[0];
           setTitle(complaint.title);
           setDescription(complaint.description);
@@ -129,10 +129,10 @@ const ComplaintForm: React.FC<{ id?: string }> = ({ id }) => {
 
     try {
         if (isEditing) {
-            await axios.patch(`https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/updateComplaint/${id}`, complaintData);
+            await axios.patch(`https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/updateComplaint/${id}`, complaintData,{withCredentials:true});
             alert('Complaint updated successfully');
         } else {
-            await axios.post('https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/createComplaint', complaintData);
+            await axios.post('https://sky-nova-8ccaddc754ce.herokuapp.com/complaints/createComplaint', complaintData,{withCredentials:true});
             alert('Complaint created successfully');
         }
         router.push('/complaints/viewComplaints');

@@ -92,7 +92,7 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`)
+      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`, {credentials: 'include',})
         .then((res) => res.json())
         .then((data) => {
           

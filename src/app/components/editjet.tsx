@@ -96,7 +96,7 @@ const EditJetPage = ({ id }: { id: string }) => {
     useEffect(() => {
         const fetchJetData = async () => {
             try {
-                const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/jets/viewJet/${id}`);
+                const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/jets/viewJet/${id}`,{ credentials: 'include',});
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -121,6 +121,7 @@ const EditJetPage = ({ id }: { id: string }) => {
             const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/jets/updateJet/${id}`, {
                 method: 'PATCH',
                 body: formData,
+                credentials: 'include',
             });
 
             if (!response.ok) {

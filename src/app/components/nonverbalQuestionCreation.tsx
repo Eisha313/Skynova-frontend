@@ -58,6 +58,7 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(question),
+        credentials:'include'
       });
 
       if (response.ok) {

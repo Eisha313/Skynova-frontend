@@ -14,6 +14,7 @@ const AddJet: React.FC = () => {
       const response = await fetch('https://192.168.18.54:3000/jets/createJet', {
         method: 'POST',
         body: formData,
+        credentials: 'include',
       });
 
       if (!response.ok) {

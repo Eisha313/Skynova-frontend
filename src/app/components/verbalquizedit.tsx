@@ -30,7 +30,7 @@ const QuizEdit = ({ id }: { id: string }
     
     const fetchQuiz = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuiz/${id}`);
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuiz/${id}`,{credentials:'include'});
         if (response.ok) {
           const data = await response.json();
           setQuiz(data);
@@ -56,6 +56,7 @@ const QuizEdit = ({ id }: { id: string }
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(quiz),
+        credentials:'include'
       });
       if (response.ok) {
         router.push('/verbalquiz'); 

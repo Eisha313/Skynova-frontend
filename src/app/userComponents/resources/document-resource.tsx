@@ -87,7 +87,7 @@ const DocumentSection: React.FC = () => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResources'); 
+        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResources',{credentials:'include'}); 
         if (!response.ok) {
           throw new Error('Failed to fetch resources');
         }

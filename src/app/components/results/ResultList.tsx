@@ -183,7 +183,7 @@ const ResultList: React.FC = () => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResults');
+        const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResults',{withCredentials:true});
         setResults(response.data);
       } catch (error) {
         console.error('Error fetching results:', error);
@@ -194,7 +194,7 @@ const ResultList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/deleteResult/${id}`);
+      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/deleteResult/${id}`,{withCredentials:true});
       setResults(results.filter((result) => result._id !== id));
     } catch (error) {
       console.error('Error deleting result:', error);

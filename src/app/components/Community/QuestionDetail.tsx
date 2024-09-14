@@ -186,7 +186,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 
     const fetchQuestion = useCallback(async () => {
         try {
-            const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestion/${id}`);
+            const response = await fetch(`http://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestion/${id}`,{credentials:'include'});
             if (response.ok) {
                 const data = await response.json();
                 const questionData = data[0]; 
@@ -221,6 +221,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ content: answer, questionId: id }), 
+                credentials:'include'
             });
 
             if (response.ok) {
@@ -239,6 +240,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
         try {
             const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/communityAnswers/deleteCommunityAnswer/${answerId}`, {
                 method: 'DELETE',
+                  credentials:'include'
             });
             if (!response.ok) throw new Error('Failed to delete the answer');
             // Update state to remove deleted answer

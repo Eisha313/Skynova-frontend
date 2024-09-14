@@ -1,18 +1,32 @@
-'use client';
-
+'use client'
 import React from 'react';
-import AddAviatorForm from '../../../components/addaviatoronsave';
+import Sidebar from '@/app/components/sidebarDashboard';
+import AviatorForm from '../../../components/addaviator'
+import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
 
-const EditUser: React.FC = () => {
+const EditAviatorPage: React.FC = () => {
   const params = useParams();
   const { id } = params;
 
-  const certificateId = Array.isArray(id) ? id[0] : id;
+  
+  const aviatorId = Array.isArray(id) ? id[0] : id;
 
-  return <AddAviatorForm key={certificateId} id={certificateId} />;
+  return(
+  //  <AviatorForm id={aviatorId} />;
+  <div className="flex h-screen">
+      <Sidebar />
+      
+      <div className="flex-1 flex flex-col">
+        <Header />  
+        
+        
+        <main className="flex-1 p-4 bg-white">
+        <AviatorForm id={aviatorId} />
+        </main>
+      </div>
+    </div>
+  )
 };
 
-export default EditUser;
-
-
+export default EditAviatorPage;

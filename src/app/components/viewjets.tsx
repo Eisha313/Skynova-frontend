@@ -408,7 +408,7 @@ const ViewJets: React.FC = () => {
 
   const fetchJets = useCallback(async () => {
     try {
-      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/jets/viewJets');
+      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/jets/viewJets',{credentials:'include'});
       const data = await response.json();
       const filteredJets = data
         .filter((jet: Jet) =>
@@ -480,6 +480,7 @@ const ViewJets: React.FC = () => {
     try {
       const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/jets/deleteJet/${jetId}`, {
         method: 'DELETE',
+        credentials:'include'
       });
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

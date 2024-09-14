@@ -167,14 +167,14 @@ const CertificateList: React.FC = () => {
   const [filteredCertificate, setFilteredCertificate] = useState<Certificate[]>([]);
 
   useEffect(() => {
-    fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificates')
+    fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificates',{ credentials: 'include',})
       .then((res) => res.json())
       .then((data) => setCertificates(data))
       .catch((error) => console.error('Error fetching certificates:', error));
   }, []);
 
   const deleteCertificate = (id: string) => {
-    fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/deleteCertificate/${id}`, { method: 'DELETE' })
+    fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/deleteCertificate/${id}`, { method: 'DELETE' , credentials: 'include',})
       .then((res) => res.json())
       .then((data) => {
         if (data.message === 'Certificate deleted successfully') {

@@ -23,7 +23,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
 
   useEffect(() => {
     if (id) {
-      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`)
+      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`,{ credentials: 'include',})
         .then((res) => res.json())
         .then((data) => {
           if (data) {
@@ -49,6 +49,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(certificate),
+      credentials: 'include',
     })
       .then((res) => res.json())
       .then((data) => {

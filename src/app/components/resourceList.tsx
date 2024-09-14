@@ -120,7 +120,7 @@ const ResourceList: React.FC = () => {
 
   const fetchResources = async () => {
     try {
-      const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResources');
+      const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResources',{withCredentials:true});
       setResources(response.data);
       setTotalPages(Math.ceil(response.data.length / limit));
     } catch (error) {
@@ -176,7 +176,7 @@ const ResourceList: React.FC = () => {
 
   const handleDelete = async (id: string) => {
     try {
-      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/resources/deleteResource/${id}`);
+      await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/resources/deleteResource/${id}`,{withCredentials:true});
       setResources(resources.filter(resource => resource._id !== id));
     } catch (error) {
       setError('Failed to delete resource.');

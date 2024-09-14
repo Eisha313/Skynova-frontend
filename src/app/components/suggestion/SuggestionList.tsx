@@ -167,7 +167,7 @@ const SuggestionsList = () => {
         const fetchSuggestions = async () => {
             try {
                 // const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestion?page=${page}&limit=${limit}');
-                const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestions');
+                const response = await axios.get('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/viewSuggestions',{withCredentials:true});
                 setSuggestions(response.data.data);
                 setTotalPages(response.data.meta.totalPages);
             } catch (error) {
@@ -219,7 +219,7 @@ const SuggestionsList = () => {
 
     const handleDelete = async (id: string) => {
         try {
-            await axios.delete('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/deleteSuggestion/${id}');
+            await axios.delete('https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/deleteSuggestion/${id}',{withCredentials:true});
             setSuggestions(suggestions.filter(suggestion => suggestion._id !== id));
         } catch (error) {
             console.error('Error deleting suggestion:', error);

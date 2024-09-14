@@ -27,6 +27,7 @@ const CodeVerificationForm: React.FC = () => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ resetCode, email }), 
+        credentials: 'include',
       });
 
       if (response.ok) {
