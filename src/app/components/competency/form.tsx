@@ -1,492 +1,580 @@
-// // // pages/MedicalFitnessForm.tsx
 
-// // import React, { useState, useEffect } from 'react';
 
-// // interface MedicalFitnessFormProps {
-// //   initialData?: {
-// //     id?: string; 
-// //     height: number;
-// //     heightUnit: 'cm' | 'in';
-// //     weight: number;
-// //     weightUnit: 'kg' | 'lb';
-// //     eyesight: string;
-// //   };
-// // }
 
-// // const MedicalFitnessForm: React.FC<MedicalFitnessFormProps> = ({ initialData }) => {
-// //   const [height, setHeight] = useState<number | ''>(initialData?.height || '');
-// //   const [heightUnit, setHeightUnit] = useState<'cm' | 'in'>(initialData?.heightUnit || 'cm');
-// //   const [weight, setWeight] = useState<number | ''>(initialData?.weight || '');
-// //   const [weightUnit, setWeightUnit] = useState<'kg' | 'lb'>(initialData?.weightUnit || 'kg');
-// //   const [eyesight, setEyesight] = useState<string>(initialData?.eyesight || '');
-// //   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-// //   const [error, setError] = useState<string | null>(null);
-// //   const [successMessage, setSuccessMessage] = useState<string | null>(null);
-
-// //   const handleSubmit = async (event: React.FormEvent) => {
-// //     event.preventDefault();
-// //     setIsSubmitting(true);
-// //     setError(null);
-// //     setSuccessMessage(null);
-
-// //     const payload = {
-// //       height,
-// //       heightUnit,
-// //       weight,
-// //       weightUnit,
-// //       eyesight,
-// //     };
-
-// //     try {
-// //       if (initialData?.id) {
-// //         // Update existing data
-// //         const response = await fetch(`/api/medical-fitness/${initialData.id}`, {
-// //           method: 'PATCH',
-// //           headers: {
-// //             'Content-Type': 'application/json',
-// //           },
-// //           body: JSON.stringify(payload),
-// //         });
-
-// //         if (!response.ok) {
-// //           throw new Error('Failed to update data');
-// //         }
-// //         setSuccessMessage('Medical fitness details updated successfully.');
-// //       } else {
-// //         // Create new data
-// //         const response = await fetch('/api/medical-fitness', {
-// //           method: 'POST',
-// //           headers: {
-// //             'Content-Type': 'application/json',
-// //           },
-// //           body: JSON.stringify(payload),
-// //         });
-
-// //         if (!response.ok) {
-// //           throw new Error('Failed to save data');
-// //         }
-// //         setSuccessMessage('Medical fitness details saved successfully.');
-// //       }
-// //     } catch (error) {
-// //       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
-// //     } finally {
-// //       setIsSubmitting(false);
-// //     }
-// //   };
-
-// //   useEffect(() => {
-// //     if (initialData) {
-// //       setHeight(initialData.height);
-// //       setHeightUnit(initialData.heightUnit);
-// //       setWeight(initialData.weight);
-// //       setWeightUnit(initialData.weightUnit);
-// //       setEyesight(initialData.eyesight);
-// //     }
-// //   }, [initialData]);
-
-// //   return (
-// //     <form onSubmit={handleSubmit} className="max-w-md mx-auto p-4 bg-white rounded shadow-md">
-// //       <fieldset className="mb-4">
-// //         <legend className="text-lg font-semibold">Medical Fitness Details</legend>
-
-// //         {/* Height */}
-// //         <div className="mb-4">
-// //           <label htmlFor="height" className="block mb-1">
-// //             Height <span className="text-red-500">*</span>
-// //           </label>
-// //           <div className="flex">
-// //             <input
-// //               type="number"
-// //               id="height"
-// //               className="w-full border border-gray-300 rounded p-2"
-// //               value={height}
-// //               onChange={(e) => setHeight(e.target.valueAsNumber || '')}
-// //               min="50"
-// //               max="250"
-// //               placeholder="Enter height"
-// //               required
-// //             />
-// //             <select
-// //               id="heightUnit"
-// //               className="border border-gray-300 rounded p-2 ml-2"
-// //               value={heightUnit}
-// //               onChange={(e) => setHeightUnit(e.target.value as 'cm' | 'in')}
-// //               required
-// //             >
-// //               <option value="cm">cm</option>
-// //               <option value="in">in</option>
-// //             </select>
-// //           </div>
-// //         </div>
-
-// //         {/* Weight */}
-// //         <div className="mb-4">
-// //           <label htmlFor="weight" className="block mb-1">
-// //             Weight <span className="text-red-500">*</span>
-// //           </label>
-// //           <div className="flex">
-// //             <input
-// //               type="number"
-// //               id="weight"
-// //               className="w-full border border-gray-300 rounded p-2"
-// //               value={weight}
-// //               onChange={(e) => setWeight(e.target.valueAsNumber || '')}
-// //               min="30"
-// //               max="200"
-// //               placeholder="Enter weight"
-// //               required
-// //             />
-// //             <select
-// //               id="weightUnit"
-// //               className="border border-gray-300 rounded p-2 ml-2"
-// //               value={weightUnit}
-// //               onChange={(e) => setWeightUnit(e.target.value as 'kg' | 'lb')}
-// //               required
-// //             >
-// //               <option value="kg">kg</option>
-// //               <option value="lb">lb</option>
-// //             </select>
-// //           </div>
-// //         </div>
-
-// //         {/* Eyesight */}
-// //         <div className="mb-4">
-// //           <label htmlFor="eyesight" className="block mb-1">
-// //             Eyesight <span className="text-red-500">*</span>
-// //           </label>
-// //           <select
-// //             id="eyesight"
-// //             className="w-full border border-gray-300 rounded p-2"
-// //             value={eyesight}
-// //             onChange={(e) => setEyesight(e.target.value)}
-// //             required
-// //           >
-// //             <option value="" disabled>
-// //               Select your eyesight
-// //             </option>
-// //             <option value="20/20">20/20</option>
-// //             <option value="20/40">20/40</option>
-// //             {/* Add more options as needed */}
-// //           </select>
-// //         </div>
-// //       </fieldset>
-
-// //       {error && <p className="text-red-500">{error}</p>}
-// //       {successMessage && <p className="text-green-500">{successMessage}</p>}
-
-// //       <button
-// //         type="submit"
-// //         className="w-full bg-blue-500 text-white p-2 rounded"
-// //         disabled={isSubmitting}
-// //       >
-// //         {isSubmitting ? 'Submitting...' : 'Submit'}
-// //       </button>
-// //     </form>
-// //   );
-// // };
-
-// // export default MedicalFitnessForm;
+// 'use client'
 // import React, { useState } from 'react';
 // import { useForm } from '@mantine/form';
-// import { TextInput, NumberInput, Button, Group, Text, rem } from '@mantine/core';
+// import { Button, TextInput, Select, Group, Grid, Text, Box, Image } from '@mantine/core';
+// import { Dropzone, FileRejection, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 // import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
-// import { Dropzone, IMAGE_MIME_TYPE } from '@mantine/dropzone';
+// import '@mantine/dropzone/styles.css';
 
-// const MedicalFitnessForm = () => {
-//   const [files, setFiles] = useState<File[]>([]);
+// interface MedicalFitnessFormProps {
+//   initialData?: {
+//     id?: string;
+//     height?: string;
+//     heightUnit?: string;
+//     weight?: string;
+//     weightUnit?: string;
+//     eyesight?: string;
+//     medicalCondition?: string;
+//     medicalHistoryFile?: File;
+//   };
+// }
+
+// const MedicalFitnessForm = ({ initialData }: MedicalFitnessFormProps) => {
+//   const [medicalHistoryFile, setMedicalHistoryFile] = useState<File | null>(initialData?.medicalHistoryFile || null);
 //   const [error, setError] = useState<string | null>(null);
+//   const [successMessage, setSuccessMessage] = useState('');
+//   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
+//   // Use Mantine's useForm for form handling
 //   const form = useForm({
 //     initialValues: {
-//       height: '',
-//       weight: '',
-//       eyesight: '',
+//       height: initialData?.height || '',
+//       heightUnit: initialData?.heightUnit || 'cm',
+//       weight: initialData?.weight || '',
+//       weightUnit: initialData?.weightUnit || 'kg',
+//       eyesight: initialData?.eyesight || '',
+//       medicalCondition: initialData?.medicalCondition || '',
 //     },
-
 //     validate: {
-//       height: (value) => (value === '' ? 'Height is required' : null),
-//       weight: (value) => (value === '' ? 'Weight is required' : null),
-//       eyesight: (value) => (value === '' ? 'Eyesight is required' : null),
+//       height: (value, values) => {
+//         const heightVal = parseFloat(value);
+//         if (isNaN(heightVal)) return 'Height must be a number';
+//         if (values.heightUnit === 'cm' && (heightVal < 50 || heightVal > 300)) {
+//           return 'Height should be between 50cm and 300cm';
+//         }
+//         if (values.heightUnit === 'in' && (heightVal < 20 || heightVal > 120)) {
+//           return 'Height should be between 20in and 120in';
+//         }
+//         return null;
+//       },
+//       weight: (value) => {
+//         const weightVal = parseFloat(value);
+//         if (isNaN(weightVal)) return 'Weight must be a number';
+//         if (weightVal < 20 || weightVal > 300) return 'Weight should be between 20kg and 300kg';
+//         return null;
+//       },
+//       eyesight: (value) => {
+//         const eyesightPattern = /^[0-9]+\/[0-9]+$/;
+//         if (!eyesightPattern.test(value)) return 'Please enter a valid eyesight (e.g., 20/20)';
+//         return null;
+//       },
 //     },
 //   });
 
-//   const handleDrop = (acceptedFiles: File[]) => {
-//     setFiles(acceptedFiles);
-//     setError(null);
+//   const handleFileDrop = (acceptedFiles: File[]) => {
+//     const file = acceptedFiles[0];
+//     setMedicalHistoryFile(file);
+//     setPreviewUrl(URL.createObjectURL(file)); // Create a preview URL for the file
+//     setError(null); // Clear error when a valid file is dropped
 //   };
 
-//   const handleReject = (rejectedFiles: File[]) => {
-//     setError('Some files were rejected. Please ensure they are images and do not exceed 5MB.');
+//   const handleFileReject = (fileRejections: FileRejection[]) => {
+//     setError('File is not acceptable. Please check the file format and size.');
+//     setPreviewUrl(null); // Clear preview on rejection
 //   };
 
-//   const handleUpload = async () => {
+//   const handleSubmit = async (values: typeof form.values) => {
+//     if (form.validate().hasErrors) {
+//       setError('Please fix the errors before submitting.');
+//       return;
+//     }
+
+//     const formData = new FormData();
+//     formData.append('height', values.height);
+//     formData.append('heightUnit', values.heightUnit);
+//     formData.append('weight', values.weight);
+//     formData.append('weightUnit', values.weightUnit);
+//     formData.append('eyesight', values.eyesight);
+//     formData.append('medicalCondition', values.medicalCondition);
+//     if (medicalHistoryFile) {
+//       formData.append('medicalHistoryFile', medicalHistoryFile);
+//     }
+
 //     try {
-//       if (files.length === 0) {
-//         setError('Please select a file to upload.');
-//         return;
+//       const url = initialData?.id ? `/api/medical-fitness/${initialData.id}` : '/api/medical-fitness';
+//       const method = initialData?.id ? 'PATCH' : 'POST';
+
+//       const response = await fetch(url, {
+//         method,
+//         body: formData,
+//       });
+
+//       if (!response.ok) {
+//         throw new Error('Failed to save data');
 //       }
 
-//       // Implement the upload logic here (e.g., sending files to a backend API)
-//       console.log('Uploading files:', files);
-
-//       // Reset after successful upload
-//       setFiles([]);
-//       setError(null);
-//     } catch (uploadError) {
-//       setError('Failed to upload the file(s). Please try again.');
+//       setSuccessMessage('Medical fitness details saved successfully.');
+//     } catch (error) {
+//       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
 //     }
 //   };
 
-//   const handleSubmit = (values: typeof form.values) => {
-//     console.log('Form values:', values);
-
-//     // Implement the form submission logic here (e.g., POST or PATCH to backend)
-//   };
-
 //   return (
-//     <form onSubmit={form.onSubmit(handleSubmit)} className="max-w-md mx-auto p-4 bg-white rounded shadow-md">
-//       <TextInput
-//         label="Height (cm) *"
-//         placeholder="Enter your height"
-//         withAsterisk
-//         {...form.getInputProps('height')}
-//       />
-
-//       <TextInput
-//         label="Weight (kg) *"
-//         placeholder="Enter your weight"
-//         withAsterisk
-//         {...form.getInputProps('weight')}
-//       />
-
-//       <TextInput
-//         label="Eyesight *"
-//         placeholder="Enter your eyesight (e.g., 20/20)"
-//         withAsterisk
-//         {...form.getInputProps('eyesight')}
-//       />
-
-//       {/* Medical History Upload Section */}
-//       <div className="mt-6">
-//         <Text size="lg" className="mb-4 font-semibold">
-//           Upload Medical History
+//     <Box
+//       style={{
+//         maxWidth: '600px',
+//         margin: 'auto',
+//         padding: '20px',
+//         border: '1px solid #e0e0e0',
+//         borderRadius: '8px',
+//         backgroundColor: '#f9fafb',
+//       }}
+//     >
+//       <Box mb="lg" style={{ textAlign: 'center' }}>
+//         <Text size="xl" tw='500'>
+//           Medical Fitness Form
 //         </Text>
+//       </Box>
+
+//       <form onSubmit={form.onSubmit(handleSubmit)}>
+//         <Grid>
+//           <Grid.Col span={6}>
+//             <TextInput
+//               label="Height"
+//               placeholder="Enter height"
+//               {...form.getInputProps('height')}
+//               error={form.errors.height}
+//               onBlur={() => form.validateField('height')}
+//             />
+//           </Grid.Col>
+//           <Grid.Col span={6}>
+//             <Select
+//               label="Unit"
+//               data={[
+//                 { value: 'cm', label: 'cm' },
+//                 { value: 'in', label: 'inches' },
+//               ]}
+//               {...form.getInputProps('heightUnit')}
+//             />
+//           </Grid.Col>
+
+//           <Grid.Col span={6}>
+//             <TextInput
+//               label="Weight"
+//               placeholder="Enter weight"
+//               {...form.getInputProps('weight')}
+//               error={form.errors.weight}
+//               onBlur={() => form.validateField('weight')}
+//             />
+//           </Grid.Col>
+//           <Grid.Col span={6}>
+//             <Select
+//               label="Unit"
+//               data={[
+//                 { value: 'kg', label: 'kg' },
+//                 { value: 'lbs', label: 'lbs' },
+//               ]}
+//               {...form.getInputProps('weightUnit')}
+//             />
+//           </Grid.Col>
+
+//           <Grid.Col span={6}>
+//             <TextInput
+//               label="Eyesight"
+//               placeholder="e.g. 20/20"
+//               {...form.getInputProps('eyesight')}
+//               error={form.errors.eyesight}
+//               onBlur={() => form.validateField('eyesight')}
+//             />
+//           </Grid.Col>
+//           <Grid.Col span={6}>
+//             <TextInput
+//               label="Medical Condition"
+//               placeholder="Enter medical condition"
+//               {...form.getInputProps('medicalCondition')}
+//             />
+//           </Grid.Col>
+//         </Grid>
 
 //         <Dropzone
-//           onDrop={handleDrop}
-//           onReject={handleReject}
-//           maxSize={5 * 1024 ** 2} // 5MB
+//           mt="md"
+//           onDrop={handleFileDrop}
+//           onReject={handleFileReject}
+//           maxSize={5 * 1024 ** 2}
 //           accept={IMAGE_MIME_TYPE}
+//           style={{ height: '100px', borderRadius: '8px', border: '1px dashed #dee2e6' }}
 //         >
-//           <Group justify="center" gap="xl" mih={220} style={{ pointerEvents: 'none' }}>
+//           <Group justify="center" gap="xl" style={{ pointerEvents: 'none', height: '100%' }}>
 //             <Dropzone.Accept>
-//               <IconUpload
-//                 style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }}
-//                 stroke={1.5}
-//               />
+//               <IconUpload size={42} color="#1e90ff" />
 //             </Dropzone.Accept>
 //             <Dropzone.Reject>
-//               <IconX
-//                 style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }}
-//                 stroke={1.5}
-//               />
+//               <IconX size={42} color="#dc3545" />
 //             </Dropzone.Reject>
 //             <Dropzone.Idle>
-//               <IconPhoto
-//                 style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }}
-//                 stroke={1.5}
-//               />
+//               <IconPhoto size={42} color="#6c757d" />
 //             </Dropzone.Idle>
-
 //             <div>
-//               <Text size="xl" inline>
-//                 Drag images here or click to select files
-//               </Text>
-//               <Text size="sm" c="dimmed" inline mt={7}>
-//                 Attach as many files as you like, each file should not exceed 5MB
+//               <Text size="lg">Upload Medical History File</Text>
+//               <Text size="sm" color="dimmed" mt={7}>
+//                 Drag images or click to select
 //               </Text>
 //             </div>
 //           </Group>
 //         </Dropzone>
 
-//         {error && <Text color="red" mt="sm">{error}</Text>}
+//         {previewUrl && (
+//           <Box mt="md" style={{ textAlign: 'center' }}>
+//             <Text size="sm" tw='500'>Preview:</Text>
+//             <Image src={previewUrl} alt="Preview" style={{ maxWidth: '100%', marginTop: '10px' }} />
+//           </Box>
+//         )}
 
-//         <div className="mt-4">
-//           {files.length > 0 && (
-//             <div className="mb-4">
-//               <Text size="sm" c="dimmed">
-//                 Selected files:
-//               </Text>
-//               <ul>
-//                 {files.map((file, index) => (
-//                   <li key={index}>
-//                     <Text size="sm">{file.name}</Text>
-//                   </li>
-//                 ))}
-//               </ul>
-//             </div>
-//           )}
+//         {error && <Text c="red" mt="md">{error}</Text>}
+//         {successMessage && <Text c="green" mt="md">{successMessage}</Text>}
 
-//           <Button
-//             onClick={handleUpload}
-//             fullWidth
-//             variant="filled"
-//             color="blue"
-//           >
-//             Upload File
-//           </Button>
-//         </div>
-//       </div>
-
-//       <Group justify="right" mt="md">
-//         <Button type="submit">Submit</Button>
-//       </Group>
-//     </form>
+//         <Button type="submit" fullWidth mt="md">
+//           Submit
+//         </Button>
+//       </form>
+//     </Box>
 //   );
 // };
 
 // export default MedicalFitnessForm;
+'use client'
 import React, { useState, useEffect } from 'react';
-import { Button, TextInput, Group, Text, rem } from '@mantine/core';
+import { useForm } from '@mantine/form';
+import { useRouter } from 'next/navigation';
+import { Button, TextInput, Select, Group, Grid, Text, Box, Image } from '@mantine/core';
 import { Dropzone, FileRejection, IMAGE_MIME_TYPE } from '@mantine/dropzone';
 import { IconUpload, IconPhoto, IconX } from '@tabler/icons-react';
-
-interface MedicalFitnessFormProps {
-  initialData?: {
-    id?: string;
-    height?: string;
-    weight?: string;
-    eyesight?: string;
-    medicalHistoryFile?: File;
-  };
+import '@mantine/dropzone/styles.css';
+interface InitialData {
+  height: string;
+  heightUnit: 'cm' | 'in';
+  weight: string;
+  weightUnit: 'kg' | 'lbs';
+  eyesight: string;
 }
 
-const MedicalFitnessForm = ({ initialData }: MedicalFitnessFormProps) => {
-  // State for form fields
-  const [height, setHeight] = useState(initialData?.height || '');
-  const [weight, setWeight] = useState(initialData?.weight || '');
-  const [eyesight, setEyesight] = useState(initialData?.eyesight || '');
-  const [medicalHistoryFile, setMedicalHistoryFile] = useState<File | null>(initialData?.medicalHistoryFile || null);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState('');
+const AVIATION_STANDARDS = {
+  height: { cm: [150, 200], in: [59, 79] }, // Example ranges
+  weight: [50, 100], // Example range in kg
+  eyesight: { min: '20/30', max: '20/20' } // Example standard
+};
+
+interface InitialValidationScreenProps {
+  initialData?: {
+    height?: string;
+    heightUnit?: 'cm' | 'in';
+    weight?: string;
+    weightUnit?: 'kg' | 'lbs';
+    eyesight?: string;
+  };
+  onProceed: () => void;
+}
+
+const InitialValidationScreen = ({ onProceed, initialData }: InitialValidationScreenProps) => {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
 
-  const handleFileDrop = (acceptedFiles: File[]) => {
-    setMedicalHistoryFile(acceptedFiles[0]);
-  };
+  // Initialize the form with the correct types
+  const form = useForm({
+    initialValues: {
+      height: initialData?.height || '',
+      heightUnit: (initialData?.heightUnit || 'cm') as 'cm' | 'in',
+      weight: initialData?.weight || '',
+      weightUnit: (initialData?.weightUnit || 'kg') as 'kg' | 'lbs',
+      eyesight: initialData?.eyesight || '',
+    },
+    validate: {
+      height: (value, values) => {
+        const heightVal = parseFloat(value);
+        const unit = values.heightUnit as 'cm' | 'in';
+        if (heightVal < AVIATION_STANDARDS.height[unit][0] || heightVal > AVIATION_STANDARDS.height[unit][1]) {
+          return `Height should be between ${AVIATION_STANDARDS.height[unit][0]} and ${AVIATION_STANDARDS.height[unit][1]} ${unit}`;
+        }
+        return null;
+      },
+      weight: (value) => {
+        const weightVal = parseFloat(value);
+        if (weightVal < AVIATION_STANDARDS.weight[0] || weightVal > AVIATION_STANDARDS.weight[1]) {
+          return `Weight should be between ${AVIATION_STANDARDS.weight[0]} and ${AVIATION_STANDARDS.weight[1]} kg`;
+        }
+        return null;
+      },
+      eyesight: (value) => {
+        const eyesightPattern = /^[0-9]+\/[0-9]+$/;
+        if (!eyesightPattern.test(value)) return 'Please enter a valid eyesight (e.g., 20/20)';
+        // Implement proper eyesight range validation based on standards if needed
+        return null;
+      },
+    },
+  });
 
-  const handleFileReject = (fileRejections: FileRejection[]) => {
-    console.log('rejected files', fileRejections);
-    setError('File is not acceptable. Please check the file format and size.');
-  };
+  const handleSubmit = async (values: typeof form.values) => {
+    const heightVal = parseFloat(values.height);
+    const weightVal = parseFloat(values.weight);
+    const eyesightVal = values.eyesight;
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+    // Check if the values meet aviation standards
+    const meetsStandards =
+      heightVal >= AVIATION_STANDARDS.height[values.heightUnit][0] && heightVal <= AVIATION_STANDARDS.height[values.heightUnit][1] &&
+      weightVal >= AVIATION_STANDARDS.weight[0] && weightVal <= AVIATION_STANDARDS.weight[1] &&
+      eyesightVal >= AVIATION_STANDARDS.eyesight.min && eyesightVal <= AVIATION_STANDARDS.eyesight.max;
 
-    const payload = {
-      height,
-      weight,
-      eyesight,
-      // Convert File object to a file blob for POST/PUT request
-      medicalHistoryFile,
-    };
+    if (!meetsStandards) {
+      setError('You are not eligible based on the aviation standards.');
+      return;
+    }
+
+    // If eligible, post the data
+    const formData = new FormData();
+    formData.append('height', values.height);
+    formData.append('heightUnit', values.heightUnit);
+    formData.append('weight', values.weight);
+    formData.append('weightUnit', values.weightUnit);
+    formData.append('eyesight', values.eyesight);
 
     try {
-      const url = initialData?.id ? `/api/medical-fitness/${initialData.id}` : '/api/medical-fitness';
-      const method = initialData?.id ? 'PATCH' : 'POST';
-
-      const formData = new FormData();
-      formData.append('height', height);
-      formData.append('weight', weight);
-      formData.append('eyesight', eyesight);
-      if (medicalHistoryFile) {
-        formData.append('medicalHistoryFile', medicalHistoryFile);
-      }
-
+      const url = '/api/medical-fitness';
       const response = await fetch(url, {
-        method,
+        method: 'POST',
         body: formData,
+        credentials: 'include', // Include credentials in request
       });
 
       if (!response.ok) {
         throw new Error('Failed to save data');
       }
 
-      setSuccessMessage('Medical fitness details saved successfully.');
+      // Redirect to the report screen
+      router.push('/report-screen');
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <TextInput
-        label="Height"
-        value={height}
-        onChange={(e) => setHeight(e.target.value)}
-        required
-      />
-      <TextInput
-        label="Weight"
-        value={weight}
-        onChange={(e) => setWeight(e.target.value)}
-        required
-      />
-      <TextInput
-        label="Eyesight"
-        value={eyesight}
-        onChange={(e) => setEyesight(e.target.value)}
-        required
-      />
-      
-      <Dropzone
-        onDrop={handleFileDrop}
-        onReject={handleFileReject}
-        maxSize={5 * 1024 ** 2}
-        accept={IMAGE_MIME_TYPE}
-      >
-        <Group justify="center" gap="xl" mih={220} style={{ pointerEvents: 'none' }}>
-          <Dropzone.Accept>
-            <IconUpload
-              style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-blue-6)' }}
-              stroke={1.5}
-            />
-          </Dropzone.Accept>
-          <Dropzone.Reject>
-            <IconX
-              style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-red-6)' }}
-              stroke={1.5}
-            />
-          </Dropzone.Reject>
-          <Dropzone.Idle>
-            <IconPhoto
-              style={{ width: rem(52), height: rem(52), color: 'var(--mantine-color-dimmed)' }}
-              stroke={1.5}
-            />
-          </Dropzone.Idle>
+    <Box
+      style={{
+        maxWidth: '600px',
+        margin: 'auto',
+        padding: '20px',
+        border: '1px solid #e0e0e0',
+        borderRadius: '8px',
+        backgroundColor: '#f9fafb',
+      }}
+    >
+      <Box mb="lg" style={{ textAlign: 'center' }}>
+        <Text size="xl" tw='500'>
+          Initial Validation Screen
+        </Text>
+      </Box>
 
-          <div>
-            <Text size="xl" inline>
-              Drag images here or click to select files
-            </Text>
-            <Text size="sm" c="dimmed" inline mt={7}>
-              Attach as many files as you like, each file should not exceed 5mb
-            </Text>
-          </div>
-        </Group>
-      </Dropzone>
-      
-      <Button type="submit" disabled={isSubmitting}>
-        {initialData?.id ? 'Update' : 'Submit'}
-      </Button>
-      
-      {error && <div>{error}</div>}
-      {successMessage && <div>{successMessage}</div>}
-    </form>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <Grid>
+          <Grid.Col span={6}>
+            <TextInput
+              label="Height"
+              placeholder="Enter height"
+              {...form.getInputProps('height')}
+              error={form.errors.height}
+              onBlur={() => form.validateField('height')}
+            />
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <Select
+              label="Unit"
+              data={[
+                { value: 'cm', label: 'cm' },
+                { value: 'in', label: 'inches' },
+              ]}
+              value={form.values.heightUnit}
+              onChange={(newUnit) => form.setFieldValue('heightUnit', newUnit as 'cm' | 'in')}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={6}>
+            <TextInput
+              label="Weight"
+              placeholder="Enter weight"
+              {...form.getInputProps('weight')}
+              error={form.errors.weight}
+              onBlur={() => form.validateField('weight')}
+            />
+          </Grid.Col>
+          <Grid.Col span={6}>
+            <Select
+              label="Unit"
+              data={[
+                { value: 'kg', label: 'kg' },
+                { value: 'lbs', label: 'lbs' },
+              ]}
+              value={form.values.weightUnit}
+              onChange={(newUnit) => form.setFieldValue('weightUnit', newUnit as 'kg' | 'lbs')}
+            />
+          </Grid.Col>
+
+          <Grid.Col span={6}>
+            <TextInput
+              label="Eyesight"
+              placeholder="e.g. 20/20"
+              {...form.getInputProps('eyesight')}
+              error={form.errors.eyesight}
+              onBlur={() => form.validateField('eyesight')}
+            />
+          </Grid.Col>
+        </Grid>
+
+        {error && <Text c="red" mt="md">{error}</Text>}
+
+        <Button type="submit" fullWidth mt="md">
+          Submit
+        </Button>
+      </form>
+    </Box>
   );
 };
+    // const isEligible = true; 
 
-export default MedicalFitnessForm;
+    // if (isEligible) {
+    //   onProceed();
+    // } else {
+    //   alert('You are ineligible. Redirecting to home.');
+    //   // Handle redirection to home
+    // }
+  
+  
+
+    const ReportSubmissionScreen = () => {
+      const [medicalHistoryFile, setMedicalHistoryFile] = useState<File | null>(null);
+      const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+      const [timer, setTimer] = useState<number>(7 * 24 * 60 * 60 * 1000); // 1 week in milliseconds
+      const [submitLater, setSubmitLater] = useState<boolean>(false);
+    
+      useEffect(() => {
+        if (submitLater) {
+          const start = Date.now();
+          const interval = setInterval(() => {
+            const elapsed = Date.now() - start;
+            setTimer(7 * 24 * 60 * 60 * 1000 - elapsed);
+            if (elapsed >= 7 * 24 * 60 * 60 * 1000) {
+              clearInterval(interval);
+              alert('You have become ineligible due to timeout.');
+              // Handle redirection to home or appropriate action
+            }
+          }, 1000);
+    
+          return () => clearInterval(interval);
+        }
+      }, [submitLater]);
+    
+      const handleFileDrop = (acceptedFiles: File[]) => {
+        const file = acceptedFiles[0];
+        setMedicalHistoryFile(file);
+        setPreviewUrl(URL.createObjectURL(file)); // Create a preview URL for the file
+      };
+    
+      const handleFileReject = (fileRejections: FileRejection[]) => {
+        alert('File is not acceptable. Please check the file format and size.');
+        setPreviewUrl(null); // Clear preview on rejection
+      };
+    
+      const handleSubmitLater = () => {
+        setSubmitLater(true);
+      };
+    
+      const handleSubmit = async () => {
+        // Handle report submission logic here
+        // For now, we just clear the timer and proceed
+        setSubmitLater(false);
+        alert('Report submitted successfully!');
+      };
+    
+      return (
+        <Box
+          style={{
+            maxWidth: '600px',
+            margin: 'auto',
+            padding: '20px',
+            border: '1px solid #e0e0e0',
+            borderRadius: '8px',
+            backgroundColor: '#f9fafb',
+          }}
+        >
+          <Box mb="lg" style={{ textAlign: 'center' }}>
+            <Text size="xl"tw='500'>
+              Report Submission
+            </Text>
+          </Box>
+    
+          <Dropzone
+            mt="md"
+            onDrop={handleFileDrop}
+            onReject={handleFileReject}
+            maxSize={5 * 1024 ** 2}
+            accept={IMAGE_MIME_TYPE}
+            style={{ height: '100px', borderRadius: '8px', border: '1px dashed #dee2e6' }}
+          >
+            <Group justify="center" gap="xl" style={{ pointerEvents: 'none', height: '100%' }}>
+              <Dropzone.Accept>
+                <IconUpload size={42} color="#1e90ff" />
+              </Dropzone.Accept>
+              <Dropzone.Reject>
+                <IconX size={42} color="#dc3545" />
+              </Dropzone.Reject>
+              <Dropzone.Idle>
+                <IconPhoto size={42} color="#6c757d" />
+              </Dropzone.Idle>
+              <div>
+                <Text size="lg">Upload Medical History File</Text>
+                <Text size="sm" color="dimmed" mt={7}>
+                  Drag images or click to select
+                </Text>
+              </div>
+            </Group>
+          </Dropzone>
+    
+          {previewUrl && (
+            <Box mt="md" style={{ textAlign: 'center' }}>
+              <Text size="sm" tw='500'>Preview:</Text>
+              <Image src={previewUrl} alt="Preview" style={{ maxWidth: '100%', marginTop: '10px' }} />
+            </Box>
+          )}
+    
+          <Button type="button" fullWidth mt="md" onClick={handleSubmitLater}>
+            Submit Later
+          </Button>
+    
+          <Button type="button" fullWidth mt="md" onClick={handleSubmit}>
+            Submit
+          </Button>
+    
+          {submitLater && (
+            <Text mt="md" color="red">
+              Timer: {Math.max(0, Math.floor(timer / (1000 * 60 * 60 * 24)))} days left to submit report.
+            </Text>
+          )}
+        </Box>
+      );
+    };
+    
+
+const MedicalFitnessForm = () => {
+  const [currentScreen, setCurrentScreen] = useState<'validation' | 'report'>('validation');
+
+  // Example initial data
+  const initialData: InitialData = {
+    height: '',
+    heightUnit: 'cm',
+    weight: '',
+    weightUnit: 'kg',
+    eyesight: '',
+  };
+
+  return (
+    <>
+      {currentScreen === 'validation' ? (
+        <InitialValidationScreen onProceed={() => setCurrentScreen('report')} initialData={initialData} />
+      ) : (
+        <ReportSubmissionScreen />
+      )}
+    </>
+  );
+};
+export default MedicalFitnessForm

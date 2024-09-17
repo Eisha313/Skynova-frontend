@@ -6,7 +6,8 @@ import '@mantine/core/styles.css';
 import ClientProviders from "./components/clientProvider";
 import RouteGuard from "./components/guard/routeGuard";
 import useAutoLogout from "./components/timeout";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <ClientProviders>
+        <ToastContainer />
           <RouteGuard>{children}</RouteGuard>
         </ClientProviders>
       </body>

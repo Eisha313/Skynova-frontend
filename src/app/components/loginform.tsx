@@ -44,7 +44,8 @@ export default function LoginForm() {
 
       
         if (session.user.role === 'Aviator') {
-          router.push('/userRender/viewCommunityQuestions');
+          // router.push('/userRender/viewCommunityQuestions');
+          router.push('/'); 
         } else if (session.user.role === 'Admin') {
           router.push('/dashboard');
         } else {

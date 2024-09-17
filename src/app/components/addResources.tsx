@@ -213,10 +213,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
     }
   }, [id]);
 
-  // const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  //   const { name, value } = e.target;
-  //   setResource({ ...resource, [name]: value });
-  // };
+ 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setResource({ ...resource, [name]: value });

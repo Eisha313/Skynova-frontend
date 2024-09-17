@@ -111,6 +111,8 @@ export default function SignupForm() {
           lastName: session.user?.name?.split(' ')[1] || '',
           role: session.user.role,
           email: session.user.email,
+          token:session.user.accessToken,
+          profileImage:session.user.image
         });
         console.log('googleAuth',setUser)
 
