@@ -142,12 +142,12 @@ import NextAuth from 'next-auth';
 export const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
-      clientId: 'Ov23liczKyu8HkM7lQyP',
-      clientSecret: '2cb41a239a68a7cf1ad47fa7276166c576f57f81',
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID;,
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET;,
     }),
     GoogleProvider({
-      clientId: '282880180109-gqo74mqptihfpn6giq0nnin7mevbetrt.apps.googleusercontent.com',
-      clientSecret: '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',
+      clientId: GITHUB_OAUTH_CLIENT_ID,
+      clientSecret: GITHUB_OAUTH_SECRET_ID,
     }),
   ],
   callbacks: {
