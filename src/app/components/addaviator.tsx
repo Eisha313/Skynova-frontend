@@ -27,7 +27,7 @@ interface AviatorFormProps {
  
 }
 
-const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator}) => {
+const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -116,51 +116,90 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator}) => {
     }
   };
 
+  // const handleSubmit = async (values: Aviator) => {
+  //   try {
+  //     const method = id ? 'PATCH' : 'POST';
+  //     const url = id
+  //       ? `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${id}`
+  //       : 'https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator';
+  
+  //     const requestBody: any = {
+  //       firstName: values.firstName,
+  //       lastName: values.lastName,
+  //       email: values.email,
+  //       role: values.role,
+  //       profileImage: profileImage || values.profileImage, 
+  //     };
+  
+      
+  //     if (!id && values.password) {
+  //       requestBody.password = values.password;
+  //     }
+  //     console.log("Request Body:", requestBody);
+  
+      
+  
+  //     const response = await fetch(url, {
+  //       method,
+  //       headers: { 'Content-Type': 'application/json' },
+  //       body: JSON.stringify(requestBody),
+  //       credentials: 'include',
+  //     });
+  
+  //     if (!response.ok) {
+  //       const errorText = await response.text();
+  //       console.error('Error response:', errorText);
+  //       throw new Error(errorText || 'Failed to save aviator');
+  //     }
+  
+  //     // Navigate to the user view page after success
+  //     router.push('/viewuser'); 
+  //   } catch (error) {
+  //     console.error('Error:', error);
+  //     form.setErrors({ form: 'An error occurred while saving the aviator' });
+  //   }
+  // };
+  
   const handleSubmit = async (values: Aviator) => {
     try {
       const method = id ? 'PATCH' : 'POST';
       const url = id
         ? `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${id}`
         : 'https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator';
-  
+
       const requestBody: any = {
         firstName: values.firstName,
         lastName: values.lastName,
         email: values.email,
         role: values.role,
-        profileImage: profileImage || values.profileImage, 
+        profileImage: profileImage || values.profileImage,
       };
-  
-      
+
       if (!id && values.password) {
         requestBody.password = values.password;
       }
       console.log("Request Body:", requestBody);
-  
-      
-  
+
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody),
         credentials: 'include',
       });
-  
+
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Error response:', errorText);
         throw new Error(errorText || 'Failed to save aviator');
       }
-  
-      // Navigate to the user view page after success
-      router.push('/viewuser'); 
+
+      await onSave(values); 
+      router.push('/viewuser');
     } catch (error) {
       console.error('Error:', error);
       form.setErrors({ form: 'An error occurred while saving the aviator' });
     }
   };
-  
-  
 
   return (
     <Box maw={800} mx="auto" p="md">
