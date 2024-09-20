@@ -24,6 +24,10 @@ export interface Aviator {
 interface AviatorFormProps {
   id?: string;
   aviator?: Aviator; 
+  
+  onSave?: (values: Aviator) => void;
+  
+  
  
 }
 
@@ -60,25 +64,31 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
         /^[a-zA-Z][a-zA-Z0-9._%+-]*@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(value)
           ? null
           : 'Invalid email format. Must be like user@example.com',
-      password: (value) => {
-        const minLength = 6;
-        const startsWithLetter = /^[a-zA-Z]/.test(value);
-        const hasNumber = /\d/.test(value);
-        const hasSpecialChar = /[@$!%*?&#]/.test(value);
-        if (value.length < minLength) return `Password must be at least ${minLength} characters long`;
-        if (!startsWithLetter) return 'Password must start with a letter';
-        if (!hasNumber) return 'Password must include at least one number';
-        if (!hasSpecialChar) return 'Password must include at least one special character';
-        return null;
-      },
+      password: (value) => 
+        id // Skip validation if updating (i.e., id is present)
+          ? null 
+          : (() => { // Apply validation only for new users (no id)
+              const minLength = 6;
+              const startsWithLetter = /^[a-zA-Z]/.test(value);
+              const hasNumber = /\d/.test(value);
+              const hasSpecialChar = /[@$!%*?&#]/.test(value);
+              if (value.length < minLength) return `Password must be at least ${minLength} characters long`;
+              if (!startsWithLetter) return 'Password must start with a letter';
+              if (!hasNumber) return 'Password must include at least one number';
+              if (!hasSpecialChar) return 'Password must include at least one special character';
+              return null;
+            })(),
       confirmPassword: (value, values) =>
-        id
+        id // Skip validation if updating
           ? null
           : value !== values.password
           ? 'Passwords do not match'
           : null,
     },
   });
+  
+
+  console.log(form.errors)
 
   useEffect(() => {
     if (id) {
@@ -116,57 +126,43 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
     }
   };
 
-  // const handleSubmit = async (values: Aviator) => {
-  //   try {
-  //     const method = id ? 'PATCH' : 'POST';
-  //     const url = id
-  //       ? `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${id}`
-  //       : 'https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator';
   
-  //     const requestBody: any = {
-  //       firstName: values.firstName,
-  //       lastName: values.lastName,
-  //       email: values.email,
-  //       role: values.role,
-  //       profileImage: profileImage || values.profileImage, 
-  //     };
-  
-      
-  //     if (!id && values.password) {
-  //       requestBody.password = values.password;
-  //     }
-  //     console.log("Request Body:", requestBody);
   
       
   
-  //     const response = await fetch(url, {
-  //       method,
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(requestBody),
-  //       credentials: 'include',
-  //     });
   
-  //     if (!response.ok) {
-  //       const errorText = await response.text();
-  //       console.error('Error response:', errorText);
-  //       throw new Error(errorText || 'Failed to save aviator');
-  //     }
   
-  //     // Navigate to the user view page after success
-  //     router.push('/viewuser'); 
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     form.setErrors({ form: 'An error occurred while saving the aviator' });
-  //   }
-  // };
+
+  const checkEmailExists = async (email: string): Promise<boolean> => {
+    try {
+      const response = await fetch(
+        `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/checkEmail?email=${email}`
+      );
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const result = await response.json();
+      return result.exists; 
+    } catch (error) {
+      console.error('Error checking email:', error);
+      return false; 
+    }
+  };
   
   const handleSubmit = async (values: Aviator) => {
     try {
+      const emailExists = await checkEmailExists(values.email);
+    if (emailExists) {
+      form.setErrors({ email: 'Email already exists' });
+      return; 
+    }
+  
+      
       const method = id ? 'PATCH' : 'POST';
       const url = id
         ? `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${id}`
         : 'https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator';
-
+  
       const requestBody: any = {
         firstName: values.firstName,
         lastName: values.lastName,
@@ -174,32 +170,36 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
         role: values.role,
         profileImage: profileImage || values.profileImage,
       };
-
+  
       if (!id && values.password) {
         requestBody.password = values.password;
       }
-      console.log("Request Body:", requestBody);
-
+  
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(requestBody),
         credentials: 'include',
       });
-
+  
       if (!response.ok) {
         const errorText = await response.text();
         console.error('Error response:', errorText);
         throw new Error(errorText || 'Failed to save aviator');
       }
-
-      await onSave(values); 
+  
+      await onSave?.(values); 
       router.push('/viewuser');
     } catch (error) {
       console.error('Error:', error);
       form.setErrors({ form: 'An error occurred while saving the aviator' });
     }
   };
+  
+  
+
+  
+  
 
   return (
     <Box maw={800} mx="auto" p="md">

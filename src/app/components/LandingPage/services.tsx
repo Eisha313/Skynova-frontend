@@ -103,21 +103,21 @@ const services = [
     id: 1,
     title: "Cockpits",
     description: "Cockpits Visualization.",
-    imgSrc: "/webdev.png",
+    imgSrc: "/cockpit.svg",
     link: "/web-development",
   },
   {
     id: 2,
     title: "Jets",
     description: "Jets Visualization.",
-    imgSrc: "/erp.png",
+    imgSrc: "/spaceship.svg",
     link: "/erp-solutions",
   },
   {
     id: 3,
     title: "VR missions",
     description: "Immersive missions.",
-    imgSrc: "/mobiledev.png",
+    imgSrc: "/planeee.svg",
     link: "/mobile-development",
   },
   {
@@ -138,12 +138,12 @@ export default function ServicesCarousel() {
   <h2 className="text-center">Our Services</h2>
 </div>
       <Carousel>
-        {/* Left and Right Controls */}
+       
         <CarouselPrevious className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-500 p-2 rounded-full text-white hover:bg-gray-700">
           &#9664;
         </CarouselPrevious>
         
-        <CarouselContent className="flex space-x-4 px-8"> {/* Added padding for arrows */}
+        <CarouselContent className="flex space-x-4 px-8"> 
           {services.map((service) => (
             <CarouselItem
               key={service.id}
@@ -155,7 +155,6 @@ export default function ServicesCarousel() {
                   onMouseEnter={() => setHovered(service.id)}
                   onMouseLeave={() => setHovered(null)}
                 >
-                  {/* Image */}
                   <Image
                     src={service.imgSrc}
                     alt={service.title}
@@ -163,7 +162,7 @@ export default function ServicesCarousel() {
                     objectFit="cover"
                     className="rounded-lg"
                   />
-                  {/* Hover Effect */}
+                  
                   {hovered === service.id && (
                     <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col items-center justify-center text-white p-4 rounded-lg">
                       <h3 className="text-xl font-semibold mb-2">

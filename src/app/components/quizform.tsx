@@ -41,7 +41,7 @@ const QuizForm = () => {
       return;
     }
 
-    setError(null); // Clear any previous error
+    setError(null); 
 
     try {
       const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/createQuiz', {

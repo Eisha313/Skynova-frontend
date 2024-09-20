@@ -112,7 +112,7 @@ export default function LoginForm() {
   
         
         if (userRole === 'Aviator') {
-          router.push('/userRender/viewCommunityQuestions');
+          router.push('/');
         } else if (userRole === 'Admin') {
           router.push('/dashboard');
         }
@@ -142,20 +142,20 @@ export default function LoginForm() {
           </select>
         </div>
         <div className="mb-2">
-          <label className="block text-sm font-medium mb-1">Email</label>
+          <label className="block text-sm font-medium mb-1 ">Email</label>
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded"
+            className="w-full p-2 border rounded "
           />
           {errors.email && (
             <p className="text-red-500 text-sm mt-1">{errors.email}</p>
           )}
         </div>
         <div className="mb-2">
-          <label className="block text-sm font-medium mb-1">Password</label>
+          <label className="block text-sm font-medium mb-1 ">Password</label>
           <PasswordInput
             placeholder="Password"
             value={password}
@@ -173,7 +173,7 @@ export default function LoginForm() {
         </a>
         <button
           type="submit"
-          className="w-full p-2 bg-blue-600 text-white rounded mt-4"
+          className="w-full p-2 bg-eisha text-white rounded mt-4"
         >
           Log In
         </button>

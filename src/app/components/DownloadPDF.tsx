@@ -77,7 +77,6 @@ import { themeColors } from './global/color';
 interface User {
   id: number; 
   backendId: number;
-  name: string;
   email: string;
   username: string;
   type: string;
@@ -97,7 +96,6 @@ const DownloadPDF: React.FC<DownloadPDFProps> = ({ users}) => {
     const columns = [
       { title: 'ID', dataKey: 'id' },
       { title: 'Backend ID', dataKey: 'backendId' },
-      { title: 'Name', dataKey: 'name' },
       { title: 'Email', dataKey: 'email' },
       { title: 'Username', dataKey: 'username' },
       { title: 'Type', dataKey: 'type' },
@@ -107,7 +105,6 @@ const DownloadPDF: React.FC<DownloadPDFProps> = ({ users}) => {
     const rows = users.map(user => ({
       id: user.id,
       backendId: user.backendId,
-      name: user.name,
       email: user.email,
       username: user.username,
       type: user.type,

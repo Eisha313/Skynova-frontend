@@ -126,7 +126,7 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       if (!session?.user && !token) {
         if (pathname !== '/login' && pathname !== '/signup') {
-          router.push('/login');
+          router.push('/');
         }
         setLoading(false);
         return;

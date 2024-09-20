@@ -110,7 +110,6 @@ import Image from 'next/image';
 
 interface User {
   id: number;
-  name: string;
   email: string;
   username: string;
   type: string;
@@ -130,13 +129,12 @@ const Modal: React.FC<ModalProps> = ({ user, onClose }) => {
         <div className="mb-4">
           <Image
             src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`} // Adjust as necessary
-            alt={user.name}
+            alt={user.username}
             width={32}
             height={32}
             className="w-24 h-24 rounded-full mb-4"
           />
           <p><strong>ID:</strong> {user.id}</p>
-          <p><strong>Name:</strong> {user.name}</p>
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Username:</strong> {user.username}</p>
           <p><strong>Type:</strong> {user.type}</p>

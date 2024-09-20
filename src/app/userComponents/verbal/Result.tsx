@@ -1,53 +1,4 @@
-// import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/navigation';
 
-// const Result: React.FC<{ id: string }> = ({ id }) => {
-//   const [score, setScore] = useState<number | null>(null);
-//   const [totalQuestions, setTotalQuestions] = useState<number>(0);
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     const fetchResult = async () => {
-//       try {
-//         const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/getQuizResult/${id}`, {
-//           credentials: 'include',
-//         });
-//         const data = await response.json();
-//         setScore(data.score);
-//         setTotalQuestions(data.totalQuestions);
-//       } catch (error) {
-//         console.error('Error fetching result:', error);
-//       }
-//     };
-
-//     if (id) {
-//       fetchResult();
-//     }
-//   }, [id]);
-
-//   if (score === null) {
-//     return <div>Loading...</div>;
-//   }
-
-//   const isPassed = score > totalQuestions / 2;
-
-//   return (
-//     <div className="bg-gray-900 min-h-screen flex justify-center items-center text-white">
-//       <div className="p-8 border border-white rounded-lg text-center">
-//         <h2 className="text-2xl mb-4">Results</h2>
-//         <div className="text-6xl mb-4">{isPassed ? '🎉' : '😢'}</div>
-//         <p className="text-lg">Score: {score}/{totalQuestions}</p>
-//         {isPassed ? (
-//           <p className="mt-4">Congratulations! You passed the quiz.</p>
-//         ) : (
-//           <p className="mt-4">Better luck next time!</p>
-//         )}
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Result;
 import React, { useEffect, useState } from 'react';
 
 interface Question {
@@ -69,7 +20,7 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/getQuizResult/${id}`, {
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/getResult/${id}`, {
           credentials: 'include',
         });
         const data = await response.json();

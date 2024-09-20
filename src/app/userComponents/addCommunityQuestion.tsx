@@ -36,7 +36,7 @@ const CommunityQuestion = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`, // Include the token in the headers
+          'Authorization': `Bearer ${token}`,
         },
         body: JSON.stringify({ ...question }),
         credentials: 'include'

@@ -7,6 +7,9 @@ import { useRouter } from 'next/navigation';
 import { signOut } from 'next-auth/react';
 import axios from 'axios';
 import { usePathname } from 'next/navigation';
+import Link from 'next/link';
+
+
 
 const Header: React.FC = () => {
   const { firstName, lastName, role, profileImage, setUser } = useUser();
@@ -53,13 +56,13 @@ const Header: React.FC = () => {
         Resources
       </a>
       <a
-        href="/userRender/competencyEvaluation/competency"
+        href="/competencyEvaluation/competency"
         className={`px-3 py-2 rounded-md border ${pathname === '/userRender/view-resource' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
-        Resources
+        Competency Evaluation
       </a>
       <a
-        href="#"
+        href="/competencyEvaluation/competency"
         className={`px-3 py-2 rounded-md border ${pathname === '#' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
         Missions
@@ -71,10 +74,10 @@ const Header: React.FC = () => {
         Quizzes
       </a>
       <a
-        href="#"
+        href='/userRender/viewCommunityQuestions'
         className={`px-3 py-2 rounded-md border ${pathname === '#' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
-        About
+        Community
       </a>
     </nav>
 
@@ -95,15 +98,19 @@ const Header: React.FC = () => {
               <div className="font-semibold">{`${firstName} ${lastName}`}</div>
               <div className="text-gray-500">{role}</div>
             </div>
-            <button onClick={handleLogout} className="flex items-center p-2 rounded-md bg-pink-500 text-white hover:bg-pink-600">
+            <button onClick={handleLogout} className="flex items-center p-2 rounded-md border border-eisha text-balck hover:bg-eisha  hover:text-white">
               <FaSignOutAlt className="w-5 h-5 mr-2" />
               Logout
             </button>
           </div>
         ) : (
           <div className="flex space-x-4">
-            <button className="bg-pink-500 text-white px-4 py-2 rounded-md hover:bg-pink-600">Sign In</button>
-            <button className="border border-pink-500 text-pink-500 px-4 py-2 rounded-md hover:bg-pink-100">Sign Up</button>
+            <Link href="/login" className="border border-eisha text-black px-4 py-2 rounded-md hover:bg-eisha hover:text-white">
+              Sign In
+            </Link>
+            <Link href="/signup" className="border border-eisha text-black px-4 py-2 rounded-md hover:bg-eisha hover:text-white">
+              Sign Up
+            </Link>
           </div>
         )}
       </div>

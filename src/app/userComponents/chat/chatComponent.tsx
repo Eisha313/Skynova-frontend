@@ -21,7 +21,7 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
   const [editedMessageText, setEditedMessageText] = useState<string>('');
   const socket = useWebSocket();
 
-  // Fetching existing messages from the backend
+ 
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -34,7 +34,6 @@ const Chat: React.FC<ChatProps> = ({ id }) => {
     fetchMessages();
   }, []);
 
-  // Handling new messages via WebSocket
   useEffect(() => {
     if (!socket) return;
 

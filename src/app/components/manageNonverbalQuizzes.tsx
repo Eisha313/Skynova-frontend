@@ -141,7 +141,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQu
   };
 
   if (error) return <p>{error}</p>;
-  if (quizzes.length === 0) return <p>No quizzes found</p>;
+  
 
   return (
     <div className="overflow-x-auto">
@@ -173,6 +173,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQu
           </tr>
         </thead>
         <tbody>
+       
           {sortedQuizzes.map((quiz) => (
             <tr key={quiz._id}>
               <td className="py-2 px-4 border-b">
@@ -211,9 +212,9 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQu
 
       {isModalOpen && selectedQuiz && (
   <NonverbalQuizModal
-    isOpen={isModalOpen} // Provide isOpen prop
+    isOpen={isModalOpen} 
     onClose={handleCloseModal}
-    quiz={selectedQuiz} // Make sure this prop matches the NonverbalQuizModalProps
+    quiz={selectedQuiz} 
   />
 )}
     </div>

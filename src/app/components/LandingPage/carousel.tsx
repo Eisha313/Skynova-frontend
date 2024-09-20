@@ -28,7 +28,7 @@ export function CarouselPlugin() {
   return (
     <Carousel
       plugins={[plugin.current]}
-      className="w-full max-w-full h-[400px]" 
+      className="w-full max-w-full h-[600px]" 
     //   onMouseEnter={plugin.current.stop}
     //   onMouseLeave={plugin.current.reset}
     >
@@ -36,7 +36,7 @@ export function CarouselPlugin() {
         {images.map((src, index) => (
           <CarouselItem key={index}>
           
-            <div className="p-1 w-full relative h-[450px]   flex items-center justify-center">
+            <div className="p-1 w-full relative h-[600px]   flex items-center justify-center">
              
               <Image 
                 src={src}
