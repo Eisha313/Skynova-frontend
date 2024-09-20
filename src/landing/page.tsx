@@ -1,9 +1,9 @@
 'use client';
+import Header from "@/app/components/LandingPage/header";
+import { CarouselPlugin } from "@/app/components/LandingPage/carousel";
 
-import Header from "./components/LandingPage/header";
-import { CarouselPlugin } from "./components/LandingPage/carousel";
-import Footer from "./components/LandingPage/footer";
-import ServicesCarousel from "./components/LandingPage/services";
+import Footer from "@/app/components/LandingPage/footer";
+import ServicesCarousel from "@/app/components/LandingPage/services";
 
 export default function Home() {
   return (
