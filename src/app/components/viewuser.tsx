@@ -80,7 +80,7 @@ const ManageUsers: React.FC = () => {
   };
 
   const handleSearchChange = (searchTerm: string) => {
-    setSearchTerm(searchTerm); // Update the search term in the state
+    setSearchTerm(searchTerm); 
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const filtered = users.filter(user =>
       user.email.toLowerCase().includes(lowerCaseSearchTerm) ||
@@ -90,10 +90,11 @@ const ManageUsers: React.FC = () => {
     );
     setFilteredUsers(filtered);
   };
+  
 
   const clearSearch = () => {
-    setSearchTerm(''); // Clear the search term
-    setFilteredUsers(users); // Reset the filtered users to the original list
+    setSearchTerm(''); 
+    setFilteredUsers(users); 
   };
 
   const handleFilterChange = (filter: string) => {
@@ -169,9 +170,9 @@ const ManageUsers: React.FC = () => {
         <h2 className="text-xl font-semibold">All Users</h2>
         <div className="flex flex-1 justify-end space-x-2">
           <Search 
-            searchTerm={searchTerm}  // Pass the searchTerm state
-            onSearchChange={handleSearchChange}  // Pass the search change handler
-            clearSearch={clearSearch}  // Pass the clear search handler
+            searchTerm={searchTerm}  
+            onSearchChange={handleSearchChange}  
+            clearSearch={clearSearch}  
           />
           <Filter onFilterChange={handleFilterChange} />
           <DownloadPDF users={filteredUsers}  />
