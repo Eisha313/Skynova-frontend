@@ -89,6 +89,7 @@ const Sidebar = () => {
         <NavItem href="/userRender/verbal" text="Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/viewCommunityQuestions" text="Community" icon={<FaCogs />} currentPath={currentPath} />
+        <NavItem href="/landing" text="Landing" icon={<FaCogs />} currentPath={currentPath} />
         </div>
       </div>
     </DropdownProvider>
