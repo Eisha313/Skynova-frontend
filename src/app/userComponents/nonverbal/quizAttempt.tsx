@@ -133,7 +133,7 @@ const NonVerbalQuizAttempt: React.FC<{ id: string }> = ({ id }) => {
   if (showCompletionScreen && score !== null) {
     const isPassed = score > totalQuestions / 2;
     return (
-      <div className="bg-gray-900 min-h-screen p-8 flex flex-col justify-center items-center text-white">
+      <div className="bg-gray-900 min-h-screen p-8 flex flex-col justify-center items-center text-white overflow-y-auto">
         <div className="text-6xl mb-4">{isPassed ? "🎉" : "😢"}</div>
         <div className="text-lg mb-4">
           Score: {score}/{totalQuestions}
