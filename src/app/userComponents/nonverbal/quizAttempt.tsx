@@ -174,10 +174,10 @@ const NonVerbalQuizAttempt: React.FC<{ id: string }> = ({ id }) => {
         src={option.image}
         alt={`Option ${option.label}`}
         width={128} 
-        height={128} // Adjust height as needed
-        className="object-cover mb-2" // Adjust the size and layout as needed
+        height={128}
+        className="object-cover mb-2" 
       />
-      {/* Display the label outside the image */}
+
       <span className="text-white">{option.label}</span>
     </label>
   ))}
