@@ -134,6 +134,44 @@
 // };
 
 // export default NextAuth(authOptions);
+// import { NextAuthOptions } from 'next-auth';
+// import GithubProvider from 'next-auth/providers/github';
+// import GoogleProvider from 'next-auth/providers/google';
+// import NextAuth from 'next-auth';
+
+// export const authOptions: NextAuthOptions = {
+//   providers: [
+//     GithubProvider({
+//       clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+//       clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+//     }),
+//     GoogleProvider({
+//       clientId: GITHUB_OAUTH_CLIENT_ID,
+//       clientSecret: GITHUB_OAUTH_SECRET_ID,
+//     }),
+//   ],
+//   callbacks: {
+//     async jwt({ token, user }) {
+//       if (user) {
+//         token.role = user.role || 'Aviator';
+//         token._id = user.id || '';
+//       }
+//       return token;
+//     },
+//     async session({ session, token }) {
+//       if (session.user) {
+//         session.user.role = token.role as string;
+//         session.user._id = token._id as string;
+//       }
+//       return session;
+//     },
+//   },
+//   session: {
+//     strategy: 'jwt',
+//   },
+// };
+
+// export default NextAuth(authOptions);
 import { NextAuthOptions } from 'next-auth';
 import GithubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
@@ -142,12 +180,12 @@ import NextAuth from 'next-auth';
 export const authOptions: NextAuthOptions = {
   providers: [
     GithubProvider({
-      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+      clientId: process.env.GITHUB_OAUTH_CLIENT_ID as string,
+      clientSecret: process.env.GITHUB_OAUTH_SECRET_ID as string,
     }),
     GoogleProvider({
-      clientId: GITHUB_OAUTH_CLIENT_ID,
-      clientSecret: GITHUB_OAUTH_SECRET_ID,
+      clientId: process.env.GOOGLE_OAUTH_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET as string,
     }),
   ],
   callbacks: {
