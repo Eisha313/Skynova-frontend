@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 
 interface Question {
@@ -37,6 +36,10 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
 
   if (!result) {
     return <div>Loading...</div>;
+  }
+
+  if (!result.questions || result.questions.length === 0) {
+    return <div>No questions available.</div>;
   }
 
   return (

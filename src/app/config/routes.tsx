@@ -18,6 +18,7 @@ export const roleBasedRoutes = {
 
     "/verbalquiz",
     '/userRender/verbal/[id]/attempt',
+    '/userRender/verbal/[id]/result',
     '/competencyEvaluation/competency',
     '/userRender/addCommunityQuestion',
     '/userRender/viewCommunityQuestions',

@@ -31,6 +31,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
         }
         const data: Resource[] = await response.json();
         setResources(data);
+        console.log(data)
       } catch (error) {
         setError('Failed to load resources');
       } finally {
@@ -64,12 +65,17 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {displayedResources.map((resource) => (
         <div key={resource.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-        {resource.resourceFile && resource.resourceFile.endsWith('.mp4') && (
-  <video className='w-full h-56' controls>
-    <source type='video/mp4' src={resource.resourceFile} />
-    Your browser does not support the video tag.
-  </video>
+    
+{resource.resourceFile && (
+  <ReactPlayer
+    url={resource.resourceFile}
+    width="100%"
+    height="240px"
+    controls
+  />
 )}
+
+
 
 
           {resource.resourceImage && isVideoLink(resource.resourceImage) && (

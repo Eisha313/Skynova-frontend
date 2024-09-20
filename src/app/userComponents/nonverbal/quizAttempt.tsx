@@ -86,10 +86,11 @@ const NonVerbalQuizAttempt: React.FC<{ id: string }> = ({ id }) => {
           },
           body: JSON.stringify({
             description: "Non-Verbal Quiz Result",
-            answers, // Selected answers for each question
-            marks: resultScore, // The calculated score
-            quizId: quiz?._id, // Ensure quiz ID is passed correctly
-            userId: _id, // Ensure the user ID is passed as well
+            answers, 
+            marks: resultScore, 
+            quizId: quiz?._id, 
+            userId: _id, 
+            
           }),
           credentials: "include",
         }
@@ -168,11 +169,11 @@ const NonVerbalQuizAttempt: React.FC<{ id: string }> = ({ id }) => {
         });
       }}
     >
-      {/* Display the image using Next.js's Image component */}
+    
       <Image
         src={option.image}
         alt={`Option ${option.label}`}
-        width={128} // Adjust width as needed
+        width={128} 
         height={128} // Adjust height as needed
         className="object-cover mb-2" // Adjust the size and layout as needed
       />
