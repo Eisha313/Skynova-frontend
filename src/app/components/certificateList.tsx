@@ -400,7 +400,7 @@ const CertificateList: React.FC = () => {
                     <FaTrash className="text-gray-700" />
                   </button>
                   <Link
-                    href={`/certificate-page/${certificate._id}/viewCertificate`}
+                    href={`/certificate-page/${certificate._id}/certificateDetails`}
                     className="bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400"
                   >
                     <FaEye className="text-gray-700" />

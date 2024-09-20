@@ -314,7 +314,7 @@ const NonverbalQuizForm = () => {
                     <span className="font-medium text-gray-800">
                       {index + 1}. {question.text}
                     </span>
-                    {/* Optional Actions for each question, like Edit/Delete */}
+                 
                   </li>
                 ))}
               </ul>
