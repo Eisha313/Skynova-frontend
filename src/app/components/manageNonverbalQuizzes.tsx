@@ -1,9 +1,11 @@
 
-'use client';
-import React, { useState, useEffect } from 'react';
-import { FaEdit, FaEye, FaTrashAlt } from 'react-icons/fa';
-import Link from 'next/link';
-import NonverbalQuizModal from './nonverbalQuizModal';
+"use client";
+import React, { useState, useEffect } from "react";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import Link from "next/link";
+import NonverbalQuizModal from "./nonverbalQuizModal";
+import { ArrowUpDown } from "lucide-react";
+import { MdDownload } from "react-icons/md";
 
 interface Quiz {
   _id: string;
@@ -26,30 +28,40 @@ interface ManageNonverbalQuizzesProps {
   onAddQuiz: () => void;
 }
 
-const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQuiz }) => {
+const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
+  onAddQuiz,
+}) => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState<QuizDetail | null>(null);
-  const [selectedQuizzes, setSelectedQuizzes] = useState<Set<string>>(new Set());
-  const [sortConfig, setSortConfig] = useState<{ key: keyof Quiz | null; direction: 'asc' | 'desc' }>({
-    key: null,
-    direction: 'asc',
-  });
+  const [selectedQuizzes, setSelectedQuizzes] = useState<Set<string>>(
+    new Set()
+  );
+  const [sortConfig, setSortConfig] = useState<{
+    key: keyof Quiz | null;
+    direction: "asc" | "desc";
+  }>({ key: null, direction: "asc" });
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [quizzesPerPage] = useState<number>(5); // Pagination: Quizzes per page
 
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes',{credentials:'include'});
+        const response = await fetch(
+          "https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes",
+          { credentials: "include" }
+        );
         if (response.ok) {
           const data = await response.json();
           setQuizzes(data);
         } else {
-          console.error('Failed to fetch quizzes');
+          console.error("Failed to fetch quizzes");
         }
       } catch (error) {
-        console.error('Error fetching quizzes:', error);
-        setError('Error fetching quizzes');
+        console.error("Error fetching quizzes:", error);
+        setError("Error fetching quizzes");
       }
     };
 
@@ -58,16 +70,19 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQu
 
   const handleQuizClick = async (quizId: string) => {
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuiz/${quizId}`,{credentials:'include'});
+      const response = await fetch(
+        `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuiz/${quizId}`,
+        { credentials: "include" }
+      );
       if (response.ok) {
         const data = await response.json();
         setSelectedQuiz(data);
         setIsModalOpen(true);
       } else {
-        console.error('Failed to fetch quiz details');
+        console.error("Failed to fetch quiz details");
       }
     } catch (error) {
-      console.error('Error fetching quiz details:', error);
+      console.error("Error fetching quiz details:", error);
     }
   };
 
@@ -78,17 +93,20 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQu
 
   const handleDeleteQuiz = async (quizId: string) => {
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/deleteNonVerbalQuiz/${quizId}`, {
-        method: 'DELETE',
-        credentials:'include'
-      });
+      const response = await fetch(
+        `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/deleteNonVerbalQuiz/${quizId}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        }
+      );
       if (response.ok) {
         setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
       } else {
-        console.error('Failed to delete quiz');
+        console.error("Failed to delete quiz");
       }
     } catch (error) {
-      console.error('Error deleting quiz:', error);
+      console.error("Error deleting quiz:", error);
     }
   };
 
@@ -96,7 +114,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQu
     if (selectedQuizzes.size === quizzes.length) {
       setSelectedQuizzes(new Set());
     } else {
-      setSelectedQuizzes(new Set(quizzes.map(quiz => quiz._id)));
+      setSelectedQuizzes(new Set(quizzes.map((quiz) => quiz._id)));
     }
   };
 
@@ -109,114 +127,201 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({ onAddQu
     }
     setSelectedQuizzes(updatedSelection);
   };
-
+  const renderArrow = (key: keyof Quiz) => {
+    if (sortConfig.key === key) {
+      return sortConfig.direction === 'asc' ? (
+        <ArrowUpDown className="h-4 w-4 inline ml-2" />
+      ) : (
+        <ArrowUpDown className="h-4 w-4 inline ml-2 rotate-180" />
+      );
+    }
+    return <ArrowUpDown className="h-4 w-4 inline ml-2" />;
+  };
   const handleSort = (key: keyof Quiz) => {
-    let direction: 'asc' | 'desc' = 'asc';
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc';
+    let direction: "asc" | "desc" = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") {
+      direction = "desc";
     }
     setSortConfig({ key, direction });
   };
 
-  const compareValues = (a: any, b: any, direction: 'asc' | 'desc') => {
+  const compareValues = (a: any, b: any, direction: "asc" | "desc") => {
     if (a === b) return 0;
     if (a == null) return 1;
     if (b == null) return -1;
-    if (typeof a === 'string' && typeof b === 'string') {
-      return direction === 'asc' ? a.localeCompare(b) : b.localeCompare(a);
+    if (typeof a === "string" && typeof b === "string") {
+      return direction === "asc" ? a.localeCompare(b) : b.localeCompare(a);
     }
-    return direction === 'asc' ? (a < b ? -1 : 1) : (a > b ? -1 : 1);
+    return direction === "asc" ? (a < b ? -1 : 1) : a > b ? -1 : 1;
   };
 
-  const sortedQuizzes = [...quizzes];
+  const filteredQuizzes = quizzes.filter((quiz) =>
+    quiz.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const sortedQuizzes = [...filteredQuizzes];
   if (sortConfig.key) {
-    sortedQuizzes.sort((a, b) => compareValues(a[sortConfig.key!], b[sortConfig.key!], sortConfig.direction));
+    sortedQuizzes.sort((a, b) =>
+      compareValues(
+        a[sortConfig.key!],
+        b[sortConfig.key!],
+        sortConfig.direction
+      )
+    );
   }
 
-  const renderArrow = (key: keyof Quiz) => {
-    if (sortConfig.key === key) {
-      return sortConfig.direction === 'asc' ? '▲' : '▼';
+  const indexOfLastQuiz = currentPage * quizzesPerPage;
+  const indexOfFirstQuiz = indexOfLastQuiz - quizzesPerPage;
+  const currentQuizzes = sortedQuizzes.slice(indexOfFirstQuiz, indexOfLastQuiz);
+
+  const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleClearSearch = () => {
+    setSearchTerm("");
+  };
+
+  const downloadPDF = async () => {
+    // Implement PDF download logic here
+    const response = await fetch("YOUR_PDF_DOWNLOAD_API_URL", {
+      method: "GET",
+      credentials: "include",
+    });
+    if (response.ok) {
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "quizzes.pdf"; // Set your desired file name
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    } else {
+      console.error("Failed to download PDF");
     }
-    return '▷';
   };
 
   if (error) return <p>{error}</p>;
-  
 
   return (
-    <div className="overflow-x-auto">
-      <button
-        onClick={onAddQuiz}
-        className="mb-4 px-4 py-2 bg-blue-500 text-white rounded"
-      >
-        Add Quiz
-      </button>
-      <table className="min-w-full bg-white">
-        <thead className="bg-gray-800 text-white">
-          <tr>
-            <th className="py-2 px-4 border-b cursor-pointer">
-              <input
-                type="checkbox"
-                checked={selectedQuizzes.size === quizzes.length}
-                onChange={handleSelectAll}
-              />
-            </th>
-            {['ID', 'Title', 'Actions'].map((header, index) => (
-              <th
-                key={header}
-                className="py-2 px-4 border-b cursor-pointer"
-                onClick={() => handleSort(header.toLowerCase() as keyof Quiz)}
-              >
-                {header} {index > 0 && renderArrow(header.toLowerCase() as keyof Quiz)}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-       
-          {sortedQuizzes.map((quiz) => (
-            <tr key={quiz._id}>
-              <td className="py-2 px-4 border-b">
-                <input
-                  type="checkbox"
-                  checked={selectedQuizzes.has(quiz._id)}
-                  onChange={() => handleSelectQuiz(quiz._id)}
-                />
-              </td>
-              <td className="py-2 px-4 border-b">{quiz.title}</td>
-              <td className="py-2 px-4 border-b">
+    <div className="overflow-x-auto p-4">
+      <div className="flex justify-between items-center mb-4">
+        <button
+          onClick={onAddQuiz}
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
+          Add Quiz
+        </button>
+        <div className="relative">
+          <input
+            type="text"
+            placeholder="Search by Title"
+            className="border border-gray-300 px-4 py-2 rounded"
+            value={searchTerm}
+            onChange={handleSearchChange}
+          />
+          {searchTerm && (
+            <button
+              onClick={handleClearSearch}
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-gray-500 text-white px-2 rounded"
+            >
+              &times;
+            </button>
+          )}
+        </div>
+        <button
+          onClick={downloadPDF}
+          className="ml-2 px-4 py-2 border border-eisha text-gray rounded"
+        >
+          <MdDownload className="inline" />
+        </button>
+      </div>
+      <table className="min-w-full bg-white border border-gray-300">
+      <thead className="bg-gray-800 text-white">
+  <tr>
+    <th className="py-2 px-4 border-b cursor-pointer text-right">
+      <input
+        type="checkbox"
+        checked={selectedQuizzes.size === quizzes.length}
+        onChange={handleSelectAll}
+      />
+    </th>
+    <th className="py-2 px-4 border-b cursor-pointer text-right">
+      Serial No.
+    </th>
+    <th
+      className="py-2 px-4 border-b cursor-pointer text-right"
+      onClick={() => handleSort("title")}
+    >
+      Title {renderArrow("title")}
+    </th>
+    <th className="py-2 px-4 border-b text-right">Actions</th>
+  </tr>
+</thead>
+<tbody>
+  {currentQuizzes.map((quiz, index) => (
+    <tr key={quiz._id}>
+      <td className="py-2 px-4 border-b text-right">
+        <input
+          type="checkbox"
+          checked={selectedQuizzes.has(quiz._id)}
+          onChange={() => handleSelectQuiz(quiz._id)}
+        />
+      </td>
+      <td className="py-2 px-4 border-b text-right">{indexOfFirstQuiz + index + 1}</td>
+      <td className="py-2 px-4 border-b text-right">{quiz.title}</td>
+      <td className="py-2 px-4 border-b flex justify-end space-x-2">
                 <button
+                  className="text-blue-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400 flex items-center justify-center"
                   onClick={() => handleQuizClick(quiz._id)}
-                  className="text-blue-500 hover:underline mr-2"
                 >
-                  <FaEye />
+                  <FaEye className="text-gray-700" />
                 </button>
                 <Link href={`/editQuiz/${quiz._id}`} passHref>
                   <button
-                    className="text-blue-500 hover:underline mr-2"
+                    className="text-green-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400 flex items-center justify-center"
                   >
-                    <FaEdit />
+                    <FaEdit className="text-gray-700" />
                   </button>
                 </Link>
                 <button
                   onClick={() => handleDeleteQuiz(quiz._id)}
-                  className="text-red-500 hover:underline"
+                  className="text-red-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400 flex items-center justify-center"
                 >
-                  <FaTrashAlt />
+                  <FaTrash className="text-gray-700" />
                 </button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-
-      {isModalOpen && selectedQuiz && (
-  <NonverbalQuizModal
-    isOpen={isModalOpen} 
-    onClose={handleCloseModal}
-    quiz={selectedQuiz} 
-  />
-)}
+      <div className="flex justify-between items-center mt-4">
+        <button
+          onClick={() => paginate(currentPage - 1)}
+          disabled={currentPage === 1}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span>Page {currentPage}</span>
+        <button
+          onClick={() => paginate(currentPage + 1)}
+          disabled={indexOfLastQuiz >= sortedQuizzes.length}
+          className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+      {selectedQuiz && (
+        <NonverbalQuizModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          quiz={selectedQuiz}
+        />
+      )}
     </div>
   );
 };

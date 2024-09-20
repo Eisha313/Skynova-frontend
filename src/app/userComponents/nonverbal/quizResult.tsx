@@ -25,7 +25,7 @@ const NonVerbalQuizResult: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResult/${id}`, {
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`, {
           credentials: 'include',
         });
         const data = await response.json();

@@ -2,6 +2,7 @@
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useUser } from "@/app/components/context/userContext";
 
 interface Question {
   text: string;
@@ -28,7 +29,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
   const [totalQuestions, setTotalQuestions] = useState<number>(0);
   const [showModal, setShowModal] = useState(false); // Added state for modal
   const router = useRouter();
-
+  const { _id ,token} = useUser(); 
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
@@ -66,10 +67,11 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
     const resultScore = await calculateResult();
     setScore(resultScore);
 
-    await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/createResults`, {
+    await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/createVerbalQuizResult`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
       },
       body: JSON.stringify({ type: 'verbalQuiz', description: 'Verbal Quiz Result',answers, marks: resultScore }),
       credentials: 'include',

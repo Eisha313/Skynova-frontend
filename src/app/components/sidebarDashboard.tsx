@@ -71,8 +71,8 @@ const Sidebar = () => {
         <NavItem href="/viewjets" text="Manage Jets" icon={<FaPlane />} currentPath={currentPath} />
         <NavItem href="/certificate-page" text="Manage Certificate" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem text="Manage Aptitude Tests" icon={<FaTasks />} currentPath={currentPath}>
-          <NavItem href="/userRender/verbal" text="Verbal Quiz" icon={<FaBrain />} currentPath={currentPath} />
-          <NavItem href="/userRender/nonverbal" text="NonVerbal Quiz" icon={<FaBook />} currentPath={currentPath} />
+          <NavItem href="/verbalquiz" text="Verbal Quiz" icon={<FaBrain />} currentPath={currentPath} />
+          <NavItem href="/nonverbalquiz" text="NonVerbal Quiz" icon={<FaBook />} currentPath={currentPath} />
         </NavItem>
         <NavItem href="/view-resource" text="Manage Resources" icon={<FaTasks />} currentPath={currentPath}>
           {/* <NavItem href="/addResource" text="Add Resource" icon={<FaBrain />} currentPath={currentPath} />
@@ -87,6 +87,7 @@ const Sidebar = () => {
         <NavItem href="/userRender/view-resource" text="view resource" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/competencyEvaluation/competency" text="competency" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/verbal" text="Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
+        <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/viewCommunityQuestions" text="Community" icon={<FaCogs />} currentPath={currentPath} />
         </div>
       </div>

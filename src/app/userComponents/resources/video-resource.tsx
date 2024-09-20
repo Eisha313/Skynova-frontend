@@ -46,10 +46,10 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
   };
 
   const filteredResources = resources.filter(resource =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase())
+    resource.title.toLowerCase().includes(searchTerm.toLowerCase()) && resource.type !== 'pdf'
   );
 
-  // Determine which resources to display
+ 
   const displayedResources = showAll ? filteredResources : filteredResources.slice(0, 4);
 
   if (loading) {
@@ -64,12 +64,14 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {displayedResources.map((resource) => (
         <div key={resource.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-          {resource.resourceFile && resource.resourceFile.endsWith('.mp4') && (
-            <video className='w-full h-56' controls>
-              <source type='video/mp4' src={resource.resourceFile} />
-              Your browser does not support the video tag.
-            </video>
-          )}
+        {resource.resourceFile && resource.resourceFile.endsWith('.mp4') && (
+  <video className='w-full h-56' controls>
+    <source type='video/mp4' src={resource.resourceFile} />
+    Your browser does not support the video tag.
+  </video>
+)}
+
+
           {resource.resourceImage && isVideoLink(resource.resourceImage) && (
             <ReactPlayer url={resource.resourceImage} width="100%" height="240px" controls />
           )}
