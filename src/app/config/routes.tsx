@@ -14,7 +14,7 @@ export const roleBasedRoutes = {
     '/notifications',
     '/results',
     '/suggestion',
-
+    '/userRender/competency',
 
     "/verbalquiz",
     '/userRender/verbal/[id]/attempt',
@@ -72,7 +72,8 @@ export const roleBasedRoutes = {
       '/community/[id]/questiondetail',
      ' /userRender/viewCommunityQuestions/[id]/questionDetail',
        '/userRender/viewCommunityQuestions','/userRender/viewCommunityQuestions/[id]/questionDetail','/forgetpassword','/setpassword','/chat','userRender/chat/[id]'
-      ,'/userRender/view-resource' ],
+      ,'/userRender/view-resource' ,
+      '/userRender/competency',],
   };
   
   export const publicRoutes = ['/login', '/signup','/']; 

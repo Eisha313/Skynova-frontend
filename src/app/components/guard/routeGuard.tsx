@@ -56,7 +56,7 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
         if (pathname === '/login' || pathname === '/signup') {
           if (userRole === 'Aviator') {
-            router.push('/landing');
+            router.push('/');
           } else if (userRole === 'Admin') {
             router.push('/dashboard');
           } else {

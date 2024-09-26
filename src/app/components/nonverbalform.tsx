@@ -323,8 +323,8 @@ const NonverbalQuizForm = () => {
         </div>
       )}
 
-      {/* Complete Quiz / Cancel Button */}
-      {quizCreated ? (
+    
+      {/* {quizCreated ? (
         <button
           onClick={handleCompleteQuiz}
           className="w-full bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded mt-6 text-center"
@@ -337,7 +337,7 @@ const NonverbalQuizForm = () => {
             Cancel
           </button>
         </Link>
-      )}
+      )} */}
     </div>
   );
 };

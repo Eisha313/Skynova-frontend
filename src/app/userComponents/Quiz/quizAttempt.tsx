@@ -1,4 +1,5 @@
 
+
 'use client';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -33,7 +34,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/viewVerbalQuiz/${id}`, {
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${id}`, {
           credentials: 'include',
         });
         const data = await response.json();
@@ -67,7 +68,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
     const resultScore = await calculateResult();
     setScore(resultScore);
 
-    await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/createVerbalQuizResult`, {
+    await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizResult/createQuizResult`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -129,19 +130,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
         Question {currentQuestion + 1}/{quiz.questions.length}: {quiz.questions[currentQuestion].text}
       </div>
 
-      {/* <div className="flex flex-col space-y-4 mb-4">
-        {quiz.questions[currentQuestion].options.map((option, index) => (
-          <label
-            key={index}
-            className={`p-4 border border-white rounded-lg cursor-pointer transition-all duration-300 ${
-              selectedOption === option ? 'bg-blue-500' : ''
-            } hover:bg-blue-400`}
-            onClick={() => setSelectedOption(option)}
-          >
-            {option}
-          </label>
-        ))}
-      </div> */}
+      
       <div className="flex flex-col space-y-4 mb-4">
   {quiz.questions[currentQuestion].options.map((option, index) => (
     <label

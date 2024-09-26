@@ -8,13 +8,23 @@ import { signOut } from 'next-auth/react';
 import axios from 'axios';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-
+import ProfileModal from '../viewprofile';
+import { useState } from 'react';
 
 
 const Header: React.FC = () => {
   const { firstName, lastName, role, profileImage, setUser } = useUser();
   const router = useRouter();
   const pathname = usePathname();
+  const [isProfileModalOpen, setProfileModalOpen] = useState(false);
+
+  const handleProfileClick = () => {
+    setProfileModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setProfileModalOpen(false);
+  };
 
   const handleLogout = async () => {
     const isConfirmed = window.confirm('Are you sure you want to log out?');
@@ -38,7 +48,7 @@ const Header: React.FC = () => {
       
       <div className="flex items-center">
         <Image src="/skylogo.svg" alt="Logo" height={60} width={100}className=" bg-gray mr-4 " /> 
-        {/* <span className="text-pink-500 font-bold text-lg">Avec</span> */}
+        
       </div>
 
       
@@ -56,8 +66,8 @@ const Header: React.FC = () => {
         Resources
       </a>
       <a
-        href="/competencyEvaluation/competency"
-        className={`px-3 py-2 rounded-md border ${pathname === '/userRender/view-resource' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
+        href="/userRender/competency"
+        className={`px-3 py-2 rounded-md border ${pathname === '/userRender/competency' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
         Competency Evaluation
       </a>
@@ -93,6 +103,7 @@ const Header: React.FC = () => {
               src={profileImage || '/default-profile.png'}
               alt="Profile"
               className="w-8 h-8 rounded-full object-cover"
+              onClick={handleProfileClick}
             />
             <div className="text-sm">
               <div className="font-semibold">{`${firstName} ${lastName}`}</div>
@@ -113,6 +124,7 @@ const Header: React.FC = () => {
             </Link>
           </div>
         )}
+        <ProfileModal isOpen={isProfileModalOpen} onClose={handleCloseModal} />
       </div>
     </header>
   );

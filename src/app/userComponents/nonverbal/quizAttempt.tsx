@@ -97,6 +97,11 @@ const NonVerbalQuizAttempt: React.FC<{ id: string }> = ({ id }) => {
       );
   
       if (response.ok) {
+        await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/finalReports/createFinalReport`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          body: JSON.stringify({ userId: _id, nonVerbalMarks: resultScore }),
+        });
         setQuizFinished(true);
         setShowCompletionScreen(true);
       } else {
