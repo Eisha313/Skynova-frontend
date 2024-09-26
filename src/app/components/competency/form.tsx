@@ -19,7 +19,7 @@ import { useUser } from '@/app/components/context/userContext';
 import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import '@mantine/dropzone/styles.css';
 import { IconMoodSad, IconUpload, IconFile } from '@tabler/icons-react';
-const { token } = useUser();
+
 const AVIATION_STANDARDS = {
   height: { cm: [150, 200], in: [59, 79] },
   weight: [50, 100],
@@ -33,6 +33,7 @@ const MedicalFitnessForm = () => {
   const [error, setError] = useState<string | null>(null);
   const [showFile, setShowFile] = useState<string | null>(null);
   const router = useRouter();
+  const { token } = useUser();
 
   // Updated form validation to include basic constraints
   const form = useForm({
