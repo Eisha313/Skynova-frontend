@@ -112,7 +112,7 @@ export default function LoginForm() {
   
         
         if (userRole === 'Aviator') {
-          router.push('/landing');
+          router.push('/');
         } else if (userRole === 'Admin') {
           router.push('/dashboard');
         }
