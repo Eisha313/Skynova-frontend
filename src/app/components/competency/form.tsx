@@ -57,7 +57,7 @@ const MedicalFitnessForm: React.FC<MedicalFitnessFormProps> = ({ goToNextStep })
         if (isNaN(heightVal)) return 'Height must be a number';
 
         
-        const minHeight = unit === 'cm' ? 50 : 20;  // cm: minimum 50, in: minimum 20
+        const minHeight = unit === 'cm' ? 50 : 20;  
         const maxHeight = unit === 'cm' ? 250 : 100;  // cm: max 250, in: max 100
         if (heightVal < minHeight || heightVal > maxHeight) {
           return `Height should be between ${minHeight} and ${maxHeight} ${unit}`;
