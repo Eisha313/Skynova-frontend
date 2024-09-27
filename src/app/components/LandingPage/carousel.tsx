@@ -19,7 +19,7 @@ export function CarouselPlugin() {
 
   const images = [
     "/homewallpaper.svg", 
-    "/layoutplane.svg",
+    // "/layoutplane.svg",
     
     
   ];

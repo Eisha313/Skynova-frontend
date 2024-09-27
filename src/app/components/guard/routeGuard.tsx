@@ -68,10 +68,10 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 
 
-        if (!publicRoutes.includes(pathname) && !matchRoute(pathname, roleBasedRoutes[userRole] as typeof roleBasedRoutes[keyof typeof roleBasedRoutes])) {
-          router.push('/unauthorized');
-          return;
-        }
+        // if (!publicRoutes.includes(pathname) && !matchRoute(pathname, roleBasedRoutes[userRole] as typeof roleBasedRoutes[keyof typeof roleBasedRoutes])) {
+        //   router.push('/unauthorized');
+        //   return;
+        // }
         
       }
 

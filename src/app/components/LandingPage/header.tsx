@@ -79,9 +79,9 @@ const Header: React.FC = () => {
       </a>
       <a
         href="#"
-        className={`px-3 py-2 rounded-md border ${pathname === '#' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
+        className={`px-3 py-2 rounded-md border ${pathname === '/userRender/AboutUs' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
-        Quizzes
+        Contact Us
       </a>
       <a
         href='/userRender/viewCommunityQuestions'

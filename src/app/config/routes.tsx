@@ -75,6 +75,8 @@ export const roleBasedRoutes = {
     "community",
     "CertificatesPage",
     "/competency/form",
+    '/userRender/AboutUs',
+    '/userRender/privacy/contact'
   ],
   Aviator: [
     "/login",
@@ -106,6 +108,8 @@ export const roleBasedRoutes = {
     "userRender/chat/[id]",
     "/userRender/view-resource",
     "/userRender/competency",
+    '/userRender/AboutUs',
+    '/userRender/privacy/contact'
   ],
 };
 
