@@ -73,9 +73,9 @@ const Header: React.FC = () => {
       </a>
       <a
         href="/competencyEvaluation/competency"
-        className={`px-3 py-2 rounded-md border ${pathname === '#' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
+        className={`px-3 py-2 rounded-md border ${pathname === '/dashboard' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
-        Missions
+        Dashboard
       </a>
       <a
         href="#"
