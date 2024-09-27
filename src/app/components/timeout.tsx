@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const AUTO_LOGOUT_TIME = 5 * 60 * 1000; 
 
@@ -49,7 +49,7 @@ const useAutoLogout = () => {
     resetTimer();
 
     return () => {
-      clearTimeout(timeout);
+   timeout &&    clearTimeout(timeout);
       window.removeEventListener('mousemove', resetActivity);
       window.removeEventListener('keypress', resetActivity);
       window.removeEventListener('click', resetActivity);

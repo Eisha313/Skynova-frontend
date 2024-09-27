@@ -38,7 +38,7 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
       if (storedUser || session?.user) {
         const user = storedUser ? JSON.parse(storedUser) : session?.user;
-        const userRole = role || user.role || 'Aviator'; // Default role if none found
+        const userRole: 'Admin' | 'Aviator' = role || user.role || 'Aviator'; 
 
         setUser({
           _id: user._id || '',
@@ -65,10 +65,13 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           return;
         }
 
-        // if (!publicRoutes.includes(pathname) && !matchRoute(pathname, roleBasedRoutes[userRole as keyof typeof roleBasedRoutes])) {
-        //   router.push('/unauthorized');
-        //   return;
-        // }
+
+
+
+        if (!publicRoutes.includes(pathname) && !matchRoute(pathname, roleBasedRoutes[userRole] as typeof roleBasedRoutes[keyof typeof roleBasedRoutes])) {
+          router.push('/unauthorized');
+          return;
+        }
         
       }
 

@@ -20,13 +20,17 @@ import { Dropzone, FileWithPath } from '@mantine/dropzone';
 import '@mantine/dropzone/styles.css';
 import { IconMoodSad, IconUpload, IconFile } from '@tabler/icons-react';
 
+
 const AVIATION_STANDARDS = {
   height: { cm: [150, 200], in: [59, 79] },
   weight: [50, 100],
   eyesight: { min: '20/30', max: '20/20' },
 };
 
-const MedicalFitnessForm = () => {
+interface MedicalFitnessFormProps {
+  goToNextStep: () => void; 
+}
+const MedicalFitnessForm: React.FC<MedicalFitnessFormProps> = ({ goToNextStep }) => {
   const [isEligible, setIsEligible] = useState(true);
   const [modalType, setModalType] = useState<'ineligible' | 'missingReport' | null>(null);
   const [medicalReport, setMedicalReport] = useState<File | null>(null);
@@ -35,7 +39,7 @@ const MedicalFitnessForm = () => {
   const router = useRouter();
   const { token } = useUser();
 
-  // Updated form validation to include basic constraints
+ 
   const form = useForm({
     initialValues: {
       height: '',
@@ -52,26 +56,26 @@ const MedicalFitnessForm = () => {
         if (value === '') return 'Height is required';
         if (isNaN(heightVal)) return 'Height must be a number';
 
-        // Basic validation ranges (not based on aviation standards)
+        
         const minHeight = unit === 'cm' ? 50 : 20;  // cm: minimum 50, in: minimum 20
         const maxHeight = unit === 'cm' ? 250 : 100;  // cm: max 250, in: max 100
         if (heightVal < minHeight || heightVal > maxHeight) {
           return `Height should be between ${minHeight} and ${maxHeight} ${unit}`;
         }
 
-        return null;  // Valid value
+        return null;
       },
       weight: (value) => {
         const weightVal = parseFloat(value);
         if (value === '') return 'Weight is required';
         if (isNaN(weightVal)) return 'Weight must be a number';
 
-        // Basic validation ranges (not based on aviation standards)
+        
         if (weightVal < 20 || weightVal > 200) {
           return 'Weight should be between 20 and 200 kg';
         }
 
-        return null;  // Valid value
+        return null;  
       },
       eyesight: (value) => {
         const eyesightPattern = /^[0-9]+\/[0-9]+$/;
@@ -96,7 +100,7 @@ const MedicalFitnessForm = () => {
 
     const eyesightComparison = values.eyesight === AVIATION_STANDARDS.eyesight.max;
 
-    // Compare values to strict aviation standards (after basic validation is passed)
+
     const meetsStandards =
       heightVal >= heightRange[0] &&
       heightVal <= heightRange[1] &&
@@ -127,6 +131,7 @@ const MedicalFitnessForm = () => {
 
     
     submitForm(values);
+    
   };
 
   const submitForm = async (values: typeof form.values) => {
@@ -145,7 +150,7 @@ const MedicalFitnessForm = () => {
       const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/medicalDetails/createMedicalDetails', {
        
         
-          method: 'GET',
+          method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -160,7 +165,8 @@ const MedicalFitnessForm = () => {
         throw new Error('Failed to save medical report');
       }
 
-      router.push('/userRender/verbal');
+      // router.push('/userRender/verbal');
+      goToNextStep();
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
     }
@@ -252,6 +258,10 @@ const MedicalFitnessForm = () => {
         <Button type="submit" mt="md" fullWidth>
           Submit
         </Button>
+        <Link href={'/userRender/competency'}>
+        <Button  mt="md" fullWidth>
+          back
+        </Button></Link>
       </form>
 
       

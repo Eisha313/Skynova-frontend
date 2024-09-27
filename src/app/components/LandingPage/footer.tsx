@@ -9,7 +9,7 @@ export default function Footer() {
           <a href="/" className="hover:underline">Home</a>
           <a href="/services" className="hover:underline">Services</a>
           <a href="/portfolio" className="hover:underline">Portfolio</a>
-          <a href="/our-products" className="hover:underline">Our Products</a>
+          <a href="/PrivacyPolicy" className="hover:underline">Privacy Policy</a>
           <a href="/careers" className="hover:underline">Careers</a>
           <a href="/about-us" className="hover:underline">About Us</a>
           <a href="/blogs" className="hover:underline">Blogs</a>
