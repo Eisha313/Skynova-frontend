@@ -283,7 +283,7 @@ const CompetencyEvaluation = ({ id }: CompetencyEvaluationProps) => {
          View Verbal Result
        </Button> */}
 
-        <Button onClick={() => router.push('/report')} color="yellow" className="mt-4">
+        <Button onClick={() => router.push('/userRender/report')} color="yellow" className="mt-4">
          Report
         </Button>
         </div>
