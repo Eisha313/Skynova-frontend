@@ -1,3 +1,4 @@
+
 "use client";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@/app/components/context/userContext";
@@ -5,9 +6,9 @@ import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 
 interface ReportData {
-  height: number;
+  height: string;
   heightUnit: string;
-  weight: number;
+  weight: string;
   weightUnit: string;
   eyesight: string;
   verbalScore: number;
@@ -17,7 +18,7 @@ interface ReportData {
 }
 
 const QuizReport: React.FC = () => {
-  const { _id, token } = useUser(); // Assuming you're using userContext for the logged-in user's ID and token
+  const { _id, token } = useUser();
   const [reportData, setReportData] = useState<ReportData | null>(null);
   const [status, setStatus] = useState<string>("Loading...");
 
@@ -25,7 +26,7 @@ const QuizReport: React.FC = () => {
     const fetchReportData = async () => {
       try {
         const response = await fetch(
-          `https://sky-nova-8ccaddc754ce.herokuapp.com/finalReports/viewFinalReports`,
+          `https://sky-nova-8ccaddc754ce.herokuapp.com/finalReports/viewReport`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -35,10 +36,28 @@ const QuizReport: React.FC = () => {
 
         if (response.ok) {
           const data = await response.json();
-          // Assuming the report data is in the format you need.
-          const report = data?.[0]; // Extract the first report (adjust based on response structure)
-          setReportData(report);
-          calculateStatus(report);
+          
+          // Assuming we're dealing with an array and taking the first report for display
+          const firstReport = data[0]; 
+
+          if (firstReport) {
+            const formattedReport: ReportData = {
+              height: firstReport.medicalDetails.height,
+              heightUnit: firstReport.medicalDetails.heightUnit,
+              weight: firstReport.medicalDetails.weight,
+              weightUnit: firstReport.medicalDetails.weightUnit,
+              eyesight: firstReport.medicalDetails.eyesight,
+              verbalScore: firstReport.verbalQuizResult.marks,
+              nonverbalScore: firstReport.nonVerbalQuizResult.marks,
+              verbalTotal: 2, // Set your total marks for verbal
+              nonverbalTotal: 2, // Set your total marks for nonverbal
+            };
+
+            setReportData(formattedReport);
+            calculateStatus(formattedReport);
+          } else {
+            setStatus("No report data found.");
+          }
         } else {
           setStatus("Failed to fetch report.");
         }
@@ -82,36 +101,83 @@ const QuizReport: React.FC = () => {
 
   return (
     <div className="bg-gray-100 p-8 min-h-screen flex flex-col items-center justify-center">
-      <div id="report-content" className="bg-white p-6 rounded-lg shadow-lg w-full max-w-3xl">
-        <h1 className="text-2xl font-bold mb-4 text-center">Quiz Report</h1>
-        <div className="mb-4">
-          <h2 className="text-xl font-semibold">Personal Information:</h2>
-          <p>Height: {reportData.height} {reportData.heightUnit}</p>
-          <p>Weight: {reportData.weight} {reportData.weightUnit}</p>
-          <p>Eyesight: {reportData.eyesight}</p>
+  <div
+    id="report-content"
+    className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl space-y-6"
+  >
+    {/* Header */}
+    <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
+      Quiz Report
+    </h1>
+
+    {/* Personal Information */}
+    <div className="bg-gray-50 p-6 rounded-md shadow-sm">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-4">
+        Personal Information
+      </h2>
+      <div className="grid grid-cols-2 gap-4">
+        <p className="text-lg text-gray-600">
+          <span className="font-medium">Height:</span> {reportData.height}{" "}
+          {reportData.heightUnit}
+        </p>
+        <p className="text-lg text-gray-600">
+          <span className="font-medium">Weight:</span> {reportData.weight}{" "}
+          {reportData.weightUnit}
+        </p>
+        <p className="text-lg text-gray-600 col-span-2">
+          <span className="font-medium">Eyesight:</span> {reportData.eyesight}
+        </p>
+      </div>
+    </div>
+
+    {/* Quiz Results */}
+    <div className="bg-gray-50 p-6 rounded-md shadow-sm">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-4">Quiz Results</h2>
+      <div className="grid grid-cols-2 gap-6">
+        {/* Verbal Quiz */}
+        <div>
+          <h3 className="text-xl font-medium text-gray-600 mb-2">Verbal Quiz</h3>
+          <p className="text-lg text-gray-600">
+            <span className="font-semibold">Score:</span>{" "}
+            {reportData.verbalScore}/{reportData.verbalTotal}
+          </p>
+          <p className="text-lg text-gray-600">
+            <span className="font-semibold">Percentage:</span>{" "}
+            {((reportData.verbalScore / reportData.verbalTotal) * 100).toFixed(2)}%
+          </p>
         </div>
 
-        <div className="mb-4">
-          <h2 className="text-xl font-semibold">Quiz Results:</h2>
-          <p>Verbal Quiz Score: {reportData.verbalScore}/{reportData.verbalTotal}</p>
-          <p>Verbal Quiz Percentage: {(reportData.verbalScore / reportData.verbalTotal) * 100}%</p>
-          <p>Nonverbal Quiz Score: {reportData.nonverbalScore}/{reportData.nonverbalTotal}</p>
-          <p>Nonverbal Quiz Percentage: {(reportData.nonverbalScore / reportData.nonverbalTotal) * 100}%</p>
-        </div>
-
-        <div className="mb-4">
-          <h2 className="text-xl font-semibold">Status: {status}</h2>
+        {/* Nonverbal Quiz */}
+        <div>
+          <h3 className="text-xl font-medium text-gray-600 mb-2">Nonverbal Quiz</h3>
+          <p className="text-lg text-gray-600">
+            <span className="font-semibold">Score:</span>{" "}
+            {reportData.nonverbalScore}/{reportData.nonverbalTotal}
+          </p>
+          <p className="text-lg text-gray-600">
+            <span className="font-semibold">Percentage:</span>{" "}
+            {((reportData.nonverbalScore / reportData.nonverbalTotal) * 100).toFixed(2)}%
+          </p>
         </div>
       </div>
-
-      <button
-        onClick={handleDownloadPdf}
-        className="mt-6 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-      >
-        Download PDF
-      </button>
     </div>
-  );
+
+    {/* Status */}
+    <div className="bg-gray-50 p-6 rounded-md shadow-sm">
+      <h2 className="text-2xl font-semibold text-gray-700 mb-2">Status</h2>
+      <p className="text-lg text-gray-600">{status}</p>
+    </div>
+  </div>
+
+  {/* Download Button */}
+  <button
+    onClick={handleDownloadPdf}
+    className="mt-8 bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
+  >
+    Download PDF
+  </button>
+</div>
+  )
 };
 
 export default QuizReport;

@@ -77,12 +77,12 @@ console.log(profileImage)
       >
         Competency Evaluation
       </a>
-      <a
+      {/* <a
         href="/dashboard"
         className={`px-3 py-2 rounded-md border ${pathname === '/dashboard' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
         Dashboard
-      </a>
+      </a> */}
       <a
         href="/userRender/privacy/contact"
         className={`px-3 py-2 rounded-md border ${pathname === '/userRender/AboutUs' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}

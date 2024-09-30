@@ -67,6 +67,7 @@ const Sidebar = () => {
           {/* <NavItem href="/viewuser" text="View User" icon={<FaBrain />} currentPath={currentPath} />
           <NavItem href="/addaviator" text="Add User" icon={<FaBook />} currentPath={currentPath} /> */}
         </NavItem>
+        <NavItem href="/view-resource" text="Manage Resources" icon={<FaTasks />} currentPath={currentPath}></NavItem>
         <NavItem href="/quizPage" text="Manage Quizzes" icon={<FaPlane />} currentPath={currentPath} />
         <NavItem href="/viewjets" text="Manage Jets" icon={<FaPlane />} currentPath={currentPath} />
         <NavItem href="/certificate-page" text="Manage Certificate" icon={<FaCogs />} currentPath={currentPath} />
@@ -74,26 +75,26 @@ const Sidebar = () => {
           <NavItem href="/verbalquiz" text="Verbal Quiz" icon={<FaBrain />} currentPath={currentPath} />
           <NavItem href="/nonverbalquiz" text="NonVerbal Quiz" icon={<FaBook />} currentPath={currentPath} />
         </NavItem>
-        <NavItem href="/view-resource" text="Manage Resources" icon={<FaTasks />} currentPath={currentPath}>
+        {/* <NavItem href="/view-resource" text="Manage Resources" icon={<FaTasks />} currentPath={currentPath}> */}
           {/* <NavItem href="/addResource" text="Add Resource" icon={<FaBrain />} currentPath={currentPath} />
           <NavItem href="/view-resource" text="View Resource" icon={<FaBook />} currentPath={currentPath} /> */}
-        </NavItem>
+        {/* </NavItem> */}
         <NavItem href="/community" text="Manage Community" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/notification/viewNotification" text="Manage Notification" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/complaints/viewComplaints" text="Manage Complaints" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/reports/viewReports" text="Manage Reports" icon={<FaCogs />} currentPath={currentPath} />
+        {/* <NavItem href="/notification/viewNotification" text="Manage Notification" icon={<FaCogs />} currentPath={currentPath} /> */}
+        {/* <NavItem href="/complaints/viewComplaints" text="Manage Complaints" icon={<FaCogs />} currentPath={currentPath} /> */}
+        {/* <NavItem href="/reports/viewReports" text="Manage Reports" icon={<FaCogs />} currentPath={currentPath} /> */}
         <NavItem href="/results/viewresults" text="Manage Results" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/suggestion/viewsuggestion" text="Manage Suggestion" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/userRender/view-resource" text="view resource" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/competencyEvaluation/competency" text="competency" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/userRender/verbal" text="Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
+        {/* <NavItem href="/suggestion/viewsuggestion" text="Manage Suggestion" icon={<FaCogs />} currentPath={currentPath} /> */}
+        {/* <NavItem href="/userRender/view-resource" text="view resource" icon={<FaCogs />} currentPath={currentPath} /> */}
+        {/* <NavItem href="/competencyEvaluation/competency" text="competency" icon={<FaCogs />} currentPath={currentPath} /> */}
+        {/* <NavItem href="/userRender/verbal" text="Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
+        <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} /> */}
         <NavItem href="/userRender/viewCommunityQuestions" text="Community" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/landing" text="Landing" icon={<FaCogs />} currentPath={currentPath} />
+        {/* <NavItem href="/landing" text="Landing" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/competency" text="Competency Evaluation" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/privacy/contact" text="contact" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/AboutUs" text="About" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/userRender/Chatbot" text="Chatbot" icon={<FaCogs />} currentPath={currentPath} />
+        <NavItem href="/userRender/Chatbot" text="Chatbot" icon={<FaCogs />} currentPath={currentPath} /> */}
         
         </div>
       </div>

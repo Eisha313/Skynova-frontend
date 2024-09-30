@@ -70,14 +70,21 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
   }, [quizId]);
 
   const calculateResult = () => {
+    if (!quiz || !quiz.questions) {
+      // Handle the case where quiz or quiz.questions is undefined or null
+      console.error("Quiz or questions are not available.");
+      return 0; // or any default value
+    }
+  
     let calculatedScore = 0;
-    quiz?.questions.forEach((question, index) => {
+    quiz.questions.forEach((question, index) => {
       if (answers[index]?.trim() === question.answer.trim()) {
         calculatedScore += 1;
       }
     });
     return calculatedScore;
   };
+  
 
   const handleSubmit = async () => {
     try {
@@ -167,40 +174,10 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
 
   return (
     <div className="bg-gray-900 min-h-screen p-8 flex flex-col justify-center items-center text-white mt-20">
-    {/* {quiz && quiz.questions && quiz.questions.length > 0 ? (
-      <div className="flex flex-col space-y-4 mb-4">
-        {quiz.questions[currentQuestion].options.map((option, index) => (
-          <label
-            key={index}
-            className={`p-4 border border-white rounded-lg cursor-pointer transition-all duration-300 ${
-              selectedOption === option.label ? 'bg-blue-500' : ''
-            } hover:bg-blue-400 flex flex-col items-center`}
-            onClick={() => {
-              setSelectedOption(option.label);
-              setAnswers((prevAnswers) => {
-                const updatedAnswers = [...prevAnswers];
-                updatedAnswers[currentQuestion] = option.label;
-                return updatedAnswers;
-              });
-            }}
-          >
-            <Image
-              src={option.image}
-              alt={`Option ${option.label}`}
-              width={128}
-              height={128}
-              className="object-cover mb-2"
-            />
-            <span className="text-white">{option.label}</span>
-          </label>
-        ))}
-      </div>
-    ) : (
-      <div>No questions available.</div>
-    )} */}
+   
   {quiz && quiz.questions && quiz.questions.length > 0 ? (
   <div className="flex flex-col space-y-4 mb-4">
-    {/* Display the current question's title and image */}
+    
     <div className="flex items-center mb-4">
       {quiz.questions[currentQuestion].image && (
         <Image
@@ -216,7 +193,7 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
       </h2>
     </div>
 
-    {/* Check for options and display them */}
+    
     {quiz.questions[currentQuestion].options.length > 0 ? (
       quiz.questions[currentQuestion].options.map((option, index) => (
         <label
@@ -232,12 +209,12 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
               return updatedAnswers;
             });
           }}
-          htmlFor={`option-${index}`} // Ensures accessibility
+          htmlFor={`option-${index}`} 
         >
           <input
             type="radio"
-            id={`option-${index}`} // Unique id for each option
-            name={`question-${currentQuestion}`} // Grouping options for accessibility
+            id={`option-${index}`} 
+            name={`question-${currentQuestion}`}
             value={option.label}
             className="hidden"
             checked={selectedOption === option.label} // Make the radio button reflect the selected option
@@ -274,7 +251,7 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
           Previous
         </button>
       )}
-      {currentQuestion === quiz?.questions.length - 1 ? (
+      {/* {currentQuestion === quiz?.questions.length - 1 ? (
         <button
           onClick={() => setShowModal(true)}
           className="bg-green-500 px-4 py-2 rounded-lg ml-auto"
@@ -288,7 +265,23 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
         >
           Next
         </button>
-      )}
+      )} */}
+      {quiz?.questions?.length > 0 && currentQuestion === quiz.questions.length - 1 ? (
+  <button
+    onClick={() => setShowModal(true)}
+    className="bg-green-500 px-4 py-2 rounded-lg ml-auto"
+  >
+    Submit
+  </button>
+) : (
+  <button
+    onClick={() => setCurrentQuestion(currentQuestion + 1)}
+    className="bg-blue-500 px-4 py-2 rounded-lg ml-auto"
+  >
+    Next
+  </button>
+)}
+
     </div>
   
     {showModal && (

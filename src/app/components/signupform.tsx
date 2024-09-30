@@ -17,7 +17,7 @@ export default function SignupForm() {
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [profileImage, setProfileImage] = useState<File | null>(null);
-  const [role, setRole] = useState<string>('Admin');
+  const [role, setRole] = useState<string>('Aviator');
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const router = useRouter();
   const { setUser } = useUser();
@@ -147,7 +147,7 @@ export default function SignupForm() {
       email,
       password,
       role,
-      profileImage,
+      // profileImage,
     };
 
     try {
@@ -183,9 +183,9 @@ export default function SignupForm() {
   return (
     <div className="w-full max-w-md bg-white p-2 rounded-lg shadow-md border border-gray-200">
       <form onSubmit={handleSubmit}>
-        <div className="flex justify-between items-center mb-7">
+        {/* <div className="flex justify-between items-center mb-7"> */}
           <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-          <select
+          {/* <select
             value={role}
             onChange={(e) => setRole(e.target.value)}
             className={`p-2 border rounded ${getInputBorderClass('role')}`}
@@ -193,7 +193,7 @@ export default function SignupForm() {
             <option value="Admin">Admin</option>
             <option value="Aviator">Aviator</option>
           </select>
-        </div>
+        </div> */}
         <div className="mb-2">
           <label className="block text-sm font-medium mb-1">
             First Name <span className="text-red-500">*</span>
@@ -284,7 +284,7 @@ export default function SignupForm() {
             <p className="text-red-500 text-sm mt-1">{errors.confirmPassword}</p>
           )}
         </div>
-        <div className="mb-2">
+        {/* <div className="mb-2">
            <label className="block text-sm font-medium mb-1">Profile Image</label>
           <Dropzone onDrop={handleImageUpload} maxFiles={1} style={{
                
@@ -315,7 +315,7 @@ export default function SignupForm() {
               <div className="p-2 border border-dashed rounded">Upload Image</div>
             )}
           </Dropzone>
-         </div>
+         </div> */}
         <div className="mb-4">
           <button
             type="submit"
@@ -343,7 +343,7 @@ export default function SignupForm() {
             alt="GitHub"
             width={20}
             height={20}
-            className="rounded-full"
+            className="rounded-full bg-black"
           />
         </button>    </div>
       <p className="text-center text-sm text-gray-600 mt-2">

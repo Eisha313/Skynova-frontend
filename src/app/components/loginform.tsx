@@ -195,7 +195,7 @@ export default function LoginForm() {
             alt="GitHub"
             width={20}
             height={20}
-            className="rounded-full"
+            className="rounded-full bg-black"
           />
         </button>
       </div>
