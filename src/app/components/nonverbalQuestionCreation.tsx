@@ -10,7 +10,6 @@
 // }
 
 // interface Question {
-  
 //   text: string;
 //   image?: string;
 //   options: Option[];
@@ -37,13 +36,11 @@
 //   const [showModal, setShowModal] = useState(false);
 //   const router = useRouter();
 
- 
 //   const handleOptionChange = (index: number, value: string) => {
 //     const newOptions = [...options];
 //     newOptions[index].image = value;
 //     setOptions(newOptions);
 //   };
-
 
 //   const handleSubmit = async (e: React.FormEvent) => {
 //     e.preventDefault();
@@ -68,7 +65,7 @@
 
 //       if (response.ok) {
 //         onAddQuestion(question);
-        
+       
 //         setText('');
 //         setImage(null);
 //         setOptions([
@@ -186,21 +183,12 @@
 //         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
 //           <div className="bg-white p-8 rounded-lg shadow-lg">
 //             <p className="text-lg">Question {questionCount} saved successfully!</p>
-//             <div className="flex justify-between mt-4">
+//             <div className="flex justify-end mt-4">
 //               <button
 //                 className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
 //                 onClick={() => setShowModal(false)}
 //               >
 //                 Add Next Question
-//               </button>
-//               <button
-//                 className="bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600"
-//                 onClick={() => {
-//                   setShowModal(false);
-//                   router.push('/nonverbalquiz');
-//                 }}
-//               >
-//                 Complete Quiz
 //               </button>
 //             </div>
 //           </div>
@@ -211,7 +199,7 @@
 // };
 
 // export default NonverbalQuestionForm;
-'use client'
+'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
@@ -246,6 +234,8 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
   const [answer, setAnswer] = useState('');
   const [questionCount, setQuestionCount] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [quizFinishedModal, setQuizFinishedModal] = useState(false);
+  const [error, setError] = useState('');
   const router = useRouter();
 
   const handleOptionChange = (index: number, value: string) => {
@@ -254,8 +244,20 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
     setOptions(newOptions);
   };
 
+  const validateInputs = () => {
+    if (!text.trim()) return 'Question cannot be empty.';
+    if (options.some(option => !option.image)) return 'All options must have images.';
+    if (!['a', 'b', 'c', 'd'].includes(answer)) return 'Correct answer must be one of: a, b, c, d.';
+    return '';
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const errorMessage = validateInputs();
+    if (errorMessage) {
+      setError(errorMessage);
+      return;
+    }
 
     const question: Question = {
       text,
@@ -277,7 +279,6 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
 
       if (response.ok) {
         onAddQuestion(question);
-       
         setText('');
         setImage(null);
         setOptions([
@@ -289,12 +290,24 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
         setAnswer('');
         setQuestionCount(questionCount + 1);
         setShowModal(true);
+        setError(''); // Clear previous errors
       } else {
         console.error('Failed to create question');
       }
     } catch (error) {
       console.error('Error creating question:', error);
     }
+  };
+
+  const handleFinishQuiz = () => {
+    setShowModal(false)
+    setQuizFinishedModal(true);
+    router.push('/nonn'); 
+  };
+
+  const confirmFinishQuiz = () => {
+    setQuizFinishedModal(false)
+    router.push('/nonn'); 
   };
 
   return (
@@ -319,6 +332,7 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
           </label>
           <input
             type="file"
+            accept="image/jpeg,image/jpg,image/png"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             onChange={(e) => {
               if (e.target.files && e.target.files[0]) {
@@ -351,6 +365,7 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
               </label>
               <input
                 type="file"
+                accept="image/jpeg,image/jpg,image/png"
                 className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 onChange={(e) => {
                   if (e.target.files && e.target.files[0]) {
@@ -386,10 +401,17 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
             onChange={(e) => setAnswer(e.target.value)}
           />
         </div>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <button type="submit" className="w-full bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600">
           Save Question
         </button>
       </form>
+
+      {questionCount > 0 && (
+        <button onClick={handleFinishQuiz} className="mt-4 w-full bg-red-500 text-white py-2 px-4 rounded-lg hover:bg-red-600">
+          End Quiz
+        </button>
+      )}
 
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -401,6 +423,28 @@ const NonverbalQuestionForm: React.FC<QuestionFormProps> = ({ onAddQuestion, qui
                 onClick={() => setShowModal(false)}
               >
                 Add Next Question
+              </button>
+              <button
+                className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600"
+                onClick={handleFinishQuiz}
+              >
+                Finish
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {quizFinishedModal && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg">
+            <p className="text-lg">Quiz saved successfully!</p>
+            <div className="flex justify-end mt-4">
+              <button
+                className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600"
+                onClick={confirmFinishQuiz}
+              >
+                OK
               </button>
             </div>
           </div>

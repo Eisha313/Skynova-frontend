@@ -94,3 +94,21 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #2563EB;
 }
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 12px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Lighter background for the scrollbar track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #727272; /* Darker thumb color */
+  border-radius: 10px;
+  border: 3px solid #f1f1f1; /* Adds some padding around the thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #727272; /* Thumb color on hover */
+}

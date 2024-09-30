@@ -80,7 +80,7 @@ export default function ForgotPassword() {
       {successMessage && (
         <p className="text-green-600 text-sm text-center mt-2">{successMessage}</p>
       )}
-      <p>Don&apos;t forget to reset your password.</p>
+      {/* <p>Don&apos;t forget to reset your password.</p> */}
     </div>
   );
 }

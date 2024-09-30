@@ -8,6 +8,7 @@ import RouteGuard from "./components/guard/routeGuard";
 import useAutoLogout from "./components/timeout";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Chatbot from "./chatbot/AiChat";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -27,6 +28,7 @@ export default function RootLayout({
         <ClientProviders>
         <ToastContainer />
           <RouteGuard>{children}</RouteGuard>
+          <Chatbot></Chatbot>
         </ClientProviders>
       </body>
     </html>

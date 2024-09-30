@@ -13,7 +13,7 @@ import { useState } from 'react';
 
 
 const Header: React.FC = () => {
-  const { firstName, lastName, role, profileImage, setUser } = useUser();
+  const { firstName, lastName, role, profileImage,email, setUser } = useUser();
   const router = useRouter();
   const pathname = usePathname();
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
@@ -25,7 +25,7 @@ const Header: React.FC = () => {
   const handleCloseModal = () => {
     setProfileModalOpen(false);
   };
-
+console.log(profileImage)
   const handleLogout = async () => {
     const isConfirmed = window.confirm('Are you sure you want to log out?');
     
@@ -72,13 +72,13 @@ const Header: React.FC = () => {
         Competency Evaluation
       </a>
       <a
-        href="/competencyEvaluation/competency"
+        href="/dashboard"
         className={`px-3 py-2 rounded-md border ${pathname === '/dashboard' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
         Dashboard
       </a>
       <a
-        href="#"
+        href="/userRender/privacy/contact"
         className={`px-3 py-2 rounded-md border ${pathname === '/userRender/AboutUs' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
       >
         Contact Us
@@ -91,7 +91,7 @@ const Header: React.FC = () => {
       </a>
     </nav>
 
-      {/* User Profile/Sign In & Sign Up */}
+   
       <div className="flex items-center space-x-4">
         <button className="p-2 rounded-full hover:bg-gray-100">
           <FaSun className="w-5 h-5 text-gray-700" />

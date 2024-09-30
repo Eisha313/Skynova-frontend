@@ -22,7 +22,10 @@ interface UserTableProps {
   onView: (user: User) => Promise<void>;
   onDelete: (userId: number) => Promise<void>;
   onUpdate: (userId: number, updatedData: Partial<User>) => Promise<void>;
+  // onUpdate: (user: User) => Promise<void>;
   onEdit: (user: User) => Promise<void>;
+  searchTerm: string; // Add this line
+  onSearchChange: (term: string) => void; // Add this line if needed
  
 }
 
@@ -32,6 +35,8 @@ const UserTable: React.FC<UserTableProps> = ({
   onDelete,
   onUpdate,
   onEdit,
+  searchTerm,
+  onSearchChange,
 }) => {
   const [fetchedUsers, setFetchedUsers] = useState<User[]>([]);
   const [sortConfig, setSortConfig] = useState<{
@@ -141,6 +146,8 @@ const UserTable: React.FC<UserTableProps> = ({
       setSelectedUsers([]);
     }
   };
+  
+  
 
   const renderArrow = (key: keyof User) => {
     if (sortConfig.key === key) {
@@ -158,6 +165,7 @@ const UserTable: React.FC<UserTableProps> = ({
 
     try {
       await onUpdate(user.backendId, { status: newStatus });
+      
       setFetchedUsers((prev) =>
         prev.map((u) =>
           u.backendId === user.backendId ? { ...u, status: newStatus } : u

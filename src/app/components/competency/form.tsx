@@ -146,18 +146,24 @@ const MedicalFitnessForm: React.FC<MedicalFitnessFormProps> = ({ goToNextStep })
       if (medicalReport) {
         formData.append('medicalReport', medicalReport);
       }
+      const entries = Array.from(formData.entries());
 
+      for (const [key, value] of entries) {
+        console.log(key, value);
+      }
       const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/medicalDetails/createMedicalDetails', {
        
         
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            
           },
           body:formData,
+        
           credentials: 'include',
         });
+        console.log(response)
       
      
 
@@ -166,7 +172,9 @@ const MedicalFitnessForm: React.FC<MedicalFitnessFormProps> = ({ goToNextStep })
       }
 
       // router.push('/userRender/verbal');
-      goToNextStep();
+      console.log("Going to next step");
+goToNextStep();
+     
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred');
     }

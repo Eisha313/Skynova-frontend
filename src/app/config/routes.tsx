@@ -70,13 +70,20 @@ export const roleBasedRoutes = {
     "quizPage",
     "/notification",
     "/nonverbalquiz",
-    "forgetpassword",
+ 
     "complaints",
     "community",
     "CertificatesPage",
     "/competency/form",
     '/userRender/AboutUs',
-    '/userRender/privacy/contact'
+    '/userRender/privacy/contact',
+    '/userRender/privacyPolicy',
+    '/userRender/addResource',
+    '/userRender/changePassword',
+    "/results/viewResult/[id]/detailResult",
+     "/userRender/chnagePassword",
+      "/userRender/Chatbot"
+
   ],
   Aviator: [
     "/login",
@@ -91,7 +98,7 @@ export const roleBasedRoutes = {
     "/userRender/nonverbal/[id]/result",
     "/userRender/nonverbal/[id]/attempt",
     "/userRender/nonverbal",
-    "/forgetpassword",
+  
     "/setpassword",
     "/results/addResults",
     "/results/viewresults",
@@ -109,8 +116,15 @@ export const roleBasedRoutes = {
     "/userRender/view-resource",
     "/userRender/competency",
     '/userRender/AboutUs',
-    '/userRender/privacy/contact'
+    '/userRender/privacy/contact',
+    '/userRender/privacyPolicy',
+    '/userRender/addResource',
+    '/userRender/changepassword',
+    '/results/viewResult/${result._id}/detailResult',
+     "/results/viewResult/[id]/detailResult",
+     "/userRender/chnagePassword",
+     "/userRender/Chatbot"
   ],
 };
 
-export const publicRoutes = ["/login", "/signup", "/"];
+export const publicRoutes = ["/login", "/signup", "/",'/userRender/privacyPolicy','/forgetpassword','/codeverify','/setpassword'];

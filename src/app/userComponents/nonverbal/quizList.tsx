@@ -150,7 +150,7 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz }) =
                 onSelectQuiz && typeof onSelectQuiz === 'function' &&
                  onSelectQuiz(quiz._id.toString())} 
             >
-              {quiz.attempted ? 'Result' : 'Attempt'}x``
+              {quiz.attempted ? 'Result' : 'Attempt'}
             </button>
           </Link>
         </div>

@@ -124,11 +124,11 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ user, onClose }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div className="bg-white p-6 rounded-lg  justify-center shadow-lg w-96">
         <h2 className="text-2xl font-semibold mb-4">Aviator Details</h2>
         <div className="mb-4">
           <Image
-            src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`} // Adjust as necessary
+            src={`https://randomuser.me/api/portraits/men/${user.id}.jpg`} 
             alt={user.username}
             width={32}
             height={32}

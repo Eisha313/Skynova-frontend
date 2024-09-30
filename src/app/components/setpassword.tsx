@@ -14,7 +14,7 @@ const SetPasswordForm: React.FC = () => {
 
   useEffect(() => {
     if (!email || !resetCode) {
-      router.push('/forgetpassword'); // Redirect if parameters are missing
+      router.push('/forgetpassword'); 
     }
   }, [email, resetCode, router]);
 

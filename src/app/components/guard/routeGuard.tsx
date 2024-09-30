@@ -23,6 +23,10 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const checkAuthAndRole = async () => {
+      if (publicRoutes.includes(pathname)) {
+        setLoading(false); 
+        return;
+      }
       if (status === 'loading') return;
 
       const storedUser = localStorage.getItem('user');
@@ -68,10 +72,10 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 
 
-        // if (!publicRoutes.includes(pathname) && !matchRoute(pathname, roleBasedRoutes[userRole] as typeof roleBasedRoutes[keyof typeof roleBasedRoutes])) {
-        //   router.push('/unauthorized');
-        //   return;
-        // }
+        if (!publicRoutes.includes(pathname) && !matchRoute(pathname, roleBasedRoutes[userRole] as typeof roleBasedRoutes[keyof typeof roleBasedRoutes])) {
+          router.push('/unauthorized');
+          return;
+        }
         
       }
 

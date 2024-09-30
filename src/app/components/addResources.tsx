@@ -86,7 +86,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
       formData.append("resourceImage", resource.resourceImage);
     }
 
-    // Directly append the actual file object, if it exists
+    
     if (resource.resourceFile) {
       formData.append("resourceFile", resource.resourceFile);
     }
@@ -169,10 +169,10 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
               required
             >
               <option value="">Select a type</option>
-              <option value="link">Link</option>
               <option value="pdf">PDF</option>
               <option value="video">Video</option>
-              <option value="image">Image</option>
+             
+              <option value="image">Book</option>
             </select>
           </div>
           <div>

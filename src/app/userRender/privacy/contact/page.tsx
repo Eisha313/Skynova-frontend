@@ -2,7 +2,7 @@
 import ContactInfo from '@/app/userComponents/Privacy/contactInfo';
 import ContactForm from '@/app/userComponents/Privacy/contactForm';
 import Header from '@/app/components/LandingPage/header';
-
+import SocialContactUs from '@/app/userComponents/AboutUS/social';
 import Footer from '@/app/components/LandingPage/footer';
 import { ContactCarousel } from '@/app/userComponents/Privacy/contactCarousel';
 
@@ -21,7 +21,9 @@ export default function Home() {
           <ContactForm />
         </div>
       </div>
-
+      <div className="bg-white p-6 rounded-md shadow-md">
+      <SocialContactUs />
+      </div>
       <Footer />
     </main>
   );

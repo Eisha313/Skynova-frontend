@@ -191,8 +191,10 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, user }) {
       if (user) {
+        console.log(user)
         token.role = user.role || 'Aviator';
         token._id = user.id || '';
+        token.profileImage = user.profileImage || user.image || null;
       }
       return token;
     },

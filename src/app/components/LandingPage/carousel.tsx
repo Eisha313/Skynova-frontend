@@ -19,7 +19,7 @@ export function CarouselPlugin() {
 
   const images = [
     "/homewallpaper.svg", 
-    // "/layoutplane.svg",
+    "/spaceship.svg",
     
     
   ];
@@ -28,8 +28,7 @@ export function CarouselPlugin() {
     <Carousel
       plugins={[plugin.current]}
       className="w-full max-w-full h-[600px]" 
-    //   onMouseEnter={plugin.current.stop}
-    //   onMouseLeave={plugin.current.reset}
+ 
     >
       <CarouselContent>
         {images.map((src, index) => (
@@ -55,7 +54,7 @@ export function CarouselPlugin() {
         ))}
       </CarouselContent>
       <CarouselPrevious />
-      <CarouselNext />
+      {/* <CarouselNext /> */}
     </Carousel>
   );
 }

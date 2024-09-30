@@ -4,16 +4,16 @@ export default function Footer() {
   return (
     <footer className="bg-eisha text-white mt-20 py-8 w-full">
       <div className="container mx-auto w-full flex flex-col items-center space-y-6">
-        {/* Links */}
+        
         <div className="space-x-6">
           <a href="/" className="hover:underline">Home</a>
           <a href="/services" className="hover:underline">Services</a>
           <a href="/portfolio" className="hover:underline">Portfolio</a>
-          <a href="/PrivacyPolicy" className="hover:underline">Privacy Policy</a>
+          <a href="/userRender/privacyPolicy" className="hover:underline">Privacy Policy</a>
           <a href="/careers" className="hover:underline">Careers</a>
-          <a href="/about-us" className="hover:underline">About Us</a>
+          <a href="/userRender/privacy/contact" className="hover:underline">About Us</a>
           <a href="/blogs" className="hover:underline">Blogs</a>
-          <a href="/contact-us" className="hover:underline">Contact Us</a>
+          <a href="/userRender/AboutUs" className="hover:underline">Contact Us</a>
         </div>
 
        
