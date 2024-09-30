@@ -1,4 +1,3 @@
-
 // "use client";
 
 // import { useRef, useState } from "react";
@@ -11,14 +10,11 @@
 //     if (contentRef.current) {
 //         const doc = new jsPDF("p", "pt", "a4");
 
-        
 //         const pdfPageWidth = doc.internal.pageSize.getWidth();
-        
-       
+
 //         const margin = 20;
-        
-      
-//         const contentWidth = pdfPageWidth - margin * 2 - 30; 
+
+//         const contentWidth = pdfPageWidth - margin * 2 - 30;
 
 //         doc.html(contentRef.current, {
 //             callback: function (pdf) {
@@ -27,21 +23,16 @@
 //             x: margin,
 //             y: 20,
 //             html2canvas: {
-//                 scale: 0.75, 
+//                 scale: 0.75,
 //                 useCORS: true,
 //                 allowTaint: false,
 //                 logging: true,
-//                 width: contentWidth, 
+//                 width: contentWidth,
 //                 height: contentRef.current.scrollHeight,
 //             },
 //         });
 //     }
 // };
-
-
-
-
-
 
 //   const handleAgreement = (agree: boolean) => {
 //     setIsAgreed(agree);
@@ -49,17 +40,16 @@
 
 //   return (
 //     <div className="flex w-full min-h-screen pt-24" style={{ margin: 0 }}>
-      
+
 //       <div
 //         className="w-1/2 bg-cover bg-center h-[80vh]"
 //         style={{ backgroundImage: "url('/privacy.png')" }}
 //       ></div>
 
-      
 //       <div className="w-1/2 p-6 bg-white h-[80vh] overflow-y-auto custom-scrollbar">
-        
+
 //         <div ref={contentRef} className="w-full">
-        
+
 //           <h1
 //             className="text-4xl font-extrabold text-center mb-8 mt-4 font-serif text-gray-800"
 //             style={{ textAlign: "center" }}
@@ -67,7 +57,6 @@
 //             Privacy Policy
 //           </h1>
 
-        
 //           <div
 //             className="text-gray-700 p-6 space-y-6 align-center"
 //             style={{
@@ -243,23 +232,23 @@ import jsPDF from "jspdf";
 export default function PrivacyPolicy() {
   const contentRef = useRef<HTMLDivElement>(null);
   const [isAgreed, setIsAgreed] = useState<boolean | null>(null);
-  
+
   const downloadPDF = () => {
     if (contentRef.current) {
       const doc = new jsPDF("p", "pt", "a4");
 
       // Get the width of the PDF page
       const pdfPageWidth = doc.internal.pageSize.getWidth();
-      
+
       // Set a margin (adjust this value as needed)
       const margin = 20;
-      
+
       // Decrease the content width to leave less space on the right side
       const contentWidth = pdfPageWidth - margin * 2 - 30; // 30px less to reduce right space
 
       doc.html(contentRef.current, {
         callback: function (pdf) {
-          pdf.save('PrivacyPolicy.pdf');
+          pdf.save("PrivacyPolicy.pdf");
         },
         x: margin,
         y: 20,
@@ -362,11 +351,13 @@ export default function PrivacyPolicy() {
             <h2 className="font-bold">
               3. Certification and Misconduct Policy
             </h2>
+
             <p>
               Skynova takes academic integrity and professionalism seriously.
               Misconduct will result in certificate revocation and potential
               blocking.
             </p>
+
             <h2 className="font-bold">4. How We Share Your Information</h2>
             <p>
               We only share information with third-party service providers and
@@ -388,7 +379,7 @@ export default function PrivacyPolicy() {
               You can access, update, delete, or opt-out of communications
               regarding your personal information.
             </p>
-            <h2 className="font-bold">8. Children's Privacy</h2>
+            <h2 className="font-bold">8. Children Privacy</h2>
             <p>
               Skynova is intended for users 18 years and older. If a child under
               18 has provided information, we will delete it immediately.
@@ -423,8 +414,6 @@ export default function PrivacyPolicy() {
             </button>
           </div>
         )}
-
-        {/* If the user agreed */}
         {isAgreed === true && (
           <div className="mt-6 flex justify-center">
             <button
@@ -448,7 +437,7 @@ export default function PrivacyPolicy() {
           </div>
         )}
 
-        {/* Button to download the formatted PDF */}
+        
         <div className="mt-6 flex justify-center">
           <button
             onClick={downloadPDF}

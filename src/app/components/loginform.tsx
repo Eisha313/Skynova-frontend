@@ -191,8 +191,8 @@ export default function LoginForm() {
         </button>
         <button onClick={() => handleOAuthSignIn('github')} className="p-2 bg-white text-white rounded mx-2">
           <Image
-            src="/facebook.svg"
-            alt="Facebook"
+            src="/github.png"
+            alt="GitHub"
             width={20}
             height={20}
             className="rounded-full"
