@@ -1,43 +1,39 @@
-// 'use client';
 
-// import React from 'react';
-// import ReportDetails from '../../../../components/reports/ReportDetails';
-// import { useParams } from 'next/navigation';
-// import Sidebar from '../../../../components/sidebarDashboard'
-// import Header from '../../../../components/header'
-// import ResultDetails from '@/app/components/results/resultDetails';
+// import { useRouter } from 'next/navigation';
+// import QuizResult from '@/app/userComponents/optionalresult'; // Adjust the import based on your file structure
 
-// const DetailReportPage: React.FC = () => {
-//   const params = useParams();
-//   const { id } = params;
+// const ViewResultPage = () => {
+//   const router = useRouter();
+//   const { id, type } = router.query;
 
-//   // Ensure id is a string
-//   const reportId = Array.isArray(id) ? id[0] : id;
+//   if (!id || !type) return <div>Loading...</div>;
 
-//   return <div className="flex h-screen overflow-hidden">
-//   <Sidebar />
-//   <div className="flex-1 flex flex-col">
-//     <Header />
-//     <main className="flex-1 p-4 bg-white overflow-auto">
-//     <ResultDetails key={reportId} id={reportId} />;
-//     </main>
-//   </div>
-// </div>
+//   return (
+//     <div>
+//       <QuizResult id={id as string} quizType={type as 'verbal' | 'non-verbal'} />
+//     </div>
+//   );
 // };
 
-// export default DetailReportPage;
-import { useRouter } from 'next/router';
-import QuizResult from '@/app/userComponents/optionalresult'; // Adjust the import based on your file structure
+// export default ViewResultPage;
+'use client'
+import { useRouter } from 'next/navigation';
+import { useSearchParams } from 'next/navigation'; 
+import QuizResult from '@/app/userComponents/optionalresult'; 
 
 const ViewResultPage = () => {
   const router = useRouter();
-  const { id, type } = router.query;
+  const searchParams = useSearchParams();
+
+  
+  const id = searchParams.get('id');
+  const type = searchParams.get('type');
 
   if (!id || !type) return <div>Loading...</div>;
 
   return (
     <div>
-      <QuizResult id={id as string} quizType={type as 'verbal' | 'non-verbal'} />
+      <QuizResult id={id} quizType={type as 'verbal' | 'non-verbal'} />
     </div>
   );
 };

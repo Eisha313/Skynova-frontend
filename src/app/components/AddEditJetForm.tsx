@@ -4,7 +4,7 @@
 // interface Jet {
 //     name: string;
 //     description: string;
-//     jetImage?: File | string;
+//     jetImage?: File | string; // Can be a URL or File
 // }
 
 // interface AddEditJetFormProps {
@@ -51,7 +51,6 @@
 //             console.log(`${key}:`, value);
 //         });
     
-
 //         onSave(formData);
 //         // console.log('formdata is',formData)
 //     };
@@ -86,14 +85,20 @@
 //                 <div>
 //                     {initialJetData && typeof initialJetData.jetImage === 'string' ? (
 //                         <div>
-//                             <label htmlFor="jetImage" className="block text-sm font-medium text-gray-700">Jet Image URL</label>
+//                             <label htmlFor="jetImage" className="block text-sm font-medium text-gray-700">Jet Image</label>
+//                             <div className="mb-2">
+//                                 <img
+//                                     src={initialJetData.jetImage}
+//                                     alt="Jet"
+//                                     className="w-full h-auto object-cover"
+//                                 />
+//                             </div>
 //                             <input
-//                                 type="text"
-//                                 id="jetImageURL"
-//                                 name="jetImageURL"
-//                                 value={initialJetData.jetImage}
-//                                 readOnly
-//                                 className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+//                                 type="file"
+//                                 id="jetImage"
+//                                 name="jetImage"
+//                                 onChange={handleFileChange}
+//                                 className="mt-1 block w-full text-sm text-gray-500 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-blue-500 focus:border-blue-500"
 //                             />
 //                         </div>
 //                     ) : (
@@ -129,6 +134,7 @@ interface Jet {
     name: string;
     description: string;
     jetImage?: File | string; // Can be a URL or File
+    jetLink?: string; // New field for Sketchfab link
 }
 
 interface AddEditJetFormProps {
@@ -141,6 +147,7 @@ const AddEditJetForm: React.FC<AddEditJetFormProps> = ({ initialJetData, onSave 
         name: '',
         description: '',
         jetImage: undefined,
+        jetLink: '', // Initialize jetLink
     });
 
     useEffect(() => {
@@ -168,6 +175,7 @@ const AddEditJetForm: React.FC<AddEditJetFormProps> = ({ initialJetData, onSave 
         const formData = new FormData();
         formData.append('name', jetData.name);
         formData.append('description', jetData.description);
+        formData.append('jetLink', jetData.jetLink || ''); // Append the jetLink field
         if (jetData.jetImage && typeof jetData.jetImage !== 'string') {
             formData.append('jetImage', jetData.jetImage);
         }
@@ -176,9 +184,8 @@ const AddEditJetForm: React.FC<AddEditJetFormProps> = ({ initialJetData, onSave 
         });
     
         onSave(formData);
-        // console.log('formdata is',formData)
     };
-    
+
     return (
         <div className="container mx-auto p-6 bg-white rounded-lg shadow-lg max-w-lg">
             <h2 className="text-2xl font-semibold mb-4">{initialJetData ? 'Edit Jet' : 'Add New Jet'}</h2>
@@ -203,6 +210,18 @@ const AddEditJetForm: React.FC<AddEditJetFormProps> = ({ initialJetData, onSave 
                         value={jetData.description}
                         onChange={handleChange}
                         required
+                        className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    />
+                </div>
+                <div>
+                    <label htmlFor="jetLink" className="block text-sm font-medium text-gray-700">Sketchfab Jet Link</label>
+                    <input
+                        type="url"
+                        id="jetLink"
+                        name="jetLink"
+                        value={jetData.jetLink}
+                        onChange={handleChange}
+                        placeholder="Enter Sketchfab link"
                         className="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     />
                 </div>

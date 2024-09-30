@@ -30,7 +30,7 @@ const NonVerbalQuizResult: React.FC<{ id: string }> = ({ id }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
-  const { token } = useUser(); // Getting token from context
+  const { token } = useUser(); 
 
   useEffect(() => {
     const fetchResult = async () => {
@@ -49,7 +49,7 @@ const NonVerbalQuizResult: React.FC<{ id: string }> = ({ id }) => {
         }
 
         const data = await response.json();
-        setResult(data.results[0]); // Extracting the first result from the array
+        setResult(data.results[0]); 
         setLoading(false);
       } catch (err) {
         console.error('Error fetching result:', err);

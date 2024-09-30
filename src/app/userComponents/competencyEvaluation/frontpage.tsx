@@ -1,3 +1,5 @@
+
+
 // 'use client';
 // import { Stepper, Button } from '@mantine/core';
 // import { useState, useEffect } from 'react';
@@ -5,6 +7,7 @@
 // import { useUser } from '@/app/components/context/userContext'; 
 // import MedicalFitnessForm from '@/app/components/competency/form';
 // import QuizContainer from '../verbal/main';
+// import QuizContainerr from '../nonverbal/main';
 
 // interface CompetencyEvaluationProps {
 //   id: string;
@@ -18,10 +21,11 @@
 //   const router = useRouter();
 //   const { token } = useUser();
 
+//   // Fetching form and quiz status
 //   useEffect(() => {
 //     const fetchStatus = async () => {
 //       try {
-       
+//         // Fetch form, verbal, and non-verbal data
 //         const formResponse = await fetch(
 //           `https://sky-nova-8ccaddc754ce.herokuapp.com/medicalDetails/viewMedicalDetails${id}`, 
 //           {
@@ -58,25 +62,28 @@
 //           }
 //         );
 
-       
+//         // Check for failed responses
 //         if (!formResponse.ok || !verbalResponse.ok || !nonVerbalResponse.ok) {
 //           throw new Error('Failed to fetch one or more status updates.');
 //         }
 
+//         // Get JSON data from responses
 //         const formData = await formResponse.json();
 //         const verbalData = await verbalResponse.json();
 //         const nonVerbalData = await nonVerbalResponse.json();
 
-    
+//         // Update completion statuses
 //         setFormCompleted(formData.formCompleted);
 //         setVerbalCompleted(verbalData.verbalCompleted);
 //         setNonVerbalCompleted(nonVerbalData.nonVerbalCompleted);
 
-      
-//         if (formData.formCompleted) setActiveStep(1);
-//         if (formData.formCompleted && verbalData.verbalCompleted) setActiveStep(2);
-//         if (formData.formCompleted && verbalData.verbalCompleted && nonVerbalData.nonVerbalCompleted) setActiveStep(3);
+//         // Update the active step
+//         let newActiveStep = 0;
+//         if (formData.formCompleted) newActiveStep = 1;
+//         if (formData.formCompleted && verbalData.verbalCompleted) newActiveStep = 2;
+//         if (formData.formCompleted && verbalData.verbalCompleted && nonVerbalData.nonVerbalCompleted) newActiveStep = 3;
 
+//         setActiveStep(newActiveStep);
 //       } catch (error) {
 //         console.error('Error fetching status:', error);
 //       }
@@ -87,16 +94,20 @@
 //     }
 //   }, [id, token]);
 
-//   const handleNextStep = () => {
-//     setActiveStep((current) => (current < 3 ? current + 1 : current));
-//   };
+//   // Function to proceed to the next step
 //   const goToNextStep = () => {
+//     if(activeStep===0){
+//       setFormCompleted(true);
+//     }
+//     if(activeStep===1){
+//       setVerbalCompleted(true);
+//     }
 //     setActiveStep((prevStep) => prevStep + 1);
 //   };
   
 //   return (
-//     <div className="flex flex-col items-center mt-30 ">
-//       <Stepper className=" mt-30 " active={activeStep} onStepClick={setActiveStep} size="lg">
+//     <div className="flex flex-col items-center mt-30">
+//       <Stepper className="mt-30" active={activeStep} onStepClick={setActiveStep} size="lg">
 //         <Stepper.Step label="Evaluation Form" description="Submit evaluation details" />
 //         <Stepper.Step label="Verbal Test" description="Complete verbal test" />
 //         <Stepper.Step label="Non-Verbal Test" description="Complete non-verbal test" />
@@ -104,26 +115,19 @@
 //       </Stepper>
 
 //       <div className="mt-6">
+        
 //         {activeStep === 0 && !formCompleted && (
-//           // <Button onClick={handleSubmitEvaluationForm} color="green">
-//              <MedicalFitnessForm goToNextStep={goToNextStep} />
+//           <MedicalFitnessForm goToNextStep={goToNextStep} />
 //         )}
-//         {/* {activeStep === 1 && formCompleted && !verbalCompleted && ( */}
-//         {activeStep === 1  && (
-          
-//                   <QuizContainer goToNextStep={goToNextStep} />
-          
+//         {activeStep === 1 && formCompleted  && (
+//           <QuizContainer goToNextStep={goToNextStep} />
 //         )}
-//         {/* {activeStep === 2 && formCompleted && verbalCompleted && !nonVerbalCompleted && ( */}
-//         {activeStep === 2 && (
-//           // <Button onClick={handleNonVerbalTest} color="blue">
-//           <Button onClick={()=>{
-//             setActiveStep((prev)=>prev+1)
-//           }} color="green">           <QuizContainer goToNextStep={goToNextStep} />
-//           </Button>
+//         {activeStep === 2 && formCompleted && verbalCompleted &&  (
+//           <QuizContainerr goToNextStep={goToNextStep} />
 //         )}
 //       </div>
 
+      
 //       {activeStep === 3 && (
 //         <Button onClick={() => router.push('/report')} color="yellow" className="mt-4">
 //           View Report
@@ -135,6 +139,7 @@
 
 // export default CompetencyEvaluation;
 
+
 'use client';
 import { Stepper, Button } from '@mantine/core';
 import { useState, useEffect } from 'react';
@@ -142,9 +147,15 @@ import { useRouter } from 'next/navigation';
 import { useUser } from '@/app/components/context/userContext'; 
 import MedicalFitnessForm from '@/app/components/competency/form';
 import QuizContainer from '../verbal/main';
+import QuizContainerr from '../nonverbal/main';
 
 interface CompetencyEvaluationProps {
   id: string;
+}
+interface QuizResult {
+  quizId: {
+    _id: string; 
+  };
 }
 
 const CompetencyEvaluation = ({ id }: CompetencyEvaluationProps) => {
@@ -155,11 +166,11 @@ const CompetencyEvaluation = ({ id }: CompetencyEvaluationProps) => {
   const router = useRouter();
   const { token } = useUser();
 
-  // Fetching form and quiz status
+  
   useEffect(() => {
     const fetchStatus = async () => {
       try {
-        // Fetch form, verbal, and non-verbal data
+        
         const formResponse = await fetch(
           `https://sky-nova-8ccaddc754ce.herokuapp.com/medicalDetails/viewMedicalDetails${id}`, 
           {
@@ -228,8 +239,14 @@ const CompetencyEvaluation = ({ id }: CompetencyEvaluationProps) => {
     }
   }, [id, token]);
 
-  // Function to proceed to the next step
+  
   const goToNextStep = () => {
+    if(activeStep===0){
+      setFormCompleted(true);
+    }
+    if(activeStep===1){
+      setVerbalCompleted(true);
+    }
     setActiveStep((prevStep) => prevStep + 1);
   };
   
@@ -243,23 +260,33 @@ const CompetencyEvaluation = ({ id }: CompetencyEvaluationProps) => {
       </Stepper>
 
       <div className="mt-6">
-        {/* Render appropriate component for each step */}
+        
         {activeStep === 0 && !formCompleted && (
           <MedicalFitnessForm goToNextStep={goToNextStep} />
         )}
-        {activeStep === 1 && formCompleted && !verbalCompleted && (
+        {activeStep === 1 && formCompleted  && (
           <QuizContainer goToNextStep={goToNextStep} />
         )}
-        {activeStep === 2 && formCompleted && verbalCompleted && !nonVerbalCompleted && (
-          <QuizContainer goToNextStep={goToNextStep} />
+        {activeStep === 2 && formCompleted && verbalCompleted &&  (
+          <QuizContainerr goToNextStep={goToNextStep} />
         )}
       </div>
 
-      {/* View Report Button */}
+      
       {activeStep === 3 && (
+        <div>
+          {/* <Button onClick={() => router.push(`/userRender/verbal/${id}/result`)} color="yellow" className="mt-4">
+         View Report
+       </Button>
+  
+         <Button onClick={() => router.push(`/userRender/nonverbal/${id}/result`)} color="yellow" className="mt-4">
+         View Verbal Result
+       </Button> */}
+
         <Button onClick={() => router.push('/report')} color="yellow" className="mt-4">
-          View Report
+         Report
         </Button>
+        </div>
       )}
     </div>
   );

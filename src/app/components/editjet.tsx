@@ -85,7 +85,7 @@ import AddEditJetForm from '../components/AddEditJetForm';
 interface Jet {
     name: string;
     description: string;
-    jetImage?: string; // assuming jetImage is a URL string
+    jetImage?: string; 
 }
 
 const EditJetPage = ({ id }: { id: string }) => {

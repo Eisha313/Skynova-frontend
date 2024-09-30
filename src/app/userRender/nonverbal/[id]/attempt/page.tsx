@@ -1,20 +1,32 @@
+
+  
+
 import React from 'react';
-import Header from '@/app/components/LandingPage/header';
+import Header from '@/app/components/header';
+import Sidebar from '@/app/components/sidebarDashboard';
 import NonVerbalQuizAttempt from '@/app/userComponents/nonverbal/quizAttempt';
 
-const EditPage = ({ params }: { params: { id: string } }) => {
-    const { id } = params;
-    console.log('userTitle', id);
-  
-    return (
-        <div className='flex-1 flex flex-col'>
-        <Header/>
-        <main className="flex-1 p-4 bg-gray h-screen overflow-auto ">
-        <NonVerbalQuizAttempt quizId={id}/>
-        </main>
-       
-        </div>
-    );
+interface EditPageProps {
+  params: {
+    id: string;
   };
-  
-  export default EditPage
+  goToNextStep?: () => void; 
+}
+
+const EditPage = ({ params, goToNextStep }: EditPageProps) => {
+  const { id } = params;
+
+  return (
+    <div className="flex h-screen">
+      <Sidebar />
+      <div className="flex-1 flex flex-col">
+        <Header />
+        <main className="flex-1 p-4 bg-white">
+          <NonVerbalQuizAttempt quizId={id} goToNextStep={goToNextStep} /> 
+        </main>
+      </div>
+    </div>
+  );
+};
+
+export default EditPage;

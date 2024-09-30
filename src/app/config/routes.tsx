@@ -82,7 +82,11 @@ export const roleBasedRoutes = {
     '/userRender/changePassword',
     "/results/viewResult/[id]/detailResult",
      "/userRender/chnagePassword",
-      "/userRender/Chatbot"
+      "/userRender/Chatbot",
+      "/results/viewresults/[id]/detailResult",
+      '/userRender/report',
+      '/addjet',
+      '/viewjets/[id]/edit'
 
   ],
   Aviator: [
@@ -121,9 +125,11 @@ export const roleBasedRoutes = {
     '/userRender/addResource',
     '/userRender/changepassword',
     '/results/viewResult/${result._id}/detailResult',
-     "/results/viewResult/[id]/detailResult",
+     "/results/viewresults/[id]/detailResult",
      "/userRender/chnagePassword",
-     "/userRender/Chatbot"
+     "/userRender/Chatbot",'/userRender/report',
+     '/addjet',
+      '/viewjets/[id]/edit'
   ],
 };
 

@@ -501,7 +501,7 @@ const ResultList: React.FC = () => {
               <td className="px-6 py-4">{result.marks}</td>
               <td className="px-6 py-4">{determineStatus(result.marks)}</td>
               <td className="py-2 px-8 border-b border-gray-200 flex justify-center space-x-2">
-               <Link href={`/results/viewResult/${result._id}/detailResult?type=${result.type}`} className="text-blue-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400">
+               <Link href={`/results/viewresults/${result._id}/detailResult?type=${result.type}`} className="text-blue-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400">
                  <FaEye  className="text-gray-700"  />
                </Link>
                 

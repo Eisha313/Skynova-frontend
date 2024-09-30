@@ -36,7 +36,7 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   useEffect(() => {
     if (session) {
-  
+      console.log("profilePicture", session.user)
       setUser({
         _id: session.user._id,
         firstName: session.user?.name?.split(' ')[0] || '',

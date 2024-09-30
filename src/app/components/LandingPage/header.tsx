@@ -9,11 +9,12 @@ import axios from 'axios';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import ProfileModal from '../viewprofile';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
+
 
 
 const Header: React.FC = () => {
-  const { firstName, lastName, role, profileImage,email, setUser } = useUser();
+  const { firstName, lastName, role, profileImage,email, _id ,setUser } = useUser();
   const router = useRouter();
   const pathname = usePathname();
   const [isProfileModalOpen, setProfileModalOpen] = useState(false);
@@ -25,6 +26,10 @@ const Header: React.FC = () => {
   const handleCloseModal = () => {
     setProfileModalOpen(false);
   };
+  useEffect(() => {
+  
+    console.log('User info updated:', { firstName, lastName, role, profileImage });
+  }, [firstName, lastName, role, profileImage,_id]);
 console.log(profileImage)
   const handleLogout = async () => {
     const isConfirmed = window.confirm('Are you sure you want to log out?');
@@ -33,6 +38,7 @@ console.log(profileImage)
       try {
         await axios.post(`https://sky-nova-8ccaddc754ce.herokuapp.com/users/logout`, {}, { withCredentials: true });
         setUser({ _id: '', firstName: '', lastName: '', role: '', email: '', token: '', profileImage: '' });
+       
         localStorage.removeItem('user');
         localStorage.removeItem('token');
         await signOut();

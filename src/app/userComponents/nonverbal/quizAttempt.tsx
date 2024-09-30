@@ -104,14 +104,14 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
       );
 
       if (response.ok) {
-        await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/finalReports/createFinalReport`, {
+        await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/finalReports/createReport`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
-          body: JSON.stringify({ userId: _id, nonVerbalMarks: resultScore }),
+          
         });
         setQuizFinished(true);
         setShowCompletionScreen(true);
-      goToNextStep && typeof goToNextStep === 'function' &&  goToNextStep(); // Navigate to the next step
+      goToNextStep && typeof goToNextStep === 'function' &&  goToNextStep(); 
       } else {
         console.error("Failed to submit results:", response.statusText);
         alert("Failed to submit the quiz. Please try again.");
@@ -204,15 +204,15 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
     <div className="flex items-center mb-4">
       {quiz.questions[currentQuestion].image && (
         <Image
-          src={quiz.questions[currentQuestion].image} // Image from the question
+          src={quiz.questions[currentQuestion].image} 
           alt={`Question ${currentQuestion + 1} image`}
           width={128}
           height={128}
-          className="object-cover mr-4" // Add margin for spacing
+          className="object-cover mr-4" 
         />
       )}
       <h2 className="text-xl text-white">
-        {quiz.questions[currentQuestion].text} {/* Display the question title */}
+        {quiz.questions[currentQuestion].text} 
       </h2>
     </div>
 
