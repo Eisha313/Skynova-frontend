@@ -14,6 +14,7 @@ const VerbalPage: React.FC = () => {
         
         <main className="flex-1 overflow-auto p-4 bg-white">
           <ManageUsers />
+        
         </main>
       </div>
     </div>

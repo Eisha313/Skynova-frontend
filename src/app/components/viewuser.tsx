@@ -22,21 +22,15 @@ export interface User {
   profileImage?: string;
 }
 
-interface UserTableProps {
-  users: User[];
-  onView: (user: User) => Promise<void>;
-  onDelete: (userId: number) => Promise<void>;
-  onUpdate: (userId: number, updatedData: Partial<User>) => Promise<void>;
-  onEdit: (user: User) => Promise<void>;
-}
+// interface UserTableProps {
+  // users: User[];
+  // onView: (user: User) => Promise<void>;
+  // onDelete: (userId: number) => Promise<void>;
+  // onUpdate: (userId: number, updatedData: Partial<User>) => Promise<void>;
+  // onEdit: (user: User) => Promise<void>;
+// }
 
-const ManageUsers: React.FC<UserTableProps> = ({
-  users,
-  
-  
-  // onUpdate,
- 
-}) => {
+const ManageUsers: React.FC = () => {
   const [fetchedUsers, setFetchedUsers] = useState<User[]>([]);
   const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
   const [sortConfig, setSortConfig] = useState<{
