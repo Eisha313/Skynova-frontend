@@ -228,7 +228,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 
   const { token, firstName, lastName, _id: userId, profileImage } = useUser();
 
-  // Fetch the question data from the backend
+ 
   const fetchQuestion = useCallback(async () => {
     if (!id) return;
     try {
@@ -245,7 +245,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
         const questionData = data[0];
         setQuestion({
           ...questionData,
-          answers: questionData?.answers || [], // Ensure answers is always an array
+          answers: questionData?.answers || [], 
         });
       } else {
         console.error('Error fetching question:', response.statusText);

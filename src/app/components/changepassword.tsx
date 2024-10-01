@@ -42,7 +42,7 @@ const ChangePasswordForm: React.FC = () => {
 
   const verifyCurrentPassword = async (currentPassword: string) => {
    
-    const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/passwords/checkCurrentPassword', {
+    const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/users/forgetPasswordLoggedIn', {
       method: 'POST',
       body: JSON.stringify({ currentPassword }),
     });
