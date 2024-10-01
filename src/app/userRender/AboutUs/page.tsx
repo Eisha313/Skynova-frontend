@@ -19,14 +19,15 @@ const AboutUsPage = () => {
         </div>
         
         
-        <div className="mt-8">
-          <MyProfile />
-        </div>
+        
         <div className="mt-8">
           <MyProfilee />
         </div>
         <div className="mt-8">
           <MyProfileee />
+        </div>
+        <div className="mt-8">
+          <MyProfile />
         </div>
       </div>
       <Footer />

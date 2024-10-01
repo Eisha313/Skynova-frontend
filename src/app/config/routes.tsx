@@ -86,7 +86,8 @@ export const roleBasedRoutes = {
       "/results/viewresults/[id]/detailResult",
       '/userRender/report',
       '/addjet',
-      '/viewjets/[id]/edit'
+      '/viewjets/[id]/edit',
+       "/userRender/AboutUs"
 
   ],
   Aviator: [
@@ -129,7 +130,8 @@ export const roleBasedRoutes = {
      "/userRender/chnagePassword",
      "/userRender/Chatbot",'/userRender/report',
      '/addjet',
-      '/viewjets/[id]/edit'
+      '/viewjets/[id]/edit',
+      "/userRender/AboutUs"
   ],
 };
 

@@ -95,6 +95,12 @@ console.log(profileImage)
       >
         Community
       </a>
+      <a
+        href="/userRender/AboutUs"
+        className={`px-3 py-2 rounded-md border ${pathname === '/userRender/AboutUs' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
+      >
+        About Us
+      </a>
     </nav>
 
    
@@ -106,7 +112,7 @@ console.log(profileImage)
         {firstName ? (
           <div className="flex items-center space-x-3">
             <img
-              src={profileImage || '/default-profile.png'}
+              src={profileImage || '/avatar.png'}
               alt="Profile"
               className="w-8 h-8 rounded-full object-cover"
               onClick={handleProfileClick}

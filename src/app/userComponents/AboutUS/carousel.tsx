@@ -83,12 +83,12 @@ export function ContactCarousel() {
 
   const objectives = [
     'Saving Your Time',
-    'Providing Business',
-    'Centralizing Bookings',
-    '24/7 Availability',
+    'Providing VR visulaizations',
+    
+    'Constant Monitoring',
   ];
 
-  const image = '/people.png'; // Single image for the entire carousel
+  const image = '/people.png'; 
 
   return (
     <div className="relative w-full h-[600px]">
