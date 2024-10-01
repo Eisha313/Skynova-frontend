@@ -88,14 +88,14 @@ const Sidebar = () => {
         {/* <NavItem href="/userRender/view-resource" text="view resource" icon={<FaCogs />} currentPath={currentPath} /> */}
         {/* <NavItem href="/competencyEvaluation/competency" text="competency" icon={<FaCogs />} currentPath={currentPath} /> */}
         {/* <NavItem href="/userRender/verbal" text="Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
-        <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} /> */}
+      
         <NavItem href="/userRender/viewCommunityQuestions" text="Community" icon={<FaCogs />} currentPath={currentPath} />
         {/* <NavItem href="/landing" text="Landing" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/competency" text="Competency Evaluation" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/privacy/contact" text="contact" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/AboutUs" text="About" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/Chatbot" text="Chatbot" icon={<FaCogs />} currentPath={currentPath} /> */}
-        
+         <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} /> 
         </div>
       </div>
     </DropdownProvider>

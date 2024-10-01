@@ -15,7 +15,7 @@ interface Question {
   text: string;
   options: Option[];
   answer: string;
-   image?: string;
+  questionImage?: string;
 }
 
 interface QuizDetail {
@@ -179,9 +179,9 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
   <div className="flex flex-col space-y-4 mb-4">
     
     <div className="flex items-center mb-4">
-      {quiz.questions[currentQuestion].image && (
+      {quiz.questions[currentQuestion].questionImage && (
         <Image
-          src={quiz.questions[currentQuestion].image} 
+          src={quiz.questions[currentQuestion].questionImage} 
           alt={`Question ${currentQuestion + 1} image`}
           width={128}
           height={128}
