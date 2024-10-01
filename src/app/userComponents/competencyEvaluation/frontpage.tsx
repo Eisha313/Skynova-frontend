@@ -258,7 +258,7 @@ const CompetencyEvaluation = ({ id }: CompetencyEvaluationProps) => {
         <Stepper.Completed>Evaluation Completed</Stepper.Completed>
       </Stepper>
 
-      <div className="mt-6">
+      <div className="mt-6 w-full">
         
         {activeStep === 0 && !formCompleted && (
           <MedicalFitnessForm goToNextStep={goToNextStep} />
