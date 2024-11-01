@@ -116,7 +116,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useUser } from '@/app/components/context/userContext';
 
-interface Quiz {
+export interface Quiz {
   _id: string;
   title: string;
   description: string;
@@ -124,7 +124,9 @@ interface Quiz {
 }
 
 interface QuizListProps {
-  onSelectQuiz?: (id: string) => void; 
+  onSelectQuiz?: (quiz: Quiz) => void; 
+  shouldRecheckList: boolean;
+  goToNextStep: ()=> void
 }
 interface QuizResult {
   quizId: {
@@ -132,17 +134,19 @@ interface QuizResult {
   };
 }
 
-const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz }) => {
+const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz,shouldRecheckList ,goToNextStep}) => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { token } = useUser(); 
 
   useEffect(() => {
+    const abortController  = new AbortController();
     const fetchQuizzes = async () => {
       try {
         const quizResponse = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/verbalquizzes/viewVerbalQuizzes', {
           credentials: 'include',
+          signal:abortController.signal
         });
         const quizzesData = await quizResponse.json();
     
@@ -169,6 +173,13 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz }) => {
           ...quiz,
           attempted: attemptedQuizIds.has(quiz._id),
         }));
+
+        if(Array.from(attemptedQuizIds).filter(id=>Boolean(id)).length === quizzesData.length){
+          goToNextStep();
+        }
+        else{
+          console.log("Not all quizzes attempted")
+        }
         
     
         console.log('Quizzes with Attempted Flag:', quizzesWithAttemptedFlag);
@@ -176,17 +187,26 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz }) => {
         setLoading(false);
       } catch (error) {
         console.error(error);
+        if(abortController.signal.aborted){
+          return;
+        }
         setError('Failed to fetch quizzes.');
         setLoading(false);
       }
     };
     
     fetchQuizzes();
-  }, [token]);
+
+    return(()=>{
+      abortController.abort();
+    })
+  }, [token, shouldRecheckList]);
   
 
   if (loading) return <div className="text-white">Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
+
+
 
   return (
     <div className="bg-gray-900 min-h-screen p-8">
@@ -202,7 +222,7 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz }) => {
           {onSelectQuiz ? (
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-              onClick={() => onSelectQuiz(quiz._id.toString())} 
+              onClick={() => onSelectQuiz(quiz)} 
               
             >
               {quiz.attempted ? 'View Result' : 'Attempt Quiz'}

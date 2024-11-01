@@ -14,6 +14,8 @@ interface ResultDetail {
     questions: Question[];
   };
   answers: string[];
+
+  
   marks: number;
 }
 
@@ -24,7 +26,7 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizResult/viewQuizResult/${id}`, 
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`, 
           {
             method: 'GET',
             headers: {

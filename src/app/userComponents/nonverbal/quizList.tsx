@@ -1,9 +1,7 @@
-
 // 'use client';
 
 // import React, { useEffect, useState } from 'react';
 // import Link from 'next/link';
-
 
 // interface Quiz {
 //   _id: number;
@@ -13,11 +11,9 @@
 // }
 
 // interface NonVerbalQuizListProps {
-  
-  
-//     onSelectQuiz?: (id: string) => void; 
-//   }
 
+//     onSelectQuiz?: (id: string) => void;
+//   }
 
 // const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz }) => {
 //   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
@@ -82,7 +78,7 @@
 //               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
 //               onClick={() =>
 //                 onSelectQuiz && typeof onSelectQuiz === 'function' &&
-//                  onSelectQuiz(quiz._id.toString())} 
+//                  onSelectQuiz(quiz._id.toString())}
 //             >
 //               {quiz.attempted ? 'Result' : 'Attempt'}
 //             </button>
@@ -94,12 +90,12 @@
 // };
 
 // export default NonVerbalQuizList;
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
 
-interface Quiz {
+export interface Quiz {
   _id: number;
   title: string;
   description: string;
@@ -107,40 +103,66 @@ interface Quiz {
 }
 
 interface NonVerbalQuizListProps {
-  onSelectQuiz?: (id: string) => void; 
+  onSelectQuiz?: (quiz: Quiz) => void;
+  shouldRecheckList: boolean;
+  goToNextStep: () => void;
 }
 
-const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz }) => {
+const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
+  onSelectQuiz,
+  shouldRecheckList,
+  goToNextStep,
+}) => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    const abortController = new AbortController();
+
     const fetchQuizzes = async () => {
       try {
         const response = await fetch(
-          'https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes',
+          "https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes",
           {
-            credentials: 'include',
+            credentials: "include",
+            signal: abortController.signal,
           }
         );
-        const data = await response.json();
+        const allQuizzes = await response.json();
 
-        const quizzesWithAttemptedFlag = data.map((quiz: any) => ({
+        const quizzesWithAttemptedFlag = allQuizzes.map((quiz: any) => ({
           ...quiz,
           attempted: quiz.attempted || false,
         }));
 
+        const attemptedQuizzes = quizzesWithAttemptedFlag.filter(
+          (quiz: any) => quiz.attempted
+        );
+
+        if (attemptedQuizzes.length === allQuizzes.length) {
+          goToNextStep();
+        } else {
+          console.log("Not all quizzes attempted");
+        }
+
         setQuizzes(quizzesWithAttemptedFlag);
         setLoading(false);
       } catch (error) {
-        setError('Failed to fetch quizzes.');
+        if(abortController.signal.aborted){
+          return;
+        }
+        setError("Failed to fetch quizzes.");
         setLoading(false);
       }
     };
 
     fetchQuizzes();
-  }, []);
+
+    return () => {
+      abortController.abort();
+    };
+  }, [shouldRecheckList]);
 
   if (loading) return <div className="text-white">Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
@@ -165,9 +187,9 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz }) =
           {onSelectQuiz ? (
             <button
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-              onClick={() => onSelectQuiz(quiz._id.toString())}
+              onClick={() => onSelectQuiz(quiz)}
             >
-              {quiz.attempted ? 'Result' : 'Attempt'}
+              {quiz.attempted ? "Result" : "Attempt"}
             </button>
           ) : (
             <Link
@@ -178,7 +200,7 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz }) =
               }
             >
               <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                {quiz.attempted ? 'Result' : 'Attempt'}
+                {quiz.attempted ? "Result" : "Attempt"}
               </button>
             </Link>
           )}

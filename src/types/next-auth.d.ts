@@ -29,3 +29,23 @@ declare module 'next-auth' {
     _id?: string;
   }
 }
+
+export interface Resource {
+  id?: string;
+  name: string;
+  description: string;
+  type: 'documentary' | 'movie' | 'quote';
+  content?: string;
+}
+
+export interface Hero {
+  id?: string;
+  name: string;
+  image?: File | string;
+  description: string;
+  accomplishments: string[];
+  medals: string[];
+  movies: string[];
+  documentaries: string[];
+  quotes: string[];
+}

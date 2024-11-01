@@ -1,35 +1,59 @@
-import React, { useState } from 'react';
-import NonVerbalQuizList from './quizList'
-import NonVerbalQuizAttempt from './quizAttempt';
+import React, { useEffect, useState } from "react";
+import NonVerbalQuizList, { Quiz } from "./quizList";
+import NonVerbalQuizAttempt from "./quizAttempt";
+
+import NonVerbalQuizResult from "./quizResult";
 
 interface QuizContainerProps {
-    goToNextStep: () => void; 
+  goToNextStep: () => void;
 }
 
 const QuizContainerr: React.FC<QuizContainerProps> = ({ goToNextStep }) => {
-    const [selectedQuizId, setSelectedQuizId] = useState<string | null>(null);
+  const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
+  const [shouldGoToNextStep, setShouldGoToNextStep] = useState(false);
+  const [shouldRecheckList, setShouldRecheckList] = useState(false);
 
-    const handleQuizSelect = (id: string) => {
-        setSelectedQuizId(id);
-    };
+  const handleQuizSelect = (quiz: Quiz) => {
+    setSelectedQuiz(quiz);
+  };
 
-    const goBackToList = () => {
-        setSelectedQuizId(null);
-    };
+  const goBackToList = () => {
+    setShouldRecheckList((prev) => !prev);
+    setSelectedQuiz(null);
+  };
 
-    return (
-        <div>
-            {selectedQuizId ? (
-                <NonVerbalQuizAttempt
-                    quizId={selectedQuizId}
-                    goBack={goBackToList}
-                    goToNextStep={goToNextStep} 
-                />
-            ) : (
-                <NonVerbalQuizList onSelectQuiz={handleQuizSelect} /> 
-            )}
-        </div>
-    );
+  useEffect(() => {
+    if (shouldGoToNextStep) {
+      goToNextStep();
+    }
+  }, [shouldGoToNextStep]);
+  return (
+    <div>
+      {selectedQuiz ? (
+        selectedQuiz.attempted ? (
+          <NonVerbalQuizResult
+            id={selectedQuiz._id.toString()}
+            goBackToList={goBackToList}
+
+
+            //   goBackToList={goBackToList}
+          />
+        ) : (
+          <NonVerbalQuizAttempt
+            quizId={selectedQuiz._id.toString()}
+            goBack={goBackToList}
+            goToNextStep={goBackToList}
+          />
+        )
+      ) : (
+        <NonVerbalQuizList
+          onSelectQuiz={handleQuizSelect}
+          shouldRecheckList={shouldRecheckList}
+          goToNextStep={goToNextStep}
+        />
+      )}
+    </div>
+  );
 };
 
 export default QuizContainerr;

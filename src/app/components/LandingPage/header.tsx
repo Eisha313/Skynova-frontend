@@ -101,6 +101,13 @@ console.log(profileImage)
       >
         About Us
       </a>
+
+      <a
+        href="/userRender/wings"
+        className={`px-3 py-2 rounded-md border ${pathname === '/userRender/AboutUs' ? 'bg-eisha text-white' : 'text-black border-gray-400 hover:bg-eisha hover:text-white'}`}
+      >
+        Wings Of Glory
+      </a>
     </nav>
 
    

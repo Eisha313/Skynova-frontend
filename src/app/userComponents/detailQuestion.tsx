@@ -189,7 +189,7 @@
 //     return false;
 //   }
 // }
-'use client'; // Ensure this line is added to the top for client-side rendering.
+'use client'; 
 
 import React, { useState, useEffect, useCallback } from 'react';
 import { format } from 'date-fns';
@@ -200,7 +200,7 @@ interface User {
   _id: number;
   firstName: string;
   lastName: string;
-  profileImage?: string | null; // Optional
+  profileImage?: string | null; 
 }
 
 interface Answer {
@@ -242,10 +242,11 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
         const data = await response.json();
         console.log('Fetched Question:', data);
 
-        const questionData = data[0];
+        const questionData = data;
         setQuestion({
           ...questionData,
-          answers: questionData?.answers || [], 
+          // answers: questionData?.answers || [], 
+          answers:[...(questionData?.answers || [])], 
         });
       } else {
         console.error('Error fetching question:', response.statusText);
@@ -259,12 +260,12 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
     fetchQuestion();
   }, [fetchQuestion]);
 
-  // Handle answer input change
+  
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAnswer(e.target.value);
   };
 
-  // Handle form submission for answering the question
+  
   const handleAnswerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!id || !token) return;
@@ -290,7 +291,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 
       if (response.ok) {
         setAnswer('');
-        fetchQuestion(); // Refresh the question to show the new answer
+        fetchQuestion(); 
       } else {
         console.error('Error posting answer:', response.statusText);
       }
@@ -309,16 +310,16 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
   return (
     <div className="container mx-auto p-6 bg-white shadow-md rounded-md">
       <div className="space-y-6">
-        {/* Render the question details */}
+        
         <h1 className="text-2xl font-bold text-blue-700 mb-4">{question.title}</h1>
         <p className="text-gray-700">{question.body}</p>
 
-        {/* Render the answers */}
+        
         {question?.answers && question.answers.length > 0 ? (
   question.answers.map((ans) => (
     <div key={ans._id} className="bg-blue-50 p-4 rounded-lg shadow-lg mb-4">
       <div className="flex items-center mb-2">
-        {/* Author Info */}
+        
         {ans.author ? (
           <>
             {ans.author.profileImage ? (
@@ -350,7 +351,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 </div>
 
 
-      {/* Form to submit an answer */}
+      
       <form onSubmit={handleAnswerSubmit} className="mt-8">
         <h2 className="text-2xl font-semibold mb-4 text-blue-700">Your Answer</h2>
         <textarea

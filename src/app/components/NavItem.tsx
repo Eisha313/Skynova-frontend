@@ -103,7 +103,7 @@ const NavItem: FC<NavItemProps> = ({ href, text, icon, children, currentPath }) 
   const router = useRouter();
 
   useEffect(() => {
-    // Open the dropdown if currentPath matches any child
+    
     if (children) {
       const isChildOpen = React.Children.toArray(children).some((child: any) => 
         currentPath.startsWith(child.props.href || '')

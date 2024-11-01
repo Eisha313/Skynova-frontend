@@ -87,7 +87,15 @@ export const roleBasedRoutes = {
       '/userRender/report',
       '/addjet',
       '/viewjets/[id]/edit',
-       "/userRender/AboutUs"
+       "/userRender/AboutUs",
+       '/wings/Hero',
+       '/wings/Hero/addHero',
+       '/wings/Hero/[id]/editHero',
+       '/wings/wingsResources',
+       '/wings/wingsResources/addWingsResources',
+       '/wings/wingsResources/[id]/editWingsResources'
+
+
 
   ],
   Aviator: [
@@ -135,4 +143,4 @@ export const roleBasedRoutes = {
   ],
 };
 
-export const publicRoutes = ["/login", "/signup", "/",'/userRender/privacyPolicy','/forgetpassword','/codeverify','/setpassword'];
+export const publicRoutes = ["/login", "/signup", "/",'/userRender/privacyPolicy','/forgetpassword','/codeverify','/setpassword',"/userRender/wings",];

@@ -25,7 +25,7 @@ interface Result {
   marks: number;
 }
 
-const NonVerbalQuizResult: React.FC<{ id: string }> = ({ id }) => {
+const NonVerbalQuizResult: React.FC<{ id: string, goBackToList: () => void }> = ({ id , goBackToList}) => {
   const [result, setResult] = useState<Result | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -100,7 +100,7 @@ const NonVerbalQuizResult: React.FC<{ id: string }> = ({ id }) => {
       </div>
       <button
         className="bg-blue-500 px-4 py-2 mt-6 rounded-lg"
-        onClick={() => router.push('/userRender/nonverbal')}
+        onClick={goBackToList}
       >
         Go back
       </button>

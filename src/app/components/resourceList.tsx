@@ -254,7 +254,7 @@ const ResourceList: React.FC = () => {
 
       </table>
 
-      {/* Pagination */}
+      
       <div className="flex justify-center mt-4">
         {Array.from({ length: Math.ceil(filteredResources.length / itemsPerPage) }, (_, index) => (
           <button

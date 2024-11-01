@@ -37,7 +37,7 @@ const QuizReport: React.FC = () => {
         if (response.ok) {
           const data = await response.json();
           
-          // Assuming we're dealing with an array and taking the first report for display
+        
           const firstReport = data[0]; 
 
           if (firstReport) {
@@ -49,8 +49,8 @@ const QuizReport: React.FC = () => {
               eyesight: firstReport.medicalDetails.eyesight,
               verbalScore: firstReport.verbalQuizResult.marks,
               nonverbalScore: firstReport.nonVerbalQuizResult.marks,
-              verbalTotal: 2, // Set your total marks for verbal
-              nonverbalTotal: 2, // Set your total marks for nonverbal
+              verbalTotal: 2, 
+              nonverbalTotal: 2, 
             };
 
             setReportData(formattedReport);
@@ -105,12 +105,12 @@ const QuizReport: React.FC = () => {
     id="report-content"
     className="bg-white p-8 rounded-lg shadow-xl w-full max-w-4xl space-y-6"
   >
-    {/* Header */}
+    
     <h1 className="text-3xl font-extrabold text-center text-gray-800 mb-8">
       Quiz Report
     </h1>
 
-    {/* Personal Information */}
+    
     <div className="bg-gray-50 p-6 rounded-md shadow-sm">
       <h2 className="text-2xl font-semibold text-gray-700 mb-4">
         Personal Information
@@ -130,11 +130,11 @@ const QuizReport: React.FC = () => {
       </div>
     </div>
 
-    {/* Quiz Results */}
+    
     <div className="bg-gray-50 p-6 rounded-md shadow-sm">
       <h2 className="text-2xl font-semibold text-gray-700 mb-4">Quiz Results</h2>
       <div className="grid grid-cols-2 gap-6">
-        {/* Verbal Quiz */}
+       
         <div>
           <h3 className="text-xl font-medium text-gray-600 mb-2">Verbal Quiz</h3>
           <p className="text-lg text-gray-600">
@@ -147,7 +147,7 @@ const QuizReport: React.FC = () => {
           </p>
         </div>
 
-        {/* Nonverbal Quiz */}
+        
         <div>
           <h3 className="text-xl font-medium text-gray-600 mb-2">Nonverbal Quiz</h3>
           <p className="text-lg text-gray-600">
@@ -162,14 +162,14 @@ const QuizReport: React.FC = () => {
       </div>
     </div>
 
-    {/* Status */}
+
     <div className="bg-gray-50 p-6 rounded-md shadow-sm">
       <h2 className="text-2xl font-semibold text-gray-700 mb-2">Status</h2>
       <p className="text-lg text-gray-600">{status}</p>
     </div>
   </div>
 
-  {/* Download Button */}
+ 
   <button
     onClick={handleDownloadPdf}
     className="mt-8 bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"

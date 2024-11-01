@@ -280,7 +280,7 @@ const ResultList: React.FC = () => {
   const [filterType, setFilterType] = useState<string>('all');
   const { token } = useUser();
 
-  // Pagination states
+ 
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 10;
 

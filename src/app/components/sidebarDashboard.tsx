@@ -75,11 +75,11 @@ const Sidebar = () => {
           <NavItem href="/verbalquiz" text="Verbal Quiz" icon={<FaBrain />} currentPath={currentPath} />
           <NavItem href="/nonverbalquiz" text="NonVerbal Quiz" icon={<FaBook />} currentPath={currentPath} />
         </NavItem>
-        {/* <NavItem href="/view-resource" text="Manage Resources" icon={<FaTasks />} currentPath={currentPath}> */}
-          {/* <NavItem href="/addResource" text="Add Resource" icon={<FaBrain />} currentPath={currentPath} />
-          <NavItem href="/view-resource" text="View Resource" icon={<FaBook />} currentPath={currentPath} /> */}
-        {/* </NavItem> */}
-        <NavItem href="/community" text="Manage Community" icon={<FaCogs />} currentPath={currentPath} />
+        <NavItem  text="WingsOfGloy" icon={<FaTasks />} currentPath={currentPath}> 
+           <NavItem href="/wings/Hero" text="Heroes" icon={<FaBrain />} currentPath={currentPath} />
+          <NavItem href="/wings/wingsResources" text="View Resource" icon={<FaBook />} currentPath={currentPath} /> 
+         </NavItem> 
+         {/*<NavItem href="/community" text="Manage Community" icon={<FaCogs />} currentPath={currentPath} />
         {/* <NavItem href="/notification/viewNotification" text="Manage Notification" icon={<FaCogs />} currentPath={currentPath} /> */}
         {/* <NavItem href="/complaints/viewComplaints" text="Manage Complaints" icon={<FaCogs />} currentPath={currentPath} /> */}
         {/* <NavItem href="/reports/viewReports" text="Manage Reports" icon={<FaCogs />} currentPath={currentPath} /> */}
