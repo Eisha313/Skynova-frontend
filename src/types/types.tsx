@@ -25,9 +25,9 @@ export interface Resource {
     name: string;
     image?: File | string;
     description: string;
-    accomplishments: string | string[]; // Accommodate string or array
-    medals: string | string[]; // Accommodate string or array
-    movies: Resource[]; // Movies are arrays of Resource objects
-    documentaries: Resource[]; // Documentaries are arrays of Resource objects
+    accomplishments: string | string[]; 
+    medals: string | string[];
+    movies: Resource[]; 
+    documentaries: Resource[]; 
     quotes: Resource[];
   }

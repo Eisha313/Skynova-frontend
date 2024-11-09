@@ -7,6 +7,7 @@ import autoTable from 'jspdf-autotable';
 import Search from "../Search";
 import { jsPDF } from 'jspdf';
 import { ArrowUpDown } from 'lucide-react';
+import Image from 'next/image';
 import { MdDownload } from 'react-icons/md';
 import { FaEye, FaEdit, FaTrash } from 'react-icons/fa';
 import DeleteConfirmationModal from "../confirmationModal";
@@ -47,6 +48,7 @@ const HeroesTable = () => {
     }
     setSortConfig({ key, direction });
   };
+  
 
   const compareValues = (a: any, b: any, direction: 'asc' | 'desc') => {
     if (a === b) return 0;
@@ -69,21 +71,23 @@ const HeroesTable = () => {
     setSearchTerm('');
   };
  
-  
-
+ 
   const filteredHeroes = heroes.filter(hero => {
     const matchesSearch = 
-      hero.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      // hero.accomplishments.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      hero.description.toLowerCase().includes(searchTerm.toLowerCase());
-
+      (hero.name?.toLowerCase().includes(searchTerm.toLowerCase()) || '') ||
+      (hero.description?.toLowerCase().includes(searchTerm.toLowerCase()) || '');
+  
     const matchesType = filterType 
-      ? hero.movies.includes(filterType) || hero.documentaries.includes(filterType) || hero.quotes.includes(filterType)
+      ? hero.movies?.some(movie => movie.name.includes(filterType)) ||
+        hero.documentaries?.some(doc => doc.name.includes(filterType)) ||
+        hero.quotes?.some(quote => quote.name.includes(filterType))
       : true;
-
+  
     return matchesSearch && matchesType;
   });
+  
  
+  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentResources = filteredHeroes.slice(indexOfFirstItem, indexOfLastItem);
@@ -144,49 +148,43 @@ const HeroesTable = () => {
       setResourceToDelete(null); 
     }
   };
-//   const handleDelete = async () => {
-//     if (resourceToDelete) {
-//         try {
-//             const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/warHeroes/deleteWarHero/${resourceToDelete}`, {
-//                 method: "DELETE",
-//                 credentials: "include"
-//             });
-//             if (!response.ok) {
-//                 throw new Error("Failed to delete resource");
-//             }
-//             setHeroes((prev) => prev.filter((hero) => hero._id !== resourceToDelete));
-//             setDeleteModalVisible(false);
-//             setResourceToDelete(null);
-//         } catch (error) {
-//             console.error("Error deleting resource:", error);
-//         }
-//     }
-// };
+
 
   return (
     <div className="p-4 bg-white rounded-lg shadow-lg"> 
       <h2 className="text-lg font-semibold mb-4">Heroes</h2>
-      <div className="flex flex-1 justify-end space-x-2">
-          <input 
-            type="text" 
-            value={searchTerm} 
-            onChange={e => setSearchTerm(e.target.value)} 
-            className="p-2 border rounded" 
-            placeholder="Search..." 
-          />
-          <select value={filterType} onChange={e => setFilterType(e.target.value)} className="p-2 border rounded">
-            <option value="">All Types</option>
-            <option value="document">Documentaries</option>
-            <option value="movie">Movies</option>
-            <option value="quote">Quotes</option>
-          </select>
-          <button onClick={generatePDF} className="text-gray-800 px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300">
-            <MdDownload />
-          </button>
-          <Link href="/wings/Hero/addHero" className="px-4 py-2 rounded-md text-center bg-eisha text-white flex items-center">
-            Add Hero
-          </Link>
-      </div>
+      <div className="flex justify-between items-center mb-4">
+  <input 
+    type="text" 
+    value={searchTerm} 
+    onChange={e => setSearchTerm(e.target.value)} 
+    placeholder="Search..."
+    className="border p-2 rounded shadow-sm w-1/3"
+  />
+  <select 
+    value={filterType} 
+    onChange={e => setFilterType(e.target.value)} 
+    className="border p-2 rounded shadow-sm"
+  >
+    <option value="">All Types</option>
+    <option value="document">Documentaries</option>
+    <option value="movie">Movies</option>
+    <option value="quote">Quotes</option>
+  </select>
+  <button
+    onClick={generatePDF}
+    className="bg-blue-600 text-white px-4 py-2 rounded shadow-md flex items-center gap-2"
+  >
+    <MdDownload /> Export PDF
+  </button>
+  <Link
+    href="/wings/Hero/addHero"
+    className="bg-green-600 text-white px-4 py-2 rounded shadow-md"
+  >
+    Add Hero
+  </Link>
+</div>
+
      
       <table className="min-w-full mt-6">
         <thead className="bg-gray-800 text-white">
@@ -213,11 +211,25 @@ const HeroesTable = () => {
               <td className="py-2">{index + 1}</td>
               <td className="py-2">{hero.name}</td>
               <td className="py-2">
-                {hero.image && <img src={hero.image as string} alt={hero.name} className="h-16 w-16 object-cover" />}
+                
+                {hero.image && (
+  <Image
+    src={hero.image as string}
+    alt={hero.name}
+    width={64} 
+    height={64}
+    className="object-cover rounded"
+    priority 
+  />
+)}
               </td>
               <td className="py-2">{hero.medals}</td>
               <td className="py-2">{hero.accomplishments}</td>
-              <td className="py-2">{hero.description}</td>
+              
+
+              {/* <td className="py-2">{hero.description}</td> */}
+              <td className="py-2">{hero.description.replace(/"/g, '&quot;')}</td>
+
               <td className="py-2">
                 {[...hero.movies.map(() => 'Movie'), ...hero.documentaries.map(() => 'Documentary'), ...hero.quotes.map(() => 'Quote')].join(', ')}
               </td>
@@ -321,7 +333,7 @@ const HeroesTable = () => {
 </p>
 
 
-<>
+{/* <>
   {modalHero.quotes && modalHero.quotes.length > 0 && (
     <blockquote className="italic text-lg text-gray-500 bg-gray-100 p-4 rounded-lg shadow-inner">
       "{modalHero.quotes[0]}" 
@@ -339,7 +351,7 @@ const HeroesTable = () => {
       <ReactPlayer url={modalHero.documentaries[0]} width="100%" height="100%" controls />
     </div>
   )}
-</>
+</> */}
 
       
       <div className="text-center mt-6">
