@@ -14,7 +14,7 @@
 //     )
 // }
 // export default ResourceRender;
-
+'use client'
 import React from 'react';
 import Header from '@/app/components/LandingPage/header';
 import NonVerbalQuizList from '@/app/userComponents/nonverbal/quizList';

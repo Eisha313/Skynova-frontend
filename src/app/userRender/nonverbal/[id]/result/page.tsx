@@ -18,7 +18,7 @@
 //     );
 //   };
 //   export default ResultPage;
-  
+  'use client'
 import React from 'react';
 import Header from '@/app/components/LandingPage/header';
 import NonVerbalQuizResult from '@/app/userComponents/nonverbal/quizResult';
