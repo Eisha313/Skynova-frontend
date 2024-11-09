@@ -18,6 +18,7 @@
 
 // export default ChatPage;
 // pages/chat/[userId].tsx
+'use client'
 import React, { useEffect } from 'react';
 import { WebSocketProvider } from '../../../userComponents/websocket';
 import Chat from '../../../userComponents/chat/chatComponent';
