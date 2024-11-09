@@ -9,7 +9,7 @@ import rafaleImage from "/public/rafaleImage.png";
 import su35Image from "/public/su35Image.png";
 
 // Images for Cockpits
-import jf17_cockpit from "/public/jf17_cockpit.svg";
+import JF17_cockpit from "/public/JF17_cockpit.svg";
 import cockpit_f16 from "/public/cockpit_f16.svg";
 import j10c_cockpit from "/public/j10c_cockpit.svg";
 
@@ -26,7 +26,7 @@ const VirtualAvionics = () => {
 
   // Data for Cockpits
   const cockpits = [
-    { name: "F-16 Cockpit", image: jf17_cockpit, path: "/cockpits/f16" },
+    { name: "F-16 Cockpit", image: JF17_cockpit, path: "/cockpits/f16" },
     { name: "B-2 Cockpit", image: cockpit_f16, path: "/cockpits/b2" },
     { name: "MIG-29 Cockpit", image: j10c_cockpit , path: "/cockpits/mig29" },
   ];

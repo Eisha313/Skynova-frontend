@@ -33,7 +33,7 @@ const SkyNovaSection: React.FC = () => {
           {/* Right Side: Image */}
           <div className="md:w-1/2 mt-10 md:mt-0 md:ml-10">
             <img
-              src="/smilingAviator.jpg" // Replace with your uploaded image path
+              src="/public/smilingAviator.jpg" // Replace with your uploaded image path
               alt="Aviator in cockpit"
               className="w-full h-64 md:h-80 object-cover rounded-lg shadow-lg"
             />
