@@ -17,7 +17,7 @@ const MainResourceDisplay = () => {
       .then((res) => res.json())
       .then((data) => setResources(data));
       
-    fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/warHero/viewWarHeroes", { credentials: "include" })
+    fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/warHeroes/viewWarHeroes", { credentials: "include" })
       .then((res) => res.json())
       .then((data) => setHeroes(data));
   }, []);

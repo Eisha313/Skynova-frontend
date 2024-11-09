@@ -15,7 +15,7 @@ const HeroCardList: React.FC<HeroCardListProps> = ({ heroes }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4">
       {heroes.slice(0, visibleHeroes).map((hero) => (
-        <Link key={hero._id} href={`/wings/${hero._id}/heroDetails`}>
+        <Link key={hero._id} href={`/userRender/wings/${hero._id}/heroDetails`}>
           <div className="bg-white rounded-lg shadow-md overflow-hidden p-4 cursor-pointer hover:shadow-lg transition">
             <img
               src={typeof hero.image === 'string' ? hero.image : hero.image ? URL.createObjectURL(hero.image) : undefined}

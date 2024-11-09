@@ -127,12 +127,7 @@ const HeroesTable = () => {
     return <ArrowUpDown className="h-4 w-4 inline ml-2" />;
   };
   
-  // const handleDelete = async (id: string) => {
-  //   await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/warHeroes/deleteWarHero/${id}`, { method: "DELETE",credentials: "include"
-
-  //    });
-  //   setHeroes((prev) => prev.filter((hero) => hero._id !== id));
-  // };
+ 
   const handleDeleteConfirmation = (id: string) => {
     setResourceToDelete(id);
     setDeleteModalVisible(true); 
@@ -140,7 +135,7 @@ const HeroesTable = () => {
 
   const handleDelete = async () => {
     if (resourceToDelete) {
-      await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/deleteWingsOfGloryResource/${resourceToDelete}`, {
+      await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/warHeroes/deleteWarHero/${resourceToDelete}`, {
         method: "DELETE",
         credentials: "include"
       });
@@ -149,6 +144,25 @@ const HeroesTable = () => {
       setResourceToDelete(null); 
     }
   };
+//   const handleDelete = async () => {
+//     if (resourceToDelete) {
+//         try {
+//             const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/warHeroes/deleteWarHero/${resourceToDelete}`, {
+//                 method: "DELETE",
+//                 credentials: "include"
+//             });
+//             if (!response.ok) {
+//                 throw new Error("Failed to delete resource");
+//             }
+//             setHeroes((prev) => prev.filter((hero) => hero._id !== resourceToDelete));
+//             setDeleteModalVisible(false);
+//             setResourceToDelete(null);
+//         } catch (error) {
+//             console.error("Error deleting resource:", error);
+//         }
+//     }
+// };
+
   return (
     <div className="p-4 bg-white rounded-lg shadow-lg"> 
       <h2 className="text-lg font-semibold mb-4">Heroes</h2>

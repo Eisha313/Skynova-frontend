@@ -143,4 +143,4 @@ export const roleBasedRoutes = {
   ],
 };
 
-export const publicRoutes = ["/login", "/signup", "/",'/userRender/privacyPolicy','/forgetpassword','/codeverify','/setpassword',"/userRender/wings",];
+export const publicRoutes = ["/login", "/signup", "/",'/userRender/privacyPolicy','/forgetpassword','/codeverify','/setpassword',"/userRender/wings","/userRender/wings/[id]/heroDetails","/cockpits","/jets","/cockpits/j10c-cockpit","/cockpits/f16-cockpit","/cockpits/jf17-cockpit","/jets/f16-jet","/jets/jf17-jet","/jets/j10c-jet","/userRender/view-resource/[id]/resourceDetails","/userRender/view-resource/[id]/editResource"];

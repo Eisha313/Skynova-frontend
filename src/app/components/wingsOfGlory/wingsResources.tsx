@@ -43,33 +43,79 @@ const WingsResources = ({ resourceId, onClose }: WingsResourcesProps) => {
     setResource({ ...resource, file });
   };
 
-  const handleSave = async () => {
-    const endpoint = isEditMode ? `https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/updateWingsOfGloryResource/${resource._id}` : "https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/createWingsOfGloryResource";
-    const method = isEditMode ? "PATCH" : "POST";
+  // const handleSave = async () => {
+  //   const endpoint = isEditMode ? `https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/updateWingsOfGloryResource/${resource._id}` : "https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/createWingsOfGloryResource";
+  //   const method = isEditMode ? "PATCH" : "POST";
 
-    const formData = new FormData();
-    formData.append("name", resource.name);
-    formData.append("description", resource.description);
-    formData.append("type", resource.type);
+  //   const formData = new FormData();
+  //   formData.append("name", resource.name);
+  //   formData.append("description", resource.description);
+  //   formData.append("type", resource.type);
     
-    formData.append("content", resource.content);
+  //   formData.append("content", resource.content);
 
-    if (resource.file) {
-      formData.append("file", resource.file); 
-    }
+  //   if (resource.file) {
+  //     formData.append("file", resource.file); 
+  //   }
 
-    await fetch(endpoint, {
-      method,
-      body: formData,
-      credentials: "include",
+  //   await fetch(endpoint, {
+  //     method,
+  //     body: formData,
+  //     credentials: "include",
+  //   });
+
+  //   setResource({ name: "", description: "", type: "movie", content: "", file: null ,_id:''}); 
+  //   setIsEditMode(false);
+  //   // onClose(); 
+  //   router.push('/wings/wingsResources')
+  // };
+  const handleSave = async () => {
+    const endpoint = isEditMode
+      ? `https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/updateWingsOfGloryResource/${resource._id}`
+      : "https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/createWingsOfGloryResource";
+    const method = isEditMode ? "PATCH" : "POST";
+  
+    const body = JSON.stringify({
+      name: resource.name,
+      description: resource.description,
+      type: resource.type,
+      content: resource.content,
     });
-
-    setResource({ name: "", description: "", type: "movie", content: "", file: null ,_id:''}); 
-    setIsEditMode(false);
-    // onClose(); 
-    router.push('/wings/wingsResources')
+  
+    try {
+      // First request for JSON data
+      await fetch(endpoint, {
+        method,
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body,
+        credentials: "include",
+      });
+  
+      // If there’s a file, send a separate request to upload it (if supported by your backend)
+      if (resource.file) {
+        const fileUploadEndpoint = `https://sky-nova-8ccaddc754ce.herokuapp.com/upload`; // Adjust endpoint if needed
+        const fileData = new FormData();
+        fileData.append("file", resource.file);
+        fileData.append("resourceId", resource._id);
+  
+        await fetch(fileUploadEndpoint, {
+          method: "POST",
+          body: fileData,
+          credentials: "include",
+        });
+      }
+  
+      // Reset state and redirect after successful save
+      setResource({ name: "", description: "", type: "movie", content: "", file: null, _id: "" });
+      setIsEditMode(false);
+      router.push("/wings/wingsResources");
+    } catch (error) {
+      console.error("Failed to save resource:", error);
+    }
   };
-
+  
   return (
     <div className="p-4 bg-white rounded-lg shadow-lg">
       <h2 className="text-lg font-semibold mb-4">{isEditMode ? "Edit" : "Add"} Resource</h2>
