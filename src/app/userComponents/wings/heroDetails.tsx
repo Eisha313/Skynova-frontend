@@ -196,17 +196,19 @@ const HeroDetails: React.FC<{ id: string }> = ({ id }) => {
                 <h4 className="font-medium text-gray-700">{item.name}</h4>
                 <p className="text-sm text-gray-500">{type}</p>
 
-                {/* Display ReactPlayer for movie and documentary */}
+                
                 {(item.type === "movie" || item.type === "documentary") && (
                   <div className="mb-2">
                     <ReactPlayer url={item.content} width="100%" height="120px" />
                   </div>
                 )}
 
-                {/* Display quote for quotes */}
+               
                 {item.type === "quote" && (
                   <div className="text-center text-xs mt-2">
-                    <p>"{item.content}"</p>
+                    {/* <p>"{item.content}"</p> */}
+                    <p>&quot;{item.content}&quot;</p>
+
                   </div>
                 )}
               </button>
@@ -221,7 +223,7 @@ const HeroDetails: React.FC<{ id: string }> = ({ id }) => {
     <div className="p-6 bg-gray-100 min-h-screen mt-20">
       {hero && (
         <>
-          {/* Hero Image and Details */}
+    
           {hero.image && (
             <div className="flex justify-center my-6">
               <Image
@@ -237,7 +239,7 @@ const HeroDetails: React.FC<{ id: string }> = ({ id }) => {
           <h1 className="text-3xl font-bold text-center">{hero.name}</h1>
           <p className="mt-4 text-gray-700 text-center">{hero.description}</p>
 
-          {/* Medals & Accomplishments */}
+          
           <div className="mt-6">
             <h3 className="text-xl font-semibold border-b pb-2 text-gray-800">Medals & Accomplishments</h3>
             <ul className="mt-4 list-disc list-inside text-gray-600">
@@ -254,16 +256,15 @@ const HeroDetails: React.FC<{ id: string }> = ({ id }) => {
             </ul>
           </div>
 
-          {/* Movies Section */}
+         
           <Section title="Movies" items={hero.movies || []} type="Movie" />
 
-          {/* Documentaries Section */}
+         
           <Section title="Documentaries" items={hero.documentaries || []} type="Documentary" />
 
-          {/* Quotes Section - use the same Section component */}
+    
           <Section title="Quotes" items={hero.quotes || []} type="Quote" />
 
-          {/* Modal */}
           {modalResource && <ResourceModal resource={modalResource} onClose={closeModal} />}
         </>
       )}
