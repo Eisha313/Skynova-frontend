@@ -125,3 +125,65 @@
   animation: zoom 4s ease-in-out infinite;
 }
 
+/* global.css */
+
+body {
+  background-color: #081839;
+}
+
+.page-overlay {
+  background-color: rgb(45, 44, 44, 0.23);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* z-index: -1; */
+  backdrop-filter: blur(15px);
+  
+}
+
+.main-container {
+  min-height: 100vh;
+  padding: 6rem 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.background-image-overlay{
+  position: absolute;
+  inset:0;
+  background-image: url('/resources-background.png'); 
+  background-size: cover;
+  background-blend-mode: overlay;
+  background-position: center;
+  opacity: 0.3;
+}
+
+
+.backdrop-blur{
+  position: absolute;
+  inset:0
+}
+
+
+
+.card-outline-offers{
+  clip-path: polygon( 99.781% 71.626%,87.385% 99.658%,0.219% 99.658%,0.219% 27.819%,12.53% 0.342%,99.781% 0.342%,99.781% 71.626% );
+}
+
+.landing-page-image-container{
+  clip-path: polygon( 0.041% 0.101%,99.928% 0.101%,76.163% 99.899%,0.041% 99.899%,0.041% 0.101% );
+}
+
+.landing-page-image-container-reverse{
+  clip-path: polygon( 99.959% 0.101%,0.072% 0.101%,23.837% 99.899%,99.959% 99.899%,99.959% 0.101% );
+}
+
+.landing-page-text-container{
+  clip-path: polygon( 0.092% 99.899%,30.863% 0.101%,99.896% 0.101%,99.896% 99.899%,0.092% 99.899% );
+}
+
+.landing-page-text-container-reverse{
+  clip-path: polygon( 99.856% 99.899%,69.085% 0.101%,0.052% 0.101%,0.052% 99.899%,99.856% 99.899% );
+}

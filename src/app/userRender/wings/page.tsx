@@ -1,6 +1,6 @@
 
 import Sidebar from '../../components/sidebarDashboard'
-import Header from '../../components/header'
+import Header from '@/app/components/LandingPage/header'
 import MainResourceDisplay from '@/app/userComponents/wings/main'
 const ViewQuestions=()=>{
     return(

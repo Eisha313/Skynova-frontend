@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
+import './toolsTechnology.css'
 
 interface Tool {
   name: string;
@@ -26,7 +27,7 @@ const Carousel: React.FC = () => {
   const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi]);
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto py-8 bg-[#0B1226]">
+    <div className="tools-and-technologies relative w-full mx-auto py-8 bg-[#0B1226]">
       <h2 className="text-center text-2xl font-semibold mb-6 text-white">Tools and Technologies</h2>
       <div className="flex items-center">
         <button
@@ -36,11 +37,11 @@ const Carousel: React.FC = () => {
           ◀
         </button>
         <div className="embla overflow-hidden w-full mx-4" ref={emblaRef}>
-          <div className="flex space-x-6">
+          <div className="flex space-x-6 embla__container">
             {tools.map((tool, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center min-w-[100px] md:min-w-[120px] text-white"
+                className="flex flex-col embla__slide items-center min-w-[100px] md:min-w-[120px] text-white"
               >
                 <img
                   src={tool.img}

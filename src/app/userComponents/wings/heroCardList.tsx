@@ -22,7 +22,7 @@ const HeroCardList: React.FC<HeroCardListProps> = ({ heroes }) => {
               alt={hero.name}
               className="w-full h-32 object-cover rounded-md mb-2"
             />
-            <h3 className="text-lg font-semibold text-center">{hero.name}</h3>
+            <h3 className="text-lg font-semibold text-center text-black">{hero.name}</h3>
           </div>
         </Link>
       ))}

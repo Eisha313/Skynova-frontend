@@ -11,7 +11,7 @@ const ResourceRender = ({ params }: { params: { id: string } }) => {
       <Header />
 
      
-      <div className="flex-1 p-4 bg-gray-100 w-full mt-24 overflow-y-auto">
+      <div className="flex-1 p-4  w-full mt-24 overflow-y-auto">
        
         <ResourceDetails id={id} />
       </div>

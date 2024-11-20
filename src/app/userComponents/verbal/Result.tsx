@@ -51,12 +51,12 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <div className="bg-gray-900 min-h-screen p-8 text-white">
+    <div className=" bg-[#212C44] p-8 text-white  ">
       <h1 className="text-2xl mb-6">Detailed Results</h1>
-      <div className="max-h-[60vh] overflow-y-auto">
+      <div className=" overflow-y-auto">
         {results.map((result, resultIndex) => (
           <div key={resultIndex} className="mb-8">
-            <h2 className="text-xl mb-4">Score: {result.marks} out of {result.quizId.questions.length}</h2>
+            <h2 className="text-xl mb-4">Score: {result.marks} / {result.quizId.questions.length}</h2>
             {result.quizId.questions.map((question, index) => (
               <div key={index} className="mb-6">
                 <p className="mb-2">Question {index + 1}: {question.text}</p>
@@ -68,7 +68,7 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
                   return (
                     <div
                       key={i}
-                      className={`p-4 mb-2 border rounded-lg ${isCorrect ? 'border-green-500' : isSelected ? 'border-red-500' : 'border-white'}`}
+                      className={`p-4 mb-2 border rounded-lg ${isCorrect ? 'border-[#081839] bg-[#1F60B2]'  : isSelected ? 'border-red-500' : 'border-white'}`}
                     >
                       {option}
                     </div>

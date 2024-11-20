@@ -2,7 +2,7 @@ import { FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutube } from "react-icons/f
 
 export default function Footer() {
   return (
-    <footer className="bg-eisha text-white mt-20 py-8 w-full">
+    <footer className="bg-eisha text-white pt-20 py-8 w-full">
       <div className="container mx-auto w-full flex flex-col items-center space-y-6">
         
         <div className="space-x-6">

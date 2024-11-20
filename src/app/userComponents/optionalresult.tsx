@@ -30,12 +30,12 @@
 // export default QuizResult;
 import React from 'react';
 import NonVerbalQuizResult from './nonverbal/quizResult';
-import DetailedResult from './Quiz/quizResult';
+import DetailedResult from './verbal/Result';
 
 interface QuizResultProps {
   id: string;
   quizType: 'verbal' | 'non-verbal';
-  goBackToList: () => void; // Ensure this is marked as required
+  goBackToList: () => void; 
 }
 
 const QuizResult: React.FC<QuizResultProps> = ({ id, quizType, goBackToList }) => {

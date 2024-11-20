@@ -12,13 +12,18 @@ import VirtualAvionics from "./components/LandingPage/avionicsInterface"
 import VRMissions from "./components/LandingPage/missions"
 import SkyNovaSection from "./components/LandingPage/skyNovaSection"
 import Carousel from "./components/LandingPage/toolsTechnology"
+import OurTeam from "./components/LandingPage/ourTeam"
+import Stats from "./components/LandingPage/stats"
+import Testimonials from "./components/LandingPage/testimonials"
+import Background from "./components/LandingPage/skyvideo"
 export default function Home() {
   return (
-    <main className="relative  flex flex-col items-center justify-center min-h-screen ">
+    <main className="relative  flex flex-col items-stretch justify-center min-h-screen ">
       <Header />
-      <CarouselPlugin />
+      {/* <CarouselPlugin />
       <ServicesCarousel/>
-      <ResourceCarousel/>
+      <ResourceCarousel/> */}
+     < Background/>
       <SkyNovaOffers></SkyNovaOffers>
       <WelcomeAviators/>
       <SkyNovaSection/>
@@ -26,6 +31,9 @@ export default function Home() {
       <ProcessSection />
       <VRMissions/>
       <Carousel/>
+      <OurTeam/>
+      <Stats/>
+      <Testimonials/>
 
       <Footer/>
       

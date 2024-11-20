@@ -1,9 +1,10 @@
-// 'use client';
 
-// import React, { useEffect, useState } from 'react';
-// import Link from 'next/link';
+// "use client";
 
-// interface Quiz {
+// import React, { useEffect, useState } from "react";
+// import Link from "next/link";
+
+// export interface Quiz {
 //   _id: number;
 //   title: string;
 //   description: string;
@@ -11,41 +12,66 @@
 // }
 
 // interface NonVerbalQuizListProps {
+//   onSelectQuiz?: (quiz: Quiz) => void;
+//   shouldRecheckList: boolean;
+//   goToNextStep: () => void;
+// }
 
-//     onSelectQuiz?: (id: string) => void;
-//   }
-
-// const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz }) => {
+// const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
+//   onSelectQuiz,
+//   shouldRecheckList,
+//   goToNextStep,
+// }) => {
 //   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
 //   const [loading, setLoading] = useState(true);
 //   const [error, setError] = useState<string | null>(null);
 
 //   useEffect(() => {
+//     const abortController = new AbortController();
+
 //     const fetchQuizzes = async () => {
 //       try {
 //         const response = await fetch(
-//           'https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes',
+//           "https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes",
 //           {
-//             credentials: 'include',
+//             credentials: "include",
+//             signal: abortController.signal,
 //           }
 //         );
-//         const data = await response.json();
+//         const allQuizzes = await response.json();
 
-//         const quizzesWithAttemptedFlag = data.map((quiz: any) => ({
+//         const quizzesWithAttemptedFlag = allQuizzes.map((quiz: any) => ({
 //           ...quiz,
 //           attempted: quiz.attempted || false,
 //         }));
 
+//         const attemptedQuizzes = quizzesWithAttemptedFlag.filter(
+//           (quiz: any) => quiz.attempted
+//         );
+
+//         if (attemptedQuizzes.length === allQuizzes.length) {
+//           goToNextStep();
+//         } else {
+//           console.log("Not all quizzes attempted");
+//         }
+
 //         setQuizzes(quizzesWithAttemptedFlag);
 //         setLoading(false);
 //       } catch (error) {
-//         setError('Failed to fetch quizzes.');
+//         if(abortController.signal.aborted){
+//           return;
+//         }
+//         setError("Failed to fetch quizzes.");
 //         setLoading(false);
 //       }
 //     };
 
 //     fetchQuizzes();
-//   }, []);
+
+//     return () => {
+//       abortController.abort();
+//     };
+//   }, [shouldRecheckList]);
 
 //   if (loading) return <div className="text-white">Loading...</div>;
 //   if (error) return <div className="text-red-500">{error}</div>;
@@ -67,22 +93,26 @@
 //               <p>{quiz.description}</p>
 //             </div>
 //           </div>
-//           <Link
-//             href={
-//               quiz.attempted
-//                 ? `/userRender/nonverbal/${quiz._id}/result`
-//                 : `/userRender/nonverbal/${quiz._id}/attempt`
-//             }
-//           >
+//           {onSelectQuiz ? (
 //             <button
 //               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
-//               onClick={() =>
-//                 onSelectQuiz && typeof onSelectQuiz === 'function' &&
-//                  onSelectQuiz(quiz._id.toString())}
+//               onClick={() => onSelectQuiz(quiz)}
 //             >
-//               {quiz.attempted ? 'Result' : 'Attempt'}
+//               {quiz.attempted ? "Result" : "Attempt"}
 //             </button>
-//           </Link>
+//           ) : (
+//             <Link
+//               href={
+//                 quiz.attempted
+//                   ? `/userRender/nonverbal/${quiz._id}/result`
+//                   : `/userRender/nonverbal/${quiz._id}/attempt`
+//               }
+//             >
+//               <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
+//                 {quiz.attempted ? "Result" : "Attempt"}
+//               </button>
+//             </Link>
+//           )}
 //         </div>
 //       ))}
 //     </div>
@@ -94,9 +124,10 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import { useUser } from "@/app/components/context/userContext"; 
 
 export interface Quiz {
-  _id: number;
+  _id: string;
   title: string;
   description: string;
   attempted: boolean;
@@ -108,6 +139,15 @@ interface NonVerbalQuizListProps {
   goToNextStep: () => void;
 }
 
+interface QuizResult {
+  quizId: {
+    _id: string;
+  };
+  userId: {
+    _id: string;
+  };
+}
+
 const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
   onSelectQuiz,
   shouldRecheckList,
@@ -116,31 +156,57 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { token, _id } = useUser();
 
   useEffect(() => {
     const abortController = new AbortController();
 
     const fetchQuizzes = async () => {
       try {
-        const response = await fetch(
+        // Fetch all non-verbal quizzes
+        const quizResponse = await fetch(
           "https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuizzes",
           {
             credentials: "include",
             signal: abortController.signal,
           }
         );
-        const allQuizzes = await response.json();
+        const quizzesData = await quizResponse.json();
 
-        const quizzesWithAttemptedFlag = allQuizzes.map((quiz: any) => ({
-          ...quiz,
-          attempted: quiz.attempted || false,
-        }));
-
-        const attemptedQuizzes = quizzesWithAttemptedFlag.filter(
-          (quiz: any) => quiz.attempted
+        // Fetch non-verbal quiz results for the current user
+        const resultResponse = await fetch(
+          "https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResults",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
         );
 
-        if (attemptedQuizzes.length === allQuizzes.length) {
+        if (!resultResponse.ok) {
+          throw new Error("Failed to fetch quiz results.");
+        }
+
+        const resultsData: QuizResult[] = await resultResponse.json();
+
+        // Extract quiz IDs for quizzes attempted by the current user
+        const attemptedQuizIds = new Set(
+          resultsData
+            .filter((result) => result.userId?._id === _id)
+            .map((result) => result.quizId._id)
+        );
+
+        // Add attempted flag to each quiz based on user's results
+        const quizzesWithAttemptedFlag = quizzesData.map((quiz: Quiz) => ({
+          ...quiz,
+          attempted: attemptedQuizIds.has(quiz._id),
+        }));
+
+        // Check if all quizzes are attempted
+        if (Array.from(attemptedQuizIds).filter((id) => Boolean(id)).length === quizzesData.length) {
           goToNextStep();
         } else {
           console.log("Not all quizzes attempted");
@@ -149,7 +215,8 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
         setQuizzes(quizzesWithAttemptedFlag);
         setLoading(false);
       } catch (error) {
-        if(abortController.signal.aborted){
+        console.error(error);
+        if (abortController.signal.aborted) {
           return;
         }
         setError("Failed to fetch quizzes.");
@@ -162,20 +229,20 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
     return () => {
       abortController.abort();
     };
-  }, [shouldRecheckList]);
+  }, [token, shouldRecheckList, _id]);
 
   if (loading) return <div className="text-white">Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 
   return (
-    <div className="bg-gray-900 min-h-screen p-8 mt-20">
+    <div className="bg-[#212C44] min-h-screen p-8 mt-20">
       <div className="flex justify-center items-center text-white font-bold text-lg mb-8">
         <h2>Non Verbal Aptitude Test</h2>
       </div>
       {quizzes.map((quiz, index) => (
         <div
           key={quiz._id}
-          className="flex justify-between items-center p-4 mb-4 border border-white rounded-lg text-white"
+          className="flex justify-between items-center p-4 mb-4 border  rounded-lg  border-[#A49898] rounded-lg text-[#A49898]"
         >
           <div className="flex items-center">
             <span className="text-lg font-bold mr-4">{index + 1}</span>
@@ -189,7 +256,7 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
               onClick={() => onSelectQuiz(quiz)}
             >
-              {quiz.attempted ? "Result" : "Attempt"}
+              {quiz.attempted ? "View Result" : "Attempt Quiz"}
             </button>
           ) : (
             <Link
@@ -200,7 +267,7 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
               }
             >
               <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-                {quiz.attempted ? "Result" : "Attempt"}
+                {quiz.attempted ? "View Result" : "Attempt Quiz"}
               </button>
             </Link>
           )}

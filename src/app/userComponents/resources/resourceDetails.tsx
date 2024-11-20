@@ -152,12 +152,13 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="p-6 border h-full min-h-full rounded-md bg-gray-50 shadow-lg max-w-3xl mx-auto">
+    <div className="p-6 border h-full min-h-full rounded-md bg-[#212C44] shadow-lg max-w-3xl mx-auto rounded-md">
       {resource ? (
         <div>
-          <h1 className="text-3xl font-bold mb-6 text-center">{resource.title}</h1>
-          <p className="mb-4"><strong>Type:</strong> {resource.type}</p>
-          <p className="mb-4"><strong>Description:</strong> {resource.description}</p>
+     
+<h1 className="text-3xl font-bold mb-6 text-center text-white">{resource.title}</h1>
+<p className="text-gray-300 mb-4"><strong className="font-bold text-white text-lg">Type:</strong> {resource.type}</p>
+<p className="text-gray-300 mb-4"><strong className="font-bold text-white text-lg">Description:</strong> {resource.description}</p>
 
           {resource.resourceFile && (
                 <ReactPlayer

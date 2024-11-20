@@ -28,7 +28,7 @@ const CommunityQuestions: React.FC = () => {
         const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions', { credentials: 'include' });
         if (!response.ok) throw new Error('Failed to fetch the questions');
         const data = await response.json();
-        console.log(data); // Debug: Check the response structure
+        console.log(data); 
         setQuestions(data);
       } catch (error) {
         setError('Failed to load questions. Please try again later.');
@@ -109,3 +109,193 @@ const isValidURL = (url: string) => {
 };
 
 export default CommunityQuestions;
+// 'use client';
+
+// import React, { useState, useEffect } from 'react';
+// import { useRouter } from 'next/navigation';
+// import Link from 'next/link';
+// import { useUser } from '../components/context/userContext';
+
+// interface Question {
+//   _id: string;
+//   title: string;
+//   body: string;
+//   author?: {
+//     firstName: string;
+//     lastName: string;
+//   };
+// }
+
+// const CommunityQuestions = () => {
+//   const [questions, setQuestions] = useState<Question[]>([]);
+//   const [searchQuery, setSearchQuery] = useState('');
+//   const [newQuestion, setNewQuestion] = useState({ title: '', body: '' });
+
+//   const router = useRouter();
+//   const { _id, token } = useUser();
+
+//   useEffect(() => {
+//     const fetchQuestions = async () => {
+//       try {
+//         const response = await fetch(
+//           'https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions',
+//           { credentials: 'include' }
+//         );
+//         const data = await response.json();
+//         setQuestions(data);
+//       } catch (error) {
+//         console.error('Error fetching questions:', error);
+//       }
+//     };
+//     fetchQuestions();
+//   }, []);
+
+//   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     setSearchQuery(e.target.value);
+//   };
+
+//   const filteredQuestions = questions.filter((q) =>
+//     q.title && q.title.toLowerCase().includes(searchQuery.toLowerCase())
+//   );
+
+//   const handleSubmit = async (e: React.FormEvent) => {
+//     e.preventDefault();
+//     try {
+//       const response = await fetch(
+//         'https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/createCommunityQuestion',
+//         {
+//           method: 'POST',
+//           headers: {
+//             'Content-Type': 'application/json',
+//             Authorization: `Bearer ${token}`,
+//           },
+//           body: JSON.stringify(newQuestion),
+//           credentials: 'include',
+//         }
+//       );
+  
+//       if (response.ok) {
+//         const createdQuestion = await response.json(); 
+//         setQuestions((prevQuestions) => [createdQuestion, ...prevQuestions]); 
+//         setNewQuestion({ title: '', body: '' }); 
+        
+//       }
+//       const fetchQuestions = async () => {
+//         try {
+//           const response = await fetch(
+//             'https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions',
+//             { credentials: 'include' }
+//           );
+//           const data = await response.json();
+//           setQuestions(data);
+//         } catch (error) {
+//           console.error('Error fetching questions:', error);
+//         }
+//       };
+//       fetchQuestions();
+    
+//     } catch (error) {
+//       console.error('Error posting question:', error);
+//     }
+//   };
+  
+//   return (
+//     <div className="relative min-h-screen
+//      bg-[#0B1121]
+//       text-white">
+//       <div className='background-image-overlay'/>
+//       <div className="page-overlay" />
+
+//       <div className="max-w-screen-lg mx-auto px-4 py-12 z-10 relative">
+    
+    
+//       <div className="text-center text-white">
+//         <h1 className="text-4xl font-bold mb-2">Community</h1>
+//         <p className="text-lg">
+//           Explore our community of diverse questions, browse through questions, and contribute to find the information you need.
+//         </p>
+//       </div>
+
+     
+//       <div className="max-w-4xl mx-auto mt-8">
+//         <input
+//           type="text"
+//           placeholder="Search by title"
+//           value={searchQuery}
+//           onChange={handleSearch}
+//           className="w-full p-4 rounded-md shadow-lg border-none outline-none text-gray-900"
+//         />
+//       </div>
+
+     
+    
+// <div className="max-w-4xl mx-auto mt-8 bg-gray-800 text-white rounded-md p-6 shadow-lg border border-blue-400">
+//   <h2 className="text-2xl font-bold mb-6">Ask a Question</h2>
+//   <form onSubmit={handleSubmit} className="space-y-4">
+//     <input
+//       type="text"
+//       name="title"
+//       value={newQuestion.title}
+//       onChange={(e) =>
+//         setNewQuestion({ ...newQuestion, title: e.target.value })
+//       }
+//       placeholder="Title"
+//       className="w-full p-4 text-lg rounded-md bg-transparent border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400"
+//     />
+//     <textarea
+//       name="body"
+//       value={newQuestion.body}
+//       onChange={(e) =>
+//         setNewQuestion({ ...newQuestion, body: e.target.value })
+//       }
+//       placeholder="Description"
+//       rows={4}
+//       className="w-full p-4 text-lg rounded-md bg-transparent border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400"
+//     />
+//     <div className="flex justify-end">
+//       <button
+//         type="submit"
+//         className="bg-[#1F60B2] px-8 py-3 text-lg font-semibold text-white rounded-md hover:bg-blue-600 transition focus:ring-2 focus:ring-blue-400"
+//       >
+//         Submit
+//       </button>
+//     </div>
+//   </form>
+// </div>
+
+//       {/* Community Questions */}
+//       <div className="max-w-4xl mx-auto mt-8">
+//         <h2 className="text-2xl text-white font-bold mb-4">Community Questions</h2>
+//         {filteredQuestions.map((question) => (
+//           <div
+//             key={question._id}
+//             className="bg-gray-800 text-white p-4 mb-4 rounded-md shadow-lg"
+//           >
+//             <div className="flex items-center mb-2">
+//               <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-3">
+//                 {question.author?.firstName?.[0] || '?'}
+//               </div>
+//               <div>
+//                 <h3 className="text-lg font-bold">{`${question.author?.firstName || 'Unknown'} ${
+//                   question.author?.lastName || ''
+//                 }`}</h3>
+//                 <p className="text-gray-400 text-sm">{new Date().toLocaleDateString()}</p>
+//               </div>
+//             </div>
+//             <h4 className="text-xl font-semibold">{question.title}</h4>
+//             <p className="text-gray-300">{question.body.slice(0, 100)}...</p>
+//             <Link
+//               href={`/userRender/viewCommunityQuestions/${question._id}/questionDetail`}
+//               className="text-blue-400 mt-2 inline-block"
+//             >
+//               Read more
+//             </Link>
+//           </div>
+//         ))}
+//       </div>
+//     </div>
+//     </div>
+//   );
+// };
+
+// export default CommunityQuestions;

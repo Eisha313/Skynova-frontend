@@ -189,88 +189,225 @@ goToNextStep();
   const closeModal = () => setModalType(null);
 
   return (
-    <Box mx="auto" p="md" style={{ maxWidth: 600 }}>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
-        <Grid>
-          <Grid.Col span={6}>
-            <TextInput
-              label="Height"
-              placeholder="Enter height"
-              {...form.getInputProps('height')}
-              error={form.errors.height}
-            />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Select
-              label="Height Unit"
-              data={[
-                { value: 'cm', label: 'cm' },
-                { value: 'in', label: 'inches' },
-              ]}
-              {...form.getInputProps('heightUnit')}
-            />
-          </Grid.Col>
+    // <Box mx="auto" p="md" style={{ maxWidth: 600, backgroundColor: '#212C44' ,color:'white' }} >
+    //   <form onSubmit={form.onSubmit(handleSubmit)}>
+    //     <Grid>
+    //       <Grid.Col span={6}>
+    //         <TextInput
+    //           label="Height"
+    //           placeholder="Enter height"
+    //           {...form.getInputProps('height')}
+    //           error={form.errors.height}
+    //           required
+    //         />
+    //       </Grid.Col>
+    //       <Grid.Col span={6}>
+    //         <Select
+    //           label="Height Unit"
+    //           data={[
+    //             { value: 'cm', label: 'cm' },
+    //             { value: 'in', label: 'inches' },
+    //           ]}
+    //           {...form.getInputProps('heightUnit')}
+    //         />
+    //       </Grid.Col>
 
-          <Grid.Col span={6}>
-            <TextInput
-              label="Weight"
-              placeholder="Enter weight"
-              {...form.getInputProps('weight')}
-              error={form.errors.weight}
-            />
-          </Grid.Col>
-          <Grid.Col span={6}>
-            <Select
-              label="Weight Unit"
-              data={[
-                { value: 'kg', label: 'kg' },
-                { value: 'lbs', label: 'lbs' },
-              ]}
-              {...form.getInputProps('weightUnit')}
-            />
-          </Grid.Col>
+    //       <Grid.Col span={6}>
+    //         <TextInput
+    //           label="Weight"
+    //           placeholder="Enter weight"
+    //           {...form.getInputProps('weight')}
+    //           error={form.errors.weight}
+    //           required
+    //         />
+    //       </Grid.Col>
+    //       <Grid.Col span={6}>
+    //         <Select
+    //           label="Weight Unit"
+    //           data={[
+    //             { value: 'kg', label: 'kg' },
+    //             { value: 'lbs', label: 'lbs' },
+    //           ]}
+    //           {...form.getInputProps('weightUnit')}
+    //         />
+    //       </Grid.Col>
 
-          <Grid.Col span={6}>
-            <TextInput
-              label="Eyesight"
-              placeholder="e.g. 20/20"
-              {...form.getInputProps('eyesight')}
-              error={form.errors.eyesight}
-            />
-          </Grid.Col>
-        </Grid>
+    //       <Grid.Col span={6}>
+    //         <TextInput
+    //           label="Eyesight"
+    //           placeholder="e.g. 20/20"
+    //           {...form.getInputProps('eyesight')}
+    //           error={form.errors.eyesight}
+    //           required
+    //         />
+    //       </Grid.Col>
+    //     </Grid>
 
-        <Box mt="md" p="md" style={{ border: '2px dashed #ccc', borderRadius: '8px' }}>
-          <Dropzone
-            onDrop={handleFileDrop}
-            accept={['application/pdf']}
-          >
-            <Group justify="center" flex="column" style={{ textAlign: 'center', minHeight: 100 }}>
-              {showFile ? (
-                <>
-                  <IconFile size={24} />
-                  <Text>{showFile}</Text>
-                </>
-              ) : (
-                <>
-                  <IconUpload size={24} />
-                  <Text>Upload Medical Report (Optional)</Text>
-                </>
-              )}
-            </Group>
-          </Dropzone>
-        </Box>
+    //     <Box mt="md" p="md" style={{ border: '2px dashed #ccc', borderRadius: '8px', backgroundColor:"#212C44" }}>
+    //       <Dropzone
+    //         onDrop={handleFileDrop}
+    //         accept={['application/pdf']}
+    //       >
+    //         <Group justify="center" flex="column" style={{ textAlign: 'center', minHeight: 100 ,backgroundColor:'#B5B5B5' }}>
+    //           {showFile ? (
+    //             <>
+    //               <IconFile size={24} />
+    //               <Text>{showFile}</Text>
+    //             </>
+    //           ) : (
+    //             <>
+    //               <IconUpload size={24} />
+    //               <Text>Upload Medical Report (Optional)</Text>
+    //             </>
+    //           )}
+    //         </Group>
+    //       </Dropzone>
+    //     </Box>
 
-        {error && <Notification color="red">{error}</Notification>}
+    //     {error && <Notification color="red">{error}</Notification>}
 
-        <Button type="submit" mt="md" fullWidth>
-          Submit
-        </Button>
-        <Link href={'/userRender/competency'}>
-        <Button  mt="md" fullWidth>
-          back
-        </Button></Link>
-      </form>
+    //     <Button type="submit" mt="md" fullWidth style={{backgroundColor:'#1F60B2'}}>
+    //       Submit
+    //     </Button>
+    //     <Link href={'/userRender/competency'} >
+    //     <Button  mt="md" fullWidth style={{backgroundColor:'#1F60B2'}}>
+    //       back
+    //     </Button></Link>
+    //   </form>
+<Box
+  mx="auto"
+  p="md"
+  style={{ maxWidth: 600, backgroundColor: '#212C44', color: 'white' ,borderRadius: '12px' ,marginTop: '10px' }}
+>
+  <form onSubmit={form.onSubmit(handleSubmit)}>
+    <Grid>
+      <Grid.Col span={6}>
+        <TextInput
+          label="Height"
+          placeholder="Enter height"
+          {...form.getInputProps('height')}
+          error={form.errors.height}
+          required
+          styles={{
+            input: {
+              backgroundColor: '#212C44',
+              borderColor: '#B5B5B540',
+              borderRadius: '12px',
+              marginTop:"12px",
+              color: 'white',
+              '::placeholder': { color: '#B5B5B540' },
+            },
+          }}
+        />
+      </Grid.Col>
+      <Grid.Col span={6}>
+        <Select
+          label="Height Unit"
+          data={[
+            { value: 'cm', label: 'cm' },
+            { value: 'in', label: 'inches' },
+          ]}
+          {...form.getInputProps('heightUnit')}
+          styles={{
+            input: {
+              backgroundColor: '#212C44',
+              borderColor: '#B5B5B540',
+              borderRadius: '12px',
+              marginTop:"12px",
+              color: 'white',
+              '::placeholder': { color: '#B5B5B540' },
+            },
+          }}
+        />
+      </Grid.Col>
+
+      <Grid.Col span={6}>
+        <TextInput
+          label="Weight"
+          placeholder="Enter weight"
+          {...form.getInputProps('weight')}
+          error={form.errors.weight}
+          required
+          styles={{
+            input: {
+              backgroundColor: '#212C44',
+              borderColor: '#B5B5B540',
+              borderRadius: '12px',
+              color: 'white',
+              '::placeholder': { color: '#B5B5B540' },
+            },
+          }}
+        />
+      </Grid.Col>
+      <Grid.Col span={6}>
+        <Select
+          label="Weight Unit"
+          data={[
+            { value: 'kg', label: 'kg' },
+            { value: 'lbs', label: 'lbs' },
+          ]}
+          {...form.getInputProps('weightUnit')}
+          styles={{
+            input: {
+              backgroundColor: '#212C44',
+              borderColor: '#B5B5B540',
+              borderRadius: '12px',
+              color: 'white',
+              '::placeholder': { color: '#B5B5B540' },
+            },
+          }}
+        />
+      </Grid.Col>
+
+      <Grid.Col span={6}>
+        <TextInput
+          label="Eyesight"
+          placeholder="e.g. 20/20"
+          {...form.getInputProps('eyesight')}
+          error={form.errors.eyesight}
+          required
+          styles={{
+            input: {
+              backgroundColor: '#212C44',
+              borderColor: '#B5B5B540',
+               borderRadius: '12px',
+              color: 'white',
+              '::placeholder': { color: '#B5B5B540' ,borderRadius: '50px'},
+            },
+          }}
+        />
+      </Grid.Col>
+    </Grid>
+
+    <Box
+      mt="md"
+      p="md"
+      style={{ border: '2px dashed #B5B5B5', borderRadius: '8px', backgroundColor: '#212C44',borderColor:'#B5B5B540' }}
+    >
+      <Dropzone onDrop={handleFileDrop} accept={['application/pdf']} style={{backgroundColor:'#212C44'}}>
+        <Group justify="center" flex="column" style={{ textAlign: 'center', minHeight: 100, backgroundColor: '#B5B5B5' ,borderColor:'#B5B5B540' }}>
+          {showFile ? (
+            <>
+              <IconFile size={24} />
+              <Text>{showFile}</Text>
+            </>
+          ) : (
+            <>
+              <IconUpload size={24} />
+              <Text>Upload Medical Report (Optional)</Text>
+            </>
+          )}
+        </Group>
+      </Dropzone>
+    </Box>
+
+    {error && <Notification color="red">{error}</Notification>}
+
+    <Button type="submit" mt="md" fullWidth style={{ backgroundColor: '#1F60B2' ,marginBottom:"30px"}}>
+      Submit
+    </Button>
+  </form>
+
 
       
 <Modal opened={modalType === 'missingReport'} onClose={closeModal} title="Reminder">
@@ -288,7 +425,7 @@ goToNextStep();
 </Modal>
 
 
-      {/* Modal for ineligible status */}
+     
       <Modal opened={modalType === 'ineligible'} onClose={closeModal} title="Ineligible">
         <Group justify="center" flex="column">
           <IconMoodSad size={48} color="red" />
@@ -302,3 +439,172 @@ goToNextStep();
   );
 };
 export default MedicalFitnessForm
+
+
+
+// 'use client'; 
+// import React, { useState, useEffect } from 'react';
+// import { useForm } from '@mantine/form';
+// import { useRouter } from 'next/navigation';
+// import {
+//   Button,
+//   TextInput,
+//   Select,
+//   Group,
+//   Grid,
+//   Box,
+//   Text,
+//   Modal,
+//   Notification,
+// } from '@mantine/core';
+// import Link from 'next/link';
+// import { useUser } from '@/app/components/context/userContext';
+// import { Dropzone, FileWithPath } from '@mantine/dropzone';
+// import '@mantine/dropzone/styles.css';
+// import { IconMoodSad, IconUpload, IconFile } from '@tabler/icons-react';
+
+// const AVIATION_STANDARDS = {
+//   height: { cm: [150, 200], in: [59, 79] },
+//   weight: [50, 100],
+//   eyesight: { min: '20/30', max: '20/20' },
+// };
+
+// interface MedicalFitnessFormProps {
+//   goToNextStep: () => void;
+// }
+
+// const MedicalFitnessForm: React.FC<MedicalFitnessFormProps> = ({ goToNextStep }) => {
+//   const [isEligible, setIsEligible] = useState(true);
+//   const [modalType, setModalType] = useState<'ineligible' | 'missingReport' | null>(null);
+//   const [medicalReport, setMedicalReport] = useState<File | null>(null);
+//   const [error, setError] = useState<string | null>(null);
+//   const [showFile, setShowFile] = useState<string | null>(null);
+//   const router = useRouter();
+//   const { token } = useUser();
+
+//   const form = useForm({
+//     initialValues: {
+//       height: '',
+//       heightUnit: 'cm',
+//       weight: '',
+//       weightUnit: 'kg',
+//       eyesight: '',
+//     },
+//     validate: {
+//       height: (value) => (value ? null : 'Height is required'),
+//       weight: (value) => (value ? null : 'Weight is required'),
+//       eyesight: (value) => (value ? null : 'Eyesight is required'),
+//     },
+//   });
+
+//   const handleSubmit = async (values: typeof form.values) => {
+//     if (!medicalReport) {
+//       setModalType('missingReport');
+//       return;
+//     }
+//     try {
+//       const formData = new FormData();
+//       formData.append('height', values.height);
+//       formData.append('heightUnit', values.heightUnit);
+//       formData.append('weight', values.weight);
+//       formData.append('weightUnit', values.weightUnit);
+//       formData.append('eyesight', values.eyesight);
+//       if (medicalReport) formData.append('medicalReport', medicalReport);
+
+//       const response = await fetch(
+//         'https://sky-nova-8ccaddc754ce.herokuapp.com/medicalDetails/createMedicalDetails',
+//         {
+//           method: 'POST',
+//           headers: { Authorization: `Bearer ${token}` },
+//           body: formData,
+//         }
+//       );
+//       if (response.ok) goToNextStep();
+//     } catch (error) {
+//       setError('Failed to save medical report');
+//     }
+//   };
+
+//   const handleFileDrop = (acceptedFiles: FileWithPath[]) => {
+//     setMedicalReport(acceptedFiles[0]);
+//     setShowFile(acceptedFiles[0]?.name);
+//   };
+
+//   return (
+//     <Box mx="auto" p="md" className="max-w-lg bg-white shadow-md rounded-lg p-6">
+//       <form onSubmit={form.onSubmit(handleSubmit)}>
+//         <Grid gutter="md">
+//           <Grid.Col span={6}>
+//             <TextInput label="Height" {...form.getInputProps('height')} />
+//           </Grid.Col>
+//           <Grid.Col span={6}>
+//             <Select
+//               label="Height Unit"
+//               data={[{ value: 'cm', label: 'cm' }, { value: 'in', label: 'in' }]}
+//               {...form.getInputProps('heightUnit')}
+//             />
+//           </Grid.Col>
+//           <Grid.Col span={6}>
+//             <TextInput label="Weight" {...form.getInputProps('weight')} />
+//           </Grid.Col>
+//           <Grid.Col span={6}>
+//             <Select
+//               label="Weight Unit"
+//               data={[{ value: 'kg', label: 'kg' }, { value: 'lbs', label: 'lbs' }]}
+//               {...form.getInputProps('weightUnit')}
+//             />
+//           </Grid.Col>
+//           <Grid.Col span={12}>
+//             <TextInput label="Eyesight" placeholder="e.g. 20/20" {...form.getInputProps('eyesight')} />
+//           </Grid.Col>
+//         </Grid>
+
+//         <Box mt="md" p="md" className="border border-gray-300 rounded-md">
+//           <Dropzone onDrop={handleFileDrop} accept={['application/pdf']}>
+//             <Group className="text-center">
+//               {showFile ? (
+//                 <>
+//                   <IconFile size={32} />
+//                   <Text>{showFile}</Text>
+//                 </>
+//               ) : (
+//                 <>
+//                   <IconUpload size={32} />
+//                   <Text>Upload Medical Report (Optional)</Text>
+//                 </>
+//               )}
+//             </Group>
+//           </Dropzone>
+//         </Box>
+
+//         {error && <Notification color="red" title="Error">{error}</Notification>}
+
+//         <Group mt="md">
+//           <Button type="submit" fullWidth>
+//             Submit
+//           </Button>
+//           <Link href="/userRender/competency">
+//             <Button variant="outline" fullWidth>
+//               Back
+//             </Button>
+//           </Link>
+//         </Group>
+//       </form>
+
+//       {/* Modal for missing report */}
+//       <Modal opened={modalType === 'missingReport'} onClose={() => setModalType(null)} title="Reminder">
+//         <Text>You did not upload a medical report. Please remember to do so within 7 days.</Text>
+//       </Modal>
+
+//       {/* Modal for ineligible */}
+//       <Modal opened={modalType === 'ineligible'} onClose={() => setModalType(null)} title="Ineligible">
+//         <Group justify="center">
+//           <IconMoodSad size={48} color="red" />
+//           <Text>You are not eligible based on provided details.</Text>
+//         </Group>
+//       </Modal>
+//     </Box>
+//   );
+// };
+
+// export default MedicalFitnessForm;

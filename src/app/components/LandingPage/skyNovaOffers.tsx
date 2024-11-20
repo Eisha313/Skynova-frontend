@@ -47,7 +47,7 @@ const SkyNovaOffers = () => {
           {cards.map((card, index) => (
             <div
               key={index}
-              className="group relative bg-[#0D1A36] border border-gray-600 rounded-lg px-6 py-8 text-left transition-all hover:border-blue-500 hover:bg-[#112141] hover:shadow-lg"
+              className="group relative bg-[#0D1A36]   shadow-lg shadow-gray-400 border-gray-600 rounded-lg px-6 py-8 text-left transition-all hover:border-blue-500 hover:bg-[#112141] hover:shadow-lg card-outline-offers"
             >
               <div
                 className="text-4xl text-white mb-4 group-hover:text-blue-500"

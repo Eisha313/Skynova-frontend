@@ -67,46 +67,29 @@ const DocumentSection: React.FC<DocumentSectionProps> = ({
   }
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-      {displayedDocuments.map((doc) => (
-        <div
-          key={doc._id}
-          className="bg-white shadow-lg rounded-lg overflow-hidden"
-        >
-          <Link href={`/userRender/view-resource/${doc._id}/resourceDetails`} passHref>
-            <div className="p-4 flex flex-col items-center space-y-2 cursor-pointer">
-              {doc.type === "pdf" && (
-                <iframe
-                  src={doc.resourceFile}
-                  width="100%"
-                  height="150px"
-                  className="mb-2"
-                />
-              )}
-              {doc.type === "image" && (
-                <img
-                  src={doc.resourceFile}
-                  alt={doc.title}
-                  className="w-full h-32 object-cover mb-2"
-                />
-              )}
-              <span className="text-blue-600 hover:text-blue-800 font-semibold text-lg">
-                {doc.title}
-              </span>
-            </div>
-          </Link>
-        </div>
-      ))}
-      {filteredDocuments.length > 4 && (
-        <button
-          onClick={() => setViewAll(!viewAll)}
-          className="mt-4 text-blue-600 hover:text-blue-800 font-semibold"
-        >
-          {viewAll ? "View Less" : "View All"}
-        </button>
-      )}
-    </div>
-  );
+    
+
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+    {displayedDocuments.map((doc) => (
+      <div key={doc._id} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+        <Link href={`/userRender/view-resource/${doc._id}/resourceDetails`} passHref>
+          <div className="p-4 flex flex-col items-center space-y-2 cursor-pointer">
+            {doc.type === 'pdf' ? (
+              <iframe src={doc.resourceFile} width="100%" height="150px" className="mb-2" />
+            ) : (
+              <img src={doc.resourceFile} alt={doc.title} className="w-full h-32 object-cover mb-2" />
+            )}
+            <span className="text-indigo-600 hover:text-indigo-800 font-semibold text-lg text-center">
+              {doc.title}
+            </span>
+          </div>
+        </Link>
+      </div>
+    ))}
+  </div>
+);
+
+  
 };
 
 export default DocumentSection;

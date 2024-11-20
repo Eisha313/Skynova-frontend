@@ -1,11 +1,8 @@
 
-
-
-
-// 'use client';
+// 'use client'; 
 
 // import React, { useState, useEffect, useCallback } from 'react';
-// import { format, parseISO } from 'date-fns';
+// import { format } from 'date-fns';
 // import Link from 'next/link';
 // import { useUser } from '../components/context/userContext';
 
@@ -13,7 +10,7 @@
 //   _id: number;
 //   firstName: string;
 //   lastName: string;
-//   profileImage?: string | null; // Optional
+//   profileImage?: string | null; 
 // }
 
 // interface Answer {
@@ -40,28 +37,27 @@
 //   const [answer, setAnswer] = useState<string>('');
 
 //   const { token, firstName, lastName, _id: userId, profileImage } = useUser();
-  
+
+ 
 //   const fetchQuestion = useCallback(async () => {
 //     if (!id) return;
 //     try {
 //       const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestion/${id}`, {
 //         credentials: 'include',
 //         headers: {
-//           Authorization: `Bearer ${token}`
-//         }
+//           Authorization: `Bearer ${token}`,
+//         },
 //       });
 //       if (response.ok) {
 //         const data = await response.json();
-//         console.log('Fetched Question:', data); 
-//         console.log("my ans is",data.answers)
-  
-//         const questionData = data[0];
+//         console.log('Fetched Question:', data);
+
+//         const questionData = data;
 //         setQuestion({
 //           ...questionData,
-//           answers: questionData?.answers || []  // Ensure this is correctly updating
-       
+//           // answers: questionData?.answers || [], 
+//           answers:[...(questionData?.answers || [])], 
 //         });
-       
 //       } else {
 //         console.error('Error fetching question:', response.statusText);
 //       }
@@ -69,16 +65,17 @@
 //       console.error('Error:', error);
 //     }
 //   }, [id, token]);
-  
-  
+
 //   useEffect(() => {
 //     fetchQuestion();
 //   }, [fetchQuestion]);
 
+  
 //   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 //     setAnswer(e.target.value);
 //   };
 
+  
 //   const handleAnswerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 //     e.preventDefault();
 //     if (!id || !token) return;
@@ -87,7 +84,7 @@
 //         method: 'POST',
 //         headers: {
 //           'Content-Type': 'application/json',
-//           Authorization: `Bearer ${token}`
+//           Authorization: `Bearer ${token}`,
 //         },
 //         body: JSON.stringify({
 //           content: answer,
@@ -96,10 +93,10 @@
 //             _id: userId,
 //             firstName,
 //             lastName,
-//             profileImage: profileImage || null 
-//           }
+//             profileImage: profileImage || null,
+//           },
 //         }),
-//         credentials: 'include'
+//         credentials: 'include',
 //       });
 
 //       if (response.ok) {
@@ -123,16 +120,24 @@
 //   return (
 //     <div className="container mx-auto p-6 bg-white shadow-md rounded-md">
 //       <div className="space-y-6">
- 
-//       {question.answers && question.answers.length > 0 ? (
+        
+//         <h1 className="text-2xl font-bold text-blue-700 mb-4">{question.title}</h1>
+//         <p className="text-gray-700">{question.body}</p>
+
+        
+//         {question?.answers && question.answers.length > 0 ? (
 //   question.answers.map((ans) => (
-//     <div key={ans._id} className="bg-blue-50 p-4 rounded-lg shadow-lg">
+//     <div key={ans._id} className="bg-blue-50 p-4 rounded-lg shadow-lg mb-4">
 //       <div className="flex items-center mb-2">
-//         {/* Author Info */}
+        
 //         {ans.author ? (
 //           <>
 //             {ans.author.profileImage ? (
-//               <img src={ans.author.profileImage} alt={ans.author.firstName} className="w-8 h-8 rounded-full" />
+//               <img
+//                 src={ans.author.profileImage}
+//                 alt={ans.author.firstName}
+//                 className="w-8 h-8 rounded-full"
+//               />
 //             ) : (
 //               <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white">
 //                 {ans.author.firstName[0].toUpperCase()}
@@ -146,19 +151,17 @@
 //           </div>
 //         )}
 //       </div>
-    
 //       <p className="text-gray-900 mb-2">{ans.content}</p>
-//       {/* Answer Date */}
 //       <p className="text-gray-600 text-sm">{new Date(ans.date).toLocaleString()}</p>
 //     </div>
 //   ))
 // ) : (
 //   <p className="text-gray-500">No answers yet. Be the first to answer!</p>
 // )}
-
 // </div>
 
 
+      
 //       <form onSubmit={handleAnswerSubmit} className="mt-8">
 //         <h2 className="text-2xl font-semibold mb-4 text-blue-700">Your Answer</h2>
 //         <textarea
@@ -180,27 +183,16 @@
 // };
 
 // export default QuestionDetail;
-
-// function isValidURL(url: string): boolean {
-//   try {
-//     new URL(url);
-//     return true;
-//   } catch (error) {
-//     return false;
-//   }
-// }
-'use client'; 
+'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { format } from 'date-fns';
-import Link from 'next/link';
 import { useUser } from '../components/context/userContext';
 
 interface User {
   _id: number;
   firstName: string;
   lastName: string;
-  profileImage?: string | null; 
+  profileImage?: string | null;
 }
 
 interface Answer {
@@ -228,25 +220,23 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
 
   const { token, firstName, lastName, _id: userId, profileImage } = useUser();
 
- 
   const fetchQuestion = useCallback(async () => {
     if (!id) return;
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestion/${id}`, {
-        credentials: 'include',
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestion/${id}`,
+        {
+          credentials: 'include',
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
-        console.log('Fetched Question:', data);
-
-        const questionData = data;
         setQuestion({
-          ...questionData,
-          // answers: questionData?.answers || [], 
-          answers:[...(questionData?.answers || [])], 
+          ...data,
+          answers: [...(data?.answers || [])],
         });
       } else {
         console.error('Error fetching question:', response.statusText);
@@ -260,38 +250,39 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
     fetchQuestion();
   }, [fetchQuestion]);
 
-  
   const handleAnswerChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setAnswer(e.target.value);
   };
 
-  
   const handleAnswerSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!id || !token) return;
     try {
-      const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/communityAnswers/createCommunityAnswer', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          content: answer,
-          questionId: id,
-          author: {
-            _id: userId,
-            firstName,
-            lastName,
-            profileImage: profileImage || null,
+      const response = await fetch(
+        'https://sky-nova-8ccaddc754ce.herokuapp.com/communityAnswers/createCommunityAnswer',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
           },
-        }),
-        credentials: 'include',
-      });
+          body: JSON.stringify({
+            content: answer,
+            questionId: id,
+            author: {
+              _id: userId,
+              firstName,
+              lastName,
+              profileImage: profileImage || null,
+            },
+          }),
+          credentials: 'include',
+        }
+      );
 
       if (response.ok) {
         setAnswer('');
-        fetchQuestion(); 
+        fetchQuestion();
       } else {
         console.error('Error posting answer:', response.statusText);
       }
@@ -305,65 +296,81 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
     return `${user.firstName} ${user.lastName}`;
   };
 
-  if (!question) return <div className="flex justify-center items-center h-screen">Loading...</div>;
+  if (!question)
+    return (
+      <div className="flex justify-center items-center h-screen">
+        Loading...
+      </div>
+    );
 
   return (
-    <div className="container mx-auto p-6 bg-white shadow-md rounded-md">
-      <div className="space-y-6">
-        
-        <h1 className="text-2xl font-bold text-blue-700 mb-4">{question.title}</h1>
-        <p className="text-gray-700">{question.body}</p>
+    <div className="max-w-5xl mx-auto mt-8 p-6 bg-gray-50 rounded-lg shadow-md">
+      {/* Question Section */}
+      <div className="bg-white p-6 rounded-lg shadow-lg mb-6 border border-gray-200">
+        <h1 className="text-3xl font-bold text-blue-700">{question.title}</h1>
+        <p className="text-gray-700 mt-4">{question.body}</p>
+      </div>
 
-        
-        {question?.answers && question.answers.length > 0 ? (
-  question.answers.map((ans) => (
-    <div key={ans._id} className="bg-blue-50 p-4 rounded-lg shadow-lg mb-4">
-      <div className="flex items-center mb-2">
-        
-        {ans.author ? (
-          <>
-            {ans.author.profileImage ? (
-              <img
-                src={ans.author.profileImage}
-                alt={ans.author.firstName}
-                className="w-8 h-8 rounded-full"
-              />
-            ) : (
-              <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white">
-                {ans.author.firstName[0].toUpperCase()}
+      {/* Answers Section */}
+      <div className="space-y-6">
+        <h2 className="text-2xl font-bold text-blue-700">Answers</h2>
+        {question.answers && question.answers.length > 0 ? (
+          question.answers.map((ans) => (
+            <div
+              key={ans._id}
+              className="bg-white p-4 rounded-lg shadow-md border border-gray-200"
+            >
+              <div className="flex items-center mb-2">
+                {ans.author ? (
+                  <>
+                    {ans.author.profileImage ? (
+                      <img
+                        src={ans.author.profileImage}
+                        alt={ans.author.firstName}
+                        className="w-10 h-10 rounded-full"
+                      />
+                    ) : (
+                      <div className="w-10 h-10 bg-blue-500 text-white rounded-full flex items-center justify-center">
+                        {ans.author.firstName[0].toUpperCase()}
+                      </div>
+                    )}
+                    <p className="ml-3 text-blue-500 font-semibold">
+                      {getUsername(ans.author)}
+                    </p>
+                  </>
+                ) : (
+                  <div className="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center text-white">
+                    Unknown
+                  </div>
+                )}
               </div>
-            )}
-            <p className="ml-3 text-blue-500">{ans.author.firstName} {ans.author.lastName}</p>
-          </>
+              <p className="text-gray-900 mb-2">{ans.content}</p>
+              <p className="text-gray-500 text-sm">
+                {new Date(ans.date).toLocaleString()}
+              </p>
+            </div>
+          ))
         ) : (
-          <div className="w-8 h-8 bg-gray-300 rounded-full flex items-center justify-center text-white">
-            Unknown
-          </div>
+          <p className="text-gray-500">No answers yet. Be the first to answer!</p>
         )}
       </div>
-      <p className="text-gray-900 mb-2">{ans.content}</p>
-      <p className="text-gray-600 text-sm">{new Date(ans.date).toLocaleString()}</p>
-    </div>
-  ))
-) : (
-  <p className="text-gray-500">No answers yet. Be the first to answer!</p>
-)}
-</div>
 
-
-      
-      <form onSubmit={handleAnswerSubmit} className="mt-8">
-        <h2 className="text-2xl font-semibold mb-4 text-blue-700">Your Answer</h2>
+      {/* Answer Form */}
+      <form
+        onSubmit={handleAnswerSubmit}
+        className="bg-white p-6 rounded-lg shadow-lg mt-8 border border-gray-200"
+      >
+        <h2 className="text-2xl font-bold text-blue-700 mb-4">Your Answer</h2>
         <textarea
           value={answer}
           onChange={handleAnswerChange}
           placeholder="Write your answer here..."
-          className="w-full p-4 rounded-lg border border-gray-300 focus:outline-none focus:border-blue-500"
+          className="w-full p-4 text-gray-800 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
           rows={5}
         />
         <button
           type="submit"
-          className="bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-lg hover:bg-blue-800"
+          className="bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded-lg hover:bg-blue-800 transition"
         >
           Submit Answer
         </button>

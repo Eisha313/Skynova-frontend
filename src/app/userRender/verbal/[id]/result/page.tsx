@@ -23,7 +23,7 @@ const EditAviatorPage: React.FC = () => {
         <Header />  
         
         
-        <main className="flex-1 p-4 bg-white">
+        <main className="flex-1 p-4 bg-[#212C44]">
         <Result id={aviatorId} />
         </main>
       </div>

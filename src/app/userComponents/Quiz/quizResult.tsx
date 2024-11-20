@@ -53,7 +53,7 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <div className="bg-gray-900 min-h-screen p-8 text-white">
+    <div className="bg-[#212C44] min-h-screen p-8 text-white">
       <h1 className="text-2xl mb-6">Detailed Results</h1>
       <div className="max-h-[60vh] overflow-y-auto">
         {results.map((result, resultIndex) => (

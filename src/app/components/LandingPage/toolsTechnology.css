@@ -1,0 +1,11 @@
+.tools-and-technologies .embla {
+    overflow: hidden;
+  }
+  .tools-and-technologies .embla__container {
+    display: flex;
+  }
+  .tools-and-technologies .embla__slide {
+    flex: 0 0 10%;
+    min-width: 0;
+  }
+  
