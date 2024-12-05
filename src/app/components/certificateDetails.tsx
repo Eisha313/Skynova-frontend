@@ -61,6 +61,7 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
           title={certificate.type}
           description={certificate.description}
           date={new Date().toLocaleDateString()}
+          qrValue=''
         />
       </div>
       <button
