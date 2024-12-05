@@ -65,9 +65,13 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ title, resources }) =
     {resource.type === "quote" ? (
       
       <div className="p-4 bg-[#7E7E7E3B] rounded-lg shadow-md text-center w-full relative">
-        <p className="text-lg italic font-semibold text-white">
+        {/* <p className="text-lg italic font-semibold text-white">
           "{resource.content}"
-        </p>
+        </p> */}
+        <p className="text-lg italic font-semibold text-white">
+  &quot;{resource.content}&quot;
+</p>
+
         <span className="absolute bottom-2 right-4 text-sm text-gray-400">
           - {resource.name}
         </span>

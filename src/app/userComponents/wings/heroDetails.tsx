@@ -111,9 +111,12 @@ const HeroDetails: React.FC<{ id: string }> = ({ id }) => {
             <div className="p-6  rounded-lg ">
               <h2 className="text-xl font-semibold mb-4">Quotes</h2>
               <div className="bg-[rgba(255,255,255,0.12)] p-4 rounded-md shadow-md">
-                <p className="text-center italic text-gray-300">
+                {/* <p className="text-center italic text-gray-300">
                   "{hero.quotes[0]?.content || "No quotes available"}"
-                </p>
+                </p> */}
+                <p className="text-center italic text-gray-300">
+  &quot;{hero.quotes[0]?.content || "No quotes available"}&quot;
+</p>
               </div>
             </div>
           )}
