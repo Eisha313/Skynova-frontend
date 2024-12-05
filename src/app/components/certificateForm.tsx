@@ -100,7 +100,8 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
 
       {showCertificate && generatedCertificate && (
         <div className="mt-8">
-          <Certificate title={generatedCertificate.type} description={generatedCertificate.description} date={new Date().toLocaleDateString()}  />
+          <Certificate title={generatedCertificate.type} description={generatedCertificate.description} date={new Date().toLocaleDateString()} 
+          qrValue='' />
         </div>
       )}
     </div>
