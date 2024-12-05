@@ -187,7 +187,7 @@ const ResourcePage: React.FC = () => {
     <div className="relative min-h-screen bg-[#0B1121] text-white">
         <div className='background-image-overlay'/>
           <div className="page-overlay" />
-      <div className="max-w-screen-lg mx-auto px-4 py-12 z-10 relative">
+      <div className="max-w-screen-xl  mx-auto px-4 py-12 z-10 relative">
        
         <header className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
@@ -268,8 +268,8 @@ const ResourcePage: React.FC = () => {
         borderRadius: '12px',
         color: 'white',
         height: '48px', 
-        lineHeight: '2rem', // Adjust line height for better vertical alignment of the placeholder
-        fontSize: '1rem', // Optionally, adjust the font size to make the placeholder more prominent
+        lineHeight: '2rem', 
+        fontSize: '1rem', 
       },
     }}
   />

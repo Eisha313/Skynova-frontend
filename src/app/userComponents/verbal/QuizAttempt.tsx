@@ -337,9 +337,7 @@ const QuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goToNextStep 
 
     return (
         <div className="bg-[#212C44]  flex flex-col items-center text-white p-8">
-            {/* <div className="text-lg mb-4 font-bold">
-                Question {currentQuestion + 1} of {quiz.questions.length}
-            </div> */}
+           
             <div className="w-full bg-gray-300 h-2 rounded-full mb-4">
     <div
         className="bg-blue-500 h-2 rounded-full"

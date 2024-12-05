@@ -7,6 +7,7 @@ import InfoContainer from './infocontainer';
 import { FaUser, FaQuestionCircle } from 'react-icons/fa';
 import { ChartComponent } from '@/components/barChartComponent';
 import { PieChartComponent } from '@/components/pieChartComponent';
+import { DynamicBarChart } from '@/components/interactivebarchart';
 
 // const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'http://h192.168.18.54:3000';
 const baseURL = process.env.NEXT_PUBLIC_API_BASE_URL || 'https://sky-nova-8ccaddc754ce.herokuapp.com';
@@ -90,9 +91,9 @@ const Dashboard: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-4">
-      <DashboardContainer>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+    <div className=" bg-custom-image p-4">
+      <DashboardContainer >
+        <div className="  grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <InfoContainer
             icon={<FaUser />}
             heading="Manage Aviators"
@@ -145,8 +146,18 @@ const Dashboard: React.FC = () => {
           <div className="w-full max-w-4xl">
             <PieChartComponent />
           </div>
+          
         </div>
+
+        <div className="mt-8 flex justify-center">
+          <div className="w-full max-w-4xl">
+          <DynamicBarChart/>
+          </div>
+          
+        </div>
+       
       </DashboardContainer>
+      
     </div>
   );
 };

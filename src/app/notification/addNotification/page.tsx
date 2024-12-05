@@ -1,4 +1,4 @@
-// pages/certificates.tsx
+
 import React from 'react';
 import Sidebar from '../../components/sidebarDashboard';
 import Header from '../../components/header';

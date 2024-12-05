@@ -43,7 +43,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="flex items-center justify-between p-2 bg-white shadow-md">
+    <header className="flex items-center justify-between p-2 bg-eisha shadow-md text-white">
       {/* Left Side */}
       <div className="flex items-center">
         {/* <div className="flex border rounded-md overflow-hidden">
@@ -58,18 +58,18 @@ const Header: React.FC = () => {
         </div> */}
       </div>
 
-      <div className="flex items-center space-x-4 text-gray-600">
+      <div className="flex items-center space-x-4 text-white">
         <button className="p-2 rounded-full hover:bg-gray-100">
-          <FaSun className="w-5 h-5 text-gray-700" />
+          <FaSun className="w-5 h-5 text-white" />
         </button>
         <button className="p-2 rounded-full hover:bg-blue-100">
-          <FaBell className="w-5 h-5 text-blue-500" />
+          <FaBell className="w-5 h-5 text-white" />
         </button>
         <div className="flex items-center space-x-3">
-          <FaUserCircle className="w-7 h-7 text-gray-600" />
+          <FaUserCircle className="w-7 h-7 text-white" />
           <div className="text-sm">
             <div className="font-semibold">{firstName}</div>
-            <div className="text-gray-500">{role}</div>
+            <div className="text-white">{role}</div>
           </div>
         </div>
         <div className="bg-gray-200 p-2 rounded-full flex items-center space-x-4">

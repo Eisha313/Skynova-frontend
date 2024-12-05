@@ -3,8 +3,9 @@
 import { useState, useEffect } from 'react';
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import Link from 'next/link';
-import QuizModal from './quizmodal';
+import QuizModal from './quizModall'
 import Search from './Search';
+import DeleteConfirmationModal from './confirmationModal';
 
 interface Quiz {
   _id: string;
@@ -39,6 +40,8 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   const [selectedQuiz, setSelectedQuiz] = useState<QuizDetail | null>(null);
   const [filteredQuizzes, setFilteredQuizzes] = useState<Quiz[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [quizToDelete, setQuizToDelete] = useState<string | null>(null);
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
@@ -46,7 +49,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
         if (response.ok) {
           const data = await response.json();
           setQuizzes(data);
-          setFilteredQuizzes(data);  // Initialize filteredQuizzes with all quizzes
+          setFilteredQuizzes(data);  
         } else {
           console.error('Failed to fetch quizzes');
         }
@@ -67,13 +70,31 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
     setSortConfig({ key, direction });
   };
 
+  // const handleQuizClick = async (quizId: string) => {
+  //   try {
+  //     const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${quizId}`,{credentials:'include'});
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setSelectedQuiz(data);
+  //       setIsModalOpen(true);
+  //     } else {
+  //       console.error('Failed to fetch quiz details');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching quiz details:', error);
+  //   }
+  // };
   const handleQuizClick = async (quizId: string) => {
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${quizId}`,{credentials:'include'});
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${quizId}`, { credentials: 'include' });
       if (response.ok) {
         const data = await response.json();
-        setSelectedQuiz(data);
-        setIsModalOpen(true);
+        if (data.length > 0) {
+          setSelectedQuiz(data[0]); 
+          setIsModalOpen(true);
+        } else {
+          console.error('No quiz data found.');
+        }
       } else {
         console.error('Failed to fetch quiz details');
       }
@@ -81,7 +102,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
       console.error('Error fetching quiz details:', error);
     }
   };
-
+  
  
 
   const handleCloseModal = () => {
@@ -99,27 +120,63 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
 
   const clearSearch = () => {
     setSearchTerm('');
-    setFilteredQuizzes(quizzes); // Reset to show all quizzes
+    setFilteredQuizzes(quizzes); 
   };
+  
+  // const handleDeleteQuiz = async (quizId: string) => {
+  //   try {
+  //     const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/deleteQuiz/${quizId}`, {
+  //       method: 'DELETE',
+  //       credentials:'include'
+  //     });
+  //     if (response.ok) {
+  //       setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
+  //       setFilteredQuizzes(filteredQuizzes.filter((quiz) => quiz._id !== quizId));
+  //       setSelectedQuizzes(selectedQuizzes.filter((id) => id !== quizId));
+  //     } else {
+  //       console.error('Failed to delete quiz');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error deleting quiz:', error);
+  //   }
+  // };
+  
+  const openDeleteConfirmationModal = (quizId: string) => {
+    setQuizToDelete(quizId); // Save the quiz ID
+    setIsDeleteModalOpen(true); // Open the modal
+  };
+  
+ 
+   
+  const closeDeleteConfirmationModal = () => {
+    setQuizToDelete(null);
+    setIsDeleteModalOpen(false);
+};
 
-  const handleDeleteQuiz = async (quizId: string) => {
+
+
+  const confirmDeleteQuiz = async () => {
+    if (!quizToDelete) return;
+
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/deleteQuiz/${quizId}`, {
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/deleteQuiz/${quizToDelete}`, {
         method: 'DELETE',
-        credentials:'include'
+        credentials: 'include',
       });
+
       if (response.ok) {
-        setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
-        setFilteredQuizzes(filteredQuizzes.filter((quiz) => quiz._id !== quizId));
-        setSelectedQuizzes(selectedQuizzes.filter((id) => id !== quizId));
+        setQuizzes(quizzes.filter((quiz) => quiz._id !== quizToDelete));
+        setFilteredQuizzes(filteredQuizzes.filter((quiz) => quiz._id !== quizToDelete));
+        setSelectedQuizzes(selectedQuizzes.filter((id) => id !== quizToDelete));
       } else {
         console.error('Failed to delete quiz');
       }
     } catch (error) {
       console.error('Error deleting quiz:', error);
+    } finally {
+      closeDeleteConfirmationModal();
     }
   };
-
   const handleSelectAll = () => {
     if (selectedQuizzes.length === filteredQuizzes.length) {
       setSelectedQuizzes([]);
@@ -135,6 +192,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
       setSelectedQuizzes([...selectedQuizzes, id]);
     }
   };
+  
 
   const renderArrow = (key: keyof Quiz) => {
     if (sortConfig.key === key) {
@@ -215,7 +273,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
                 >
                   <FaEye className="text-gray-700" />
                 </button>
-                <Link href={`quizPage/${quiz.title}/edit`} passHref>
+                <Link href={`quizPage/${quiz._id}/edit`} passHref>
                   <button
                     className="text-blue-500 hover:underline mr-2 bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400"
                   >
@@ -223,7 +281,8 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
                   </button>
                 </Link>
                 <button
-                  onClick={() => handleDeleteQuiz(quiz._id)}
+                  // onClick={() => confirmDeleteQuiz(quiz._id)}
+                  onClick={() => openDeleteConfirmationModal(quiz._id)}
                   className="text-red-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400"
                 >
                   <FaTrash className="text-gray-700" />
@@ -233,10 +292,17 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
           ))}
         </tbody>
       </table>
+      {isDeleteModalOpen && (
+  <DeleteConfirmationModal
+    onConfirm={confirmDeleteQuiz}
+    onCancel={closeDeleteConfirmationModal}
+  />
+)}
+
   
       {isModalOpen && selectedQuiz && (
         <QuizModal
-          quizDetails={selectedQuiz} // Use quizDetails here
+          quizDetails={selectedQuiz} 
           isOpen={isModalOpen}
           onClose={handleCloseModal}
         />

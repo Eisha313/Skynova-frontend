@@ -4,10 +4,10 @@ import React from 'react';
 import Sidebar from '@/app/components/sidebarDashboard';
 import Header from '@/app/components/header';
 import { useParams } from 'next/navigation';
-import Result from '@/app/userComponents/verbal/Result';
+import Result from '@/app/userComponents/Quiz/quizResult';
 
 
-const EditAviatorPage: React.FC = () => {
+const EditQuizPage: React.FC = () => {
   const params = useParams();
   const { id } = params;
 
@@ -31,4 +31,4 @@ const EditAviatorPage: React.FC = () => {
   )
 };
 
-export default EditAviatorPage;
+export default EditQuizPage;

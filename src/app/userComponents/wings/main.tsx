@@ -55,10 +55,10 @@ const filteredHeroes = heroes.filter((hero) => {
           <img src="/wog.png" alt="Description" className="max-w-[50%] max-h-[60vh] object-contain mt-16" />
         </div>
 
-       {/* Search Filter Bar */}
+       
 <SearchFilterBar onSearch={setSearchTerm} onFilter={setFilterType} />
 
-{/* Category Buttons */}
+
 <div className="flex gap-20 mt-20 mt-6 justify-center">
   <button
     onClick={() => setFilterType("hero")}

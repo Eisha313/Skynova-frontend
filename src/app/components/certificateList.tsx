@@ -230,15 +230,14 @@ const CertificateList: React.FC = () => {
     direction: 'asc',
   });
   const [currentPage, setCurrentPage] = useState(1);
-  const [certificatesPerPage] = useState(5); // Display 5 certificates per page
+  const [certificatesPerPage] = useState(5); 
 
-  // Fetch certificates from API
   useEffect(() => {
     fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificates', { credentials: 'include' })
       .then((res) => res.json())
       .then((data) => {
         setCertificates(data);
-        setFilteredCertificate(data); // Set filtered certificates initially
+        setFilteredCertificate(data);
       })
       .catch((error) => console.error('Error fetching certificates:', error));
   }, []);
@@ -253,7 +252,7 @@ const CertificateList: React.FC = () => {
         if (data.message === 'Certificate deleted successfully') {
           const updatedCertificates = certificates.filter((certificate) => certificate._id !== id);
           setCertificates(updatedCertificates);
-          setFilteredCertificate(updatedCertificates); // Update filtered data after deletion
+          setFilteredCertificate(updatedCertificates); 
         }
       })
       .catch((error) => console.error('Error deleting certificate:', error));
@@ -267,7 +266,7 @@ const CertificateList: React.FC = () => {
   const clearSearch = () => {
     setSearchTerm('');
     setFilterType('');
-    setFilteredCertificate(certificates); // Reset the filter when clearing search
+    setFilteredCertificate(certificates); 
   };
 
   const handleFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -276,7 +275,7 @@ const CertificateList: React.FC = () => {
     filterCertificates(searchTerm, selectedType);
   };
 
-  // Filter certificates based on search term and type
+  
   const filterCertificates = (searchTerm: string, selectedType: string) => {
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
     const filtered = certificates.filter((certificate) => {
@@ -292,14 +291,14 @@ const CertificateList: React.FC = () => {
 
   const certificatesToRender = filteredCertificate.length > 0 ? filteredCertificate : certificates;
 
-  // Pagination logic
+
   const indexOfLastCertificate = currentPage * certificatesPerPage;
   const indexOfFirstCertificate = indexOfLastCertificate - certificatesPerPage;
   const currentCertificates = certificatesToRender.slice(indexOfFirstCertificate, indexOfLastCertificate);
 
   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-  // Sorting logic
+ 
   const handleSort = (key: keyof Certificate) => {
     let direction: 'asc' | 'desc' = 'asc';
     if (sortConfig.key === key && sortConfig.direction === 'asc') {
@@ -326,7 +325,7 @@ const CertificateList: React.FC = () => {
     return <ArrowUpDown className="h-4 w-4 inline ml-2" />;
   };
 
-  // PDF download function
+
   const handleDownloadPDF = () => {
     const doc = new jsPDF();
     doc.text('Certificates List', 20, 10);

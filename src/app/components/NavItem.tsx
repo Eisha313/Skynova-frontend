@@ -146,7 +146,7 @@ const NavItem: FC<NavItemProps> = ({ href, text, icon, children, currentPath }) 
     <div className={`relative nav-item-${text}`}>
       <div
         onClick={handleParentClick}
-        className="flex items-center p-4 text-gray-300 hover:bg-blue-600 hover:text-white hover:border-white hover:border-2 hover:shadow-md hover:rounded-l-full cursor-pointer transition duration-200 ease-in-out"
+        className="flex items-center p-4 text-gray-300 hover:bg-[#1F60B2] hover:text-white hover:border-white hover:border-2 hover:shadow-md hover:rounded-l-full cursor-pointer transition duration-200 ease-in-out"
       >
         {icon}
         <span className="ml-3">{text}</span>

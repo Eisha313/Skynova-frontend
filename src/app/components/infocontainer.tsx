@@ -13,7 +13,7 @@ interface InfoContainerProps {
 
 const InfoContainer: React.FC<InfoContainerProps> = ({ icon, heading, count, link }) => {
   return (
-    <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-between text-white p-4 bg-[#212C44] rounded-lg shadow-md">
       <div className="flex items-center space-x-4">
         {/* Icon Container */}
         <div className="flex items-center justify-center w-12 h-12 bg-blue-100 text-blue-500 rounded-lg">
@@ -21,8 +21,8 @@ const InfoContainer: React.FC<InfoContainerProps> = ({ icon, heading, count, lin
         </div>
         
         <div>
-          <div className="text-gray-700 text-md ">{heading}</div>
-          <div className="text-black font-bold">{count}</div>
+          <div className="text-white text-md ">{heading}</div>
+          <div className="text-white font-bold">{count}</div>
         </div>
       </div>
       {/* Right Arrow */}

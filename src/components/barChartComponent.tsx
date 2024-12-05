@@ -118,16 +118,16 @@ const chartConfig: ChartConfig = {
 
 export function ChartComponent() {
   return (
-    <Card>
+    <Card className="bg-[#212C44] text-white">
       <CardHeader>
         <CardTitle>Candidate&apos;s Progress</CardTitle>
-        <CardDescription>June - November 2024</CardDescription>
+        <CardDescription className="text-white">June - November 2024</CardDescription>
       </CardHeader>
       <CardContent>
-        <ChartContainer config={chartConfig}>
-          <BarChart data={chartData}>
+        <ChartContainer className="text-white" config={chartConfig}>
+          <BarChart className="text-white" data={chartData}>
             <CartesianGrid vertical={false} />
-            <XAxis
+            <XAxis className="text-white"
               dataKey="month"
               tickLine={false}
               tickMargin={10}

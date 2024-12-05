@@ -8,7 +8,7 @@ interface Question {
   _id?: string;
   text: string;
   options: string[];
-  answer: string;
+  answer: string[];
   quizId?: string;
 }
 
@@ -56,10 +56,10 @@ const QuizForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Quiz created:', data);
-        const fetchedQuizId = await fetchQuizIdByTitle(title); // Fetch quiz ID based on title
+        const fetchedQuizId = await fetchQuizIdByTitle(title); 
         if (fetchedQuizId) {
           setQuizCreated(true);
-          setQuizId(fetchedQuizId); // Set the quiz ID
+          setQuizId(fetchedQuizId); 
         } else {
           setError('Failed to fetch quiz ID.');
         }

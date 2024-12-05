@@ -10,12 +10,12 @@ import QuizEditSimple from '../../../components/quizedit';
 
 const EditPageSimple = ({params}:{
     params:{
-        title:string
+        id:string
     }
 }) => {
 
-    const {title} = params;
-    console.log("userTitle",title)
+    const {id} = params;
+    console.log("userTitle",id)
   return (
     <div className="flex h-screen">
       <Sidebar />
@@ -25,7 +25,7 @@ const EditPageSimple = ({params}:{
         
         
         <main className="flex-1 p-4 bg-white">
-          <QuizEditSimple title={title}/>
+          <QuizEditSimple id={id}/>
         </main>
       </div>
     </div>

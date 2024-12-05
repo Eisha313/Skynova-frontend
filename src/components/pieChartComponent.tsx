@@ -388,10 +388,10 @@ export function PieChartComponent() {
   }, [chartData]);
 
   return (
-    <Card className="flex flex-col">
+    <Card className="bg-[#212C44] flex flex-col text-white">
       <CardHeader className="items-center pb-0">
         <CardTitle>Analytics</CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardDescription className="text-white">January - June 2024</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
@@ -448,10 +448,10 @@ export function PieChartComponent() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">
+        <div className="flex items-center gap-2 font-medium leading-none text-white">
           Incrementd on daily basis <TrendingUp className="h-4 w-4" />
         </div>
-        <div className="leading-none text-muted-foreground">
+        <div className="leading-none text-white">
           Showing total data for the last 6 months
         </div>
       </CardFooter>

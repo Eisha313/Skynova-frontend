@@ -2,7 +2,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReactToPrint } from 'react-to-print';
-import Certificate from './Certificate'; 
+import Certificate from '@/app/components/Certificate';
 
 type Certificate = {
   _id: string;
@@ -61,11 +61,12 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
           title={certificate.type}
           description={certificate.description}
           date={new Date().toLocaleDateString()}
+          qrValue="/"
         />
       </div>
       <button
         className="mt-4 bg-blue-500 text-white px-4 py-2 rounded"
-        onClick={() => router.push('/certificate-page')}
+        onClick={() => router.push('/userRender/quiz/certificate-list')}
       >
         Back to Certificates
       </button>

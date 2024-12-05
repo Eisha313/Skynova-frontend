@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 
 interface NotificationFormProps {
-    id?: string; // id is optional
+    id?: string; 
 }
 
 const NotificationForm: React.FC<NotificationFormProps> = ({ id }) => {

@@ -70,7 +70,8 @@ export const roleBasedRoutes = {
     "quizPage",
     "/notification",
     "/nonverbalquiz",
- 
+ '/quizPage/[title]/edit',
+ '/quizPage/addQuiz',
     "complaints",
     "community",
     "CertificatesPage",
@@ -93,7 +94,12 @@ export const roleBasedRoutes = {
        '/wings/Hero/[id]/editHero',
        '/wings/wingsResources',
        '/wings/wingsResources/addWingsResources',
-       '/wings/wingsResources/[id]/editWingsResources'
+       '/wings/wingsResources/[id]/editWingsResources',
+       "/userRender/quiz",
+    
+    "/userRender/quiz/[id]/result",
+    "/userRender/quiz/[id]/attempt",
+    '/userRender/quiz/certificate-list' 
 
 
 
@@ -110,6 +116,13 @@ export const roleBasedRoutes = {
     "/userRender/verbal",
     "/userRender/nonverbal/[id]/result",
     "/userRender/nonverbal/[id]/attempt",
+    "/userRender/quiz",
+    
+    '/userRender/quiz/certificate-list' ,
+    '/userRender/certificate-list' ,
+    '/userRender/certificate-list/[id]/certificateDetails' ,
+    "/userRender/quiz/[id]/result",
+    "/userRender/quiz/[id]/attempt",
     "/userRender/nonverbal",
   
     "/setpassword",

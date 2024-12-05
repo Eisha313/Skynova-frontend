@@ -130,80 +130,71 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
   };
 
   return (
-    <div className=" bg-[#394255]container mx-auto p-4 sm:max-w-lg">
-      <div className="bg-[#394255] border border-[#23354C]rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6 text-white items-center align-center">
+
+ <div className=" bg-[#1A253A]container mx-auto p-4 sm:max-w-lg">
+
+      <div className="bg-[#1A253A] border border-[#B5B5B540] rounded-lg shadow-md text-[#B5B5B540] p-6">
+      <h2 className="text-xl font-regular text-[#F5F5F5] text-center">
           {id ? "Edit Resource" : "Create Resource"}
         </h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4 bg-[#1A253A]">
           <div>
-            <label
-              htmlFor="title"
-              className="blocktext-white text-sm font-medium"
-            >
-              Title
-            </label>
+            
+            <label htmlFor="title" className="block text-white text-sm font-medium">
+      Title<span className="text-red-500"> *</span>
+    </label>
             <input
               type="text"
               id="title"
               name="title"
               value={resource.title}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-[#23354C] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-2 px-3 py-2 border bg-[#1A253A]  border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
           <div>
-            <label
-              htmlFor="type"
-              className="block text-white text-sm font-medium"
-            >
-              Type
-            </label>
+          <label htmlFor="type" className="block text-white text-sm font-medium">
+      Type<span className="text-red-500"> *</span>
+    </label>
             <select
               id="type"
               name="type"
               value={resource.type}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 mt-2 py-2 bg-[#1A253A]  border border-[#B5B5B540]  color-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 "
               required
             >
-              <option value="">Select a type</option>
-              <option value="pdf">PDF</option>
-              <option value="video">Video</option>
+              <option className="text-white" value="">Select a type</option>
+              <option className="text-white" value="pdf">PDF</option>
+              <option className="text-white" value="video">Video</option>
              
-              <option value="image">Book</option>
+              <option className="text-white" value="image">Book</option>
             </select>
           </div>
           <div>
-            <label
-              htmlFor="description"
-              className="block text-white text-sm font-medium"
-            >
-              Description
-            </label>
+          <label htmlFor="description" className="block text-white text-sm font-medium">
+      Description<span className="text-red-500"> *</span>
+    </label>
             <textarea
               id="description"
               name="description"
               value={resource.description}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 mt-2 border bg-[#1A253A] border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
-            <label
-              htmlFor="resourceImage"
-              className="block text-white text-sm font-medium"
-            >
-              Resource URL
-            </label>
+          <label htmlFor="resourceImage" className="block text-white text-sm font-medium">
+      Resource Url<span className="text-red-500"> *</span>
+    </label>
             <input
               type="text"
               id="resourceImage"
               name="resourceImage"
               value={resource.resourceImage || ""}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 mt-2 bg-[#1A253A] border border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {resource.resourceImage && (
               <div className="mt-2">
@@ -228,21 +219,18 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
             )}
           </div>
           <div>
-            <label
-              htmlFor="resourceFile"
-              className="block text-gray-700 text-sm font-medium"
-            >
-              Upload File
-            </label>
+          <label htmlFor="resourceFile" className="block text-white text-sm font-medium">
+      ResourceFile<span className="text-red-500"> *</span>
+    </label>
             <input
               type="file"
               id="resourceFile"
               name="resourceFile"
               onChange={handleFileChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-[#1A253A]  mt-2 border border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {previewFile && (
-              <div className="mt-2">
+              <div className="mt-2 bg-gray-800">
                 {previewFile.endsWith(".pdf") ? (
                   <embed
                     src={previewFile}
@@ -268,14 +256,16 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200"
+            className="w-full bg-blue-500 text-white px-4 py-2 mt-2 rounded-md hover:bg-blue-600 transition duration-200"
           >
             {id ? "Update Resource" : "Create Resource"}
           </button>
         </form>
+       
+
         <Link href="/userRender/view-resource">
           <div className="flex justify-end">
-            <button className="mt-7 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">
+            <button className="mt-7 bg-[#1F60B2] text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-200">
               Back
             </button>
           </div>
