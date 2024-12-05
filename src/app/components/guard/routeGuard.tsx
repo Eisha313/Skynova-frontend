@@ -23,10 +23,15 @@ const RouteGuard: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
   useEffect(() => {
     const checkAuthAndRole = async () => {
-      if (publicRoutes.includes(pathname)) {
+      if (matchRoute(pathname, publicRoutes)) {
         setLoading(false); 
         return;
       }
+     
+      // if (publicRoutes.includes(pathname)) {
+      //   setLoading(false); 
+      //   return;
+      // }
       if (status === 'loading') return;
 
       const storedUser = localStorage.getItem('user');
