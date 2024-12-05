@@ -14,7 +14,7 @@ export function DynamicBarChart() {
   const [nonVerbalResults, setNonVerbalResults] = useState<QuizResult[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch the results
+  
   const fetchResults = async () => {
     try {
       const [verbalResponse, nonVerbalResponse] = await Promise.all([
@@ -73,9 +73,9 @@ export function DynamicBarChart() {
   }
 
   return (
-    <Card>
+    <Card className="text-white bg-[#]">
       <CardHeader>
-        <CardTitle>Dynamic Bar Chart</CardTitle>
+        <CardTitle>Comppetency Evaluation Submission</CardTitle>
         <CardDescription>Quiz submissions by date for Verbal and Non-Verbal categories</CardDescription>
       </CardHeader>
       <CardContent>
@@ -91,7 +91,7 @@ export function DynamicBarChart() {
           <Tooltip />
           <Legend />
           <Bar dataKey="verbalSubmitted" fill="#82ca9d" name="Verbal Submitted" />
-          <Bar dataKey="nonVerbalSubmitted" fill="#ffc658" name="Non-Verbal Submitted" />
+          <Bar dataKey="nonVerbalSubmitted" fill="#22c2f7" name="Non-Verbal Submitted" />
         </BarChart>
       </CardContent>
     </Card>

@@ -67,7 +67,7 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
     const file = e.target.files?.[0] || null;
     if (file) {
       setResource({ ...resource, resourceFile: file });
-      setPreviewFile(URL.createObjectURL(file)); // Keep this for preview purposes
+      setPreviewFile(URL.createObjectURL(file)); 
     } else {
       setResource({ ...resource, resourceFile: null });
       setPreviewFile(null);
@@ -110,7 +110,7 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
       console.log(response);
       setGeneratedResource(response.data);
       setShowResource(true);
-      router.push("/view-resource");
+      router.push("/userRender/view-resource");
     } catch (error) {
       console.error("Error saving resource:", error);
       if (axios.isAxiosError(error)) {
@@ -149,7 +149,7 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
               name="title"
               value={resource.title}
               onChange={handleChange}
-              className="w-full mt-2 px-3 py-2 border bg-[#1A253A]  border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full mt-2 text-white px-3 py-2 border bg-[#1A253A]  border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
             />
           </div>
@@ -162,14 +162,14 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
               name="type"
               value={resource.type}
               onChange={handleChange}
-              className="w-full px-3 mt-2 py-2 bg-[#1A253A]  border border-[#B5B5B540]  color-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 "
+              className="w-full px-3 text-white mt-2 py-2 bg-[#1A253A]  border border-[#B5B5B540]  color-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 "
               required
             >
               <option className="text-white" value="">Select a type</option>
               <option className="text-white" value="pdf">PDF</option>
               <option className="text-white" value="video">Video</option>
              
-              <option className="text-white" value="image">Book</option>
+              {/* <option className="text-white" value="image">Book</option> */}
             </select>
           </div>
           <div>
@@ -181,20 +181,20 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
               name="description"
               value={resource.description}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-2 border bg-[#1A253A] border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 text-white mt-2 border bg-[#1A253A] border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <div>
           <label htmlFor="resourceImage" className="block text-white text-sm font-medium">
       Resource Url<span className="text-red-500"> *</span>
     </label>
-            <input
+            <input 
               type="text"
               id="resourceImage"
               name="resourceImage"
               value={resource.resourceImage || ""}
               onChange={handleChange}
-              className="w-full px-3 py-2 mt-2 bg-[#1A253A] border border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 mt-2 text-white bg-[#1A253A] border border-[#B5B5B540] rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
             {resource.resourceImage && (
               <div className="mt-2">

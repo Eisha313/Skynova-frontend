@@ -119,7 +119,7 @@ const Certificate: React.FC<CertificateProps> = ({ _id, title, description, date
         onClick={handleClick}
         className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm"
       >
-        View Certificat
+        View Certificate
       </button>
     </div>
   );

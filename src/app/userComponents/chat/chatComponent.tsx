@@ -268,11 +268,11 @@ const Chat: React.FC<ChatProps> = ({ id, receiverID }) => {
 
 
 
-      // Uncomment this after testing
-      // if (msg.senderID !== id && document.visibilityState !== "visible") {
+      
+      if (msg.senderID !== id && document.visibilityState !== "visible") {
 
         showNotification(msg);
-      // }
+      }
     });
 
     return () => {

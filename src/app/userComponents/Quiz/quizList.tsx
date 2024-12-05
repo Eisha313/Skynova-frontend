@@ -17,41 +17,30 @@
 //   const [error, setError] = useState<string | null>(null);
 //   const { token } = useUser();
 
-//   console.log("HELLO SHAMPOO")
-
 //   useEffect(() => {
 //     const fetchQuizzes = async () => {
 //       try {
 //         const quizResponse = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuizzes', {
 //           credentials: 'include',
 //         });
-//         console.log(quizResponse.status, quizResponse.ok); 
-        
+
 //         if (!quizResponse.ok) {
 //           throw new Error('Failed to fetch quizzes.');
 //         }
-        
+
 //         const quizzesData = await quizResponse.json();
-//         console.log(quizzesData);  
-        
-        
-//         const quizzesWithAttemptedFlag = quizzesData.map((quiz: any) => {
-//           if (!quiz?._id) {
-//             console.warn('Quiz missing _id:', quiz);
-//             return null;  
-//           }
-//           return {
-//             ...quiz,
-//             attempted: false,
-//           };
-//         }).filter((quiz: any) => quiz !== null); 
+
+//         const quizzesWithAttemptedFlag = quizzesData.map((quiz: any) => ({
+//           ...quiz,
+//           attempted: false, 
+//         }));
 
 //         setQuizzes(quizzesWithAttemptedFlag);
 
 //         const resultResponse = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResults', {
 //           method: 'GET',
 //           headers: {
-//             'Authorization': `Bearer ${token}`,
+//             Authorization: `Bearer ${token}`,
 //             'Content-Type': 'application/json',
 //           },
 //           credentials: 'include',
@@ -60,10 +49,8 @@
 //         if (resultResponse.ok) {
 //           const resultsData = await resultResponse.json();
 
-//           console.log("resultsData", resultsData);
 //           const attemptedQuizIds = new Set(resultsData.map((result: any) => result?.quizId?._id));
 
-          
 //           const updatedQuizzes = quizzesWithAttemptedFlag.map((quiz: any) => ({
 //             ...quiz,
 //             attempted: attemptedQuizIds.has(quiz?._id),
@@ -91,22 +78,45 @@
 //       {quizzes.length === 0 ? (
 //         <div>No quizzes available</div>
 //       ) : (
-//         quizzes.map((quiz, index) => (
-//           <div key={quiz._id} className="flex justify-between items-center p-4 mb-4 border border-white rounded-lg text-white">
-//             <div className="flex items-center">
-//               <span className="text-lg font-bold mr-4">{index + 1}</span>
-//               <div>
-//                 <h2 className="font-bold">{quiz.title}</h2>
-//                 <p>{quiz.description}</p>
+//         quizzes.map((quiz, index) => {
+//           const isClickable =
+//             index === 0 || quizzes[index - 1]?.attempted; 
+
+//           return (
+//             <div
+//               key={quiz._id}
+//               className="flex justify-between items-center p-4 mb-4 border border-white rounded-lg text-white"
+//             >
+//               <div className="flex items-center">
+//                 <span className="text-lg font-bold mr-4">{index + 1}</span>
+//                 <div>
+//                   <h2 className="font-bold">{quiz.title}</h2>
+//                   <p>{quiz.description}</p>
+//                 </div>
 //               </div>
+//               <Link
+//                 href={
+//                   isClickable
+//                     ? quiz.attempted
+//                       ? `/userRender/quiz/${quiz._id}/result`
+//                       : `/userRender/quiz/${quiz._id}/attempt`
+//                     : '#'
+//                 }
+//               >
+//                 <button
+//                   className={`px-4 py-2 rounded-lg text-white ${
+//                     isClickable
+//                       ? 'bg-blue-500 hover:bg-blue-600'
+//                       : 'bg-gray-500 cursor-not-allowed'
+//                   }`}
+//                   disabled={!isClickable}
+//                 >
+//                   {quiz.attempted ? 'Result' : 'Attempt'}
+//                 </button>
+//               </Link>
 //             </div>
-//             <Link href={quiz.attempted ? `/userRender/quiz/${quiz._id}/result` : `/userRender/quiz/${quiz._id}/attempt`}>
-//               <button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600">
-//                 {quiz.attempted ? 'Result' : 'Attempt'}
-//               </button>
-//             </Link>
-//           </div>
-//         ))
+//           );
+//         })
 //       )}
 //     </div>
 //   );
@@ -123,6 +133,8 @@ export interface Quiz {
   title: string;
   description: string;
   attempted: boolean;
+  attemptedSecondTime: boolean;
+  score: number; 
 }
 
 const QuizList: React.FC = () => {
@@ -144,12 +156,14 @@ const QuizList: React.FC = () => {
 
         const quizzesData = await quizResponse.json();
 
-        const quizzesWithAttemptedFlag = quizzesData.map((quiz: any) => ({
+        const quizzesWithFlags = quizzesData.map((quiz: any) => ({
           ...quiz,
-          attempted: false, // Default value
+          attempted: false,
+          attemptedSecondTime: false,
+          score: 0,
         }));
 
-        setQuizzes(quizzesWithAttemptedFlag);
+        setQuizzes(quizzesWithFlags);
 
         const resultResponse = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResults', {
           method: 'GET',
@@ -163,12 +177,18 @@ const QuizList: React.FC = () => {
         if (resultResponse.ok) {
           const resultsData = await resultResponse.json();
 
-          const attemptedQuizIds = new Set(resultsData.map((result: any) => result?.quizId?._id));
-
-          const updatedQuizzes = quizzesWithAttemptedFlag.map((quiz: any) => ({
-            ...quiz,
-            attempted: attemptedQuizIds.has(quiz?._id),
-          }));
+          const updatedQuizzes = quizzesWithFlags.map((quiz: any) => {
+            const result = resultsData.find((res: any) => res.quizId._id === quiz._id);
+            if (result) {
+              return {
+                ...quiz,
+                attempted: true,
+                attemptedSecondTime: result.score < 100,
+                score: result.score,
+              };
+            }
+            return quiz;
+          });
 
           setQuizzes(updatedQuizzes);
         }
@@ -187,6 +207,12 @@ const QuizList: React.FC = () => {
   if (loading) return <div className="text-white">Loading...</div>;
   if (error) return <div className="text-red-500">{error}</div>;
 
+  const handleModal = (quiz: Quiz) => {
+    if (quiz.attempted && quiz.attemptedSecondTime) {
+      alert("You have another chance to improve your score!");
+    }
+  };
+
   return (
     <div className="bg-gray-900 min-h-screen p-8">
       {quizzes.length === 0 ? (
@@ -194,7 +220,7 @@ const QuizList: React.FC = () => {
       ) : (
         quizzes.map((quiz, index) => {
           const isClickable =
-            index === 0 || quizzes[index - 1]?.attempted; // Only clickable if it's the first quiz or the previous one is attempted
+            index === 0 || quizzes[index - 1]?.attempted;
 
           return (
             <div
@@ -208,26 +234,95 @@ const QuizList: React.FC = () => {
                   <p>{quiz.description}</p>
                 </div>
               </div>
-              <Link
-                href={
-                  isClickable
-                    ? quiz.attempted
-                      ? `/userRender/quiz/${quiz._id}/result`
-                      : `/userRender/quiz/${quiz._id}/attempt`
-                    : '#'
-                }
-              >
-                <button
+              {/* <Link
+  href={
+    isClickable
+      ? quiz.attemptedSecondTime
+        ? `/userRender/quiz/${quiz._id}/result`
+        : quiz.attempted
+        ? `/userRender/quiz/${quiz._id}/attempt`
+        : '#'
+      : '#'
+  }
+> */}
+<div className="flex gap-4">
+  {!quiz.attempted && (
+    <Link href={`/userRender/quiz/${quiz._id}/attempt`}>
+      <button
+        className={`px-4 py-2 rounded-lg text-white ${
+          isClickable
+            ? 'bg-blue-500 hover:bg-blue-600'
+            : 'bg-gray-500 cursor-not-allowed'
+        }`}
+        disabled={!isClickable}
+      >
+        Attempt
+      </button>
+    </Link>
+  )}
+
+  {/* {quiz.attempted && (
+    <>
+      <Link href={`/userRender/quiz/${quiz._id}/attempt`}>
+        <button
+          className="px-4 py-2 rounded-lg text-white bg-green-500 hover:bg-green-600"
+        >
+          Reattempt
+        </button>
+      </Link>
+      <Link href={`/userRender/quiz/${quiz._id}/result`}>
+        <button
+          className="px-4 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600"
+        >
+          Result
+        </button>
+      </Link>
+    </>
+  )} */}
+  {quiz.attempted && (
+  <>
+    <Link href={`/userRender/quiz/${quiz._id}/attempt`}>
+      <button
+        className={`px-4 py-2 rounded-lg text-white ${
+          quiz.attemptedSecondTime
+            ? 'bg-gray-500 cursor-not-allowed'
+            : 'bg-green-500 hover:bg-green-600'
+        }`}
+        disabled={quiz.attemptedSecondTime}
+      >
+        Reattempt
+      </button>
+    </Link>
+    <Link href={`/userRender/quiz/${quiz._id}/result`}>
+      <button
+        className="px-4 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600"
+      >
+        Result
+      </button>
+    </Link>
+  </>
+)}
+
+</div>
+
+
+
+                {/* <button
                   className={`px-4 py-2 rounded-lg text-white ${
                     isClickable
                       ? 'bg-blue-500 hover:bg-blue-600'
                       : 'bg-gray-500 cursor-not-allowed'
                   }`}
                   disabled={!isClickable}
+                  onClick={() => handleModal(quiz)}
                 >
-                  {quiz.attempted ? 'Result' : 'Attempt'}
+                  {quiz.attemptedSecondTime
+                    ? 'Result'
+                    : quiz.attempted
+                    ? 'Retake'
+                    : 'Attempt'}
                 </button>
-              </Link>
+               */}
             </div>
           );
         })
