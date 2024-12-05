@@ -8,7 +8,7 @@ interface Question {
   _id?: string;
   text: string;
   options: string[];
-  answer: string[];
+  answer: string;
   quizId?: string;
 }
 

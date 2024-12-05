@@ -134,7 +134,7 @@ interface Question {
 
 interface QuestionFormProps {
   quizId: string;
-  onAddQuestion: (question: Question) => void;
+  onAddQuestion: (question: Question) => Promise<void>;
 }
 
 const QuestionForm: React.FC<QuestionFormProps> = ({ quizId, onAddQuestion }) => {
