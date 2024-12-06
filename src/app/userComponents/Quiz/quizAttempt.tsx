@@ -173,7 +173,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
 
       if (certificateTitle) {
         // await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/createCertificates`, {
-        await fetch(`http://localhost:4000/certificates/createCertificates`, {
+        await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/createCertificates`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

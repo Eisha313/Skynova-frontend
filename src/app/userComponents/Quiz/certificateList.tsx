@@ -132,7 +132,7 @@ const CertificatesList: React.FC = () => {
   useEffect(() => {
     const fetchCertificates = async () => {
       try {
-        const response = await fetch('http://localhost:4000/certificates/viewCertificates', {
+        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificates', {
           headers: {
             Authorization: `Bearer ${token}`,
           },

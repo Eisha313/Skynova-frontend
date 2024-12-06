@@ -7,32 +7,32 @@ const SkyNovaOffers = () => {
     {
       icon: <FaQuestionCircle />,
       title: "Aptitude Tests",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor urna sit amet vehicula porttitor.",
+      description: "Assess your skills and knowledge with our comprehensive aptitude tests.",
     },
     {
       icon: <FaStethoscope />,
       title: "Medical Tests",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor urna sit amet vehicula porttitor.",
+      description:"Perform the medical tests"
     },
     {
       icon: <FaRocket />,
       title: "Sky Venture Mode",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor urna sit amet vehicula porttitor.",
+      description: "Explore the horizons",
     },
     {
       icon: <FaTasks />,
       title: "Quizzes",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor urna sit amet vehicula porttitor.",
+      description: "Perform quizzes to see where you stand..",
     },
     {
       icon: <FaUserAlt />,
       title: "Missions",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor urna sit amet vehicula porttitor.",
+      description: "Perform missions to polish your skills",
     },
     {
       icon: <FaRobot />,
       title: "Ask AI",
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin tempor urna sit amet vehicula porttitor.",
+      description: "Clear the ambiguities with AI",
     },
   ];
 
@@ -47,10 +47,16 @@ const SkyNovaOffers = () => {
           {cards.map((card, index) => (
             <div
               key={index}
-              className="group relative bg-[#0D1A36]   shadow-lg shadow-gray-400 border-gray-600 rounded-lg px-6 py-8 text-left transition-all hover:border-blue-500 hover:bg-[#112141] hover:shadow-lg card-outline-offers"
+              className="group relative bg-[rgb(192,192,192,0.1)] shadow-gray-400 border-white/50 border px-6 py-8 text-left transition-all hover:border-blue-500 hover:bg-[#112141]"
             >
               <div
-                className="text-4xl text-white mb-4 group-hover:text-blue-500"
+              className="w-0 h-0 border-l-[50px] border-r-[50px] border-b-[50px] border-l-transparent border-r-transparent border-b-[#0B1226] absolute -top-[9px] -rotate-45 -left-[35px] before:content-[''] before:block before:w-[95px] before:absolute before:top-[49px] before:-left-[47px] before:h-px before:bg-white/50 group-hover:before:bg-blue-500 transition-all"
+              ></div>
+               <div
+              className="w-0 h-0 border-l-[50px] border-r-[50px] border-b-[50px] border-l-transparent border-r-transparent border-b-[#0B1226] absolute -bottom-[9px] rotate-[135deg] -right-[35px] before:content-[''] before:block before:w-[95px] before:absolute before:top-[49px] before:-left-[47px] before:h-px before:bg-white/50 group-hover:before:bg-blue-500 transition-all"
+              ></div> 
+              <div
+                className="text-4xl text-white mb-4 group-hover:text-blue-500 p-4"    
               >
                 {card.icon}
               </div>
