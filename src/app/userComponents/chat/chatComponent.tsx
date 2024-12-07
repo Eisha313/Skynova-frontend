@@ -111,6 +111,7 @@ const Chat: React.FC<ChatProps> = ({ id, receiverID }) => {
         formData.append("message", JSON.stringify(msg));
         response = await axios.post(
           "https://sky-nova-8ccaddc754ce.herokuapp.com/messages/createMessage",
+          
           formData
         );
       } else {
@@ -173,6 +174,54 @@ const Chat: React.FC<ChatProps> = ({ id, receiverID }) => {
 
 return(
 
+// <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg flex flex-col h-screen">
+ 
+//   <div className="bg-[#1286B5] text-white text-center py-4 rounded-t-lg">
+//     <h1 className="text-2xl font-semibold">Chat</h1>
+//   </div>
+
+  
+//   <div className="flex-1 p-4 overflow-y-auto space-y-4">
+//     {chatHistory.map((msg) => (
+//       <div
+//         key={msg._id}
+//         className={`flex ${
+//           msg.senderID === id ? "justify-end" : "justify-start"
+//         }`}
+//       >
+//         <div
+//           className={`p-3 max-w-xs rounded-lg shadow ${
+//             msg.senderID === id
+//               ? "bg-blue-500 text-white self-end"
+//               : "bg-gray-200 text-gray-800"
+//           }`}
+//         >
+//           {msg.content}
+//         </div>
+//       </div>
+//     ))}
+//   </div>
+
+
+//   <div className="p-4 bg-gray-50 flex items-center gap-2 border-t">
+//     <label className="cursor-pointer">
+//       <AiOutlinePaperClip className="text-gray-500 text-2xl" />
+//       <input type="file" className="hidden" />
+//     </label>
+//     <textarea
+//       value={message}
+//       onChange={(e) => setMessage(e.target.value)}
+//       className="flex-1 px-4 py-2 border rounded-lg"
+//       placeholder="Type your message..."
+//     />
+//     <button
+//       onClick={handleSendMessage}
+//       className="bg-[#1286B5] text-white p-3 rounded-lg"
+//     >
+//       <AiOutlineSend />
+//     </button>
+//   </div>
+// </div>
 <div className="max-w-lg mx-auto bg-white shadow-lg rounded-lg flex flex-col h-screen">
  
   <div className="bg-[#1286B5] text-white text-center py-4 rounded-t-lg">
@@ -186,26 +235,89 @@ return(
         key={msg._id}
         className={`flex ${
           msg.senderID === id ? "justify-end" : "justify-start"
-        }`}
+        } relative`}
       >
+        
         <div
-          className={`p-3 max-w-xs rounded-lg shadow ${
+          className={`p-3 max-w-xs rounded-lg shadow relative ${
             msg.senderID === id
               ? "bg-blue-500 text-white self-end"
               : "bg-gray-200 text-gray-800"
           }`}
         >
-          {msg.content}
+          {editingMessageId === msg._id ? (
+            <div>
+              <textarea
+                value={editedMessageText}
+                onChange={(e) => setEditedMessageText(e.target.value)}
+                className="w-full p-2 border rounded-lg"
+              />
+              <div className="mt-2 flex justify-end gap-2">
+                <button
+                  onClick={handleSaveEditedMessage}
+                  className="bg-green-500 text-white px-3 py-1 rounded"
+                >
+                  Save
+                </button>
+                <button
+                  onClick={() => setEditingMessageId(null)}
+                  className="bg-gray-300 text-gray-800 px-3 py-1 rounded"
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            msg.content
+          )}
         </div>
+
+        {/* Dots Menu */}
+        {msg.senderID === id && (
+          <div className="relative ml-2">
+            <button
+              className="text-gray-500 hover:text-gray-800 focus:outline-none"
+              onClick={() => setEditingMessageId(editingMessageId === msg._id ? null : msg._id)}
+            >
+              ⋮
+            </button>
+
+            
+            {editingMessageId === msg._id && (
+              <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg border z-10">
+                <button
+                  onClick={() => {
+                    setEditingMessageId(msg._id);
+                  }}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-gray-700"
+                >
+                  <AiOutlineEdit className="inline-block mr-2" />
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDeleteMessage(msg._id)}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-100 text-red-600"
+                >
+                  <AiOutlineDelete className="inline-block mr-2" />
+                  Delete
+                </button>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     ))}
   </div>
 
-
+  
   <div className="p-4 bg-gray-50 flex items-center gap-2 border-t">
     <label className="cursor-pointer">
       <AiOutlinePaperClip className="text-gray-500 text-2xl" />
-      <input type="file" className="hidden" />
+      <input
+        type="file"
+        onChange={handleFileChange}
+        className="hidden"
+      />
     </label>
     <textarea
       value={message}
@@ -221,6 +333,7 @@ return(
     </button>
   </div>
 </div>
+
 
 
   );
