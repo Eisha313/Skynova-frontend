@@ -193,10 +193,10 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
                     const optionClass = `p-4 mb-2 border rounded-lg ${
                       isSelected
                         ? isCorrectOption
-                          ? 'bg-green-500 border-green-500' // Correct selection
-                          : 'bg-red-500 border-red-500'   // Wrong selection
+                          ? 'bg-green-500 border-green-500' 
+                          : 'bg-red-500 border-red-500'  
                         : isCorrectOption
-                        ? ' border-green-500' // Highlight correct answer
+                        ? ' border-green-500' 
                         : 'border-white'
                     }`;
 

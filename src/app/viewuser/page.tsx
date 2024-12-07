@@ -12,10 +12,11 @@ const VerbalPage: React.FC = () => {
       <div className="flex-1 flex flex-col">
         <Header />  
         
-        <main className="flex-1 overflow-auto p-4 bg-white">
+        <main className="flex-1 overflow-auto p-4 bg-custom-image w-full">
           <ManageUsers />
         
         </main>
+        
       </div>
     </div>
   );

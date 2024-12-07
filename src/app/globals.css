@@ -38,6 +38,7 @@
     --chart-5: 120 12% 22%;
 
     --eisha: #081839;
+    --hassan:#212C44;
     --eisha1: hsl(210, 20%, 94%);
     color: hsl(220, 49%, 11%);
     color:hsl(284, 100%, 62%);
@@ -209,4 +210,11 @@ body {
   background-size: cover; 
   background-position: center; 
   background-repeat: no-repeat; 
+}
+.custom-placeholder::placeholder {
+  /* background-color:#7E7E7E;  */
+  font-size: 0.875rem; 
+  /* font-style: italic;  */
+  /* border:#d2dcf9 */
+ 
 }

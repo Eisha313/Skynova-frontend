@@ -170,7 +170,7 @@ const UserTable: React.FC<UserTableProps> = ({
         prev.map((u) =>
           u.backendId === user.backendId ? { ...u, status: newStatus } : u
         )
-      ); // Optimistically update the status in the UI
+      ); 
     } catch (error) {
       console.error("Error updating user status:", error);
     }
@@ -180,7 +180,7 @@ const UserTable: React.FC<UserTableProps> = ({
 
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full bg-white border-collapse">
+      <table className="min-w-full border-collapse">
         <thead className="bg-eisha text-white">
           <tr>
             <th className="py-2 px-4 border-b">

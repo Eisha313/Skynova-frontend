@@ -149,52 +149,7 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
     }
   };
   
-  // const handleSubmit = async (values: Aviator) => {
-  //   try {
-  //     const emailExists = await checkEmailExists(values.email);
-  //   if (emailExists) {
-  //     form.setErrors({ email: 'Email already exists' });
-  //     return; 
-  //   }
-  
-      
-  //     const method = id ? 'PATCH' : 'POST';
-  //     const url = id
-  //       ? `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${id}`
-  //       : 'https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/createAviator';
-  
-  //     const requestBody: any = {
-  //       firstName: values.firstName,
-  //       lastName: values.lastName,
-  //       email: values.email,
-  //       role: values.role,
-  //       profileImage: profileImage || values.profileImage,
-  //     };
-  
-  //     if (!id && values.password) {
-  //       requestBody.password = values.password;
-  //     }
-  
-  //     const response = await fetch(url, {
-  //       method,
-  //       headers: { 'Content-Type': 'application/json' },
-  //       body: JSON.stringify(requestBody),
-  //       credentials: 'include',
-  //     });
-  
-  //     if (!response.ok) {
-  //       const errorText = await response.text();
-  //       console.error('Error response:', errorText);
-  //       throw new Error(errorText || 'Failed to save aviator');
-  //     }
-  
-  //     await onSave?.(values); 
-  //     router.push('/viewuser');
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     form.setErrors({ form: 'An error occurred while saving the aviator' });
-  //   }
-  // };
+ 
   
   const handleSubmit = async (values: Aviator) => {
     try {
@@ -251,30 +206,46 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
   
 
   return (
-    <Box maw={800} mx="auto" p="md">
-      <form onSubmit={form.onSubmit(handleSubmit)} className="bg-white p-6 rounded-lg shadow-lg">
-        <Box style={{ display: 'flex', justifyContent: 'center' }} mb="md">
+    <Box maw={800} mx="auto" p="md" 
+    style={{
+      display: 'flex',
+      borderRadius: '8px',
+      justifyContent:'center',
+      alignItems:'center'
+    }} >
+      <form onSubmit={form.onSubmit(handleSubmit)} className="bg-[#212C44] p-6 rounded-xl shadow-lg text-white align-center">
+        <Box style={{ display: 'flex', justifyContent: 'center' ,alignItems:'center'}} mb="md">
           <Title>{id ? 'Edit User' : 'Create User'}</Title>
         </Box>
 
-        <Grid gutter="md">
+        <Grid   gutter="md">
           <Grid.Col span={6}>
             <TextInput
               label="First Name"
+              classNames={{
+                input:"custom-placeholder bg-[#7E7E7E4D] border border-white rounded-lg text-white hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+              }}
               placeholder="John"
               {...form.getInputProps('firstName')}
               required
               onBlur={() => form.validateField('firstName')}
-            />
+              // className=' border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none'
+          className="rounded-xl bg-transparent "
+          />
+
           </Grid.Col>
 
           <Grid.Col span={6}>
             <TextInput
               label="Last Name"
-              placeholder="Doe"
+              placeholder="Doe" 
+              classNames={{
+                input:"custom-placeholder bg-[#7E7E7E4D] border border-white/30 rounded-lg text-white hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+              }}
               {...form.getInputProps('lastName')}
               required
               onBlur={() => form.validateField('lastName')}
+              
             />
           </Grid.Col>
         </Grid>
@@ -283,17 +254,26 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
           <Grid.Col span={6}>
             <TextInput
               label="Email"
+              classNames={{
+                input:"custom-placeholder bg-[#7E7E7E4D] border border-white text-white rounded-lg  hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+              }}
               placeholder="example@example.com"
               {...form.getInputProps('email')}
               required
               onBlur={() => form.validateField('email')}
+               
             />
           </Grid.Col>
 
           <Grid.Col span={6}>
-            <Radio.Group label="Role" {...form.getInputProps('role')} required>
-              <Radio value="Admin" label="Admin" style={{ marginRight: '1rem' }} />
-              <Radio value="Aviator" label="Aviator" />
+            <Radio.Group   label="Role" {...form.getInputProps('role')} required>
+              <Radio  classNames={{
+                radio:"custom-placeholder bg-[#7E7E7E4D] border border-white rounded-lg text-white hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+              }} value="Admin" label="Admin" style={{ marginRight: '1rem' }} />
+              <Radio  classNames={{
+                radio:"custom-placeholder bg-[#7E7E7E4D] border border-white rounded-lg text-white hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+              }} value="Aviator" label="Aviator" />
+              
             </Radio.Group>
           </Grid.Col>
         </Grid>
@@ -302,6 +282,9 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
           <Grid gutter="md" mt="md">
             <Grid.Col span={6}>
               <PasswordInput
+              classNames={{
+                input:"custom-placeholder bg-[#7E7E7E4D] border border-white text-white rounded-lg  hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+              }}
                 label="Password"
                 placeholder="********"
                 visibilityToggleIcon={({ reveal }) =>
@@ -319,6 +302,9 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
               <PasswordInput
                 label="Confirm Password"
                 placeholder="********"
+                classNames={{
+                  input:"custom-placeholder bg-[#7E7E7E4D] border border-white rounded-lg  text-white hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+                }}
                 visibilityToggleIcon={({ reveal }) =>
                   reveal ? <FaEyeSlash /> : <FaEye />
                 }
@@ -334,7 +320,7 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
 
         <Grid gutter="md" mt="md">
           <Grid.Col span={12} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-            <Text ta='center' size="sm" mb="md">
+            <Text ta='center' size="sm" mb="md " c={'white'}>
               Profile Picture
             </Text>
             <Dropzone
@@ -345,14 +331,17 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
                 width: '200px',
                 height: '200px',
                 borderRadius: '8px',
-                border: '2px dashed #ccc',
+                marginTop:"20px",
+                border: '4px dashed #ccc',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 cursor: 'pointer',
                 overflow: 'hidden',
                 position: 'relative',
+                backgroundColor:'transparent'
               }}
+            
             >
               {profileImage ? (
                 <Image
@@ -366,7 +355,7 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
                   }}
                 />
               ) : (
-                <Text ta="center">Upload Image</Text>
+                <Text ta="center" c={'white'}>Upload Image</Text>
               )}
             </Dropzone>
           </Grid.Col>
