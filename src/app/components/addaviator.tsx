@@ -179,7 +179,10 @@ const AviatorForm: React.FC<AviatorFormProps> = ({ id,aviator,onSave}) => {
       if (!id && values.password) {
         requestBody.password = values.password;
       }
-  
+      if(id)
+{
+  delete requestBody.email
+}  
       const response = await fetch(url, {
         method,
         headers: { 'Content-Type': 'application/json' },

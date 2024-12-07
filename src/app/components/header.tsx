@@ -59,9 +59,9 @@ const Header: React.FC = () => {
       </div>
 
       <div className="flex items-center space-x-4 text-white">
-        <button className="p-2 rounded-full hover:bg-gray-100">
+        {/* <button className="p-2 rounded-full hover:bg-gray-100">
           <FaSun className="w-5 h-5 text-white" />
-        </button>
+        </button> */}
         <button className="p-2 rounded-full hover:bg-blue-100">
           <FaBell className="w-5 h-5 text-white" />
         </button>

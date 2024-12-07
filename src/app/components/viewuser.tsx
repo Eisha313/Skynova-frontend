@@ -365,122 +365,61 @@ const ManageUsers: React.FC = () => {
     doc.autoTable(tableColumn, tableRows, { startY: 20 });
     doc.save("user_list.pdf");
   };
-  
 
-// const UserModal = ({
-//   user,
-//   onClose,
-// }: {
-//   user: User | null;
-//   onClose: () => void;
-// }) => {
-//   if (!user) return null;
+  const UserModal = ({
+    user,
+    onClose,
+  }: {
+    user: User | null;
+    onClose: () => void;
+  }) => {
+    if (!user) return null;
 
-//   return (
-//     <div className="fixed inset-0  bg-opacity-70 flex items-center justify-center z-50">
-//       <div className="bg-custom-image text-white p-8 rounded-lg w-1/3 max-w-lg shadow-lg">
-//         <h2 className="text-3xl font-semibold text-center text-white mb-6">
-//           User Details
-//         </h2>
-//         <div className=" flex items-center justify-center space-x-6 mb-6">
-//           <div className=" flex justify-center">
-//           <Image
-//             src={user.profileImage!}
-//             alt={user.username}
-//             width={250}
-//             height={250}
-            
-//             className="rounded-full shadow-md border-4 border-gray-200 object-cover w-[250px] h-[250px]"
-//           />
-//           </div>
-         
-//         </div>
-        
-//         <div className="text-lg  space-y-5 ">
-//           <p>
-//             <strong className="font-large text-center">user:</strong> {user.username}
-//           </p>
-//           <p>
-//             <strong className="font-large text-center">Email:</strong> {user.email}
-//           </p>
-//         </div>
-//         <div className="text-lg  space-y-5">
-//           <p>
-//             <strong className="font-large mt-4 text-center">Role:</strong> {user.type}
-//           </p>
-//           <p>
-//             <strong className="font-large text-center">Status:</strong> {user.status}
-//           </p>
-//         </div>
-//         </div>
-//         <div className="mt-8 flex justify-center">
-//           <button
-//             onClick={onClose}
-//             className="px-6 py-3 text-white rounded-md hover:bg-gray-700 transition"
-//           >
-//             Close
-//           </button>
-//         </div>
-//       </div>
-   
-//   );
-// };
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+        <div className="bg-custom-image text-white p-8 rounded-lg w-1/3 max-w-lg shadow-lg">
+          <h2 className="text-3xl font-semibold text-center mb-6">
+            User Details
+          </h2>
+          <div className="flex items-center justify-center space-x-6 mb-6">
+            <div className="flex justify-center">
+              <Image
+                src={user.profileImage!}
+                alt={user.username}
+                width={250}
+                height={250}
+                className="rounded-full   object-cover w-[250px] h-[250px]"
+              />
+            </div>
+          </div>
 
-const UserModal = ({
-  user,
-  onClose,
-}: {
-  user: User | null;
-  onClose: () => void;
-}) => {
-  if (!user) return null;
+          <div className="text-lg space-y-5">
+            <p>
+              <strong className="font-bold">User:</strong> {user.username}
+            </p>
+            <p>
+              <strong className="font-bold">Email:</strong> {user.email}
+            </p>
+            <p>
+              <strong className="font-bold">Role:</strong> {user.type}
+            </p>
+            <p>
+              <strong className="font-bold">Status:</strong> {user.status}
+            </p>
+          </div>
 
-  return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
-      <div className="bg-custom-image text-white p-8 rounded-lg w-1/3 max-w-lg shadow-lg">
-        <h2 className="text-3xl font-semibold text-center mb-6">
-          User Details
-        </h2>
-        <div className="flex items-center justify-center space-x-6 mb-6">
-          <div className="flex justify-center">
-            <Image
-              src={user.profileImage!}
-              alt={user.username}
-              width={250}
-              height={250}
-              className="rounded-full   object-cover w-[250px] h-[250px]"
-            />
+          <div className="mt-8 flex justify-center">
+            <button
+              onClick={onClose}
+              className="px-6 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition"
+            >
+              Close
+            </button>
           </div>
         </div>
-
-        <div className="text-lg space-y-5">
-          <p>
-            <strong className="font-bold">User:</strong> {user.username}
-          </p>
-          <p>
-            <strong className="font-bold">Email:</strong> {user.email}
-          </p>
-          <p>
-            <strong className="font-bold">Role:</strong> {user.type}
-          </p>
-          <p>
-            <strong className="font-bold">Status:</strong> {user.status}
-          </p>
-        </div>
-
-        <div className="mt-8 flex justify-center">
-          <button
-            onClick={onClose}
-            className="px-6 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition"
-          >
-            Close
-          </button>
-        </div>
       </div>
-    </div>
-  );
-};
-
+    );
+  };
 
   if (fetchedUsers.length === 0) return <p>No users found</p>;
 
