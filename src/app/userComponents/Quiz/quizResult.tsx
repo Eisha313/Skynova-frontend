@@ -236,7 +236,7 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
               const correctAnswer = question.options.find(
                 (option) =>
                   option.trim().toLowerCase() ===
-                  question.answer.trim().toLowerCase()
+                  question.answer?.trim().toLowerCase()
               )
                || "";
 
