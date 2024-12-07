@@ -433,7 +433,7 @@ const CommunityQuestions = () => {
       placeholder="Search by title"
       value={searchQuery}
       onChange={handleSearch}
-      className="w-full p-4 rounded-full bg-blue-800 text-white placeholder-gray-400 shadow-md outline-none focus:ring-2 focus:ring-blue-400"
+      className="w-full p-4 rounded-full bg-transparent text-white border border-white/30 shadow-md outline-none focus:ring-2 focus:ring-blue-400"
     />
       </div>
       <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">

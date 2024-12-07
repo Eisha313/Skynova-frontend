@@ -30,7 +30,7 @@ const ResourceList: React.FC = () => {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [filterType, setFilterType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(9);
 
   useEffect(() => {
     fetchResources();
@@ -105,7 +105,7 @@ const ResourceList: React.FC = () => {
     (filterType ? resource.type === filterType : true)
   );
 
-  // Pagination logic
+ 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentResources = filteredResources.slice(indexOfFirstItem, indexOfLastItem);
@@ -138,19 +138,22 @@ const ResourceList: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4 bg-gray-100">
+    <div className=" mx-auto p-4 bg-hassan">
       {error && <p className="text-red-500">{error}</p>}
       <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
-        <h2 className="text-xl font-semibold">All Resources</h2>
+        <h2 className="text-xl font-semibold text-white text-center">All Resources</h2>
         <div className="flex flex-1 justify-end space-x-2">
           <Search onSearchChange={handleSearchChange} searchTerm={searchTerm} clearSearch={clearSearch} />
-          <select value={filterType} onChange={e => setFilterType(e.target.value)} className="p-2 border rounded">
-            <option value="">All Types</option>
-            <option value="document">Documents</option>
-            <option value="image">Images</option>
-            <option value="video">Videos</option>
+          <select value={filterType} onChange={e => setFilterType(e.target.value)} className="px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none">
+            <option className='bg-transparent text-black' value="">All Types</option>
+            
+            <option className='bg-transparent text-black' value="pdf">PDFs</option>
+
+
+            <option className='bg-transparent text-black' value="image">Images</option>
+            <option className='bg-transparent text-black' value="video">Videos</option>
           </select>
-          <button onClick={generatePDF} className="text-gray-800 px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300">
+          <button onClick={generatePDF} className="text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300">
           <MdDownload  />
           </button>
           <Link href="/addResource" className="px-4 py-2 rounded-md text-center bg-eisha text-white">
@@ -178,7 +181,7 @@ const ResourceList: React.FC = () => {
         </div>
       )}
       <table className="min-w-full bg-white">
-        <thead className="bg-gray-800 text-white">
+        <thead className="bg-eisha text-white">
           <tr>
             <th className="py-2 px-4 border-b">
               <input
@@ -201,10 +204,10 @@ const ResourceList: React.FC = () => {
             ))}
           </tr>
         </thead>
-        <tbody>
+        <tbody className='bg-[#212C44] text-white'>
   {currentResources.length > 0 ? (
     currentResources.map(resource => (
-      <tr key={resource._id} className="border-b hover:bg-gray-50">
+      <tr key={resource._id} className="border-b">
         <td className="py-2 px-4 text-center">
           <input
             type="checkbox"
@@ -217,7 +220,8 @@ const ResourceList: React.FC = () => {
         <td className="py-2 px-4 text-center max-w-xs overflow-hidden whitespace-nowrap text-ellipsis">
           {resource.description}
         </td>
-        <td className="py-2 px-4 text-center border-b flex space-x-2 items-center">
+        <div className='flex justify-center'>
+        <td className="py-2 px-4   flex space-x-2 ">
   <Link href={`/view-resource/${resource._id}/resourceDetails`} passHref>
     <button
       className="text-blue-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400"
@@ -242,6 +246,7 @@ const ResourceList: React.FC = () => {
     <FaTrash className="text-gray-700" />
   </button>
 </td>
+</div>
 
       </tr>
     ))
