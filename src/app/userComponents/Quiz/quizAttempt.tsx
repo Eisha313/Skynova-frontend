@@ -130,7 +130,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
     const resultScore = calculateResult();
     setScore(resultScore);
 
-    await fetch(`http://localhost:4000/results/createResults`, {
+    await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/results/createResults`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
