@@ -28,14 +28,14 @@
 // };
 
 // export default QuizResult;
-import React from 'react';
-import NonVerbalQuizResult from './nonverbal/quizResult';
-import DetailedResult from './verbal/Result';
+import React from "react";
+import NonVerbalQuizResult from "./nonverbal/quizResult";
+import DetailedResult from "./verbal/Result";
 
 interface QuizResultProps {
   id: string;
-  quizType: 'verbal' | 'non-verbal';
-  goBackToList: () => void; 
+  quizType: "verbal" | "non-verbal";
+  goBackToList: () => void;
 }
 
 const QuizResult: React.FC<QuizResultProps> = ({ id, quizType, goBackToList }) => {
@@ -44,7 +44,7 @@ const QuizResult: React.FC<QuizResultProps> = ({ id, quizType, goBackToList }) =
       <button onClick={goBackToList} className="bg-gray-500 px-4 py-2 rounded-lg">
         Back
       </button>
-      {quizType === 'verbal' ? (
+      {quizType.toLocaleLowerCase() === "verbal" ? (
         <DetailedResult id={id} />
       ) : (
         <NonVerbalQuizResult id={id} goBackToList={goBackToList} />

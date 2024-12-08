@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { useUser } from "@/app/components/context/userContext";
 
@@ -47,7 +49,7 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
     }
   }, [id]);
 
-  if (results.length === 0) {
+  if (!results || results.length === 0) {
     return <div>Loading...</div>;
   }
 
