@@ -49,8 +49,7 @@ const ManageUsers: React.FC = () => {
         );
         const jsonResponse = await response.json();
 
-        const users = jsonResponse.data;
-        console.log("Fetched Data:", users);
+        const users = jsonResponse;
         if (Array.isArray(users)) {
           const mappedUsers = users.map((user) => ({
             id: user._id,
@@ -59,8 +58,7 @@ const ManageUsers: React.FC = () => {
             email: user.email,
             type: user.role,
             status: "Active",
-            profileImage:
-              user.profileImage || `https://via.placeholder.com/150`,
+            profileImage: user.profileImage || `https://via.placeholder.com/150`,
           }));
 
           console.log("Mapped Users:", mappedUsers);
@@ -80,16 +78,13 @@ const ManageUsers: React.FC = () => {
 
   const onUpdate = async (backendId: number, updateData: Partial<User>) => {
     try {
-      const response = await fetch(
-        `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${backendId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(updateData),
-        }
-      );
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${backendId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updateData),
+      });
 
       if (!response.ok) {
         throw new Error(`Failed to update user with id ${backendId}`);
@@ -109,9 +104,7 @@ const ManageUsers: React.FC = () => {
     filterAndSearchUsers(term, filterStatus);
   };
 
-  const handleFilterChange = (
-    newValue: { value: string; label: string } | null
-  ) => {
+  const handleFilterChange = (newValue: { value: string; label: string } | null) => {
     // Check if newValue is not null (when user clears selection, it might be null)
     if (newValue) {
       const status = newValue.value;
@@ -171,13 +164,7 @@ const ManageUsers: React.FC = () => {
 
   const sortedUsers = [...filteredUsers];
   if (sortConfig.key && sortConfig.key !== "id") {
-    sortedUsers.sort((a, b) =>
-      compareValues(
-        a[sortConfig.key!],
-        b[sortConfig.key!],
-        sortConfig.direction
-      )
-    );
+    sortedUsers.sort((a, b) => compareValues(a[sortConfig.key!], b[sortConfig.key!], sortConfig.direction));
   }
   const onView = (user: User) => {
     console.log("View Modal is being opened");
@@ -213,22 +200,15 @@ const ManageUsers: React.FC = () => {
   const onConfirmDelete = () => {
     if (selectedUserId === null) return;
 
-    fetch(
-      `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/deleteAviator/${selectedUserId}`,
-      {
-        method: "DELETE",
-        credentials: "include",
-      }
-    )
+    fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/deleteAviator/${selectedUserId}`, {
+      method: "DELETE",
+      credentials: "include",
+    })
       .then((response) => {
         if (response.ok) {
           alert("User deleted successfully.");
-          setFetchedUsers((prevUsers) =>
-            prevUsers.filter((user) => user.backendId !== selectedUserId)
-          );
-          setFilteredUsers((prevUsers) =>
-            prevUsers.filter((user) => user.backendId !== selectedUserId)
-          );
+          setFetchedUsers((prevUsers) => prevUsers.filter((user) => user.backendId !== selectedUserId));
+          setFilteredUsers((prevUsers) => prevUsers.filter((user) => user.backendId !== selectedUserId));
         } else {
           alert("Failed to delete user. Please try again.");
         }
@@ -294,10 +274,7 @@ const ManageUsers: React.FC = () => {
 
   interface DropdownProps {
     filterStatus: string;
-    handleFilterChange: (selectedOption: {
-      value: string;
-      label: string;
-    }) => void;
+    handleFilterChange: (selectedOption: { value: string; label: string }) => void;
   }
 
   const toggleStatus = async (user: User) => {
@@ -309,33 +286,24 @@ const ManageUsers: React.FC = () => {
     if (!window.confirm(confirmMessage)) return;
 
     try {
-      const response = await fetch(
-        `https://sky-nova-8ccaddc754ce.herokuapp.com/users/blockUser/${user.backendId}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ status: newStatus }),
-          credentials: "include",
-        }
-      );
+      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/users/blockUser/${user.backendId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: newStatus }),
+        credentials: "include",
+      });
 
       if (!response.ok) {
         throw new Error("Failed to update status");
       }
 
-      setFetchedUsers((prev) =>
-        prev.map((u) =>
-          u.backendId === user.backendId ? { ...u, status: newStatus } : u
-        )
-      );
+      setFetchedUsers((prev) => prev.map((u) => (u.backendId === user.backendId ? { ...u, status: newStatus } : u)));
       alert(`User status updated to ${newStatus}.`);
     } catch (error) {
       console.error("Error updating user status:", error);
-      alert(
-        "An error occurred while updating the user status. Please try again."
-      );
+      alert("An error occurred while updating the user status. Please try again.");
     }
   };
 
@@ -351,13 +319,7 @@ const ManageUsers: React.FC = () => {
     const tableRows: any[] = [];
 
     sortedUsers.forEach((user, index) => {
-      const userData = [
-        index + 1,
-        user.username,
-        user.email,
-        user.type,
-        user.status,
-      ];
+      const userData = [index + 1, user.username, user.email, user.type, user.status];
       tableRows.push(userData);
     });
 
@@ -366,21 +328,13 @@ const ManageUsers: React.FC = () => {
     doc.save("user_list.pdf");
   };
 
-  const UserModal = ({
-    user,
-    onClose,
-  }: {
-    user: User | null;
-    onClose: () => void;
-  }) => {
+  const UserModal = ({ user, onClose }: { user: User | null; onClose: () => void }) => {
     if (!user) return null;
 
     return (
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
         <div className="bg-custom-image text-white p-8 rounded-lg w-1/3 max-w-lg shadow-lg">
-          <h2 className="text-3xl font-semibold text-center mb-6">
-            User Details
-          </h2>
+          <h2 className="text-3xl font-semibold text-center mb-6">User Details</h2>
           <div className="flex items-center justify-center space-x-6 mb-6">
             <div className="flex justify-center">
               <Image
@@ -457,10 +411,7 @@ const ManageUsers: React.FC = () => {
               >
                 <MdDownload />
               </button>
-              <Link
-                href="/addaviator"
-                className="px-4 py-2 rounded-md text-center bg-eisha text-white flex iem-center"
-              >
+              <Link href="/addaviator" className="px-4 py-2 rounded-md text-center bg-eisha text-white flex iem-center">
                 Add User
               </Link>
             </div>
@@ -469,27 +420,15 @@ const ManageUsers: React.FC = () => {
           <table className="min-w-full bg-white border-collapse">
             <thead className="bg-eisha text-white">
               <tr>
-                {[
-                  "Id",
-                  "Profile",
-                  "Username",
-                  "Email",
-                  "Role",
-                  "Status",
-                  "Actions",
-                ].map((header) => (
+                {["Id", "Profile", "Username", "Email", "Role", "Status", "Actions"].map((header) => (
                   <th
                     key={header}
                     className="py-2 px-4 border-b text-center cursor-pointer"
-                    onClick={() =>
-                      handleSort(header.toLowerCase() as keyof User)
-                    }
+                    onClick={() => handleSort(header.toLowerCase() as keyof User)}
                   >
                     <div className="flex items-center justify-center">
                       {header}
-                      {(header === "Username" ||
-                        header === "Email" ||
-                        header === "Role") &&
+                      {(header === "Username" || header === "Email" || header === "Role") &&
                         renderArrow(header.toLowerCase() as keyof User)}
                     </div>
                   </th>
@@ -499,9 +438,7 @@ const ManageUsers: React.FC = () => {
             <tbody className="bg-[#212C44] text-white items-center justify-center">
               {currentUsers.map((user, index) => (
                 <tr key={user.backendId}>
-                  <td className="py-2 px-4 border-b text-center">
-                    {index + 1}
-                  </td>
+                  <td className="py-2 px-4 border-b text-center">{(page - 1) * limit + index + 1}</td>
                   <td className="py-2 px-4 border-b ">
                     <div className="flex justify-center align-center">
                       <div className="w-[50px] h-[50px] align-center rounded-full overflow-hidden bg-gray-300">
@@ -514,30 +451,20 @@ const ManageUsers: React.FC = () => {
                             className="object-cover"
                           />
                         ) : (
-                          <span className="text-sm text-gray-600">
-                            `https://via.placeholder.com/150`
-                          </span>
+                          <span className="text-sm text-gray-600">`https://via.placeholder.com/150`</span>
                         )}
                       </div>
                     </div>
                   </td>
-                  <td className="py-2 px-4 border-b text-center">
-                    {user.username}
-                  </td>
-                  <td className="py-2 px-4 border-b text-center">
-                    {user.email}
-                  </td>
-                  <td className="py-2 px-4 border-b text-center">
-                    {user.type}
-                  </td>
+                  <td className="py-2 px-4 border-b text-center">{user.username}</td>
+                  <td className="py-2 px-4 border-b text-center">{user.email}</td>
+                  <td className="py-2 px-4 border-b text-center">{user.type}</td>
 
                   <td className="py-2 px-4 border-b ">
                     <div className="flex items-center space-x-2 flex justify-center">
                       <span
                         className={`px-2 py-1 rounded ${
-                          user.status === "Active"
-                            ? "bg-green-500 text-white"
-                            : "bg-red-500 text-white"
+                          user.status === "Active" ? "bg-green-500 text-white" : "bg-red-500 text-white"
                         }`}
                       >
                         {user.status}
@@ -547,9 +474,7 @@ const ManageUsers: React.FC = () => {
                         onClick={() => toggleStatus(user)}
                         disabled={loadingUserId === user.backendId}
                         className={`text-white p-2 rounded hover:bg-[#5AA0BC] border border-gray-400 ${
-                          user.status === "Active"
-                            ? "bg-red-500"
-                            : "bg-green-500"
+                          user.status === "Active" ? "bg-red-500" : "bg-green-500"
                         }`}
                         style={{
                           height: "33px",
@@ -624,9 +549,7 @@ const ManageUsers: React.FC = () => {
               Page {page} of {totalFilteredPages}
             </span>
             <button
-              onClick={() =>
-                setPage((prev) => (prev < totalFilteredPages ? prev + 1 : prev))
-              }
+              onClick={() => setPage((prev) => (prev < totalFilteredPages ? prev + 1 : prev))}
               disabled={page === totalFilteredPages}
               className="px-4 py-2 bg-gray-200 rounded"
             >
@@ -637,12 +560,7 @@ const ManageUsers: React.FC = () => {
       </div>
       {isModalOpen && <UserModal user={selectedUser} onClose={closeModal} />}
 
-      {isModalOpenn && (
-        <DeleteConfirmationModal
-          onConfirm={onConfirmDelete}
-          onCancel={onCancelDelete}
-        />
-      )}
+      {isModalOpenn && <DeleteConfirmationModal onConfirm={onConfirmDelete} onCancel={onCancelDelete} />}
     </div>
   );
 };
