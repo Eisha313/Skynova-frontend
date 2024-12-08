@@ -1,5 +1,4 @@
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { useUser } from "@/app/components/context/userContext";
 
 interface Question {
@@ -18,26 +17,28 @@ interface ResultDetail {
 }
 
 const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
+  console.log("We are in the detailed result page for verbal quiz");
+
   const [results, setResults] = useState<ResultDetail[]>([]);
-  const { token } = useUser(); 
+  const { token } = useUser();
 
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`, 
-          {
-            method: 'GET',
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-          });
-        
+        // const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`,
+        const response = await fetch(`http://localhost:4000/verbalQuizResult/viewVerbalQuizResult/${id}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+        });
+
         const data = await response.json();
         setResults(data.results);
       } catch (error) {
-        console.error('Error fetching detailed results:', error);
+        console.error("Error fetching detailed results:", error);
       }
     };
 
@@ -56,10 +57,14 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
       <div className=" overflow-y-auto">
         {results.map((result, resultIndex) => (
           <div key={resultIndex} className="mb-8">
-            <h2 className="text-xl mb-4">Score: {result.marks} / {result.quizId.questions.length}</h2>
+            <h2 className="text-xl mb-4">
+              Score: {result.marks} / {result.quizId.questions.length}
+            </h2>
             {result.quizId.questions.map((question, index) => (
               <div key={index} className="mb-6">
-                <p className="mb-2">Question {index + 1}: {question.text}</p>
+                <p className="mb-2">
+                  Question {index + 1}: {question.text}
+                </p>
                 {question.options.map((option, i) => {
                   const isCorrect = option === question.answer;
                   const userAnswer = result.answers[index];
@@ -68,7 +73,9 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
                   return (
                     <div
                       key={i}
-                      className={`p-4 mb-2 border rounded-lg ${isCorrect ? 'border-[#081839] bg-[#1F60B2]'  : isSelected ? 'border-red-500' : 'border-white'}`}
+                      className={`p-4 mb-2 border rounded-lg ${
+                        isCorrect ? "border-[#081839] bg-[#1F60B2]" : isSelected ? "border-red-500" : "border-white"
+                      }`}
                     >
                       {option}
                     </div>

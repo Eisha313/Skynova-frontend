@@ -138,7 +138,8 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
     const fetchResults = async () => {
       try {
         const response = await fetch(
-          `https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResult/${id}`,
+          // `https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResult/${id}`,
+          `http://localhost:4000/results/viewResult/${id}`,
           {
             method: "GET",
             headers: {
@@ -164,6 +165,10 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
   if (!results || results.length === 0) {
     return <div>Loading...</div>;
   }
+
+  const toTitleCase = (str: string) => {
+    return str.replace(/\w\S*/g, (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase());
+  };
 
   return (
     //     <div className="bg-[#212C44] p-8 text-white">
@@ -226,19 +231,33 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
         {results.map((result, resultIndex) => (
           <div key={resultIndex} className="mb-8">
             <h2 className="text-xl mb-4">
-              {result.quizId.title} - Score: {result.marks} /{" "}
-              {result.quizId.questions.length}
+              {result.quizId.title} - Score: {result.marks} / {result.quizId.questions.length}
             </h2>
             <p className="text-gray-400 mb-6">{result.quizId.description}</p>
 
             {result.quizId.questions.map((question, index) => {
               const userAnswer = result.answers[index]?.trim().toLowerCase();
-              const correctAnswer = question.options.find(
-                (option) =>
-                  option.trim().toLowerCase() ===
-                  question.answer?.trim().toLowerCase()
-              )
-               || "";
+              let correctAnswer = "";
+              const options = question.options;
+              const correctAnswerOption = toTitleCase(question.answer[0]);
+              const correctAnswerOptionn = correctAnswerOption.split(" ")[1].trim().toUpperCase();
+
+              switch (correctAnswerOptionn) {
+                case "A":
+                  correctAnswer = options[0];
+                  break;
+                case "B":
+                  correctAnswer = options[1];
+                  break;
+                case "C":
+                  correctAnswer = options[2];
+                  break;
+                case "D":
+                  correctAnswer = options[3];
+                  break;
+                default:
+                  break;
+              }
 
               return (
                 <div key={index} className="mb-6">
@@ -248,8 +267,8 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
                   {question.options.map((option, i) => {
                     const optionText = option.trim().toLowerCase();
                     const isSelected = optionText === userAnswer;
-                    const isCorrect =
-                      optionText === correctAnswer.trim().toLowerCase();
+                    // const isCorrect = optionText === correctAnswer?.trim()?.toLowerCase();
+                    const isCorrect = optionText === correctAnswer?.trim()?.toLowerCase();
 
                     const optionClass = `p-4 mb-2 border rounded-lg ${
                       isSelected
@@ -268,9 +287,7 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
                     );
                   })}
                   {userAnswer !== correctAnswer.trim().toLowerCase() && (
-                    <p className="text-red-500 mt-2">
-                      Correct answer: {correctAnswer}
-                    </p>
+                    <p className="text-red-500 mt-2">Correct answer: {correctAnswerOption}</p>
                   )}
                 </div>
               );

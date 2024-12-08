@@ -1,4 +1,3 @@
-
 // 'use client';
 // import React, { useEffect, useState } from 'react';
 // import { useRouter } from 'next/navigation';
@@ -152,9 +151,9 @@
 // };
 
 // export default NonVerbalQuizResult;
-'use client';
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+"use client";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useUser } from "@/app/components/context/userContext";
 
 interface Option {
@@ -179,7 +178,9 @@ interface Result {
   marks: number;
 }
 
-const NonVerbalQuizResult: React.FC<{ id: string, goBackToList: () => void }> = ({ id, goBackToList }) => {
+const NonVerbalQuizResult: React.FC<{ id: string; goBackToList: () => void }> = ({ id, goBackToList }) => {
+  console.log("We are in the NonVerbalQuizResult component");
+
   const [result, setResult] = useState<Result | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -191,26 +192,26 @@ const NonVerbalQuizResult: React.FC<{ id: string, goBackToList: () => void }> = 
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`, {
-          method: 'GET',
+        // const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`, {
+        const response = await fetch(`http://localhost:4000/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`, {
+          method: "GET",
           headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
           },
-          credentials: 'include',
-       
+          credentials: "include",
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch result');
+          throw new Error("Failed to fetch result");
         }
 
         const data = await response.json();
         setResult(data.results[0]);
         setLoading(false);
       } catch (err) {
-        console.error('Error fetching result:', err);
-        setError('Failed to load result. Please try again later.');
+        console.error("Error fetching result:", err);
+        setError("Failed to load result. Please try again later.");
         setLoading(false);
       }
     };
@@ -235,7 +236,9 @@ const NonVerbalQuizResult: React.FC<{ id: string, goBackToList: () => void }> = 
     <div className="bg-[#212C44] p-8 text-white mt-20">
       <h1 className="text-3xl font-bold mb-6 text-center">Result: {result?.quizId.title}</h1>
       <div className="mb-4">
-        <p className="text-2xl text-center font-bold">Score: {result?.marks}/{result?.quizId.questions.length}</p>
+        <p className="text-2xl text-center font-bold">
+          Score: {result?.marks}/{result?.quizId.questions.length}
+        </p>
       </div>
       <div className="space-y-6">
         {result?.quizId.questions.map((question, index) => (
@@ -258,9 +261,9 @@ const NonVerbalQuizResult: React.FC<{ id: string, goBackToList: () => void }> = 
                   className={`p-4 rounded-lg border flex items-center space-x-4 ${
                     option.label === result.answers[index]
                       ? option.label === question.answer
-                        ? 'border-green-500 bg-green-900'
-                        : 'border-red-500 bg-red-900'
-                      : 'border-gray-500'
+                        ? "border-green-500 bg-green-900"
+                        : "border-red-500 bg-red-900"
+                      : "border-gray-500"
                   }`}
                 >
                   <span className="font-bold">{String.fromCharCode(65 + optIndex)}.</span>
@@ -283,10 +286,7 @@ const NonVerbalQuizResult: React.FC<{ id: string, goBackToList: () => void }> = 
           </div>
         ))}
       </div>
-      <button
-        className="bg-blue-500 px-6 py-3 mt-8 rounded-lg"
-        onClick={goBackToList}
-      >
+      <button className="bg-blue-500 px-6 py-3 mt-8 rounded-lg" onClick={goBackToList}>
         Go back
       </button>
 
