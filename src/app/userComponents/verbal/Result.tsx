@@ -27,15 +27,17 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
   useEffect(() => {
     const fetchResults = async () => {
       try {
-        // const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`,
-        const response = await fetch(`http://localhost:4000/verbalQuizResult/viewVerbalQuizResult/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+        const response = await fetch(
+          `https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
 
         const data = await response.json();
         setResults(data.results);

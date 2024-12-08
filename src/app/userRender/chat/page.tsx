@@ -30,7 +30,7 @@ const AllChats = () => {
 
   useEffect(() => {
     setLoadingConversation(true);
-    fetch("http://localhost:4000/messages/viewConversations", {
+    fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/messages/viewConversations", {
       credentials: "include",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -83,7 +83,7 @@ const AllChats = () => {
   useEffect(() => {
     const getMessages = (conversationId: string) => {
       setLoadingMessages(true);
-      fetch(`http://localhost:4000/messages/viewConversation/${conversationId}`, {
+      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/messages/viewConversation/${conversationId}`, {
         credentials: "include",
         headers: {
           Authorization: `Bearer ${token}`,

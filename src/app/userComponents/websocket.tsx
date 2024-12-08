@@ -95,7 +95,7 @@ export const WebSocketProvider: React.FC<{
   const { _id } = useUser();
 
   useEffect(() => {
-    const socketInstance = io("http://localhost:4000", {
+    const socketInstance = io("https://sky-nova-8ccaddc754ce.herokuapp.com", {
       transports: ["websocket"],
       query: {
         userId: _id,

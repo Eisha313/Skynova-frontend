@@ -293,8 +293,7 @@ const ManageUsers: React.FC = () => {
     if (!window.confirm(confirmMessage)) return;
 
     try {
-      // let URL = `https://sky-nova-8ccaddc754ce.herokuapp.com/users/block/${user.backendId}`;
-      let URL = `http://localhost:4000/users/block/${user.backendId}`;
+      let URL = `https://sky-nova-8ccaddc754ce.herokuapp.com/users/block/${user.backendId}`;
 
       if (newStatus === "Active") {
         URL = URL.replace("block", "unblock");

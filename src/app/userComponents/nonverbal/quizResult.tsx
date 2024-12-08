@@ -192,15 +192,17 @@ const NonVerbalQuizResult: React.FC<{ id: string; goBackToList: () => void }> = 
   useEffect(() => {
     const fetchResult = async () => {
       try {
-        // const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`, {
-        const response = await fetch(`http://localhost:4000/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`, {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-        });
+        const response = await fetch(
+          `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+          }
+        );
 
         if (!response.ok) {
           throw new Error("Failed to fetch result");
