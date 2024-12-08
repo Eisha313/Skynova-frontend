@@ -152,6 +152,7 @@ export const roleBasedRoutes = {
     "/addjet",
     "/viewjets/[id]/edit",
     "/userRender/AboutUs",
+    "/userRender/changePassword",
     "/userRender/chat",
   ],
 };
