@@ -25,7 +25,7 @@ const WingsResourcesTable = () => {
   const [filterType, setFilterType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const [deleteModalVisible, setDeleteModalVisible] = useState(false); // For delete confirmation modal
+  const [deleteModalVisible, setDeleteModalVisible] = useState(false); 
   const [resourceToDelete, setResourceToDelete] = useState<string | null>(null);
 
 
@@ -71,13 +71,24 @@ const WingsResourcesTable = () => {
   const clearSearch = () => {
     setSearchTerm('');
   };
-  const filteredResources = sortedResources.filter(resource =>
-    (resource.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      resource.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      resource.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
-    (filterType ? resource.type === filterType : true)
-  );
-
+  // const filteredResources = sortedResources.filter(resource =>
+  //   (resource.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     resource.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+  //     resource.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
+  //   (filterType ? resource.type === filterType : true)
+  // );
+  const filteredResources = sortedResources.filter(resource => {
+    const name = resource.name || ""; // Default to an empty string if undefined
+    const type = resource.type || "";
+    const description = resource.description || "";
+  
+    return (
+      (name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        type.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        description.toLowerCase().includes(searchTerm.toLowerCase())) &&
+      (filterType ? type === filterType : true)
+    );
+  });
  
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -109,16 +120,10 @@ const WingsResourcesTable = () => {
     }
     return <ArrowUpDown className="h-4 w-4 inline ml-2" />;
   };
-  // const handleDelete = async (id: string) => {
-  //   await fetch(
-  //     `https://sky-nova-8ccaddc754ce.herokuapp.com/wingsOfGloryResources/deleteWingsOfGloryResource/${id}`,
-  //     { method: "DELETE", credentials: "include" }
-  //   );
-  //   setResources((prev) => prev.filter((res) => res._id !== id));
-  // };
+  
   const handleDeleteConfirmation = (id: string) => {
-    setResourceToDelete(id); // Set the resource to delete
-    setDeleteModalVisible(true); // Show the confirmation modal
+    setResourceToDelete(id); 
+    setDeleteModalVisible(true); 
   };
 
   const handleDelete = async () => {
@@ -128,38 +133,40 @@ const WingsResourcesTable = () => {
         credentials: "include"
       });
       setResources((prev) => prev.filter((res) => res._id !== resourceToDelete));
-      setDeleteModalVisible(false); // Hide the modal after deletion
-      setResourceToDelete(null); // Reset the resource to delete
+      setDeleteModalVisible(false); 
+      setResourceToDelete(null);
+      alert('Resource Deleted Successfully'); 
     }
   };
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-lg">
+    <div className="p-4 rounded-lg shadow-lg text-white">
         
-      <h2 className="text-lg font-semibold mb-4">Wings Resources</h2>
+      <h2 className="text-lg font-semibold mb-4 ">Wings Resources</h2>
     
       <div className="flex flex-1 justify-end space-x-2 ">
           <Search onSearchChange={handleSearchChange} searchTerm={searchTerm} clearSearch={clearSearch} />
-          <select value={filterType} onChange={e => setFilterType(e.target.value)} className="p-2 border rounded">
-            <option value="">All Types</option>
-            <option value="document">Documents</option>
-            <option value="image">Quotes</option>
-            <option value="video">Videos</option>
+          <select value={filterType} onChange={e => setFilterType(e.target.value)}  className="px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none">
+            <option className='bg-transparent text-black '  value="">All Types</option>
+            <option  className='bg-transparent text-black ' value="document">Documents</option>
+            <option className='bg-transparent text-black ' value="image">Quotes</option>
+            <option className='bg-transparent text-black '  value="video">Videos</option>
           </select>
-          <button onClick={generatePDF} className="text-gray-800 px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300">
+          <button onClick={generatePDF} className="px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none">
           <MdDownload  />
           </button>
         <Link
           href="/wings/wingsResources/addWingsResources"
-          className="px-4 py-2 rounded-md text-center bg-eisha text-white flex items-center"
-        >
+          // className="px-4 py-2 rounded-md text-center bg-eisha text-white flex items-center"
+          className="px-4 py-2 text-white border border-white/30 rounded-xl bg-eisha hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none">
+        
           Add Resource
         </Link> </div>
       
       
-      <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
-      <table className="min-w-full bg-white">
-        <thead>
+      <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0 mt-8">
+      <table className="min-w-full bg-[#212C44] ">
+        <thead  className="bg-eisha text-white">
           <tr>
            
             {['Sr No ','Name', 'Type', 'Description','Content', 'Actions'].map(header => (
@@ -176,21 +183,18 @@ const WingsResourcesTable = () => {
               ))}
           </tr>
         </thead>
-        <tbody>
-          {resources.map((resource, index) => (
+        <tbody className='bg-[#212C44] text-white'>
+          
+          {currentResources.map((resource, index) => (
             <tr key={resource._id} className="text-center">
-              <td className="py-2">{index + 1}</td>
-              <td className="py-2">{resource.name}</td>
-              <td className="py-2">{resource.type}</td>
-              <td className="py-2">{resource.description}</td>
+              <td className="py-2 px-4 text-center">{index + 1}</td>
+              <td className="py-2 px-4 text-center">{resource.name}</td>
+              <td className="py-2 px-4 text-center">{resource.type}</td>
+              <td className="py-2 px-4 text-center">{resource.description}</td>
               
-              <td className="py-2">{resource.content}</td>
-              {/* <td className="py-2 space-x-2">
-                <button onClick={() => setModalResource(resource)} className="text-blue-500">View</button>
-                <button onClick={() => handleDelete(resource.id!)} className="text-red-500">Delete</button>
-                <button onClick={() => setEditingResourceId(resource.id!)} className="text-green-500">Edit</button>
-              </td> */}
-              <td className="py-2 px-4 text-center border-b flex space-x-2 items-center">
+              <td className="py-2 px-4 text-center">{resource.content}</td>
+              
+              <div className="py-2 px-4   flex space-x-2 justify-center">
                 
                   <button
                   onClick={() => setModalResource(resource)}
@@ -233,7 +237,7 @@ const WingsResourcesTable = () => {
                 >
                   <FaTrash className="text-gray-700" />
                 </button>
-              </td>
+              </div>
             </tr>
           ))}
         </tbody>
@@ -244,61 +248,39 @@ const WingsResourcesTable = () => {
             onCancel={() => setDeleteModalVisible(false)}
           />
         )}
-      {/* {modalResource && (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-          <div className="bg-white p-4 rounded-lg w-1/2">
-            <h3 className="text-lg font-bold mb-2">{modalResource.name}</h3>
-            <p>
-              <strong>Description:</strong> {modalResource.description}
-            </p>
-            <p>
-              <strong>Type:</strong> {modalResource.type}
-            </p>
-            <p>
-              <strong>Content:</strong> {modalResource.content}
-            </p>
-            <button
-              onClick={() => setModalResource(null)}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )} */}
      
 
      {modalResource && (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50 p-4">
-    <div className="bg-white rounded-lg shadow-2xl w-full max-w-lg p-6">
+    <div className="bg-custom-image text-white rounded-lg shadow-2xl w-full max-w-lg p-6">
       
-      {/* Modal Header */}
-      <h3 className="text-2xl font-semibold text-gray-800 mb-4 text-center border-b pb-2">
+      
+      <h3 className="text-2xl font-semibold text-white text-center mb-4 border-b pb-2">
         {modalResource.name}
       </h3>
 
-      {/* Modal Content */}
+      
       <div className="space-y-4">
-        <p className="text-gray-700">
-          <span className="font-semibold">Description:</span> {modalResource.description}
+        <p className="text-white">
+          <span className="font-bold text-lg">Description:</span> {modalResource.description}
         </p>
-        <p className="text-gray-700">
-          <span className="font-semibold">Type:</span> {modalResource.type}
+        <p className="text-white">
+          <span className="font-bold text-lg">Type:</span> {modalResource.type}
         </p>
 
-        {/* Video Player or Content Text */}
+       
         {ReactPlayer.canPlay(modalResource.content) ? (
           <div className="overflow-hidden rounded-lg mb-4">
             <ReactPlayer url={modalResource.content} width="100%" height="100%" controls />
           </div>
         ) : (
-          <p className="text-gray-700">
-            <span className="font-semibold">Content:</span> {modalResource.content}
+          <p className="text-white">
+            <span className="font-bold text-lg">Content:</span> {modalResource.content}
           </p>
         )}
       </div>
 
-      {/* Modal Footer with Close Button */}
+   
       <div className="mt-6 text-center">
         <button
           onClick={() => setModalResource(null)}
@@ -317,6 +299,17 @@ const WingsResourcesTable = () => {
         />
       )}
     </div>
+    <div className="flex justify-center mt-4">
+        {Array.from({ length: Math.ceil(filteredResources.length / itemsPerPage) }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={`px-4 py-2 mx-1 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

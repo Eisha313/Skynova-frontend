@@ -44,12 +44,12 @@ const TagSelector: React.FC<TagSelectorProps> = ({ setTags, tags, allTags ,}) =>
             <div className="w-full">
                 <div className="flex flex-col items-center relative">
                     <div className="w-full">
-                        <div className="my-2 p-1 flex border border-gray-200 bg-white rounded">
+                        <div className="my-2 p-1 flex border border-gray-200 color-white rounded">
                             <div className="flex flex-auto flex-wrap">
                                 {tags.map((tag) => (
                                     <div
                                         key={tag._id}
-                                        className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-teal-100 rounded-full text-teal-700 border border-teal-300"
+                                        className="flex justify-center items-center m-1 font-medium py-1 px-2 bg-transparent rounded-full text-white border border-teal-300 outline-none"
                                     >
                                         <div className="text-xs font-normal leading-none max-w-full flex-initial">
                                             {tag.name}
@@ -57,7 +57,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({ setTags, tags, allTags ,}) =>
                                         <div className="flex flex-auto flex-row-reverse">
                                             <div
                                                 onClick={() => handleRemoveTag(tag)}
-                                                className="cursor-pointer hover:text-teal-400 rounded-full w-4 h-4 ml-2"
+                                                className="cursor-pointer hover:text-white bg-transparent rounded-full w-4 h-4 ml-2"
                                                 role="button"
                                                 aria-label={`Remove tag ${tag.name}`}
                                             >
@@ -89,10 +89,10 @@ const TagSelector: React.FC<TagSelectorProps> = ({ setTags, tags, allTags ,}) =>
                                     />
                                 </div>
                             </div>
-                            <div className="text-gray-300 w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
+                            <div className="text-black w-8 py-1 pl-2 pr-1 border-l flex items-center border-gray-200">
                                 <button
                                     onClick={() => setDropdownOpen(!dropdownOpen)}
-                                    className="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none"
+                                    className="cursor-pointer w-6 h-6 text-white bg-transparent outline-none focus:outline-none"
                                     aria-label="Toggle tag dropdown"
                                 >
                                     <svg
@@ -114,13 +114,13 @@ const TagSelector: React.FC<TagSelectorProps> = ({ setTags, tags, allTags ,}) =>
                         </div>
                     </div>
                     {dropdownOpen && (
-                        <div ref={dropdownRef} className="absolute shadow top-100 bg-white z-40 w-full left-0 rounded max-h-select overflow-y-auto">
+                        <div ref={dropdownRef} className="absolute shadow top-100 bg-blue-300 z-40 w-full left-0 rounded max-h-select overflow-y-auto">
                             <div className="flex flex-col w-full">
                                 {allTags.map((tag) => (
                                     <div
                                         key={tag._id}
                                         onClick={() => handleAddTag(tag)}
-                                        className="cursor-pointer w-full border-gray-100 border-b hover:bg-teal-100"
+                                        className="cursor-pointer w-full border-gray-100 border-b hover:bg-eisha hover:text-white"
                                         role="button"
                                         aria-label={`Add tag ${tag.name}`}
                                     >

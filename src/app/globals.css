@@ -104,13 +104,13 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #1F60B2;
+  background: hwb(0 74% 17%);
   border-radius: 5px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #1F60B2;
+  background: var(--eisha);
 }
 /* Custom scrollbar styles */
 .custom-scrollbar::-webkit-scrollbar {
@@ -217,4 +217,35 @@ body {
   /* font-style: italic;  */
   /* border:#d2dcf9 */
  
+}
+.custom-tag-selector input {
+  background: rgba(126, 126, 126, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.5rem;
+  transition: all 0.2s;
+}
+
+.custom-tag-selector input:hover,
+.custom-tag-selector input:focus {
+  border-color: #5aa0bc;
+}
+
+.custom-tag-selector .tag {
+  background-color: #5aa0bc;
+  color: white;
+  border-radius: 1rem;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.custom-tag-selector .tag-remove {
+  margin-left: 0.25rem;
+  color: white;
+  cursor: pointer;
+}
+
+.custom-tag-selector .tag-remove:hover {
+  color: red;
 }
