@@ -161,6 +161,8 @@ export const publicRoutes = [
   "/signup",
   "/",
   "/userRender/privacyPolicy",
+  "/userRender/privacy/contact",
+  "/userRender/AboutUs",
   "/forgetpassword",
   "/userRender/certificate-list/[id]/certificateDetails",
   "/codeverify",
