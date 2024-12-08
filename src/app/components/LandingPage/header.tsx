@@ -139,7 +139,7 @@ import React, { useState } from "react";
 import { useUser } from "../context/userContext";
 import { FaSignOutAlt, FaUserCircle, FaSun } from "react-icons/fa";
 import { useRouter, usePathname } from "next/navigation";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
 import ProfileModal from "../viewprofile";
@@ -169,8 +169,14 @@ const Header: React.FC = () => {
 
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        await signOut();
-        router.push("/");
+        signOut({
+          redirect: false,
+          // callbackUrl: "https://localhost:3000/",
+        }).then(() => {
+          setTimeout(() => {
+            router.push("/");
+          }, 1000);
+        });
       } catch (error) {
         console.error("Error during logout:", error);
       }
@@ -236,9 +242,7 @@ const Header: React.FC = () => {
       </nav>
 
       <div className="flex items-center space-x-4">
-        <button className="p-2 rounded-full hover:bg-gray-100">
-          
-        </button>
+        <button className="p-2 rounded-full hover:bg-gray-100"></button>
 
         {firstName ? (
           <div className="flex items-center space-x-3">

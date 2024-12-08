@@ -23,7 +23,7 @@ interface UserContextProps {
 const UserContext = createContext<UserContextProps | null>(null);
 
 export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
 
   const router = useRouter();
   const [user, setUser] = useState<{
@@ -45,7 +45,9 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
   });
 
   useEffect(() => {
-    if (session) {
+    if (session && status === "authenticated") {
+      console.log("Session is available");
+
       console.log("User", session.user);
       console.log("Session", session);
       setUser({
@@ -65,8 +67,10 @@ export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children
       } else {
         router.push("/");
       }
+    } else {
+      console.log("No session");
     }
-  }, [session]);
+  }, [session, router]);
 
   useEffect(() => {
     if (user._id) {

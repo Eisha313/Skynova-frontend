@@ -1,43 +1,39 @@
-
-'use client';
-import React from 'react';
-import { useUser } from './context/userContext';
-import { FaSun, FaBell, FaUserCircle, FaCog, FaSignOutAlt, FaSearch } from 'react-icons/fa';
-import { useRouter } from 'next/navigation';
-import {signOut} from 'next-auth/react'
-import axios from 'axios';
+"use client";
+import React from "react";
+import { useUser } from "./context/userContext";
+import { FaSun, FaBell, FaUserCircle, FaCog, FaSignOutAlt, FaSearch } from "react-icons/fa";
+import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
+import axios from "axios";
 
 const Header: React.FC = () => {
   const { firstName, lastName, role, setUser } = useUser();
   const router = useRouter();
 
   const handleLogout = async () => {
-    const isConfirmed = window.confirm('Are you sure you want to log outttttttt?');
-    
+    const isConfirmed = window.confirm("Are you sure you want to log outttttttt?");
+
     if (isConfirmed) {
       try {
-        
         await axios.post(`https://sky-nova-8ccaddc754ce.herokuapp.com/users/logout`, {}, { withCredentials: true });
-        
-        
-        setUser({ _id: '', firstName: '', lastName: '', role: '', email: '' ,token:" ",profileImage:""});
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
-    
-    {
-      console.log("Signin out using signout function")
-      await signOut()
-    }
-        
-        
-        document.cookie.split(';').forEach((c) => {
-          document.cookie = c.replace(/^ +/, '').replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
+
+        setUser({ _id: "", firstName: "", lastName: "", role: "", email: "", token: " ", profileImage: "" });
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+
+        console.log("Signin out using signout function");
+
+        // document.cookie.split(";").forEach((c) => {
+        //   document.cookie = c.replace(/^ +/, "").replace(/=.*/, `=;expires=${new Date().toUTCString()};path=/`);
+        // });
+
+        await signOut({
+          redirect: false,
+        }).then(() => {
+          router.push("/");
         });
-        
-        
-        router.push('/');
       } catch (error) {
-        console.error('Error during logout:', error);
+        console.error("Error during logout:", error);
       }
     }
   };
