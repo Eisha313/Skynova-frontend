@@ -131,7 +131,7 @@ const ResourceFormm: React.FC<ResourceFormProps> = ({ id }) => {
 
   return (
 
- <div className=" bg-[#1A253A]container mx-auto p-4 sm:max-w-lg">
+ <div className=" bg-[#1A253A]container mx-auto p-4 sm:max-w-lg mt-20">
 
       <div className="bg-[#1A253A] border border-[#B5B5B540] rounded-lg shadow-md text-[#B5B5B540] p-6">
       <h2 className="text-xl font-regular text-[#F5F5F5] text-center">

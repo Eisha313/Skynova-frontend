@@ -67,7 +67,7 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
     const file = e.target.files?.[0] || null;
     if (file) {
       setResource({ ...resource, resourceFile: file });
-      setPreviewFile(URL.createObjectURL(file)); // Keep this for preview purposes
+      setPreviewFile(URL.createObjectURL(file)); 
     } else {
       setResource({ ...resource, resourceFile: null });
       setPreviewFile(null);
@@ -130,18 +130,20 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
   };
 
   return (
-    <div className="container mx-auto p-4 sm:max-w-lg">
-      <div className="bg-white border border-gray-300 rounded-lg shadow-md p-6">
-        <h2 className="text-2xl font-bold mb-6 text-gray-800">
+    <div className=" mx-auto p-4 sm:max-w-lg">
+      <div className="bg-[#212C44]   rounded-lg shadow-md p-6 align-center text-white">
+        <h2 className="text-2xl font-bold mb-6 text-white">
           {id ? "Edit Resource" : "Create Resource"}
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label
               htmlFor="title"
-              className="block text-gray-700 text-sm font-medium"
+              className="block text-white text-sm font-medium"
+              
             >
               Title
+              <span className="text-red-500"> *</span>
             </label>
             <input
               type="text"
@@ -149,26 +151,31 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
               name="title"
               value={resource.title}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              
+               className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
               required
             />
           </div>
           <div>
             <label
               htmlFor="type"
-              className="block text-gray-700 text-sm font-medium"
+              className="block text-white text-sm font-medium"
             >
               Type
+              <span className="text-red-500"> *</span>
             </label>
             <select
               id="type"
               name="type"
               value={resource.type}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              
+              className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
               required
             >
-              <option value="">Select a type</option>
+              <span className="text-red-500"> *</span>
+              <option className="" value="">Select a type</option>
               <option value="pdf">PDF</option>
               <option value="video">Video</option>
              
@@ -178,24 +185,28 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
           <div>
             <label
               htmlFor="description"
-              className="block text-gray-700 text-sm font-medium"
+              className="block text-white text-sm font-medium"
             >
               Description
+              <span className="text-red-500"> *</span>
             </label>
             <textarea
               id="description"
               name="description"
               value={resource.description}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+             
+             
             />
           </div>
           <div>
             <label
               htmlFor="resourceImage"
-              className="block text-gray-700 text-sm font-medium"
+              className="block text-white text-sm font-medium"
             >
               Resource URL
+              <span className="text-red-500"> *</span>
             </label>
             <input
               type="text"
@@ -203,8 +214,11 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
               name="resourceImage"
               value={resource.resourceImage || ""}
               onChange={handleChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+             
+              className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
             />
+
             {resource.resourceImage && (
               <div className="mt-2">
                 {resource.resourceImage.endsWith(".jpg") ||
@@ -230,16 +244,19 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
           <div>
             <label
               htmlFor="resourceFile"
-              className="block text-gray-700 text-sm font-medium"
+              className="block text-white text-sm font-medium"
             >
               Upload File
+              <span className="text-red-500"> *</span>
             </label>
             <input
               type="file"
               id="resourceFile"
               name="resourceFile"
               onChange={handleFileChange}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              
+              className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
             />
             {previewFile && (
               <div className="mt-2">

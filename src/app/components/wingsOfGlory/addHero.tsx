@@ -34,9 +34,9 @@ const AddHero = ({ heroId, onClose }: AddHeroProps) => {
     quotes: [],
   });
 
-  const [tags, setTags] = useState<Resource[]>([]); // For movies
-  const [documentaryTags, setDocumentaryTags] = useState<Resource[]>([]); // For documentaries
-  const [quoteTags, setQuoteTags] = useState<Resource[]>([]); // For quotes
+  const [tags, setTags] = useState<Resource[]>([]); 
+  const [documentaryTags, setDocumentaryTags] = useState<Resource[]>([]); 
+  const [quoteTags, setQuoteTags] = useState<Resource[]>([]); 
   const [isEditMode, setIsEditMode] = useState(false);
   const [previewImage, setPreviewImage] = useState<string | null>(null);
 
@@ -102,22 +102,7 @@ const AddHero = ({ heroId, onClose }: AddHeroProps) => {
   };
 
   
-  // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e.target.files && e.target.files[0]) {
-  //     const file = e.target.files[0];
   
-  //     if (file.type.startsWith("image/")) {
-  //       const reader = new FileReader();
-  //       reader.onloadend = () => {
-  //         setHero({ ...hero, image: reader.result as string }); 
-  //         setPreviewImage(reader.result as string); 
-  //       };
-  //       reader.readAsDataURL(file);
-  //     } else {
-  //       alert("Please upload a valid image file.");
-  //     }
-  //   }
-  // };
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
@@ -126,7 +111,7 @@ const AddHero = ({ heroId, onClose }: AddHeroProps) => {
         const reader = new FileReader();
         reader.onloadend = () => {
           const base64String = reader.result as string;
-          setHero({ ...hero, image: base64String }); // Always set as Base64
+          setHero({ ...hero, image: base64String }); 
           setPreviewImage(base64String);
         };
         reader.readAsDataURL(file);
@@ -136,95 +121,17 @@ const AddHero = ({ heroId, onClose }: AddHeroProps) => {
     }
   };
   
-  // const handleSave = async () => {
-  //   let base64Image: string | undefined;
-  
-  //   // Check if the image is already in Base64 or needs conversion
-  //   if (hero.image && typeof hero.image === "string") {
-  //     if (!hero.image.startsWith("data:image")) {
-  //       // Convert the URL to Base64 if it's not already
-  //       base64Image = await convertUrlToBase64(hero.image);
-  //     } else {
-  //       // Already in Base64 format
-  //       base64Image = hero.image;
-  //     }
-  //   }
-  
-  //   // Prepare the updated hero object
-  //   const updatedHero = {
-  //     ...hero,
-  //     image: base64Image, // Use Base64 image
-  //     movies: tags.map((movie) => movie._id),
-  //     documentaries: documentaryTags.map((doc) => doc._id),
-  //     quotes: quoteTags.map((quote) => quote._id),
-  //   };
-  
-  //   const endpoint = isEditMode
-  //     ? `https://sky-nova-8ccaddc754ce.herokuapp.com/warHeroes/updateWarHero/${hero._id}`
-  //     : "https://sky-nova-8ccaddc754ce.herokuapp.com/warHeroes/createWarHero";
-  
-  //   const method = isEditMode ? "PATCH" : "POST";
-  
-  //   try {
-  //     const response = await fetch(endpoint, {
-  //       method,
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       credentials: "include",
-  //       body: JSON.stringify(updatedHero),
-  //     });
-  
-  //     if (!response.ok) {
-  //       const errorText = await response.text();
-  //       throw new Error(`Error: ${response.status} ${errorText}`);
-  //     }
-  
-  //     console.log("Hero saved successfully");
-  //     router.push("/wings/Hero");
-  //   } catch (error) {
-  //     console.error("Fetch error:", error);
-  //   }
-  // };
-  
-  
-  // const convertUrlToBase64 = async (imageUrl: string): Promise<string> => {
-  //   if (!imageUrl.startsWith("data:image")) {
-  //     try {
-  //       const response = await fetch(imageUrl, {
-  //         mode: 'cors',
-  //       });
-  
-  //       if (!response.ok) {
-  //         throw new Error(`Failed to fetch image. Status: ${response.status}`);
-  //       }
-  
-  //       const blob = await response.blob();
-  //       const reader = new FileReader();
-  
-  //       return new Promise((resolve, reject) => {
-  //         reader.onloadend = () => resolve(reader.result as string);
-  //         reader.onerror = () => reject("Error converting image to Base64");
-  //         reader.readAsDataURL(blob);
-  //       });
-  //     } catch (error) {
-  //       console.error("Failed to convert image URL to Base64:", error);
-  //       return ""; // Return an empty string or handle the error as needed
-  //     }
-  //   }
-  
-  //   return imageUrl; // Return the original if it's already Base64
-  // };
+ 
   
   
   
   const handleSave = async () => {
-    // Prepare the updated hero object using the tags state
+    
     const updatedHero = {
       ...hero,
-      movies: tags.map((movie) => movie._id), // use the updated tags for movies
-      documentaries: documentaryTags.map((doc) => doc._id), // use the updated tags for documentaries
-      quotes: quoteTags.map((quote) => quote._id), // use the updated tags for quotes
+      movies: tags.map((movie) => movie._id), 
+      documentaries: documentaryTags.map((doc) => doc._id), 
+      quotes: quoteTags.map((quote) => quote._id),
     };
   
     const endpoint = isEditMode
@@ -240,7 +147,7 @@ const AddHero = ({ heroId, onClose }: AddHeroProps) => {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(updatedHero), // Use updatedHero instead of heroData
+        body: JSON.stringify(updatedHero), 
       });
   
       if (!response.ok) {
@@ -258,87 +165,203 @@ const AddHero = ({ heroId, onClose }: AddHeroProps) => {
  
   
   return (
-    <div className="p-4 bg-white rounded-lg shadow-lg">
-      <h2 className="text-lg font-semibold mb-4">
-        {isEditMode ? "Edit" : "Add"} Hero
-      </h2>
+//     <div className="p-4 text-white mx-auto rounded-lg shadow-lg">
+//       <h2 className="text-lg font-semibold text-center mb-4">
+//         {isEditMode ? "Edit" : "Add"} Hero
+//       </h2>
+// <div>
+//       <label className="block mb-1 font-medium">Hero Name</label>
+//       <input
+//         type="text"
+//         name="name"
+//         value={hero.name}
+//         onChange={handleChange}
+//         className="w-full p-2 border border-gray-300 rounded mb-4"
+//       />
 
-      <label className="block mb-1 font-medium">Hero Name</label>
+//       <label className="block mb-1 font-medium">Hero Image</label>
+     
+// {previewImage && (
+//   <div className="mb-4">
+//     <img src={previewImage} alt="Hero Image" className="w-32 h-32 object-cover rounded mb-2" />
+//   </div>
+// )}
+// <input
+//   type="file"
+//   accept="image/*"
+//   onChange={handleImageChange}
+//   className="w-full p-2 border border-gray-300 rounded mb-4"
+// />
+//       <label className="block mb-1 font-medium">Medals</label>
+//       <input
+//         type="text"
+//         name="medals"
+//         value={hero.medals}
+//         onChange={handleChange}
+//         className="w-full p-2 border border-gray-300 rounded mb-4"
+//       />
+
+//       <label className="block mb-1 font-medium">Description</label>
+//       <textarea
+//         name="description"
+//         value={hero.description}
+//         onChange={handleChange}
+//         className="w-full p-2 border border-gray-300 rounded mb-4"
+//       />
+
+//       <label className="block mb-1 font-medium">Accomplishments</label>
+//       <textarea
+//         name="accomplishments"
+//         value={hero.accomplishments}
+//         onChange={handleChange}
+//         className="w-full p-2 border border-gray-300 rounded mb-4"
+//       />
+
+//       <div className="h-20">
+//         <label className="block mb-0.5 font-medium">Movies</label>
+//         <TagSelector tags={tags} setTags={setTags} allTags={resources.movies} />
+//       </div>
+
+//       <div className="h-20">
+//         <label className="block mb-0.5 font-medium">Documentaries</label>
+//         <TagSelector
+//           tags={documentaryTags}
+//           setTags={setDocumentaryTags}
+//           allTags={resources.documentaries}
+//         />
+//       </div>
+
+//       <div className="h-20">
+//         <label className="block mb-0.5 font-medium">Quotes</label>
+//         <TagSelector tags={quoteTags} setTags={setQuoteTags} allTags={resources.quotes} />
+//       </div>
+
+//       <div className="mt-4">
+//         <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded">
+//           {isEditMode ? "Update Hero" : "Save Hero"}
+//         </button>
+//         <button onClick={onClose} className="ml-2 px-4 py-2 bg-gray-300 rounded">
+//           Close
+//         </button>
+//       </div>
+//       </div>
+//     </div>
+//   );
+// };
+<div className="flex items-center justify-center min-h-screen ">
+  <div className="p-4 text-white mx-auto bg-[#212C44] rounded-lg shadow-lg max-w-md w-full overflow-auto">
+    <h2 className="text-lg font-semibold text-center mb-4">
+      {isEditMode ? "Edit" : "Add"} Hero
+    </h2>
+    <div>
+      <label className="block mb-1 font-medium">Hero Name
+      <span className="text-red-500"> *</span>
+      </label>
       <input
         type="text"
         name="name"
         value={hero.name}
         onChange={handleChange}
-        className="w-full p-2 border border-gray-300 rounded mb-4"
+       className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
       />
 
-      <label className="block mb-1 font-medium">Hero Image</label>
-     
-{previewImage && (
-  <div className="mb-4">
-    <img src={previewImage} alt="Hero Image" className="w-32 h-32 object-cover rounded mb-2" />
-  </div>
-)}
-<input
-  type="file"
-  accept="image/*"
-  onChange={handleImageChange}
-  className="w-full p-2 border border-gray-300 rounded mb-4"
-/>
-      <label className="block mb-1 font-medium">Medals</label>
+      <label className="block mb-1 font-medium">Hero Image
+      <span className="text-red-500"> *</span>
+      </label>
+
+      {previewImage && (
+        <div className="mb-4">
+          <img
+            src={previewImage}
+            alt="Hero Image"
+             className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+          />
+        </div>
+      )}
+      <input
+        type="file"
+        accept="image/*"
+        onChange={handleImageChange}
+        className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+      />
+      <label className="block mb-1 font-medium">Medals
+      <span className="text-red-500"> *</span>
+      </label>
       <input
         type="text"
         name="medals"
         value={hero.medals}
         onChange={handleChange}
-        className="w-full p-2 border border-gray-300 rounded mb-4"
+         className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
       />
 
-      <label className="block mb-1 font-medium">Description</label>
+      <label className="block mb-1 font-medium">Description
+      <span className="text-red-500"> *</span>
+      </label>
       <textarea
         name="description"
         value={hero.description}
         onChange={handleChange}
-        className="w-full p-2 border border-gray-300 rounded mb-4"
+         className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
       />
 
-      <label className="block mb-1 font-medium">Accomplishments</label>
+      <label className="block mb-1 font-medium">Accomplishments
+      <span className="text-red-500"> *</span>
+      </label>
       <textarea
         name="accomplishments"
         value={hero.accomplishments}
         onChange={handleChange}
-        className="w-full p-2 border border-gray-300 rounded mb-4"
+         className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
       />
 
       <div className="h-20">
         <label className="block mb-0.5 font-medium">Movies</label>
-        <TagSelector tags={tags} setTags={setTags} allTags={resources.movies} />
+        <TagSelector
+        
+          tags={tags}
+          setTags={setTags}
+          allTags={resources.movies}
+        />
       </div>
 
       <div className="h-20">
         <label className="block mb-0.5 font-medium">Documentaries</label>
+        
         <TagSelector
           tags={documentaryTags}
           setTags={setDocumentaryTags}
           allTags={resources.documentaries}
         />
+        
       </div>
 
-      <div className="h-20">
+      <div className="h-20 ">
         <label className="block mb-0.5 font-medium">Quotes</label>
-        <TagSelector tags={quoteTags} setTags={setQuoteTags} allTags={resources.quotes} />
+        <TagSelector
+        
+          tags={quoteTags}
+          setTags={setQuoteTags}
+          allTags={resources.quotes}
+        />
       </div>
 
       <div className="mt-4">
-        <button onClick={handleSave} className="px-4 py-2 bg-blue-500 text-white rounded">
+        <button
+          onClick={handleSave}
+          className="px-4 py-2 bg-blue-500 text-white rounded"
+        >
           {isEditMode ? "Update Hero" : "Save Hero"}
         </button>
-        <button onClick={onClose} className="ml-2 px-4 py-2 bg-gray-300 rounded">
+        <button
+          onClick={onClose}
+          className="ml-2 px-4 py-2 bg-gray-300 rounded"
+        >
           Close
         </button>
       </div>
     </div>
-  );
-};
-
+  </div>
+</div>
+  )}
 export default AddHero;

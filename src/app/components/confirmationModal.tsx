@@ -13,7 +13,7 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
 }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 text-center">         <h3 className="text-lg font-bold mb-4">Are you sure you want to procees with deletion?</h3>
+      <div className="bg-white p-6 rounded-lg shadow-lg w-1/3 text-center">         <h3 className="text-lg text-black font-bold mb-4">Are you sure you want to procees with deletion?</h3>
          <div className="flex justify-center space-x-4">
           <button
             onClick={onConfirm}

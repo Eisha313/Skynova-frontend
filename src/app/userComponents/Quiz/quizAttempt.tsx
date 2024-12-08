@@ -249,62 +249,152 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
   }
 
   return (
-    <div className="bg-gray-900 min-h-screen p-8 flex flex-col justify-center items-center text-white">
-      <div className="text-lg mb-4">
-        Question {currentQuestion + 1}/{quiz.questions.length}:{' '}
-        {quiz.questions[currentQuestion]?.text}
+    // <div className="bg-gray-900 min-h-screen p-8 flex flex-col justify-center items-center text-white">
+    //   <div className="text-lg mb-4">
+    //     Question {currentQuestion + 1}/{quiz.questions.length}:{' '}
+    //     {quiz.questions[currentQuestion]?.text}
+    //   </div>
+
+    //   <div className="flex flex-col space-y-4 mb-4">
+    //     {quiz.questions[currentQuestion]?.options.map((option, index) => (
+    //       <label
+    //         key={index}
+    //         className={`p-4 border border-white rounded-lg cursor-pointer transition-all duration-300 ${
+    //           selectedOption === option ? 'bg-blue-500' : ''
+    //         } hover:bg-blue-400`}
+    //         onClick={() => {
+    //           setSelectedOption(option);
+
+    //           setAnswers((prevAnswers) => {
+    //             const updatedAnswers = [...prevAnswers];
+    //             updatedAnswers[currentQuestion] = option;
+    //             return updatedAnswers;
+    //           });
+    //         }}
+    //       >
+    //         {option}
+    //       </label>
+    //     ))}
+    //   </div>
+
+    //   <div className="text-lg mb-4">
+    //     Total Time Left: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s
+    //   </div>
+
+    //   <div className="flex justify-between w-full max-w-md">
+    //     {currentQuestion > 0 && (
+    //       <button
+    //         onClick={() => setCurrentQuestion((prev) => prev - 1)}
+    //         className="bg-blue-500 px-4 py-2 rounded-lg"
+    //       >
+    //         Previous
+    //       </button>
+    //     )}
+    //     <button
+    //       onClick={
+    //         currentQuestion === quiz.questions.length - 1
+    //           ? () => setShowModal(true)
+    //           : handleNextQuestion
+    //       }
+    //       className={`${
+    //         currentQuestion === quiz.questions.length - 1
+    //           ? 'bg-green-500'
+    //           : 'bg-blue-500'
+    //       } px-4 py-2 rounded-lg ml-auto`}
+    //     >
+    //       {currentQuestion === quiz.questions.length - 1 ? 'Submit' : 'Next'}
+    //     </button>
+    //   </div>
+<div className="bg-gray-900 min-h-screen flex items-center justify-center text-white relative">
+  {/* Timer */}
+  <div className="absolute top-4 right-4 text-lg font-bold bg-gray-800 px-4 py-2 rounded-lg shadow-lg border border-gray-700">
+    Time Left: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s
+  </div>
+
+  {/* Quiz Container */}
+  <div className="w-full max-w-xl bg-gray-800 p-8 rounded-lg border border-gray-700 shadow-md">
+    {/* Progress Bar */}
+    <div className="w-full mb-6">
+      <div className="text-center text-lg font-bold mb-2">
+        Question {currentQuestion + 1} of {quiz.questions.length}
       </div>
-
-      <div className="flex flex-col space-y-4 mb-4">
-        {quiz.questions[currentQuestion]?.options.map((option, index) => (
-          <label
-            key={index}
-            className={`p-4 border border-white rounded-lg cursor-pointer transition-all duration-300 ${
-              selectedOption === option ? 'bg-blue-500' : ''
-            } hover:bg-blue-400`}
-            onClick={() => {
-              setSelectedOption(option);
-
-              setAnswers((prevAnswers) => {
-                const updatedAnswers = [...prevAnswers];
-                updatedAnswers[currentQuestion] = option;
-                return updatedAnswers;
-              });
-            }}
-          >
-            {option}
-          </label>
-        ))}
+      <div className="w-full bg-gray-700 rounded-full h-4">
+        <div
+          className="bg-blue-500 h-4 rounded-full transition-all duration-300"
+          style={{
+            width: `${((currentQuestion + 1) / quiz.questions.length) * 100}%`,
+          }}
+        ></div>
       </div>
+    </div>
 
-      <div className="text-lg mb-4">
-        Total Time Left: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s
-      </div>
+    {/* Question Text */}
+    <div className="text-2xl font-semibold mb-6 text-center">
+      {quiz.questions[currentQuestion]?.text}
+    </div>
 
-      <div className="flex justify-between w-full max-w-md">
-        {currentQuestion > 0 && (
-          <button
-            onClick={() => setCurrentQuestion((prev) => prev - 1)}
-            className="bg-blue-500 px-4 py-2 rounded-lg"
-          >
-            Previous
-          </button>
-        )}
-        <button
-          onClick={
-            currentQuestion === quiz.questions.length - 1
-              ? () => setShowModal(true)
-              : handleNextQuestion
-          }
-          className={`${
-            currentQuestion === quiz.questions.length - 1
-              ? 'bg-green-500'
-              : 'bg-blue-500'
-          } px-4 py-2 rounded-lg ml-auto`}
+    {/* Options */}
+    <div className="grid grid-cols-2 gap-4 mb-8">
+      {quiz.questions[currentQuestion]?.options.map((option, index) => (
+        <label
+          key={index}
+          className={`p-4 border-2 rounded-lg cursor-pointer text-center transition-all duration-300 flex items-center space-x-4 ${
+            selectedOption === option
+              ? 'bg-blue-500 border-blue-500 text-white'
+              : 'bg-gray-900 border-gray-600 text-gray-300'
+          } hover:bg-gray-700 hover:border-white`}
+          onClick={() => {
+            setSelectedOption(option);
+
+            setAnswers((prevAnswers) => {
+              const updatedAnswers = [...prevAnswers];
+              updatedAnswers[currentQuestion] = option;
+              return updatedAnswers;
+            });
+          }}
         >
-          {currentQuestion === quiz.questions.length - 1 ? 'Submit' : 'Next'}
+          <span className="font-bold text-xl bg-gray-800 w-8 h-8 flex items-center justify-center rounded-full border border-gray-600">
+            {String.fromCharCode(65 + index)}
+          </span>
+          <span className="text-left">{option}</span>
+        </label>
+      ))}
+    </div>
+
+    {/* Navigation Buttons */}
+    <div className="flex justify-between w-full">
+      {currentQuestion > 0 && (
+        <button
+          onClick={() => setCurrentQuestion((prev) => prev - 1)}
+          className="bg-blue-500 px-4 py-2 rounded-lg"
+        >
+          Previous
         </button>
-      </div>
+      )}
+      <button
+        onClick={
+          currentQuestion === quiz.questions.length - 1
+            ? () => setShowModal(true)
+            : handleNextQuestion
+        }
+        className={`${
+          currentQuestion === quiz.questions.length - 1
+            ? 'bg-green-500'
+            : 'bg-blue-500'
+        } px-4 py-2 rounded-lg ml-auto ${
+          !selectedOption ? 'opacity-50 cursor-not-allowed' : ''
+        }`}
+        disabled={!selectedOption} // Disable button if no option selected
+      >
+        {currentQuestion === quiz.questions.length - 1 ? 'Submit' : 'Next'}
+      </button>
+    </div>
+  </div>
+
+
+
+
+
 
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">

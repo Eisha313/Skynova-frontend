@@ -1,51 +1,4 @@
-// import { useEffect, useState } from 'react';
-// import axios from 'axios';
 
-// interface SuggestionDetailProps {
-//   id: string;
-// }
-
-// const SuggestionDetail: React.FC<SuggestionDetailProps> = ({ id }) => {
-//   const [suggestion, setSuggestion] = useState<any>(null);
-
-//   useEffect(() => {
-//     const fetchSuggestion = async () => {
-//       try {
-//         const response = await axios.get(`http://localhost:4000/suggestions/viewSuggestion/${id}`);
-//         setSuggestion(response.data[0]);
-//       } catch (error) {
-//         console.error('Error fetching suggestion:', error);
-//       }
-//     };
-//     fetchSuggestion();
-//   }, [id]);
-
-//   const handleDelete = async () => {
-//     try {
-//       await axios.delete(`http://localhost:4000/suggestions/deleteSuggestion/${id}`);
-//       window.location.href = '/suggestions'; // Redirect after deletion
-//     } catch (error) {
-//       console.error('Error deleting suggestion:', error);
-//     }
-//   };
-
-//   if (!suggestion) return <div>Loading...</div>;
-
-//   return (
-//     <div className="p-4">
-//       <h1 className="text-2xl font-bold mb-4">{suggestion.title}</h1>
-//       <p className="mb-4">{suggestion.description}</p>
-//       <button
-//         onClick={handleDelete}
-//         className="bg-red-500 text-white px-4 py-2 rounded"
-//       >
-//         Delete
-//       </button>
-//     </div>
-//   );
-// };
-
-// export default SuggestionDetail;
 'use client';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -72,7 +25,7 @@ const SuggestionDetail: React.FC<SuggestionDetailProps> = ({ id }) => {
   const handleDelete = async () => {
     try {
       await axios.delete(`https://sky-nova-8ccaddc754ce.herokuapp.com/suggestions/deleteSuggestion/${id}`,{withCredentials:true});
-      window.location.href = '/suggestions'; // Redirect after deletion
+      window.location.href = '/suggestions'; 
     } catch (error) {
       console.error('Error deleting suggestion:', error);
     }

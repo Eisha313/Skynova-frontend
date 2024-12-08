@@ -101,20 +101,23 @@ const Search: React.FC<SearchProps> = ({ searchTerm, onSearchChange, clearSearch
   };
 
   return (
-    <div className="relative w-full max-w-xs"> 
+    <div className="relative w-full max-w-xs px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"> 
       <input
         type="text"
         placeholder="Search"
         value={searchTerm}
         onChange={handleSearch}
-        className="px-4 py-2 border border-gray-300 rounded-md shadow-sm w-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+        className='bg-transparent border-none outline-none'
+        // className="px-4 py-2 border border-gray-300 rounded-md shadow-sm w-full focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
+      
       />
+
       {searchTerm && (
         <button
           onClick={clearSearch}
           className="absolute inset-y-0 right-0 flex items-center justify-center px-3"
         >
-          {/* Cross Icon */}
+          
           <svg
             className="w-5 h-5 text-gray-500 hover:text-gray-700"
             fill="none"

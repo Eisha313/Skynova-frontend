@@ -145,41 +145,43 @@ const HeroesTable = () => {
       });
       setHeroes((prev) => prev.filter((hero) => hero._id !== resourceToDelete));
       setDeleteModalVisible(false); 
+      
       setResourceToDelete(null); 
+      alert("Hero successfully deleted!");
     }
   };
 
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-lg"> 
+    <div className="p-4  rounded-lg shadow-lg text-white"> 
       <h2 className="text-lg font-semibold mb-4">Heroes</h2>
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-1 justify-end space-x-2">
   <input 
     type="text" 
     value={searchTerm} 
     onChange={e => setSearchTerm(e.target.value)} 
     placeholder="Search..."
-    className="border p-2 rounded shadow-sm w-1/3"
+   className="px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
   />
   <select 
     value={filterType} 
     onChange={e => setFilterType(e.target.value)} 
-    className="border p-2 rounded shadow-sm"
+    className="px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
   >
-    <option value="">All Types</option>
-    <option value="document">Documentaries</option>
-    <option value="movie">Movies</option>
-    <option value="quote">Quotes</option>
+    <option className='bg-transparent text-black 'value="">All Types</option>
+    <option className='bg-transparent text-black'value="document">Documentaries</option>
+    <option className='bg-transparent text-black' value="movie">Movies</option>
+    <option className='bg-transparent text-black' value="quote">Quotes</option>
   </select>
   <button
     onClick={generatePDF}
-    className="bg-blue-600 text-white px-4 py-2 rounded shadow-md flex items-center gap-2"
+    className="text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300"
   >
-    <MdDownload /> Export PDF
+    <MdDownload /> 
   </button>
   <Link
     href="/wings/Hero/addHero"
-    className="bg-green-600 text-white px-4 py-2 rounded shadow-md"
+    className="px-4 py-2 rounded-md text-center bg-eisha text-white"
   >
     Add Hero
   </Link>
@@ -187,10 +189,10 @@ const HeroesTable = () => {
 
      
       <table className="min-w-full mt-6">
-        <thead className="bg-gray-800 text-white">
+        <thead className="bg-eisha text-white">
           <tr>
             
-             {['Sr No ','Name', 'Image', 'Description','Medal' ,'Accomplishments','Actions'].map(header => (
+             {['Sr No ','Name', 'Image', 'Description','Medal' ,'Accomplishments','Type','Actions'].map(header => (
               <th
                 key={header}
                 className="py-2 px-4 border-b text-center cursor-pointer"
@@ -205,13 +207,13 @@ const HeroesTable = () => {
           </tr>
           
         </thead>
-        <tbody>
+        <tbody className='bg-[#212C44] text-white'>
           {filteredHeroes.map((hero, index) => (
             <tr key={hero._id} className="text-center">
-              <td className="py-2">{index + 1}</td>
-              <td className="py-2">{hero.name}</td>
-              <td className="py-2">
-                
+              <td className="py-2 px-4">{index + 1}</td>
+              <td className="py-2 px-4">{hero.name}</td>
+              <td className="py-2 px-4">
+              <div className='flex justify-center py-2 space-x-2'>
                 {hero.image && (
   <Image
     src={hero.image as string}
@@ -221,22 +223,22 @@ const HeroesTable = () => {
     className="object-cover rounded"
     priority 
   />
-)}
+)}</div>
               </td>
-              <td className="py-2">{hero.medals}</td>
-              <td className="py-2">{hero.accomplishments}</td>
+              <td className="py-2 px-4">{hero.medals}</td>
+              <td className="py-2 px-4">{hero.accomplishments}</td>
               
 
-              {/* <td className="py-2">{hero.description}</td> */}
-              <td className="py-2">{hero.description.replace(/"/g, '&quot;')}</td>
+              
+              <td className="py-2 px-4">{hero.description.replace(/"/g, '&quot;')}</td>
 
-              <td className="py-2">
+              <td className="py-2 px-4">
                 {[...hero.movies.map(() => 'Movie'), ...hero.documentaries.map(() => 'Documentary'), ...hero.quotes.map(() => 'Quote')].join(', ')}
               </td>
               
-              <td className="py-2 space-x-2">
-
-                <td className="py-2 px-4 text-center border-b flex space-x-2 items-center">
+             
+              <div className='flex justify-center py-2 space-x-2'>
+                <td className="py-2 px-4 text-center  flex space-x-2 items-center">
                 
                 <button
                 onClick={() => setModalHero(hero)}
@@ -281,7 +283,8 @@ const HeroesTable = () => {
                 <FaTrash className="text-gray-700" />
               </button>
             </td>
-              </td>
+          
+              </div>
             </tr>
           ))}
         </tbody>
@@ -295,11 +298,11 @@ const HeroesTable = () => {
       
 
 {modalHero && (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50 p-4">
-    <div className="bg-white rounded-lg shadow-2xl w-full max-w-lg p-6 space-y-4">
+  <div className="fixed inset-0 flex items-center justify-center text-white bg-opacity-70 z-50 p-4">
+    <div className="bg-custom-image text-white rounded-lg shadow-2xl w-full max-w-lg p-6 space-y-4">
 
      
-      <h3 className="text-2xl font-semibold text-gray-800 text-center border-b pb-4">
+      <h3 className="text-2xl font-semibold text-white text-center   pb-4">
         {modalHero.name}
       </h3>
 
@@ -308,24 +311,24 @@ const HeroesTable = () => {
         <img
           src={modalHero.image as string}
           alt={modalHero.name}
-          className="h-64 w-full object-cover rounded-lg shadow-md mb-4"
+          className="h-64 w-full object-cover border border-white/30  rounded-lg shadow-md mb-4"
         />
       )}
 
       
-      <p className="text-gray-700">
-        <span className="font-semibold">Description:</span> {modalHero.description}
+      <p className="text-white">
+        <span className="font-bold text-lg ">Description:</span> {modalHero.description}
       </p>
 
-<p className="text-gray-700">
-  <span className="font-semibold">Accomplishments:</span>{" "}
+<p className="font-bold text-lg ">
+  <span className="font-bold text-lg ">Accomplishments:</span>{" "}
   {Array.isArray(modalHero.accomplishments)
     ? modalHero.accomplishments.join(", ")
     : modalHero.accomplishments}
 </p>
 
 
-<p className="text-gray-700">
+<p className="font-bold text-lg ">
   <span className="font-semibold">Medals:</span>{" "}
   {Array.isArray(modalHero.medals)
     ? modalHero.medals.join(", ")
@@ -333,25 +336,7 @@ const HeroesTable = () => {
 </p>
 
 
-{/* <>
-  {modalHero.quotes && modalHero.quotes.length > 0 && (
-    <blockquote className="italic text-lg text-gray-500 bg-gray-100 p-4 rounded-lg shadow-inner">
-      "{modalHero.quotes[0]}" 
-    </blockquote>
-  )}
 
-  {modalHero.movies && modalHero.movies.length > 0 && (
-    <div className="overflow-hidden rounded-lg shadow-md mb-4">
-      <ReactPlayer url={modalHero.movies[0]} width="100%" height="100%" controls />
-    </div>
-  )}
-
-  {modalHero.documentaries && modalHero.documentaries.length > 0 && (
-    <div className="overflow-hidden rounded-lg shadow-md mb-4">
-      <ReactPlayer url={modalHero.documentaries[0]} width="100%" height="100%" controls />
-    </div>
-  )}
-</> */}
 
       
       <div className="text-center mt-6">
@@ -369,6 +354,17 @@ const HeroesTable = () => {
       {editingHeroId && (
         <AddHero heroId={editingHeroId} onClose={() => setEditingHeroId(null)} />
       )}
+      <div className="flex justify-center mt-4">
+        {Array.from({ length: Math.ceil(filteredHeroes.length / itemsPerPage) }, (_, index) => (
+          <button
+            key={index + 1}
+            onClick={() => paginate(index + 1)}
+            className={`px-4 py-2 mx-1 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300'}`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };

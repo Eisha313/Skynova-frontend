@@ -429,6 +429,27 @@ const CommunityQuestions = () => {
           </svg>
         </div>
 
+        <div className="max-w-4xl mx-auto mt-8">
+          <input
+            type="text"
+            placeholder="Search by title"
+            value={searchQuery}
+            onChange={handleSearch}
+            className="w-full p-4 rounded-full bg-transparent text-white border border-white/30 shadow-md outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l4-4m0 0l-4-4m4 4h8m-6 4h8" />
+          </svg>
+        </div>
+
         <div className="max-w-4xl mx-auto mt-8 bg-gray-800 text-white rounded-md p-6 shadow-lg border border-blue-400">
           <h2 className="text-2xl font-bold mb-6">Ask a Question</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
