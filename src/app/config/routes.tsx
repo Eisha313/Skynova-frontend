@@ -100,6 +100,7 @@ export const roleBasedRoutes = {
     "/userRender/quiz/[id]/result",
     "/userRender/quiz/[id]/attempt",
     "/userRender/quiz/certificate-list",
+    "/userRender/chat",
   ],
   Aviator: [
     "/login",
@@ -151,6 +152,7 @@ export const roleBasedRoutes = {
     "/addjet",
     "/viewjets/[id]/edit",
     "/userRender/AboutUs",
+    "/userRender/chat",
   ],
 };
 

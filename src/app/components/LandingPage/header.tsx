@@ -1,4 +1,3 @@
-
 // 'use client';
 // import Image from 'next/image';
 // import React, { useState } from 'react';
@@ -54,7 +53,6 @@
 //         <Image src="/skylogo.svg" alt="Logo" height={60} width={100} className="mr-4" />
 //       </div>
 
-      
 // <nav className="hidden md:flex space-x-6 items-center p-5 bg-[#7E7E7E4D] border border-white/30 rounded-full">
 //         {[
 //           { name: 'Home', path: '/' },
@@ -63,7 +61,7 @@
 //           { name: 'Quiz', path: '/userRender/quiz' },
 //           ...(firstName
 //             ? [{ name: 'Certificates', path: '/userRender/certificate-list' }]
-//             : []), 
+//             : []),
 //         ].map((link) => (
 //           <Link
 //             key={link.name}
@@ -93,7 +91,7 @@
 //           )}
 //         </div>
 //       </nav>
-      
+
 //       <div className="flex items-center space-x-4">
 //         <button className="p-2 rounded-full hover:bg-gray-100">
 //           <FaSun className="w-5 h-5 text-gray-300" />
@@ -135,16 +133,16 @@
 // };
 
 // export default Header;
-'use client';
-import Image from 'next/image';
-import React, { useState } from 'react';
-import { useUser } from '../context/userContext';
-import { FaSignOutAlt, FaUserCircle, FaSun } from 'react-icons/fa';
-import { useRouter, usePathname } from 'next/navigation';
-import { signOut } from 'next-auth/react';
-import axios from 'axios';
-import Link from 'next/link';
-import ProfileModal from '../viewprofile';
+"use client";
+import Image from "next/image";
+import React, { useState } from "react";
+import { useUser } from "../context/userContext";
+import { FaSignOutAlt, FaUserCircle, FaSun } from "react-icons/fa";
+import { useRouter, usePathname } from "next/navigation";
+import { signOut } from "next-auth/react";
+import axios from "axios";
+import Link from "next/link";
+import ProfileModal from "../viewprofile";
 
 const Header: React.FC = () => {
   const { firstName, lastName, role, profileImage, setUser } = useUser();
@@ -162,23 +160,19 @@ const Header: React.FC = () => {
   };
 
   const handleLogout = async () => {
-    const isConfirmed = window.confirm('Are you sure you want to log out?');
+    const isConfirmed = window.confirm("Are you sure you want to log out?");
 
     if (isConfirmed) {
       try {
-        await axios.post(
-          `https://sky-nova-8ccaddc754ce.herokuapp.com/users/logout`,
-          {},
-          { withCredentials: true }
-        );
-        setUser({ _id: '', firstName: '', lastName: '', role: '', email: '', token: '', profileImage: '' });
+        await axios.post(`https://sky-nova-8ccaddc754ce.herokuapp.com/users/logout`, {}, { withCredentials: true });
+        setUser({ _id: "", firstName: "", lastName: "", role: "", email: "", token: "", profileImage: "" });
 
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
         await signOut();
-        router.push('/');
+        router.push("/");
       } catch (error) {
-        console.error('Error during logout:', error);
+        console.error("Error during logout:", error);
       }
     }
   };
@@ -191,12 +185,15 @@ const Header: React.FC = () => {
 
       <nav className="hidden md:flex space-x-6 items-center p-5 bg-[#7E7E7E4D] border border-white/30 rounded-full">
         {[
-          { name: 'Home', path: '/' },
-          { name: 'Resources', path: '/userRender/view-resource' },
-          { name: 'Competency Evaluation', path: '/userRender/competency' },
-          { name: 'Quiz', path: '/userRender/quiz' },
+          { name: "Home", path: "/" },
+          { name: "Resources", path: "/userRender/view-resource" },
+          { name: "Competency Evaluation", path: "/userRender/competency" },
+          { name: "Quiz", path: "/userRender/quiz" },
           ...(firstName
-            ? [{ name: 'Certificates', path: '/userRender/certificate-list' }]
+            ? [
+                { name: "Certificates", path: "/userRender/certificate-list" },
+                { name: "Chats", path: "/userRender/chat" },
+              ]
             : []),
         ].map((link) => (
           <Link
@@ -204,8 +201,8 @@ const Header: React.FC = () => {
             href={link.path}
             className={`px-3 py-2 rounded-md transition-colors duration-300 ${
               pathname === link.path
-                ? 'text-white border-b-2 border-t-2 border-[#5AA0BC]'
-                : 'text-gray-300 hover:text-white'
+                ? "text-white border-b-2 border-t-2 border-[#5AA0BC]"
+                : "text-gray-300 hover:text-white"
             }`}
           >
             {link.name}
@@ -215,20 +212,16 @@ const Header: React.FC = () => {
           <button
             onClick={() => setExtrasOpen(!isExtrasOpen)}
             className={`px-3 py-2 rounded-md ${
-              pathname.startsWith('/userRender/wings') ||
-              pathname.startsWith('/userRender/viewCommunityQuestions')
-                ? 'text-white border-b-4 border-t-4 border-[#5AA0BC]'
-                : 'text-gray-300 hover:text-white'
+              pathname.startsWith("/userRender/wings") || pathname.startsWith("/userRender/viewCommunityQuestions")
+                ? "text-white border-b-4 border-t-4 border-[#5AA0BC]"
+                : "text-gray-300 hover:text-white"
             }`}
           >
             Extras
           </button>
           {isExtrasOpen && (
             <div className="absolute top-10 left-0 bg-gray-900 shadow-lg rounded-md py-2 z-20">
-              <Link
-                href="/userRender/wings"
-                className="block px-4 py-2 text-gray-300 hover:bg-gray-700"
-              >
+              <Link href="/userRender/wings" className="block px-4 py-2 text-gray-300 hover:bg-gray-700">
                 Wings of Glory
               </Link>
               <Link
@@ -250,7 +243,7 @@ const Header: React.FC = () => {
         {firstName ? (
           <div className="flex items-center space-x-3">
             <img
-              src={profileImage || '/avatar.png'}
+              src={profileImage || "/avatar.png"}
               alt="Profile"
               className="w-8 h-8 rounded-full object-cover cursor-pointer"
               onClick={handleProfileClick}

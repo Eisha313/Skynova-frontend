@@ -222,7 +222,7 @@ export const authOptions: NextAuthOptions = {
             // Add token and additional user info to the token
             token.accessToken = body.token;
             token.role = body.role || "Aviator";
-            token._id = user.id || "";
+            token._id = body._id || "";
             token.profileImage = user.image || null;
           }
         } catch (error) {

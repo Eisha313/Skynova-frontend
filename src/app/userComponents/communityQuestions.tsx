@@ -1,4 +1,3 @@
-
 // 'use client';
 
 // import React, { useEffect, useState } from 'react';
@@ -28,7 +27,7 @@
 //         const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions', { credentials: 'include' });
 //         if (!response.ok) throw new Error('Failed to fetch the questions');
 //         const data = await response.json();
-//         console.log(data); 
+//         console.log(data);
 //         setQuestions(data);
 //       } catch (error) {
 //         setError('Failed to load questions. Please try again later.');
@@ -110,12 +109,6 @@
 
 // export default CommunityQuestions;
 
-
-
-
-
-
-
 // 'use client';
 
 // import React, { useState, useEffect } from 'react';
@@ -180,12 +173,12 @@
 //           credentials: 'include',
 //         }
 //       );
-  
+
 //       if (response.ok) {
-//         const createdQuestion = await response.json(); 
-//         setQuestions((prevQuestions) => [createdQuestion, ...prevQuestions]); 
-//         setNewQuestion({ title: '', body: '' }); 
-        
+//         const createdQuestion = await response.json();
+//         setQuestions((prevQuestions) => [createdQuestion, ...prevQuestions]);
+//         setNewQuestion({ title: '', body: '' });
+
 //       }
 //       const fetchQuestions = async () => {
 //         try {
@@ -200,12 +193,12 @@
 //         }
 //       };
 //       fetchQuestions();
-    
+
 //     } catch (error) {
 //       console.error('Error posting question:', error);
 //     }
 //   };
-  
+
 //   return (
 //     <div className="relative min-h-screen
 //      bg-[#0B1121]
@@ -214,8 +207,7 @@
 //       <div className="page-overlay" />
 
 //       <div className="max-w-screen-lg mx-auto px-4 py-12 z-10 relative">
-    
-    
+
 //       <div className="text-center text-white">
 //         <h1 className="text-4xl font-bold mb-2">Community</h1>
 //         <p className="text-lg">
@@ -223,7 +215,6 @@
 //         </p>
 //       </div>
 
-     
 //       <div className="max-w-4xl mx-auto mt-8">
 //         <input
 //           type="text"
@@ -234,8 +225,6 @@
 //         />
 //       </div>
 
-     
-    
 // <div className="max-w-4xl mx-auto mt-8 bg-gray-800 text-white rounded-md p-6 shadow-lg border border-blue-400">
 //   <h2 className="text-2xl font-bold mb-6">Ask a Question</h2>
 //   <form onSubmit={handleSubmit} className="space-y-4">
@@ -279,7 +268,7 @@
 //             className="bg-gray-800 text-white p-4 mb-4 rounded-md shadow-lg"
 //           >
 //             <div className="flex items-center mb-2">
-              
+
 //               <div className="w-10 h-10 rounded-full bg-blue-500 flex items-center justify-center text-white font-bold mr-3">
 //                 {question.author?.firstName?.[0] || '?'}
 //               </div>
@@ -307,11 +296,11 @@
 // };
 
 // export default CommunityQuestions;
-'use client';
+"use client";
 
-import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
-import { useUser } from '../components/context/userContext';
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { useUser } from "../components/context/userContext";
 
 interface Author {
   _id: string;
@@ -329,30 +318,30 @@ interface Question {
 
 const CommunityQuestions = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [newQuestion, setNewQuestion] = useState({ title: '', body: '' });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [newQuestion, setNewQuestion] = useState({ title: "", body: "" });
   const { token } = useUser();
 
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
         const response = await fetch(
-          'https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions',
-          { credentials: 'include' }
+          "https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions",
+          { credentials: "include" }
         );
-        if (!response.ok) throw new Error('Failed to fetch questions');
+        if (!response.ok) throw new Error("Failed to fetch questions");
         const data = await response.json();
         setQuestions(data);
       } catch (error) {
-        console.error('Error fetching questions:', error);
+        console.error("Error fetching questions:", error);
       }
     };
     fetchQuestions();
   }, []);
 
   const getUsername = (author: Author | null | undefined) => {
-    if (!author) return 'Unknown';
-    return `${author.firstName || ''} ${author.lastName || ''}`.trim() || 'Unknown';
+    if (!author) return "Unknown";
+    return `${author.firstName || ""} ${author.lastName || ""}`.trim() || "Unknown";
   };
 
   const isValidURL = (url: string | null | undefined) => {
@@ -367,128 +356,108 @@ const CommunityQuestions = () => {
     setSearchQuery(e.target.value);
   };
 
-  const filteredQuestions = questions.filter((q) =>
-    q.title?.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const filteredQuestions = questions.filter((q) => q.title?.toLowerCase().includes(searchQuery.toLowerCase()));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       const response = await fetch(
-        'https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/createCommunityQuestion',
+        "https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/createCommunityQuestion",
         {
-          method: 'POST',
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(newQuestion),
-          credentials: 'include',
+          credentials: "include",
         }
       );
-      if (!response.ok) throw new Error('Failed to create question');
+      if (!response.ok) throw new Error("Failed to create question");
       const createdQuestion = await response.json();
       setQuestions((prev) => [createdQuestion, ...prev]);
-      setNewQuestion({ title: '', body: '' });
-    
-     const fetchQuestions = async () => {
+      setNewQuestion({ title: "", body: "" });
+
+      const fetchQuestions = async () => {
         try {
           const response = await fetch(
-            'https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions',
-            { credentials: 'include' }
+            "https://sky-nova-8ccaddc754ce.herokuapp.com/communityQuestions/viewCommunityQuestions",
+            { credentials: "include" }
           );
           const data = await response.json();
           setQuestions(data);
         } catch (error) {
-          console.error('Error fetching questions:', error);
+          console.error("Error fetching questions:", error);
         }
       };
-      fetchQuestions()
-    }
-    catch (error) {
-      console.error('Error posting question:', error);
+      fetchQuestions();
+    } catch (error) {
+      console.error("Error posting question:", error);
     }
   };
 
   return (
-     <div className="min-h-screen bg-[#0B1121] text-white">
-             <div className='background-image-overlay'/>
-          <div className="page-overlay" />
-          <div className="max-w-screen-lg mx-auto px-4 py-12 z-10 relative">
-      
-          <div className="flex items-center justify-center gap-4 mb-4">
-      <span className="w-12 h-1 bg-blue-400"></span>
-      <h1 className="text-4xl font-bold">Community</h1>
-      <span className="w-12 h-1 bg-blue-400"></span>
-    </div>
-        <p className="text-lg text-center mt-2">
-          Explore and contribute to our community of questions.
-        </p>
+    <div className="min-h-screen bg-[#0B1121] text-white">
+      <div className="background-image-overlay" />
+      <div className="page-overlay" />
+      <div className="max-w-screen-lg mx-auto px-4 py-12 z-10 relative">
+        <div className="flex items-center justify-center gap-4 mb-4">
+          <span className="w-12 h-1 bg-blue-400"></span>
+          <h1 className="text-4xl font-bold">Community</h1>
+          <span className="w-12 h-1 bg-blue-400"></span>
+        </div>
+        <p className="text-lg text-center mt-2">Explore and contribute to our community of questions.</p>
 
+        <div className="max-w-4xl mx-auto mt-8">
+          <input
+            type="text"
+            placeholder="Search by title"
+            value={searchQuery}
+            onChange={handleSearch}
+            className="w-full p-4 rounded-full bg-blue-800 text-white placeholder-gray-400 shadow-md outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="w-6 h-6"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l4-4m0 0l-4-4m4 4h8m-6 4h8" />
+          </svg>
+        </div>
 
-
-       <div className="max-w-4xl mx-auto mt-8">
-       <input
-      type="text"
-      placeholder="Search by title"
-      value={searchQuery}
-      onChange={handleSearch}
-      className="w-full p-4 rounded-full bg-blue-800 text-white placeholder-gray-400 shadow-md outline-none focus:ring-2 focus:ring-blue-400"
-    />
-      </div>
-      <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        className="w-6 h-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth={2}
-          d="M8 16l4-4m0 0l-4-4m4 4h8m-6 4h8"
-        />
-      </svg>
-    </div>
-
-     
-    
-<div className="max-w-4xl mx-auto mt-8 bg-gray-800 text-white rounded-md p-6 shadow-lg border border-blue-400">
-  <h2 className="text-2xl font-bold mb-6">Ask a Question</h2>
-  <form onSubmit={handleSubmit} className="space-y-4">
-    <input
-      type="text"
-      name="title"
-      value={newQuestion.title}
-      onChange={(e) =>
-        setNewQuestion({ ...newQuestion, title: e.target.value })
-      }
-      placeholder="Title"
-      className="w-full p-4 text-lg rounded-md bg-transparent border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400"
-    />
-    <textarea
-      name="body"
-      value={newQuestion.body}
-      onChange={(e) =>
-        setNewQuestion({ ...newQuestion, body: e.target.value })
-      }
-      placeholder="Description"
-      rows={4}
-      className="w-full p-4 text-lg rounded-md bg-transparent border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400"
-    />
-    <div className="flex justify-end">
-      <button
-        type="submit"
-        className="bg-[#1F60B2] px-8 py-3 text-lg font-semibold text-white rounded-md hover:bg-blue-600 transition focus:ring-2 focus:ring-blue-400"
-      >
-        Submit
-      </button>
-    </div>
-  </form>
-</div>
-       
+        <div className="max-w-4xl mx-auto mt-8 bg-gray-800 text-white rounded-md p-6 shadow-lg border border-blue-400">
+          <h2 className="text-2xl font-bold mb-6">Ask a Question</h2>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              name="title"
+              value={newQuestion.title}
+              onChange={(e) => setNewQuestion({ ...newQuestion, title: e.target.value })}
+              placeholder="Title"
+              className="w-full p-4 text-lg rounded-md bg-transparent border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400"
+            />
+            <textarea
+              name="body"
+              value={newQuestion.body}
+              onChange={(e) => setNewQuestion({ ...newQuestion, body: e.target.value })}
+              placeholder="Description"
+              rows={4}
+              className="w-full p-4 text-lg rounded-md bg-transparent border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder-gray-400"
+            />
+            <div className="flex justify-end">
+              <button
+                type="submit"
+                className="bg-[#1F60B2] px-8 py-3 text-lg font-semibold text-white rounded-md hover:bg-blue-600 transition focus:ring-2 focus:ring-blue-400"
+              >
+                Submit
+              </button>
+            </div>
+          </form>
+        </div>
 
         <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">Community Questions</h2>
@@ -507,7 +476,14 @@ const CommunityQuestions = () => {
                   </div>
                 )}
                 <Link
-                  href={`/userRender/chat/${question.author?._id}`}
+                  href={{
+                    pathname: `/userRender/chat`,
+                    query: {
+                      id: question.author?._id,
+                      firstName: question.author?.firstName,
+                      lastName: question.author?.lastName,
+                    },
+                  }}
                   className="text-blue-400"
                 >
                   {getUsername(question.author)}

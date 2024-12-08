@@ -24,8 +24,6 @@
 "use client";
 
 import React from "react";
-import { useParams } from "next/navigation";
-import { WebSocketProvider } from "../../../userComponents/websocket";
 import Chat from "../../../userComponents/chat/chatComponent";
 
 const ChatPage = ({
@@ -36,14 +34,11 @@ const ChatPage = ({
   };
 }) => {
   const userID = params.id;
-  const id = typeof params.id === "string" ? params.id : params.id?.[0] || "";
 
   return (
-    <WebSocketProvider>
-      <div className="min-h-screen flex items-center justify-center">
-        <Chat id={id} receiverID={userID} />
-      </div>
-    </WebSocketProvider>
+    <div className="min-h-screen flex items-center justify-center">
+      <Chat receiverID={userID} />
+    </div>
   );
 };
 
