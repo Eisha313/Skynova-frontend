@@ -31,3 +31,24 @@ export interface Resource {
     documentaries: Resource[]; 
     quotes: Resource[];
   }
+  export interface Option {
+    label: string;
+    image: string;
+    _id?: string;
+  }
+  export interface Question {
+    _id?: string;
+    text: string;
+    // options: string[];
+    options: Option[];
+    answer: string;
+    quizId?: string;
+  }
+  
+  
+  export interface QuizDetail {
+    _id: string;
+    title: string;
+    description: string;
+    questions: Question[];
+  }

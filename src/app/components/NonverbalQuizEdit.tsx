@@ -3,13 +3,20 @@ import Image from 'next/image'; // Import Image component
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+ interface Option {
+  label: string;
+  image: string;
+  _id?: string;
+}
 interface Question {
   _id?: string;
   text: string;
-  options: string[];
+  // options: string[];
+  options: Option[];
   answer: string;
   quizId?: string;
 }
+
 
 interface QuizDetail {
   _id: string;
@@ -103,35 +110,45 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
             className="border p-2 mb-2 w-full"
           />
           <ul>
-            {question.options.map((option, optIndex) => (
-              <li key={optIndex} className="flex items-center mb-2">
-                <input
-                  type="file"
-                  onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      const reader = new FileReader();
-                      reader.onload = () => {
-                        const updatedOptions = [...question.options];
-                        updatedOptions[optIndex] = reader.result as string;
-                        handleQuestionChange(index, { ...question, options: updatedOptions });
-                      };
-                      reader.readAsDataURL(e.target.files[0]);
-                    }
-                  }}
-                  className="border p-2 flex-grow"
-                />
-                {option && (
-                  <Image
-                    src={option}
-                    alt={`Option ${optIndex + 1}`}
-                    width={128} // Adjust the width as needed
-                    height={128} // Adjust the height as needed
-                    className="mt-2 object-cover"
-                  />
-                )}
-              </li>
-            ))}
-          </ul>
+  {question.options.map((option, optIndex) => (
+    <li key={optIndex} className="flex flex-col mb-4 space-y-2">
+      <div className="flex items-center space-x-4">
+        <label className="font-semibold">
+          {String.fromCharCode(65 + optIndex)} {/* A, B, C, D */}
+        </label>
+        <input
+          type="file"
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              const reader = new FileReader();
+              reader.onload = () => {
+                const updatedOptions = [...question.options];
+                updatedOptions[optIndex].image = reader.result as string;
+                handleQuestionChange(index, { ...question, options: updatedOptions });
+              };
+              reader.readAsDataURL(e.target.files[0]);
+            }
+          }}
+          className="border p-2 flex-grow"
+        />
+      </div>
+      {option.image && (
+        <div className="flex items-center space-x-4">
+          <label className="text-sm text-gray-500">Preview:</label>
+          <div className="w-32 h-32 border border-gray-300 flex items-center justify-center overflow-hidden">
+            <img
+              src={option.image}
+              alt={`Option ${String.fromCharCode(65 + optIndex)} preview`}
+              className="object-cover w-full h-full"
+            />
+          </div>
+        </div>
+      )}
+    </li>
+  ))}
+</ul>
+
+
           <input
             type="text"
             value={question.answer}

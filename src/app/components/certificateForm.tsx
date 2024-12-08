@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Certificate from './Certificate';
 import Link from 'next/link';
+import { useUser } from '@/app/components/context/userContext';
 type Certificate = {
   _id?: string;
   type: string;
@@ -20,10 +21,14 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
   const [showCertificate, setShowCertificate] = useState(false);
   const [generatedCertificate, setGeneratedCertificate] = useState<Certificate | null>(null);
   const router = useRouter();
-
+  const { token } = useUser();
   useEffect(() => {
     if (id) {
-      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`,{ credentials: 'include',})
+      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`,{
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+         credentials: 'include',})
         .then((res) => res.json())
         .then((data) => {
           if (data) {
@@ -47,6 +52,9 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
       method,
       headers: {
         'Content-Type': 'application/json',
+        
+          Authorization: `Bearer ${token}`,
+        
       },
       body: JSON.stringify(certificate),
       credentials: 'include',
@@ -61,29 +69,32 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">{id ? 'Edit Certificate' : 'Create Certificate'}</h2>
+    <div className="flex items-center justify-center min-h-screen w-full text-white">
+    <div className="container mx-auto p-4 bg-[#212C44] text-white">
+      <h2 className="text-2xl text-center font-bold mb-4">{id ? 'Edit Certificate' : 'Create Certificate'}</h2>
       <form onSubmit={handleGenerateAndSave}>
         <div className="mb-4">
-          <label htmlFor="type" className="block text-gray-700">Type</label>
+          <label htmlFor="type" className="block text-white">Type</label>
           <input
             type="text"
             id="type"
             name="type"
             value={certificate.type}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
+            // className="w-full px-3 py-2 border rounded"
+             className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
             required
           />
         </div>
         <div className="mb-4">
-          <label htmlFor="description" className="block text-gray-700">Description</label>
+          <label htmlFor="description" className="block text-white">Description</label>
           <textarea
             id="description"
             name="description"
             value={certificate.description}
             onChange={handleChange}
-            className="w-full px-3 py-2 border rounded"
+            // className="w-full px-3 py-2 border rounded"
+             className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
             required
           />
         </div>
@@ -104,6 +115,7 @@ const CertificateForm: React.FC<CertificateFormProps> = ({ id }) => {
           qrValue='' />
         </div>
       )}
+    </div>
     </div>
   );
 };

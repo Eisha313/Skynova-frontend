@@ -8,6 +8,7 @@ import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { ArrowUpDown } from 'lucide-react';
 import { MdDownload } from 'react-icons/md';
+import { useUser } from '@/app/components/context/userContext';
 
 type Certificate = {
   _id: string;
@@ -27,9 +28,14 @@ const CertificateList: React.FC = () => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [certificatesPerPage] = useState(5); 
+  const { token } = useUser();
 
   useEffect(() => {
-    fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificates', { credentials: 'include' })
+    fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificates', { 
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: 'include' })
       .then((res) => res.json())
       .then((data) => {
         setCertificates(data);
@@ -40,6 +46,11 @@ const CertificateList: React.FC = () => {
 
   const deleteCertificate = (id: string) => {
     fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/deleteCertificate/${id}`, {
+      
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      
       method: 'DELETE',
       credentials: 'include',
     })
@@ -147,31 +158,34 @@ const CertificateList: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto p-4">
-      <div className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">All Certificates</h1>
+    <div className="mx-auto p-4 text-white">
+      <div className="flex justify-between items-center mb-4 ">
+        <h1 className="text-2xl f text-white ont-bold">All Certificates</h1>
         <div className="flex items-center space-x-4">
           <Search searchTerm={searchTerm} onSearchChange={handleSearchChange} clearSearch={clearSearch} />
-          <select value={filterType} onChange={handleFilterChange} className="px-4 py-2 rounded-md bg-white border border-gray-300">
-            <option value="">All Types</option>
-            <option value="Basic">Basic</option>
-            <option value="Medium">Medium</option>
-            <option value="Advanced">Advanced</option>
+          <select value={filterType} onChange={handleFilterChange} 
+          className="px-4 py-2 w-full text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none">
+            <option className='bg-transparent text-black' value="">All Types</option>
+            <option className='bg-transparent text-black' value="Basic">Basic</option>
+            <option className='bg-transparent text-black' value="Medium">Medium</option>
+            <option className='bg-transparent text-black' value="Advanced">Advanced</option>
           </select>
           <button
             onClick={handleDownloadPDF}
-            className="text-gray-800 px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300"
+           className="px-4 py-2 w-full text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
           >
             <MdDownload />
           </button>
-          <Link href="/add-certificate" className="px-4 py-2 rounded-md text-center bg-eisha text-white">
+          <Link href="/add-certificate" 
+          className="px-4 py-2 w-full text-white border border-white/30 rounded-xl bg-eisha hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+          >
             Add Certificate
           </Link>
         </div>
       </div>
 
-      <table className="min-w-full bg-white border border-gray-200">
-        <thead className="bg-gray-800 text-white text-right">
+      <table className="min-w-full bg-[#212C44] border border-gray-200">
+        <thead className="bg-eisha text-white text-right">
           <tr>
             <th className="py-2 px-4 border-b">#</th>
             <th className="py-2 px-4 border-b cursor-pointer" onClick={() => handleSort('type')}>

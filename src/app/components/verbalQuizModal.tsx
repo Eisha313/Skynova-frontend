@@ -26,20 +26,21 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, quizDetails }) =
   if (!isOpen || !quizDetails) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-4/5 max-w-lg">
-        <h2 className="text-2xl font-bold mb-4">{quizDetails.title}</h2>
-        <p className="text-gray-700 mb-4">{quizDetails.description}</p>
+    <div className="fixed inset-0 bg-custom-image bg-opacity-50 flex justify-center items-center z-50 text-white">
+      <div className="bg-[#212C44] p-6 rounded-lg shadow-lg w-4/5 max-w-lg text-white">
+        <h2 className="text-2xl font-bold mb-4text-white">{quizDetails.title}</h2>
+        <p className="text-white mb-4">{quizDetails.description}</p>
         {quizDetails.questions.length === 0 ? (
           <p>No questions available for this quiz.</p>
         ) : (
           <ul className="space-y-4">
             {quizDetails.questions.map((question, index) => (
+              
               <li key={index} className="border p-4 rounded-md shadow-sm">
                 <p className="font-semibold mb-2">{question.text}</p>
                 <ul className="list-disc list-inside mb-2">
                   {question.options.map((option, optIndex) => (
-                    <li key={optIndex} className="text-gray-600">{option}</li>
+                    <li key={optIndex} className="text-white">{option}</li>
                   ))}
                 </ul>
                 <p className="font-medium text-blue-600">Correct Answer: {question.answer}</p>

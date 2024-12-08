@@ -81,17 +81,24 @@ const QuizEdit = ({ id }: { id: string }
   }
 
   return (
-    <div className="container mx-auto p-4 bg-white rounded-lg shadow-md">
+    <div className="container text-white mx-auto p-4 bg-[#212C44] rounded-lg shadow-md">
+      
+      <label className="block mt-7 font-medium">Title</label>
       <input
         type="text"
         value={quiz.title}
         onChange={(e) => setQuiz({ ...quiz, title: e.target.value })}
-        className="border p-2 mb-2 w-full"
+        // className="border p-2 mb-2 w-full"
+        className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
       />
+      <label className="block mt-7 font-medium">Description</label>
       <textarea
         value={quiz.description}
         onChange={(e) => setQuiz({ ...quiz, description: e.target.value })}
-        className="border p-2 mb-4 w-full"
+        // className="border p-2 mb-4 w-full"
+        className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
       />
       {quiz.questions.map((question, index) => (
         <div key={index} className="mb-4">
@@ -101,7 +108,9 @@ const QuizEdit = ({ id }: { id: string }
             onChange={(e) =>
               handleQuestionChange(index, { ...question, text: e.target.value })
             }
-            className="border p-2 mb-2 w-full"
+            
+         className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
           />
           <ul>
             {question.options.map((option, optIndex) => (
@@ -114,7 +123,9 @@ const QuizEdit = ({ id }: { id: string }
                     updatedOptions[optIndex] = e.target.value;
                     handleQuestionChange(index, { ...question, options: updatedOptions });
                   }}
-                  className="border p-2 flex-grow"
+                  // className="border p-2 flex-grow"
+         className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
                 />
               </li>
             ))}
@@ -123,7 +134,9 @@ const QuizEdit = ({ id }: { id: string }
             type="text"
             value={question.answer}
             onChange={(e) => handleQuestionChange(index, { ...question, answer: e.target.value })}
-            className="border p-2 mb-2 w-full"
+            // className="border p-2 mb-2 w-full"
+         className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
           />
         </div>
       ))}

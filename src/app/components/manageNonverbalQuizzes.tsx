@@ -7,20 +7,26 @@ import NonverbalQuizModal from "./nonverbalQuizModal";
 import { ArrowUpDown } from "lucide-react";
 import { MdDownload } from "react-icons/md";
 
+
 interface Quiz {
   _id: string;
   title: string;
 }
-
+export interface Option {
+  label: string;
+  image: string;
+  _id?: string;
+}
 interface Question {
   _id: string;
   text: string;
-  options: string[];
+ options:Option[]
   answer: string;
 }
 
 interface QuizDetail extends Quiz {
   description: string;
+  
   questions: Question[];
 }
 
@@ -44,7 +50,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
   }>({ key: null, direction: "asc" });
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [quizzesPerPage] = useState<number>(5); // Pagination: Quizzes per page
+  const [quizzesPerPage] = useState<number>(5); 
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -68,6 +74,23 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
     fetchQuizzes();
   }, []);
 
+  // const handleQuizClick = async (quizId: string) => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuiz/${quizId}`,
+  //       { credentials: "include" }
+  //     );
+  //     if (response.ok) {
+  //       const data = await response.json();
+  //       setSelectedQuiz(data);
+  //       setIsModalOpen(true);
+  //     } else {
+  //       console.error("Failed to fetch quiz details");
+  //     }
+  //   } catch (error) {
+  //     console.error("Error fetching quiz details:", error);
+  //   }
+  // };
   const handleQuizClick = async (quizId: string) => {
     try {
       const response = await fetch(
@@ -76,7 +99,17 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
       );
       if (response.ok) {
         const data = await response.json();
-        setSelectedQuiz(data);
+  
+        // Transform API response to match expected type
+        const transformedData = {
+          ...data,
+          questions: data.questions.map((q: any) => ({
+            ...q,
+            options: q.option, // Map 'option' to 'options'
+          })),
+        };
+  
+        setSelectedQuiz(transformedData);
         setIsModalOpen(true);
       } else {
         console.error("Failed to fetch quiz details");
@@ -85,6 +118,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
       console.error("Error fetching quiz details:", error);
     }
   };
+  
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -195,7 +229,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "quizzes.pdf"; // Set your desired file name
+      a.download = "quizzes.pdf";
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -208,18 +242,15 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
 
   return (
     <div className="overflow-x-auto p-4">
-      <div className="flex justify-between items-center mb-4">
-        <button
-          onClick={onAddQuiz}
-          className="px-4 py-2 bg-blue-500 text-white rounded"
-        >
-          Add Quiz
-        </button>
+      <div className="flex flex-1 justify-end space-x-2">
+        
         <div className="relative">
           <input
             type="text"
             placeholder="Search by Title"
-            className="border border-gray-300 px-4 py-2 rounded"
+            // className="border border-gray-300 px-4 py-2 rounded"
+          className="text-white px-4 py-2 rounded-md flex items-center justify-center border-2  border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
             value={searchTerm}
             onChange={handleSearchChange}
           />
@@ -234,53 +265,64 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
         </div>
         <button
           onClick={downloadPDF}
-          className="ml-2 px-4 py-2 border border-eisha text-gray rounded"
+          // className="ml-2 px-4 py-2 border border-eisha text-gray rounded"
+          className="text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300"
+
         >
           <MdDownload className="inline" />
         </button>
+        <button
+          onClick={onAddQuiz}
+          className="px-4 py-2 bg-eisha text-white rounded"
+        >
+          Add Quiz
+        </button>
       </div>
-      <table className="min-w-full bg-white border border-gray-300">
-      <thead className="bg-gray-800 text-white">
+      <table className="min-w-full bg-white mt-5 ">
+      <thead className="bg-eisha text-white">
   <tr>
-    <th className="py-2 px-4 border-b cursor-pointer text-right">
+    <th className="py-2 px-4 border-b cursor-pointer text-center">
       <input
         type="checkbox"
         checked={selectedQuizzes.size === quizzes.length}
         onChange={handleSelectAll}
       />
     </th>
-    <th className="py-2 px-4 border-b cursor-pointer text-right">
+    <th className="py-2 px-4 border-b cursor-pointer text-center">
       Serial No.
     </th>
     <th
-      className="py-2 px-4 border-b cursor-pointer text-right"
+      className="py-2 px-4 border-b cursor-pointer text-center"
       onClick={() => handleSort("title")}
     >
       Title {renderArrow("title")}
     </th>
-    <th className="py-2 px-4 border-b text-right">Actions</th>
+    <th className="py-2 px-4 border-b text-center">Actions</th>
   </tr>
 </thead>
-<tbody>
+<tbody className="text-white bg-[#212C44]">
   {currentQuizzes.map((quiz, index) => (
     <tr key={quiz._id}>
-      <td className="py-2 px-4 border-b text-right">
+      <td className="py-2 px-4  text-center">
         <input
           type="checkbox"
           checked={selectedQuizzes.has(quiz._id)}
           onChange={() => handleSelectQuiz(quiz._id)}
         />
       </td>
-      <td className="py-2 px-4 border-b text-right">{indexOfFirstQuiz + index + 1}</td>
-      <td className="py-2 px-4 border-b text-right">{quiz.title}</td>
-      <td className="py-2 px-4 border-b flex justify-end space-x-2">
+      <td className="py-2 px-4 text-center">{indexOfFirstQuiz + index + 1}</td>
+      <td className="py-2 px-4  text-center">{quiz.title}</td>
+      <td className="py-2 px-4  flex justify-center space-x-2">
                 <button
                   className="text-blue-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400 flex items-center justify-center"
                   onClick={() => handleQuizClick(quiz._id)}
                 >
                   <FaEye className="text-gray-700" />
                 </button>
-                <Link href={`/editQuiz/${quiz._id}`} passHref>
+                <Link href=
+                // {`/editQuiz/${quiz._id}`} 
+                {`/nonverbalquiz/${quiz._id}/edit`}
+                passHref>
                   <button
                     className="text-green-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400 flex items-center justify-center"
                   >
@@ -320,6 +362,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           quiz={selectedQuiz}
+          // quiz={selectedQuiz as NonverbalQuizModalProps['quiz']}
         />
       )}
     </div>
