@@ -17,7 +17,7 @@ export interface User {
   username: string;
   email: string;
   type: string;
-  status: string;
+  blocked: boolean;
   profileImage?: string;
 }
 
@@ -59,6 +59,7 @@ const ManageUsers: React.FC = () => {
             type: user.role,
             status: "Active",
             profileImage: user.profileImage || `https://via.placeholder.com/150`,
+            blocked: user.blocked || false,
           }));
 
           console.log("Mapped Users:", mappedUsers);
@@ -119,8 +120,15 @@ const ManageUsers: React.FC = () => {
   const filterAndSearchUsers = (searchTerm: string, status: string) => {
     let updatedUsers = [...fetchedUsers];
 
+    // if (status !== "All") {
+    //   updatedUsers = updatedUsers.filter((user) => user.
+    // }
     if (status !== "All") {
-      updatedUsers = updatedUsers.filter((user) => user.status === status);
+      if (status === "Active") {
+        updatedUsers = updatedUsers.filter((user) => !user.blocked);
+      } else {
+        updatedUsers = updatedUsers.filter((user) => user.blocked);
+      }
     }
 
     if (searchTerm) {
@@ -278,20 +286,25 @@ const ManageUsers: React.FC = () => {
   }
 
   const toggleStatus = async (user: User) => {
-    const newStatus = user.status === "Active" ? "Inactive" : "Active";
-    const confirmMessage =
-      user.status === "Active"
-        ? "Are you sure you want to deactivate this user?"
-        : "Are you sure you want to activate this user?";
+    const newStatus = user.blocked ? "Active" : "Inactive";
+    const confirmMessage = user.blocked
+      ? "Are you sure you want to activate this user?"
+      : "Are you sure you want to deactivate this user?";
     if (!window.confirm(confirmMessage)) return;
 
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/users/blockUser/${user.backendId}`, {
+      // let URL = `https://sky-nova-8ccaddc754ce.herokuapp.com/users/block/${user.backendId}`;
+      let URL = `http://localhost:4000/users/block/${user.backendId}`;
+
+      if (newStatus === "Active") {
+        URL = URL.replace("block", "unblock");
+      }
+
+      const response = await fetch(URL, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status: newStatus }),
         credentials: "include",
       });
 
@@ -299,7 +312,12 @@ const ManageUsers: React.FC = () => {
         throw new Error("Failed to update status");
       }
 
-      setFetchedUsers((prev) => prev.map((u) => (u.backendId === user.backendId ? { ...u, status: newStatus } : u)));
+      setFetchedUsers((prev) =>
+        prev.map((u) => (u.backendId === user.backendId ? { ...u, blocked: user.blocked ? false : true } : u))
+      );
+      setFilteredUsers((prev) =>
+        prev.map((u) => (u.backendId === user.backendId ? { ...u, blocked: user.blocked ? false : true } : u))
+      );
       alert(`User status updated to ${newStatus}.`);
     } catch (error) {
       console.error("Error updating user status:", error);
@@ -319,7 +337,7 @@ const ManageUsers: React.FC = () => {
     const tableRows: any[] = [];
 
     sortedUsers.forEach((user, index) => {
-      const userData = [index + 1, user.username, user.email, user.type, user.status];
+      const userData = [index + 1, user.username, user.email, user.type, user.blocked ? "Inactive" : "Active"];
       tableRows.push(userData);
     });
 
@@ -358,7 +376,7 @@ const ManageUsers: React.FC = () => {
               <strong className="font-bold">Role:</strong> {user.type}
             </p>
             <p>
-              <strong className="font-bold">Status:</strong> {user.status}
+              <strong className="font-bold">Status:</strong> {user.blocked ? "Inactive" : "Active"}
             </p>
           </div>
 
@@ -464,17 +482,17 @@ const ManageUsers: React.FC = () => {
                     <div className="flex items-center space-x-2 flex justify-center">
                       <span
                         className={`px-2 py-1 rounded ${
-                          user.status === "Active" ? "bg-green-500 text-white" : "bg-red-500 text-white"
+                          !user.blocked ? "bg-green-500 text-white" : "bg-red-500 text-white"
                         }`}
                       >
-                        {user.status}
+                        {user.blocked ? "Inactive" : "Active"}
                       </span>
 
                       <button
                         onClick={() => toggleStatus(user)}
                         disabled={loadingUserId === user.backendId}
                         className={`text-white p-2 rounded hover:bg-[#5AA0BC] border border-gray-400 ${
-                          user.status === "Active" ? "bg-red-500" : "bg-green-500"
+                          !user.blocked ? "bg-red-500" : "bg-green-500"
                         }`}
                         style={{
                           height: "33px",
@@ -483,7 +501,7 @@ const ManageUsers: React.FC = () => {
                           justifyContent: "center",
                         }}
                       >
-                        {user.status === "Active" ? "Deactivate" : "Activate"}
+                        {!user.blocked ? "Deactivate" : "Activate"}
                       </button>
                     </div>
                   </td>
