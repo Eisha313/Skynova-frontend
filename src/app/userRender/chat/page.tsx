@@ -246,25 +246,7 @@ const MessageInput = ({
   const handleSendMessage = async () => {
     if (!message.trim() || !currentConversation) return;
 
-    const msg: Partial<Message> = {
-      content: message,
-      type: "text",
-      status: "Sent",
-      senderID: _id,
-      receiverID: currentConversation._id,
-    };
-
     try {
-      let response;
-      // if (file) {
-      //   const formData = new FormData();
-      //   formData.append("file", file);
-      //   formData.append("message", JSON.stringify(msg));
-      //   response = await axios.post("https://sky-nova-8ccaddc754ce.herokuapp.com/messages/createMessage", formData);
-      // } else {
-      response = await axios.post("https://sky-nova-8ccaddc754ce.herokuapp.com/messages/createMessage", msg);
-      // }
-
       const newMessage: Message = {
         senderID: _id,
         receiverID: currentConversation._id,
@@ -278,7 +260,7 @@ const MessageInput = ({
         const newMessages = messages ? [...messages, newMessage] : [newMessage];
         setMessages(newMessages);
       }
-      socket?.emit("chat message", msg);
+      socket?.emit("chat message", newMessage);
       setMessage("");
       // setFile(null);
     } catch (error) {

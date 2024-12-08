@@ -139,6 +139,21 @@ export const WebSocketProvider: React.FC<{
         showNotification(newMessage);
       }
 
+      // Check if conversation already exists
+      const existingConversation = conversations.find((conversation) => conversation.conversationId === conversationId);
+
+      if (!existingConversation) {
+        const newConversation = {
+          _id: "",
+          conversationId,
+          lastMessage: newMessage,
+          otherUser: newMessage.senderID === _id ? newMessage.receiver : newMessage.sender,
+        };
+
+        setConversations((prev) => [newConversation, ...prev]);
+        return;
+      }
+
       const newConversations = conversations.map((conversation) => {
         if (conversation.conversationId === conversationId) {
           conversation.lastMessage = newMessage;
