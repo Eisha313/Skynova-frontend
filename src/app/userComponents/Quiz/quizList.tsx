@@ -1,4 +1,3 @@
-
 // 'use client';
 // import React, { useEffect, useState } from 'react';
 // import Link from 'next/link';
@@ -10,7 +9,7 @@
 //   description: string;
 //   attempted: boolean;
 //   attemptedSecondTime: boolean;
-//   marks: number; 
+//   marks: number;
 // }
 
 // const QuizList: React.FC = () => {
@@ -110,7 +109,7 @@
 //                   <p>{quiz.description}</p>
 //                 </div>
 //               </div>
-        
+
 // <div className="flex gap-4">
 //   {!quiz.attempted && (
 //     <Link href={`/userRender/quiz/${quiz._id}/attempt`}>
@@ -127,7 +126,6 @@
 //     </Link>
 //   )}
 
-  
 //   {quiz.attempted && (
 //   <>
 //     <Link href={`/userRender/quiz/${quiz._id}/attempt`}>
@@ -154,9 +152,6 @@
 
 // </div>
 
-
-
-                
 //             </div>
 //           );
 //         })
@@ -166,10 +161,10 @@
 // };
 
 // export default QuizList;
-'use client';
-import React, { useEffect, useState } from 'react';
-import Link from 'next/link';
-import { useUser } from '@/app/components/context/userContext';
+"use client";
+import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import { useUser } from "@/app/components/context/userContext";
 
 export interface Quiz {
   _id: number;
@@ -190,12 +185,12 @@ const QuizList: React.FC = () => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       try {
-        const quizResponse = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuizzes', {
-          credentials: 'include',
+        const quizResponse = await fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuizzes", {
+          credentials: "include",
         });
 
         if (!quizResponse.ok) {
-          throw new Error('Failed to fetch quizzes.');
+          throw new Error("Failed to fetch quizzes.");
         }
 
         const quizzesData = await quizResponse.json();
@@ -210,29 +205,44 @@ const QuizList: React.FC = () => {
 
         setQuizzes(quizzesWithFlags);
 
-        const resultResponse = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResults', {
-          method: 'GET',
+        const resultResponse = await fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/results/viewResults", {
+          method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
-          credentials: 'include',
+          credentials: "include",
         });
 
         if (resultResponse.ok) {
           const resultsData = await resultResponse.json();
 
           const updatedQuizzes = quizzesWithFlags.map((quiz: any) => {
-            const result = resultsData.find((res: any) => res.quizId._id === quiz._id);
-            if (result) {
+            // const result = resultsData.find((res: any) => res.quizId._id === quiz._id);
+            const results = resultsData.filter((res: any) => res.quizId._id === quiz._id);
+            if (results.length > 0) {
+              console.log(
+                "results[results.length - 1].marks < 100 && results.length < 2 for quiz",
+                quiz.title,
+
+                results[results.length - 1].marks < 100 && results.length < 2
+              );
+
+              const lastAttemptMarks = results[results.length - 1].marks;
+              const totalQuestions = quiz.questions.length;
+
+              const hasScoredPerfect = lastAttemptMarks === totalQuestions;
+              const totalAttempts = results.length;
+
               return {
                 ...quiz,
                 attempted: true,
-                attemptCount: result.attemptCount || 1, // Fetch attempt count from the backend or default to 1
-                marks: result.marks,
-                attemptedSecondTime: result.attemptCount === 1 && result.marks < quiz.questions, // Allow second attempt if score < 100%
+                attemptCount: totalAttempts,
+                marks: results[totalAttempts - 1].marks,
+                attemptedSecondTime: hasScoredPerfect && totalAttempts > 1,
               };
             }
+
             return quiz;
           });
 
@@ -242,7 +252,7 @@ const QuizList: React.FC = () => {
         setLoading(false);
       } catch (error) {
         console.error(error);
-        setError('Failed to fetch quizzes.');
+        setError("Failed to fetch quizzes.");
         setLoading(false);
       }
     };
@@ -255,7 +265,7 @@ const QuizList: React.FC = () => {
 
   const handleModal = (quiz: Quiz) => {
     if (quiz.attempted && quiz.attemptedSecondTime) {
-      alert('You have another chance to improve your score!');
+      alert("You have another chance to improve your score!");
     }
   };
 
@@ -286,9 +296,7 @@ const QuizList: React.FC = () => {
                   <Link href={`/userRender/quiz/${quiz._id}/attempt`}>
                     <button
                       className={`px-4 py-2 rounded-lg text-white ${
-                        isClickable
-                          ? 'bg-blue-500 hover:bg-blue-600'
-                          : 'bg-gray-500 cursor-not-allowed'
+                        isClickable ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-500 cursor-not-allowed"
                       }`}
                       disabled={!isClickable}
                     >
@@ -305,8 +313,8 @@ const QuizList: React.FC = () => {
                       <button
                         className={`px-4 py-2 rounded-lg text-white ${
                           quiz.attemptedSecondTime
-                            ? 'bg-gray-500 cursor-not-allowed'
-                            : 'bg-green-500 hover:bg-green-600'
+                            ? "bg-gray-500 cursor-not-allowed"
+                            : "bg-green-500 hover:bg-green-600"
                         }`}
                         disabled={quiz.attemptedSecondTime}
                       >
@@ -316,11 +324,7 @@ const QuizList: React.FC = () => {
 
                     {/* Result Button */}
                     <Link href={`/userRender/quiz/${quiz._id}/result`}>
-                      <button
-                        className="px-4 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600"
-                      >
-                        Result
-                      </button>
+                      <button className="px-4 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600">Result</button>
                     </Link>
                   </>
                 )}
@@ -328,9 +332,7 @@ const QuizList: React.FC = () => {
                 {/* Only Result Button After Second Attempt */}
                 {quiz.attemptCount >= 2 && (
                   <Link href={`/userRender/quiz/${quiz._id}/result`}>
-                    <button className="px-4 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600">
-                      Result
-                    </button>
+                    <button className="px-4 py-2 rounded-lg text-white bg-blue-500 hover:bg-blue-600">Result</button>
                   </Link>
                 )}
               </div>

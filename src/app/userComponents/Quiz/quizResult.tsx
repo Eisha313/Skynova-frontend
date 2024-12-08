@@ -112,6 +112,7 @@
 // export default DetailedResult;
 import React, { useEffect, useState } from "react";
 import { useUser } from "@/app/components/context/userContext";
+import { Accordion } from "@mantine/core";
 
 interface Question {
   text: string;
@@ -128,6 +129,7 @@ interface ResultDetail {
   };
   answers: string[];
   marks: number;
+  dateAttempted: string;
 }
 
 const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
@@ -147,7 +149,12 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
         });
 
         const data = await response.json();
-        setResults(data.results || []);
+        // sort the results by dateAttempted
+        const sortedData = data.results.sort((a: any, b: any) => {
+          return new Date(b.dateAttempted).getTime() - new Date(a.dateAttempted).getTime();
+        });
+
+        setResults(sortedData || []);
       } catch (error) {
         console.error("Error fetching detailed results:", error);
       }
@@ -224,72 +231,108 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
     <div className="bg-[#212C44] p-8 text-white">
       <h1 className="text-2xl mb-6">Detailed Results</h1>
       <div className="overflow-y-auto">
-        {results.map((result, resultIndex) => (
-          <div key={resultIndex} className="mb-8">
-            <h2 className="text-xl mb-4">
-              {result.quizId.title} - Score: {result.marks} / {result.quizId.questions.length}
-            </h2>
-            <p className="text-gray-400 mb-6">{result.quizId.description}</p>
-
-            {result.quizId.questions.map((question, index) => {
-              const userAnswer = result.answers[index]?.trim().toLowerCase();
-              let correctAnswer = "";
-              const options = question.options;
-              const correctAnswerOption = toTitleCase(question.answer[0]);
-              const correctAnswerOptionn = correctAnswerOption.split(" ")[1].trim().toUpperCase();
-
-              switch (correctAnswerOptionn) {
-                case "A":
-                  correctAnswer = options[0];
-                  break;
-                case "B":
-                  correctAnswer = options[1];
-                  break;
-                case "C":
-                  correctAnswer = options[2];
-                  break;
-                case "D":
-                  correctAnswer = options[3];
-                  break;
-                default:
-                  break;
-              }
-
-              return (
-                <div key={index} className="mb-6">
-                  <p className="mb-2">
-                    Question {index + 1}: {question.text}
+        <Accordion
+          defaultValue={results[0]?._id}
+          styles={{
+            control: {
+              backgroundColor: "#1F2937",
+              color: "white",
+              padding: "12px",
+              borderRadius: 8,
+              fontSize: 16,
+            },
+            label: {
+              fontSize: 18,
+              fontWeight: 500,
+            },
+            item: {
+              backgroundColor: "#1F2937",
+              color: "white",
+              borderRadius: 8,
+              marginBottom: 16,
+            },
+            panel: {
+              backgroundColor: "#1F2937",
+              color: "white",
+              borderRadius: 8,
+              padding: 16,
+            },
+          }}
+        >
+          {results.map((result, resultIndex) => (
+            <Accordion.Item key={resultIndex} value={result._id}>
+              <Accordion.Control>
+                <div className="flex items-center justify-between">
+                  <p>Attempted on: {new Date(result.dateAttempted).toLocaleString()}</p>
+                  <p>
+                    Score: {result.marks} / {result.quizId.questions.length}
                   </p>
-                  {question.options.map((option, i) => {
-                    const optionText = option.trim().toLowerCase();
-                    const isSelected = optionText === userAnswer;
-                    // const isCorrect = optionText === correctAnswer?.trim()?.toLowerCase();
-                    const isCorrect = optionText === correctAnswer?.trim()?.toLowerCase();
-
-                    const optionClass = `p-4 mb-2 border rounded-lg ${
-                      isSelected
-                        ? isCorrect
-                          ? "bg-green-500 border-green-500" // Correct and selected
-                          : "bg-red-500 border-red-500" // Incorrect and selected
-                        : isCorrect
-                        ? "bg-green-500 border-green-500" // Correct but not selected
-                        : "border-white" // Neutral option
-                    }`;
-
+                </div>
+              </Accordion.Control>
+              <Accordion.Panel>
+                <div key={resultIndex} className="mb-8">
+                  <h2 className="text-xl mb-4">
+                    {result.quizId.title} - Score: {result.marks} / {result.quizId.questions.length}
+                  </h2>
+                  <p className="text-gray-400 mb-6">{result.quizId.description}</p>
+                  {result.quizId.questions.map((question, index) => {
+                    const userAnswer = result.answers[index]?.trim().toLowerCase();
+                    let correctAnswer = "";
+                    const options = question.options;
+                    const correctAnswerOption = toTitleCase(question.answer[0]);
+                    const correctAnswerOptionn = correctAnswerOption.split(" ")[1].trim().toUpperCase();
+                    switch (correctAnswerOptionn) {
+                      case "A":
+                        correctAnswer = options[0];
+                        break;
+                      case "B":
+                        correctAnswer = options[1];
+                        break;
+                      case "C":
+                        correctAnswer = options[2];
+                        break;
+                      case "D":
+                        correctAnswer = options[3];
+                        break;
+                      default:
+                        break;
+                    }
                     return (
-                      <div key={i} className={optionClass}>
-                        {String.fromCharCode(65 + i)}: {option}
+                      <div key={index} className="mb-6">
+                        <p className="mb-2">
+                          Question {index + 1}: {question.text}
+                        </p>
+                        {question.options.map((option, i) => {
+                          const optionText = option.trim().toLowerCase();
+                          const isSelected = optionText === userAnswer;
+                          // const isCorrect = optionText === correctAnswer?.trim()?.toLowerCase();
+                          const isCorrect = optionText === correctAnswer?.trim()?.toLowerCase();
+                          const optionClass = `p-4 mb-2 border rounded-lg ${
+                            isSelected
+                              ? isCorrect
+                                ? "bg-green-500 border-green-500" // Correct and selected
+                                : "bg-red-500 border-red-500" // Incorrect and selected
+                              : isCorrect
+                              ? "bg-green-500 border-green-500" // Correct but not selected
+                              : "border-white" // Neutral option
+                          }`;
+                          return (
+                            <div key={i} className={optionClass}>
+                              {String.fromCharCode(65 + i)}: {option}
+                            </div>
+                          );
+                        })}
+                        {userAnswer !== correctAnswer.trim().toLowerCase() && (
+                          <p className="text-red-500 mt-2">Correct answer: {correctAnswerOption}</p>
+                        )}
                       </div>
                     );
                   })}
-                  {userAnswer !== correctAnswer.trim().toLowerCase() && (
-                    <p className="text-red-500 mt-2">Correct answer: {correctAnswerOption}</p>
-                  )}
                 </div>
-              );
-            })}
-          </div>
-        ))}
+              </Accordion.Panel>
+            </Accordion.Item>
+          ))}
+        </Accordion>
       </div>
     </div>
   );
