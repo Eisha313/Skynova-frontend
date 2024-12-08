@@ -51,7 +51,7 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
   if (error) return <p>{error}</p>;
 
   return (
-    <div className="p-6 border rounded-md bg-gray-50 shadow-lg max-w-3xl mx-auto">
+    <div className="p-6 border rounded-md bg-[#212C44] shadow-lg max-w-3xl mx-auto text-white">
       {resource ? (
         <div>
           <h1 className="text-3xl font-bold mb-6 text-center">{resource.title}</h1>

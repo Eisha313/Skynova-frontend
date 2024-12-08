@@ -21,7 +21,7 @@ const ViewResourceDetailsPage = () => {
         <Header />  
         
         
-        <main className="flex-1 p-4 bg-white">
+        <main className="flex-1 p-4 bg-custom-image">
         <ResourceDetails id={id} />
         </main>
       </div>

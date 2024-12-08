@@ -408,7 +408,7 @@ const CommunityQuestions = () => {
         </div>
         <p className="text-lg text-center mt-2">Explore and contribute to our community of questions.</p>
 
-        <div className="max-w-4xl mx-auto mt-8">
+        {/* <div className="max-w-4xl mx-auto mt-8">
           <input
             type="text"
             placeholder="Search by title"
@@ -427,7 +427,7 @@ const CommunityQuestions = () => {
           >
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 16l4-4m0 0l-4-4m4 4h8m-6 4h8" />
           </svg>
-        </div>
+        </div> */}
 
         <div className="max-w-4xl mx-auto mt-8">
           <input

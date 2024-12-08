@@ -10,7 +10,7 @@ const QuizPage: React.FC = () => {
       <Sidebar />
       <div className="flex-1 flex flex-col">
         <Header />  
-        <main className="flex-1 p-4 bg-white">
+        <main className="flex-1 p-4 bg-custom-image">
           <QuizManager />
         </main>
       </div>

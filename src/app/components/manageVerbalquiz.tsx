@@ -131,14 +131,18 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   };
 
   return (
-    <div className="container mx-auto p-4 bg-white rounded-lg shadow-md border border-gray-300">
+    <div className="mx-auto p-4  rounded-lg shadow-md ">
+      {/* <div className="flex justify-between items-center mb-4 "> */}
+      <h1 className="text-2xl f text-white ont-bold">All Verbal Quizzes</h1>
       {error && <p className="text-red-500">{error}</p>}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex justify-end items-center mb-4">
         <div className="relative">
           <input
             type="text"
             placeholder="Search by Title"
-            className="border border-gray-300 px-4 py-2 rounded"
+            // className="border border-gray-300 px-4 py-2 rounded"
+         className=" px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -152,7 +156,9 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
           )}
         </div>
         <button
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:border-2 hover:border-white"
+          // className="bg-blue-500 text-white px-4 py-2 rounded hover:border-2 hover:border-white"
+         className=" px-4 py-2 text-white border border-white/30 rounded-xl bg-eisha hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
           onClick={onAddQuiz}
         >
           Add Quiz
@@ -169,7 +175,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
               <th className="py-2 px-4 border-b border-gray-200 text-left w-32">Actions</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='bg-[#212C44] py-4 text-white'>
             {sortedQuizzes.map((quiz, index) => (
               <tr key={quiz._id}>
                 <td className="py-2 px-4 border-b border-gray-200 text-center">{index + 1}</td>
@@ -206,6 +212,7 @@ const ManageQuizzes: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
 
       <QuizModal isOpen={isModalOpen} onClose={handleCloseModal} quizDetails={selectedQuiz} />
     </div>
+    
   );
 };
 

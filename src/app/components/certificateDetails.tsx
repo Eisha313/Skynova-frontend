@@ -3,6 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { useReactToPrint } from 'react-to-print';
 import Certificate from './Certificate'; 
+import { useUser } from '@/app/components/context/userContext';
 
 type Certificate = {
   _id: string;
@@ -19,11 +20,15 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
   const [certificate, setCertificate] = useState<Certificate | null>(null);
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
+  const { token } = useUser();
   const certificateRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (id) {
-      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`, {credentials: 'include',})
+      fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/certificates/viewCertificate/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },credentials: 'include',})
         .then((res) => res.json())
         .then((data) => {
           
@@ -49,8 +54,8 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
   if (!certificate) return <div>Loading...</div>;
 
   return (
-    <div className="container mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Certificate Details</h2>
+    <div className="container bg-[#212C44] mx-auto p-4 text-white">
+      <h2 className="text-2xl text-white font-bold mb-4">Certificate Details</h2>
       <div className="flex justify-end mb-4">
         <button onClick={handlePrint} className="bg-blue-500 text-white px-4 py-2 rounded">
           Download Certificate

@@ -24,7 +24,7 @@ const EditPageSimple = ({params}:{
         <Header />  
         
         
-        <main className="flex-1 p-4 bg-white">
+        <main className="flex-1 p-4 bg-custom-image">
           <QuizEditSimple id={id}/>
         </main>
       </div>

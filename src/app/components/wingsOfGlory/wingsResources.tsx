@@ -129,34 +129,7 @@ const WingsResources = ({ resourceId, onClose }: WingsResourcesProps) => {
         <option className="bg-transparent text-black"  value="quote">Quote</option>
       </select>
 
-      {/* <label className="block mt-7 font-medium">Resource content
-      <span className="text-red-500"> *</span>
-      </label>
-      {resource.type === "quote" ? (
-        <textarea
-          name="content"
-          value={resource.content}
-          onChange={handleChange}
-          placeholder="Enter Quote"
-           className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
-        />
-      ) : (
-        <>
-          <input
-            type="text"
-            name="content"
-            value={resource.content}
-            onChange={handleChange}
-            placeholder="Enter Link"
-             className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
-          />
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="w-full px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
-          />
-        </>
-      )} */}
+
 <label className="block mt-7 font-medium">Resource Content
   <span className="text-red-500"> *</span>
 </label>

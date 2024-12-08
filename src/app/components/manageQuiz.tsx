@@ -70,20 +70,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
     setSortConfig({ key, direction });
   };
 
-  // const handleQuizClick = async (quizId: string) => {
-  //   try {
-  //     const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${quizId}`,{credentials:'include'});
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setSelectedQuiz(data);
-  //       setIsModalOpen(true);
-  //     } else {
-  //       console.error('Failed to fetch quiz details');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error fetching quiz details:', error);
-  //   }
-  // };
+ 
   const handleQuizClick = async (quizId: string) => {
     try {
       const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/viewQuiz/${quizId}`, { credentials: 'include' });
@@ -123,27 +110,11 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
     setFilteredQuizzes(quizzes); 
   };
   
-  // const handleDeleteQuiz = async (quizId: string) => {
-  //   try {
-  //     const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/quizzes/deleteQuiz/${quizId}`, {
-  //       method: 'DELETE',
-  //       credentials:'include'
-  //     });
-  //     if (response.ok) {
-  //       setQuizzes(quizzes.filter((quiz) => quiz._id !== quizId));
-  //       setFilteredQuizzes(filteredQuizzes.filter((quiz) => quiz._id !== quizId));
-  //       setSelectedQuizzes(selectedQuizzes.filter((id) => id !== quizId));
-  //     } else {
-  //       console.error('Failed to delete quiz');
-  //     }
-  //   } catch (error) {
-  //     console.error('Error deleting quiz:', error);
-  //   }
-  // };
+  
   
   const openDeleteConfirmationModal = (quizId: string) => {
-    setQuizToDelete(quizId); // Save the quiz ID
-    setIsDeleteModalOpen(true); // Open the modal
+    setQuizToDelete(quizId); 
+    setIsDeleteModalOpen(true); 
   };
   
  
@@ -217,7 +188,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
   }
 
   return (
-    <div className="container mx-auto p-4 bg-gray-100 shadow-md">
+    <div className=" mx-auto p-4 shadow-md">
       {error && <p className="text-red-500">{error}</p>}
       
       <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
@@ -227,6 +198,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
           onSearchChange={handleSearchChange} 
           searchTerm={searchTerm} 
           clearSearch={clearSearch} 
+          
         />
           <Link 
             href="/quizPage/addQuiz" 
@@ -237,7 +209,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
         </div>
       </div>
   
-      <table className="min-w-full bg-white border border-gray-200">
+      <table className="min-w-full bg-[#212C44] ">
         <thead className="bg-eisha text-white">
           <tr>
             <th className="p-4 border-b text-left">
@@ -254,7 +226,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
             <th className="py-3 px-4 border-b border-gray-300 text-center">Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className='bg-[#212C44] py-4 text-white'>
           {sortedQuizzes.map((quiz) => (
             <tr key={quiz._id}>
               <td className="p-4 border-b">
@@ -281,7 +253,7 @@ const ManageQuiz: React.FC<ManageQuizzesProps> = ({ onAddQuiz }) => {
                   </button>
                 </Link>
                 <button
-                  // onClick={() => confirmDeleteQuiz(quiz._id)}
+                
                   onClick={() => openDeleteConfirmationModal(quiz._id)}
                   className="text-red-500 hover:underline bg-gray-200 p-2 rounded-full hover:bg-gray-300 border border-gray-400"
                 >

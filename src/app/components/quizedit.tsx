@@ -119,7 +119,7 @@ const QuizEditSimple = ({ id }: { id: string }) => {
   }
 
   return (
-    <div className="container mx-auto p-6 bg-white rounded-lg shadow-md">
+    <div className="container text-white mx-auto p-6 bg-[#212C44] rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-6">Edit Quiz</h1>
 
       <div className="mb-4">
@@ -128,8 +128,9 @@ const QuizEditSimple = ({ id }: { id: string }) => {
           type="text"
           value={quiz.title}
           onChange={(e) => setQuiz({ ...quiz, title: e.target.value })}
-          className="border p-2 mb-2 w-full rounded"
+        
           placeholder="Enter Quiz Title"
+          className="px-4 w-full py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
         />
       </div>
 
@@ -138,7 +139,7 @@ const QuizEditSimple = ({ id }: { id: string }) => {
         <textarea
           value={quiz.description}
           onChange={(e) => setQuiz({ ...quiz, description: e.target.value })}
-          className="border p-2 mb-4 w-full rounded"
+          className="px-4 w-full py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
           placeholder="Enter Quiz Description"
         />
       </div>
@@ -155,7 +156,8 @@ const QuizEditSimple = ({ id }: { id: string }) => {
               onChange={(e) =>
                 handleQuestionChange(index, { ...question, text: e.target.value })
               }
-              className="border p-2 mb-4 w-full rounded"
+              // className="border p-2 mb-4 w-full rounded"
+               className="px-4 w-full py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
               placeholder="Enter Question Text"
             />
 
@@ -171,7 +173,8 @@ const QuizEditSimple = ({ id }: { id: string }) => {
                     updatedOptions[optIndex] = e.target.value;
                     handleQuestionChange(index, { ...question, options: updatedOptions });
                   }}
-                  className="border p-2 flex-grow rounded"
+                  // className="border p-2 flex-grow rounded"
+                   className="px-4 w-full py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
                   placeholder={`Enter Option ${label}`}
                 />
               </div>
@@ -184,13 +187,14 @@ const QuizEditSimple = ({ id }: { id: string }) => {
                 onChange={(e) =>
                   handleQuestionChange(index, { ...question, answer: [e.target.value] })
                 }
-                className="border p-2 w-full rounded"
+                // className="border p-2 w-full rounded"
+                 className="px-4 w-full py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
               >
-                <option value="" disabled>
+                <option  className="bg-transparent text-black" value="" disabled>
                   Select Correct Answer
                 </option>
                 {['Option A', 'Option B', 'Option C', 'Option D'].map((option, optIndex) => (
-                  <option key={optIndex} value={option}>
+                  <option  className="bg-transparent text-black"key={optIndex} value={option}>
                     {option}
                   </option>
                 ))}

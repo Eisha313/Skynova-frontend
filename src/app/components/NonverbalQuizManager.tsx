@@ -7,7 +7,7 @@ const NonverbalQuizManager = () => {
   const [showQuizForm, setShowQuizForm] = useState(false);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className=" mx-auto p-4">
       {showQuizForm ? (
         <NonverbalQuizForm />
       ) : (

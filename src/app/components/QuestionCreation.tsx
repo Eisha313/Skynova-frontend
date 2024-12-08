@@ -196,18 +196,22 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ quizId, onAddQuestion }) =>
   };
 
   return (
-    <div className="mb-4 p-4 bg-white rounded-lg shadow-md">
+    <div className="flex items-center justify-center min-h-screen w-full ">
+    <div className="mb-4 p-4 bg-[#212C44] text-white rounded-lg shadow-md w-full">
       {!showOptions ? (
         <>
+        <label className="block mt-7 font-medium">Question Text
+      <span className="text-red-500"> *</span>
+      </label>
           <input
             type="text"
             placeholder="Question Text"
             value={currentQuestion.text}
             onChange={(e) => setCurrentQuestion({ ...currentQuestion, text: e.target.value })}
-            className="border p-2 mb-2 w-full"
+           className="px-4 py-2 w-full text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
           />
           {currentQuestion.options.map((option, index) => (
-            <div key={index} className="flex items-center mb-2">
+            <div key={index} className="flex items-center mt-9 mb-2">
               <input
                 type="radio"
                 name="correctAnswer" // Group radio buttons by the same name
@@ -221,12 +225,12 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ quizId, onAddQuestion }) =>
                 placeholder={`Option ${index + 1}`}
                 value={option}
                 onChange={(e) => handleOptionChange(index, e.target.value)}
-                className="border p-2 w-full"
+                 className="px-4 py-2 w-full text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
               />
             </div>
           ))}
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded"
+            className="bg-blue-500 text-white px-4 py-2 mt-12 rounded"
             onClick={handleSaveQuestion}
           >
             Save Question
@@ -248,6 +252,7 @@ const QuestionForm: React.FC<QuestionFormProps> = ({ quizId, onAddQuestion }) =>
           </button>
         </div>
       )}
+    </div>
     </div>
   );
 };

@@ -153,7 +153,9 @@ const ResourceList: React.FC = () => {
             <option className='bg-transparent text-black' value="image">Images</option>
             <option className='bg-transparent text-black' value="video">Videos</option>
           </select>
-          <button onClick={generatePDF} className="text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300">
+          <button onClick={generatePDF} 
+          className="text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300"
+          >
           <MdDownload  />
           </button>
           <Link href="/addResource" className="px-4 py-2 rounded-md text-center bg-eisha text-white">
@@ -183,7 +185,7 @@ const ResourceList: React.FC = () => {
       <table className="min-w-full bg-white">
         <thead className="bg-eisha text-white">
           <tr>
-            <th className="py-2 px-4 border-b">
+            <th className="py-6 px-4 border-b">
               <input
                 type="checkbox"
                 checked={selectedResources.length === resources.length}
@@ -204,7 +206,7 @@ const ResourceList: React.FC = () => {
             ))}
           </tr>
         </thead>
-        <tbody className='bg-[#212C44] text-white'>
+        <tbody className='bg-[#212C44] py-4 text-white'>
   {currentResources.length > 0 ? (
     currentResources.map(resource => (
       <tr key={resource._id} className="border-b">

@@ -100,10 +100,10 @@ const QuizModal = ({
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-      <div className="bg-white rounded-xl shadow-lg max-w-2xl w-full p-8 relative">
+      <div className="bg-custom-image py-4 text-white rounded-xl shadow-lg max-w-2xl w-full p-8 relative">
         {/* Close Button */}
         <button
-          className="absolute top-4 right-4 text-gray-600 hover:text-gray-900 transition"
+          className="absolute top-4 right-4 text-white hover:text-gray-900 transition"
           onClick={onClose}
           aria-label="Close"
         >
@@ -115,7 +115,7 @@ const QuizModal = ({
           <h2 className="text-2xl font-extrabold text-indigo-600 mb-2">
             {quizDetails.title}
           </h2>
-          <p className="text-gray-500 text-sm mb-6">{quizDetails.description}</p>
+          <p className="text-white text-sm mb-6">{quizDetails.description}</p>
         </div>
 
         <div>
@@ -123,14 +123,14 @@ const QuizModal = ({
             quizDetails.questions.map((question: any, index: number) => (
               <div
                 key={question._id}
-                className="mb-8 p-4 bg-gray-50 rounded-lg shadow-sm"
+                className="mb-8 p-4 bg-[#212C44] rounded-lg shadow-sm"
               >
                 <h3 className="font-semibold text-lg mb-2">
                   {index + 1}. {question.text}
                 </h3>
-                <ul className="list-disc pl-6 text-gray-700 space-y-1">
+                <ul className="list-disc pl-6 text-white space-y-1">
                   {question.options.map((option: string, i: number) => (
-                    <li key={i} className="text-gray-800">
+                    <li key={i} className="text-white">
                       {option}
                     </li>
                   ))}
@@ -139,7 +139,7 @@ const QuizModal = ({
                   <span className="font-semibold text-green-600">
                     Correct Answer:
                   </span>{' '}
-                  <span className="text-gray-800">{question.answer}</span>
+                  <span className="text-white">{question.answer}</span>
                 </p>
               </div>
             ))
