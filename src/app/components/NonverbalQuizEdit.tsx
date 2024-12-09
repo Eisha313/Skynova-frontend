@@ -1,9 +1,9 @@
-'use client';
-import Image from 'next/image'; // Import Image component
-import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+"use client";
+import Image from "next/image"; // Import Image component
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
- interface Option {
+interface Option {
   label: string;
   image: string;
   _id?: string;
@@ -16,7 +16,6 @@ interface Question {
   answer: string;
   quizId?: string;
 }
-
 
 interface QuizDetail {
   _id: string;
@@ -36,15 +35,18 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
   useEffect(() => {
     const fetchQuiz = async () => {
       try {
-        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonverbalQuizzes/viewNonverbalQuiz/${id}`,{credentials:'include'});
+        // const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonverbalQuizzes/viewNonverbalQuiz/${id}`,{credentials:'include'});
+        const response = await fetch(`http://localhost:4000/nonverbalQuizzes/viewNonverbalQuiz/${id}`, {
+          credentials: "include",
+        });
         if (response.ok) {
           const data = await response.json();
           setQuiz(data);
         } else {
-          console.error('Failed to fetch quiz details');
+          console.error("Failed to fetch quiz details");
         }
       } catch (error) {
-        console.error('Error fetching quiz details:', error);
+        console.error("Error fetching quiz details:", error);
       }
     };
 
@@ -55,22 +57,25 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
 
   const handleSaveQuiz = async () => {
     try {
-      const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/nonverbalQuizzes/updateNonverbalQuiz/${id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(quiz),
-        credentials:'include'
-
-      });
+      const response = await fetch(
+        // `https://sky-nova-8ccaddc754ce.herokuapp.com/nonverbalQuizzes/updateNonverbalQuiz/${id}`,
+        `http://localhost:4000/nonverbalQuizzes/updateNonverbalQuiz/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(quiz),
+          credentials: "include",
+        }
+      );
       if (response.ok) {
-        router.push('/nonverbalquiz'); 
+        router.push("/nonverbalquiz");
       } else {
-        console.error('Failed to save quiz');
+        console.error("Failed to save quiz");
       }
     } catch (error) {
-      console.error('Error saving quiz:', error);
+      console.error("Error saving quiz:", error);
     }
   };
 
@@ -104,50 +109,47 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
           <input
             type="text"
             value={question.text}
-            onChange={(e) =>
-              handleQuestionChange(index, { ...question, text: e.target.value })
-            }
+            onChange={(e) => handleQuestionChange(index, { ...question, text: e.target.value })}
             className="border p-2 mb-2 w-full"
           />
           <ul>
-  {question.options.map((option, optIndex) => (
-    <li key={optIndex} className="flex flex-col mb-4 space-y-2">
-      <div className="flex items-center space-x-4">
-        <label className="font-semibold">
-          {String.fromCharCode(65 + optIndex)} {/* A, B, C, D */}
-        </label>
-        <input
-          type="file"
-          onChange={(e) => {
-            if (e.target.files && e.target.files[0]) {
-              const reader = new FileReader();
-              reader.onload = () => {
-                const updatedOptions = [...question.options];
-                updatedOptions[optIndex].image = reader.result as string;
-                handleQuestionChange(index, { ...question, options: updatedOptions });
-              };
-              reader.readAsDataURL(e.target.files[0]);
-            }
-          }}
-          className="border p-2 flex-grow"
-        />
-      </div>
-      {option.image && (
-        <div className="flex items-center space-x-4">
-          <label className="text-sm text-gray-500">Preview:</label>
-          <div className="w-32 h-32 border border-gray-300 flex items-center justify-center overflow-hidden">
-            <img
-              src={option.image}
-              alt={`Option ${String.fromCharCode(65 + optIndex)} preview`}
-              className="object-cover w-full h-full"
-            />
-          </div>
-        </div>
-      )}
-    </li>
-  ))}
-</ul>
-
+            {question.options.map((option, optIndex) => (
+              <li key={optIndex} className="flex flex-col mb-4 space-y-2">
+                <div className="flex items-center space-x-4">
+                  <label className="font-semibold">
+                    {String.fromCharCode(65 + optIndex)} {/* A, B, C, D */}
+                  </label>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      if (e.target.files && e.target.files[0]) {
+                        const reader = new FileReader();
+                        reader.onload = () => {
+                          const updatedOptions = [...question.options];
+                          updatedOptions[optIndex].image = reader.result as string;
+                          handleQuestionChange(index, { ...question, options: updatedOptions });
+                        };
+                        reader.readAsDataURL(e.target.files[0]);
+                      }
+                    }}
+                    className="border p-2 flex-grow"
+                  />
+                </div>
+                {option.image && (
+                  <div className="flex items-center space-x-4">
+                    <label className="text-sm text-gray-500">Preview:</label>
+                    <div className="w-32 h-32 border border-gray-300 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={option.image}
+                        alt={`Option ${String.fromCharCode(65 + optIndex)} preview`}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
 
           <input
             type="text"
@@ -157,10 +159,7 @@ const NonverbalQuizEdit = ({ id }: { id: string }) => {
           />
         </div>
       ))}
-      <button
-        onClick={handleSaveQuiz}
-        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-      >
+      <button onClick={handleSaveQuiz} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
         Save Quiz
       </button>
     </div>
