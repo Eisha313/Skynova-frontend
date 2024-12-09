@@ -78,11 +78,11 @@ const Header: React.FC = () => {
               <>
                 <div
                   className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-20px)]
- h-[5px] rounded-b-lg bg-blue-300"
+ h-[5px] rounded-b-lg bg-blue-300  shadow-blue-300 shadow-[0px_3px_27px_0px_#B5EAFF]"
                 />
                 <div
                   className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-20px)]
- h-[5px] rounded-t-lg bg-blue-300"
+ h-[5px] rounded-t-lg bg-blue-300 shadow-[0px_3px_27px_0px_#B5EAFF]"
                 />
               </>
             )}
