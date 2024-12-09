@@ -82,8 +82,8 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
 
   const handleSubmit = async (values: User) => {
     try {
-      // const url = `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${_id}`;
-      const url = `http://localhost:4000/aviators/updateAviator/${_id}`;
+      const url = `https://sky-nova-8ccaddc754ce.herokuapp.com/aviators/updateAviator/${_id}`;
+
       const requestBody = {
         firstName: values.firstName,
         lastName: values.lastName,

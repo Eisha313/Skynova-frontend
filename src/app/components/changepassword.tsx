@@ -49,7 +49,7 @@ const ChangePasswordForm: React.FC = () => {
     // const response = await fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/users/forgetPasswordLoggedIn", {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:4000/users/forgetPasswordLoggedIn", {
+      const response = await fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/users/forgetPasswordLoggedIn", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({ currentPassword, newPassword }),
