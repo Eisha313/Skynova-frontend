@@ -42,9 +42,9 @@ const SkyNovaOffers = () => {
       <div className="max-w-screen-xl mx-auto text-center">
       <div className="flex flex-col items-center mb-8">
   <div className="flex items-center">
-    <div className="w-16 h-1 bg-blue-500"></div>
-    <h2 className="text-white text-4xl font-semibold font-inter mx-4">SkyNova Offers</h2>
-    <div className="w-16 h-1 bg-blue-500"></div>
+    <div className="w-16 h-2 bg-blue-500"></div>
+    <h2 className="text-white text-4xl font-semibold font-inter mx-4 ml-12">SkyNova Offers</h2>
+    <div className="w-16 h-2 bg-blue-500"></div>
   </div>
 </div>
 
