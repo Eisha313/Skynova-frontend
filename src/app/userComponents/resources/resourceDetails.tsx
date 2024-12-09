@@ -63,6 +63,14 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
             <strong className="font-bold text-white text-lg">Description:</strong> {resource.description}
           </p>
 
+          {resource.type === "pdf" && (
+            <button className="bg-eisha text-white px-4 py-2 rounded-md hover:bg-eisha">
+              <a href={resource.resourceFile} download target="_blank" rel="noreferrer" className="text-white">
+                Download PDF
+              </a>
+            </button>
+          )}
+
           {resource.resourceFile && isVideoLink(resource.resourceFile) && (
             <ReactPlayer url={resource.resourceFile} width="100%" height="240px" controls />
           )}
