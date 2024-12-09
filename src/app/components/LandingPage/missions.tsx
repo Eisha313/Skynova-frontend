@@ -8,7 +8,7 @@ const missions = [
     objective: "Land within 500ft of runway threshold",
     difficulty: "Medium",
     reward: "500 Flight Points",
-    image: "/spaceship.svg",
+    image: "/missionn1.png",
   },
   {
     title: "Skybound",
@@ -16,7 +16,7 @@ const missions = [
     objective: "Reach 30,000ft within 5 minutes",
     difficulty: "Easy",
     reward: "500 Flight Points",
-    image: "/planeee.svg",
+    image: "/missionn2.png",
   },
   {
     title: "Strike Eagle",
@@ -25,7 +25,7 @@ const missions = [
     objective: "Destroy 10 enemy jets",
     difficulty: "Hard",
     reward: "1000 Flight Points",
-    image: "/jahaz.svg",
+    image: "/missionn3.png",
   },
 ];
 
@@ -64,8 +64,8 @@ const VRMissions: React.FC = () => {
   <p className="mb-4 text-gray-300">
     <strong>Reward:</strong> {mission.reward}
   </p>
-  <button className="bg-blue-500 text-white px-6 py-2 rounded hover:bg-blue-600 transition w-fit">
-    Play
+  <button className="bg-[#5AA0BC]  rounded-lg text-white px-6 py-2 w-[200px]  hover:bg-blue-600 transition w-fit">
+  Download
   </button>
 </div>
 

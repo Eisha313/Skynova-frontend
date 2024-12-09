@@ -180,7 +180,7 @@ const QuizList: React.FC = () => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { token } = useUser();
+  const { _id,token } = useUser();
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -219,7 +219,10 @@ const QuizList: React.FC = () => {
 
           const updatedQuizzes = quizzesWithFlags.map((quiz: any) => {
             // const result = resultsData.find((res: any) => res.quizId._id === quiz._id);
-            const results = resultsData.filter((res: any) => res.quizId._id === quiz._id);
+            // const results = resultsData.filter((res: any) => res.quizId._id === quiz._id);
+            const results = resultsData.filter((res: any) => res.quizId._id === quiz._id && res.userId._id === _id);
+
+
             if (results.length > 0) {
               console.log(
                 "results[results.length - 1].marks < 100 && results.length < 2 for quiz",

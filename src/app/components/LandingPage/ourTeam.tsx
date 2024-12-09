@@ -13,7 +13,7 @@ const OurTeam = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10">
-          {/** Team Member 1 */}
+          
           <div className="bg-[#1E2638] rounded-lg shadow-lg p-6 text-center">
             <div className="w-52 h-52 mx-auto overflow-hidden ">
               <Image

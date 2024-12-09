@@ -14,7 +14,7 @@ export default function Home() {
       
       
   
-        <div className="bg-eisha text-white p-8 rounded-md">
+        <div className="bg-custom-image text-white p-8 rounded-md">
         <ChangePasswordForm/>
       </div>
       <Footer />

@@ -80,11 +80,12 @@
 // };
 
 // export default Testimonials;
+
 import React from 'react';
 
 const testimonialsData = [
   {
-    name: 'Bruce Lee',
+    name: 'Bruce lee',
     title: 'CEO of Pixel Canvas',
     feedback:
       'Working with Game Genesis has been an absolute delight. Their creativity knows no bounds, and their professionalism ensured our project was completed on time and beyond expectations. Highly Recommend!',
@@ -108,22 +109,22 @@ const testimonialsData = [
 
 const Testimonials = () => {
   return (
-    <div className="bg-[#0B132B] text-white py-24 px-8 min-h-[600px]">
-      <div className="flex items-center justify-center">
+    <div className="bg-[#0B132B] text-white py-16 px-8">
+      <div className="flex items-center justify-center mb-8">
         <div className="w-16 h-1 bg-blue-500"></div>
         <h2 className="text-xl font-semibold tracking-widest mx-4">
           Testimonials
         </h2>
         <div className="w-16 h-1 bg-blue-500"></div>
       </div>
-      <div className="flex justify-center items-center gap-6 mt-20">
+      <div className="flex justify-center gap-10 mt-4">
         {testimonialsData.map((testimonial, index) => (
           <div
             key={index}
-            className="bg-[#1C2541] p-8 rounded-lg shadow-lg max-w-sm"
+            className="bg-[#1C2541] p-8 rounded-lg shadow-lg flex flex-col  max-w-xs min-h-[290px]"
           >
-            <div className="flex items-center mb-4">
-              <div className="flex items-center">
+            <div>
+              <div className="flex items-center mb-4">
                 {[...Array(5)].map((_, i) => (
                   <svg
                     key={i}
@@ -136,9 +137,9 @@ const Testimonials = () => {
                   </svg>
                 ))}
               </div>
+              <p className="text-sm mt-9">{testimonial.feedback}</p>
             </div>
-            <p className="text-sm mb-6 mt-9">{testimonial.feedback}</p>
-            <div className="flex items-center mt-4">
+            <div className="flex items-center  mt-9">
               <img
                 src={testimonial.image}
                 alt={testimonial.name}

@@ -2,7 +2,7 @@
 'use client'
 import React from 'react';
 import Sidebar from '@/app/components/sidebarDashboard';
-import Header from '@/app/components/header';
+import Header from '@/app/components/LandingPage/header';
 import { useParams } from 'next/navigation';
 import Result from '@/app/userComponents/Quiz/quizResult';
 
@@ -17,7 +17,7 @@ const EditQuizPage: React.FC = () => {
   return(
   
   <div className="flex h-screen">
-      <Sidebar />
+      {/* <Sidebar /> */}
       
       <div className="flex-1 flex flex-col">
         <Header />  

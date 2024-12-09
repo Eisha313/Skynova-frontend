@@ -9,22 +9,24 @@ const Background: React.FC = () => {
         <img
           className="w-full h-full object-cover"
           src="/hero-section-background.gif" 
+          height={450}
+          width={450}
         />
       </div>
 
      
-      <div className="absolute inset-0 flex flex-col items-center justify-center text-center space-y-4">
+      <div className="absolute inset-0 flex flex-col items-center justify-center text-center ">
   
         <Image
           src="/nova.png" 
           alt="Logo"
-          width={150}
-          height={150}
+          width={800}
+          height={800}
           className="animate-pulse"
         />
 
         
-        <h1 className="text-white text-3xl md:text-5xl font-bold">
+        <h1 className="text-white text-xl md:text-2xl italic">
           Navigating The skies 
         </h1>
       </div>

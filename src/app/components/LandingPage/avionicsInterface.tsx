@@ -138,7 +138,7 @@ const VirtualAvionics = () => {
   const dataToDisplay = view === "jets" ? jets : cockpits;
 
   return (
-    <section className="bg-[#212C44] text-white py-16 px-6">
+    <section className="bg-eisha text-white py-16 px-6">
       <div className="max-w-screen-xl mx-auto text-center">
         <div className="flex justify-center items-center mb-4">
           <div className="w-16 h-1 bg-blue-500"></div>
@@ -172,7 +172,7 @@ const VirtualAvionics = () => {
             <div
               key={index}
               onClick={() => handleCardClick(item.path)}
-              className="bg-[#101a3f] rounded-lg shadow-lg hover:shadow-2xl transition p-4 cursor-pointer"
+              className="bg-[#212C44] rounded-lg shadow-lg hover:shadow-2xl transition p-4 cursor-pointer"
             >
               <div className="w-full h-64 relative overflow-hidden rounded-lg mb-4">
                 <Image

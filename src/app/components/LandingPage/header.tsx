@@ -49,7 +49,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-gray-900 bg-opacity-80 shadow-lg p-4 flex justify-between items-center">
+    <header className="fixed top-0 left-0 w-full z-50  bg-opacity-80 shadow-lg p-4 flex justify-between items-center">
       <div className="flex items-center">
         <Image src="/skylogo.svg" alt="Logo" height={60} width={100} className="mr-4" />
       </div>
@@ -150,7 +150,7 @@ const Header: React.FC = () => {
             </Link>
           </div>
         )}
-        <ProfileModal isOpen={isProfileModalOpen} onClose={handleCloseModal} />
+        <ProfileModal  isOpen={isProfileModalOpen} onClose={handleCloseModal} />
       </div>
     </header>
   );

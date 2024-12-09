@@ -89,7 +89,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
         lastName: values.lastName,
         email: values.email,
         role: values.role,
-        profileImage: profileImg || values.profileImage,
+        profileImage: profileImage || values.profileImage,
       };
 
       const response = await fetch(url, {
@@ -143,17 +143,18 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <Modal opened={isOpen} onClose={onClose} size="lg">
-      <h2 className="text-center text-2xl font-bold mb-4">{isEditing ? "Edit Profile" : "Profile Details"}</h2>
+    <Modal  className='bg-custom-image'opened={isOpen} onClose={onClose} size="lg">
+      <div className='bg-custom-image'>
+      <h2 className="text-center text-white text-2xl font-bold mb-4">{isEditing ? "Edit Profile" : "Profile Details"}</h2>
       <Box p="md">
         {!isEditing ? (
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center ">
             <img
-              src={profileImg || "/default-profile.png"}
+              src={profileImage || "/default-profile.png"}
               alt="Profile"
               className="w-32 h-32 rounded-full mb-6 object-cover"
             />
-            <div className="text-left space-y-4">
+            <div className="text-left text-white space-y-4">
               <div className="flex items-center space-x-2">
                 <span className="font-bold">First Name:</span>
                 <span>{firstName}</span>
@@ -187,16 +188,70 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
           <form onSubmit={form.onSubmit(handleSubmit)}>
             <Grid gutter="lg">
               <Grid.Col span={6}>
-                <TextInput label="First Name" {...form.getInputProps("firstName")} required />
+              <Grid.Col span={6}>
+  <TextInput
+    classNames={{
+      input:
+        "w-[200px] text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-white/30 bg-transparent hover:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none",
+      label: "text-white mb-2 font-medium",
+    }}
+    label="First Name"
+    {...form.getInputProps("firstName")}
+    required
+  />
+</Grid.Col>
+
               </Grid.Col>
               <Grid.Col span={6}>
-                <TextInput label="Last Name" {...form.getInputProps("lastName")} required />
+               
+                 <Grid.Col span={6}>
+  <TextInput
+    classNames={{
+      input:
+        "w-[200px] text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-white/30 bg-transparent hover:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none",
+      label: "text-white mb-2 font-medium",
+    }}
+    label="Last Name"
+    {...form.getInputProps("lastName")}
+    required
+  />
+</Grid.Col>
+
               </Grid.Col>
               <Grid.Col span={12}>
-                <TextInput label="Email" {...form.getInputProps("email")} required disabled />
+                {/* <TextInput label="Email" {...form.getInputProps("email")} required disabled /> */}
+                <Grid.Col span={6}>
+  <TextInput
+    classNames={{
+      input:
+        "text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-white/30 bg-transparent hover:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none",
+      label: "text-white mb-2 font-medium",
+    }}
+    label="Email"
+    {...form.getInputProps("email")}
+    required
+    disabled 
+  />
+</Grid.Col>
+
+
               </Grid.Col>
               <Grid.Col span={12}>
-                <TextInput label="Role" {...form.getInputProps("role")} required />
+                
+                 <Grid.Col span={6}>
+  <TextInput
+    classNames={{
+      input:
+        "text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-white/30 bg-transparent hover:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none",
+      label: "text-white mb-2 font-medium",
+    }}
+    label="Role"
+    {...form.getInputProps("role")}
+    required
+    disabled
+  />
+</Grid.Col>
+
               </Grid.Col>
               <Grid.Col
                 span={12}
@@ -225,7 +280,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
                 >
                   {profileImg ? (
                     <Image
-                      src={profileImg}
+                      src={profileImage}
                       alt="Profile"
                       style={{ width: "100%", height: "100%", objectFit: "cover" }}
                     />
@@ -244,6 +299,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
           </form>
         )}
       </Box>
+      </div>
     </Modal>
   );
 };

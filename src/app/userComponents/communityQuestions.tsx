@@ -450,7 +450,7 @@ const CommunityQuestions = () => {
           </svg>
         </div>
 
-        <div className="max-w-4xl mx-auto mt-8 bg-gray-800 text-white rounded-md p-6 shadow-lg border border-blue-400">
+        <div className="max-w-4xl mx-auto mt-8 bg-[#4848484D] text-white rounded-md p-6 shadow-lg border border-blue-400">
           <h2 className="text-2xl font-bold mb-6">Ask a Question</h2>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -483,7 +483,7 @@ const CommunityQuestions = () => {
         <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">Community Questions</h2>
           {filteredQuestions.map((question) => (
-            <div key={question._id} className="bg-gray-800 p-4 rounded-md mb-4">
+            <div key={question._id} className="bg-[#4848483D] p-4 border border-white/30 rounded-md mb-4">
               <div className="flex items-center">
                 {question.author?.profileImage && isValidURL(question.author.profileImage) ? (
                   <img
