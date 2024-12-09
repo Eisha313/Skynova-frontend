@@ -1,8 +1,7 @@
-
-'use client';
-import React, { useEffect, useState } from 'react';
-import ReactPlayer from 'react-player/lazy';
-import Link from 'next/link';
+"use client";
+import React, { useEffect, useState } from "react";
+import ReactPlayer from "react-player/lazy";
+import Link from "next/link";
 
 interface Resource {
   _id: number;
@@ -26,14 +25,16 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
   useEffect(() => {
     const fetchResources = async () => {
       try {
-        const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResources', { credentials: 'include' });
+        const response = await fetch("https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResources", {
+          credentials: "include",
+        });
         if (!response.ok) {
-          throw new Error('Failed to fetch resources');
+          throw new Error("Failed to fetch resources");
         }
         const data: Resource[] = await response.json();
         setResources(data);
       } catch (error) {
-        setError('Failed to load resources');
+        setError("Failed to load resources");
       } finally {
         setLoading(false);
       }
@@ -46,8 +47,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
     return ReactPlayer.canPlay(url);
   };
 
-  const filteredResources = resources.filter(resource =>
-    resource.title.toLowerCase().includes(searchTerm.toLowerCase()) && resource.type !== 'pdf'
+  const filteredResources = resources.filter(
+    (resource) => resource.title.toLowerCase().includes(searchTerm.toLowerCase()) && resource.type !== "pdf"
   );
 
   const displayedResources = showAll ? filteredResources : filteredResources.slice(0, 4);
@@ -67,22 +68,13 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
           <Link href={`/userRender/view-resource/${resource._id}/resourceDetails`} passHref>
             <div className="cursor-pointer">
               {resource.resourceFile && (
-                <ReactPlayer
-                  url={resource.resourceFile}
-                  width="100%"
-                  height="240px"
-                  controls
-                />
+                <ReactPlayer url={resource.resourceFile} width="100%" height="240px" controls />
               )}
               {resource.resourceImage && isVideoLink(resource.resourceImage) && (
                 <ReactPlayer url={resource.resourceImage} width="100%" height="240px" controls />
               )}
               {resource.resourceImage && !isVideoLink(resource.resourceImage) && (
-                <img
-                  src={resource.resourceImage}
-                  alt={resource.title}
-                  className="w-full h-56 object-cover"
-                />
+                <img src={resource.resourceImage} alt={resource.title} className="w-full h-56 object-cover" />
               )}
               <div className="p-4">
                 <h3 className="text-xl font-semibold text-white truncate">{resource.title}</h3>
@@ -94,8 +86,6 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
       ))}
     </div>
   );
-
-
 };
 
 export default VideoSection;

@@ -1,9 +1,11 @@
+"use client";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import Link from "next/link";
+import ReactPlayer from "react-player/lazy";
+// import { Document } from "react-pdf";
 
-'use client';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import Link from 'next/link';
-import ReactPlayer from 'react-player/lazy';
+import PDFViewer from "./PDFViewer";
 
 interface Resource {
   _id: string;
@@ -26,15 +28,14 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
   useEffect(() => {
     const fetchResource = async () => {
       try {
-        const response = await axios.get(
-          `https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResource/${id}`,
-          { withCredentials: true }
-        );
+        const response = await axios.get(`https://sky-nova-8ccaddc754ce.herokuapp.com/resources/viewResource/${id}`, {
+          withCredentials: true,
+        });
         const resourceData = response.data.length > 0 ? response.data[0] : null;
         setResource(resourceData);
       } catch (err) {
         console.error(err);
-        setError('Failed to fetch resource');
+        setError("Failed to fetch resource");
       } finally {
         setLoading(false);
       }
@@ -62,14 +63,8 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
             <strong className="font-bold text-white text-lg">Description:</strong> {resource.description}
           </p>
 
-          
           {resource.resourceFile && isVideoLink(resource.resourceFile) && (
-            <ReactPlayer
-              url={resource.resourceFile}
-              width="100%"
-              height="240px"
-              controls
-            />
+            <ReactPlayer url={resource.resourceFile} width="100%" height="240px" controls />
           )}
           {resource.resourceImage && isVideoLink(resource.resourceImage) && (
             <ReactPlayer url={resource.resourceImage} width="100%" height="500px" controls />
@@ -77,20 +72,14 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
 
           {/* Render Image */}
           {resource.resourceImage && !isVideoLink(resource.resourceImage) && (
-            <img
-              src={resource.resourceImage}
-              alt={resource.title}
-              className="w-full h-56 object-cover mt-4"
-            />
+            <img src={resource.resourceImage} alt={resource.title} className="w-full h-56 object-cover mt-4" />
           )}
 
-          
-          {resource.resourceFile && resource.type === 'pdf' && (
-            <iframe
-              src={resource.resourceFile}
-              className="w-full h-96 mt-4"
-              title="Document Viewer"
-            />
+          {resource.resourceFile && resource.type === "pdf" && (
+            <PDFViewer pdfUrl={"https://cdn.filestackcontent.com/wcrjf9qPTCKXV3hMXDwK"} />
+            // <Document file={resource.resourceFile}>
+            //   <Page pageNumber={1} />
+            // </Document>
           )}
 
           <Link href="/userRender/view-resource">
@@ -107,6 +96,7 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
 };
 
 export default ResourceDetails;
+
 // 'use client';
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
