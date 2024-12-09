@@ -65,7 +65,7 @@ const ResourceDetails: React.FC<ResourceDetailsProps> = ({ id }) => {
 
           {resource.type === "pdf" && (
             <button className="bg-eisha text-white px-4 py-2 rounded-md hover:bg-eisha">
-              <a href={resource.resourceFile} download target="_blank" rel="noreferrer" className="text-white">
+              <a href={resource.resourceFile!} download target="_blank" rel="noreferrer" className="text-white">
                 Download PDF
               </a>
             </button>
