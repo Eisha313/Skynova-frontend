@@ -1,4 +1,3 @@
-
 "use client";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -55,7 +54,7 @@ const Header: React.FC = () => {
         <Image src="/skylogo.svg" alt="Logo" height={60} width={100} className="mr-4" />
       </div>
 
-      <nav className="hidden md:flex space-x-6 items-center p-5 bg-[#7E7E7E4D] border border-white/30 rounded-full">
+      <nav className="hidden md:flex space-x-6 items-stretch px-10 bg-[#7E7E7E4D] border border-white/30 rounded-full">
         {[
           { name: "Home", path: "/" },
           { name: "Resources", path: "/userRender/view-resource" },
@@ -68,21 +67,29 @@ const Header: React.FC = () => {
               ]
             : []),
         ].map((link) => (
-          
-          <Link key={link.name} href={link.path} className={`px-3 py-2 rounded-md relative transition-colors duration-300 ${pathname === link.path ? "text-white font-bold" : "text-gray-300 hover:text-white"}`}>
-  {pathname === link.path && (
-    <>
-      <div className="absolute -top-1 left-1/2 transform -translate-x-1/2 w-[calc(100%-20px)]
- h-1 rounded-b-lg bg-blue-300" />
-      <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-[calc(100%-20px)]
- h-1 rounded-t-lg bg-blue-300" />
-    </>
-  )}
-  {link.name}
-</Link>
-
+          <Link
+            key={link.name}
+            href={link.path}
+            className={`px-3 py-6 flex items-center text-center rounded-md relative transition-colors duration-300 ${
+              pathname === link.path ? "text-white font-bold" : "text-gray-300 hover:text-white"
+            }`}
+          >
+            {pathname === link.path && (
+              <>
+                <div
+                  className="absolute top-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-20px)]
+ h-[5px] rounded-b-lg bg-blue-300"
+                />
+                <div
+                  className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[calc(100%-20px)]
+ h-[5px] rounded-t-lg bg-blue-300"
+                />
+              </>
+            )}
+            {link.name}
+          </Link>
         ))}
-        <div className="relative">
+        <div className="relative flex items-center">
           <button
             onClick={() => setExtrasOpen(!isExtrasOpen)}
             className={`px-3 py-2 rounded-md ${
