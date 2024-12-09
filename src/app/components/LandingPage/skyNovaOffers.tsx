@@ -7,42 +7,48 @@ const SkyNovaOffers = () => {
     {
       icon: <FaQuestionCircle />,
       title: "Aptitude Tests",
-      description: "Assess your skills and knowledge with our comprehensive aptitude tests.",
+      description: "Evaluate your cognitive abilities and problem-solving skills with our detailed aptitude tests designed for all levels.",
     },
     {
       icon: <FaStethoscope />,
       title: "Medical Tests",
-      description:"Perform the medical tests"
+      description: "Access and perform a variety of medical tests to monitor and understand your health better.",
     },
     {
       icon: <FaRocket />,
       title: "Sky Venture Mode",
-      description: "Explore the horizons",
+      description: "Embark on exciting adventures, pushing your limits while exploring uncharted horizons.",
     },
     {
       icon: <FaTasks />,
       title: "Quizzes",
-      description: "Perform quizzes to see where you stand..",
+      description: "Challenge yourself with quizzes that help measure your understanding and knowledge on various topics.",
     },
     {
       icon: <FaUserAlt />,
       title: "Missions",
-      description: "Perform missions to polish your skills",
+      description: "Engage in tasks and missions tailored to enhance your expertise and skill set.",
     },
     {
       icon: <FaRobot />,
       title: "Ask AI",
-      description: "Clear the ambiguities with AI",
+      description: "Get instant, intelligent answers to your queries and resolve doubts with the power of AI.",
     },
   ];
+  
 
   return (
-    <section className="bg-[#0B1226] py-16 px-6">
+    <section className="bg-custom-image py-16 px-6 flex justify-center">
       <div className="max-w-screen-xl mx-auto text-center">
-        <h2 className="text-white text-3xl font-semibold mb-4">SkyNova Offers</h2>
-        <div className="flex justify-center items-center mb-8">
-          <div className="w-12 h-1 bg-blue-500"></div>
-        </div>
+      <div className="flex flex-col items-center mb-8">
+  <div className="flex items-center">
+    <div className="w-16 h-1 bg-blue-500"></div>
+    <h2 className="text-white text-4xl font-semibold font-inter mx-4">SkyNova Offers</h2>
+    <div className="w-16 h-1 bg-blue-500"></div>
+  </div>
+</div>
+
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {cards.map((card, index) => (
             <div
@@ -53,17 +59,17 @@ const SkyNovaOffers = () => {
               className="w-0 h-0 border-l-[50px] border-r-[50px] border-b-[50px] border-l-transparent border-r-transparent border-b-[#0B1226] absolute -top-[9px] -rotate-45 -left-[35px] before:content-[''] before:block before:w-[95px] before:absolute before:top-[49px] before:-left-[47px] before:h-px before:bg-white/50 group-hover:before:bg-blue-500 transition-all"
               ></div>
                <div
-              className="w-0 h-0 border-l-[50px] border-r-[50px] border-b-[50px] border-l-transparent border-r-transparent border-b-[#0B1226] absolute -bottom-[9px] rotate-[135deg] -right-[35px] before:content-[''] before:block before:w-[95px] before:absolute before:top-[49px] before:-left-[47px] before:h-px before:bg-white/50 group-hover:before:bg-blue-500 transition-all"
+              className="w-0 h-0 bg-transparent border-l-[50px] border-r-[50px] border-b-[50px] border-l-transparent border-r-transparent border-b-[#0B1226] absolute -bottom-[9px] rotate-[135deg] -right-[35px] before:content-[''] before:block before:w-[95px] before:absolute before:top-[49px] before:-left-[47px] before:h-px before:bg-white/50 group-hover:before:bg-blue-500 transition-all"
               ></div> 
               <div
-                className="text-4xl text-white mb-4 group-hover:text-blue-500 p-4"    
+                className="text-4xl flex justify-center text-white  group-hover:text-blue-500 p-4"    
               >
                 {card.icon}
               </div>
-              <h3 className="text-xl text-white font-semibold mb-2 group-hover:text-blue-500">
+              <h3 className="text-xl text-center text-white font-semibold mb-4 group-hover:text-blue-500">
                 {card.title}
               </h3>
-              <p className="text-gray-400 text-sm">{card.description}</p>
+              <p className="text-white  text-sm">{card.description}</p>
             </div>
           ))}
         </div>
