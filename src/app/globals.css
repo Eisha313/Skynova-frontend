@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -28,28 +27,27 @@
     /* --chart-1:284, 100%, 62%; */
 
     /* --chart-1: 220 75% 13%; */
-    --chart-1:225, 77%, 90%;
-    
-    --chart-2:195, 93%, 55%;
+    --chart-1: 225, 77%, 90%;
+
+    --chart-2: 195, 93%, 55%;
     /* --chart-2: 0 0% 85%; */
-    --chart-3:226, 22%, 58%;
+    --chart-3: 226, 22%, 58%;
     /* --chart-3:40, 98%, 58%; */
     --chart-4: 0, 0%, 30%;
     --chart-5: 120 12% 22%;
 
     --eisha: #081839;
-    --hassan:#212C44;
+    --hassan: #212c44;
     --eisha1: hsl(210, 20%, 94%);
     color: hsl(220, 49%, 11%);
-    color:hsl(284, 100%, 62%);
-    color:#22c2f7;
-    color:hsl(40, 98%, 58%);
-    color:#d2dcf9;
-    color:hsl(226, 22%, 58%);
-    color:#82ca9d;
+    color: hsl(284, 100%, 62%);
+    color: #22c2f7;
+    color: hsl(40, 98%, 58%);
+    color: #d2dcf9;
+    color: hsl(226, 22%, 58%);
+    color: #82ca9d;
     color: hsl(40, 87%, 54%);
   }
- 
 
   .dark {
     --background: 222.2 84% 4.9%;
@@ -80,7 +78,6 @@
     --chart-5: 340 75% 55%;
   }
 }
-
 
 @layer base {
   * {
@@ -131,7 +128,8 @@
   background: #727272; /* Thumb color on hover */
 }
 @keyframes zoom {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -158,7 +156,6 @@ body {
   bottom: 0;
   /* z-index: -1; */
   backdrop-filter: blur(15px);
-  
 }
 
 .main-container {
@@ -168,55 +165,65 @@ body {
   z-index: 1;
 }
 
-.background-image-overlay{
+.background-image-overlay {
   position: absolute;
-  inset:0;
-  background-image: url('/resources-background.png'); 
+  inset: 0;
+  background-image: url("/resources-background.png");
   background-size: cover;
   background-blend-mode: overlay;
   background-position: center;
   opacity: 0.3;
 }
 
-
-.backdrop-blur{
+.backdrop-blur {
   position: absolute;
-  inset:0
+  inset: 0;
 }
 
-
-
-.card-outline-offers{
-  clip-path: polygon( 99.781% 71.626%,87.385% 99.658%,0.219% 99.658%,0.219% 27.819%,12.53% 0.342%,99.781% 0.342%,99.781% 71.626% );
+.card-outline-offers {
+  clip-path: polygon(
+    99.781% 71.626%,
+    87.385% 99.658%,
+    0.219% 99.658%,
+    0.219% 27.819%,
+    12.53% 0.342%,
+    99.781% 0.342%,
+    99.781% 71.626%
+  );
+  background-image: url("/offers-bg.png");
+  background-size: 100% 100%;
 }
 
-.landing-page-image-container{
-  clip-path: polygon( 0.041% 0.101%,99.928% 0.101%,76.163% 99.899%,0.041% 99.899%,0.041% 0.101% );
+.card-outline-offers:hover {
+  background-image: url("/offers-bg-active.png");
 }
 
-.landing-page-image-container-reverse{
-  clip-path: polygon( 99.959% 0.101%,0.072% 0.101%,23.837% 99.899%,99.959% 99.899%,99.959% 0.101% );
+.landing-page-image-container {
+  clip-path: polygon(0.041% 0.101%, 99.928% 0.101%, 76.163% 99.899%, 0.041% 99.899%, 0.041% 0.101%);
 }
 
-.landing-page-text-container{
-  clip-path: polygon( 0.092% 99.899%,30.863% 0.101%,99.896% 0.101%,99.896% 99.899%,0.092% 99.899% );
+.landing-page-image-container-reverse {
+  clip-path: polygon(99.959% 0.101%, 0.072% 0.101%, 23.837% 99.899%, 99.959% 99.899%, 99.959% 0.101%);
 }
 
-.landing-page-text-container-reverse{
-  clip-path: polygon( 99.856% 99.899%,69.085% 0.101%,0.052% 0.101%,0.052% 99.899%,99.856% 99.899% );
+.landing-page-text-container {
+  clip-path: polygon(0.092% 99.899%, 30.863% 0.101%, 99.896% 0.101%, 99.896% 99.899%, 0.092% 99.899%);
+}
+
+.landing-page-text-container-reverse {
+  clip-path: polygon(99.856% 99.899%, 69.085% 0.101%, 0.052% 0.101%, 0.052% 99.899%, 99.856% 99.899%);
 }
 .bg-custom-image {
-  background-image: url('/back.png'); 
-  background-size: cover; 
-  background-position: center; 
-  background-repeat: no-repeat; 
+  background-image: url("/back.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 .custom-placeholder::placeholder {
   /* background-color:#7E7E7E;  */
-  font-size: 0.875rem; 
+  font-size: 0.875rem;
   /* font-style: italic;  */
   /* border:#d2dcf9 */
- 
 }
 .custom-tag-selector input {
   background: rgba(126, 126, 126, 0.3);
