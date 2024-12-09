@@ -63,7 +63,7 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
       {displayedResources.map((resource) => (
-        <div key={resource._id} className="bg-white shadow-lg rounded-lg overflow-hidden">
+        <div key={resource._id} className="bg-[#293347]  text-white shadow-lg rounded-lg overflow-hidden">
           <Link href={`/userRender/view-resource/${resource._id}/resourceDetails`} passHref>
             <div className="cursor-pointer">
               {resource.resourceFile && (
@@ -85,8 +85,8 @@ const VideoSection: React.FC<VideoSectionProps> = ({ searchTerm, showAll }) => {
                 />
               )}
               <div className="p-4">
-                <h3 className="text-xl font-semibold text-gray-800 truncate">{resource.title}</h3>
-                <h4 className="text-l font-semibold text-gray-800 truncate">{resource.description}</h4>
+                <h3 className="text-xl font-semibold text-white truncate">{resource.title}</h3>
+                <h4 className="text-l font-semibold text-white truncate">{resource.description}</h4>
               </div>
             </div>
           </Link>

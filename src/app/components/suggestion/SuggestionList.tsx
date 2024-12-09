@@ -5,7 +5,7 @@ import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowUpDown } from "lucide-react";
-
+import Search from "../Search";
 interface Suggestion {
   _id: string;
   name: string;
@@ -22,7 +22,7 @@ const SuggestionsList = () => {
   });
   const [selectedSuggestions, setSelectedSuggestions] = useState<string[]>([]);
   const [selectedSuggestion, setSelectedSuggestion] = useState<Suggestion | null>(null);
-
+  const [searchTerm, setSearchTerm] = useState('');
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [limit, setLimit] = useState(10);
@@ -96,7 +96,13 @@ const SuggestionsList = () => {
       console.error("Error deleting suggestion:", error);
     }
   };
+  const handleSearchChange = (term: string) => {
+    setSearchTerm(term);
+  };
 
+  const clearSearch = () => {
+    setSearchTerm('');
+  };
   const renderArrow = (key: keyof Suggestion) => {
     if (sortConfig.key === key) {
       return sortConfig.direction === "asc" ? (
@@ -118,69 +124,21 @@ const SuggestionsList = () => {
     setIsModalOpen(false);
     setSelectedSuggestion(null);
   };
-
+  const filteredSuggestions = suggestions.filter((suggestion) =>
+    suggestion.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    suggestion.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    suggestion.subject.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (suggestion.message || "").toLowerCase().includes(searchTerm.toLowerCase())
+  );
   return (
     <div className="overflow-x-auto p-4 w-full bg-hassan">
       <div className="flex justify-between mb-4">
-        {/* <Link href="/suggestion/addsuggestion">
-          <button className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            Add Suggestion
-          </button>
-        </Link> */}
-        {/* <div className="flex items-center">
-          <button onClick={() => handleSelectAll()} className="px-4 py-2 bg-gray-200 rounded">
-            {selectedSuggestions.length === (suggestions?.length || 0) ? "Deselect All" : "Select All"}
-          </button>
-        </div> */}
+        <h2 className="text-2xl font-bold">Suggestions</h2>
+        
+        <Search onSearchChange={handleSearchChange} searchTerm={searchTerm} clearSearch={clearSearch} />
+        
       </div>
-      {/* <table className="min-w-full bg-white">
-        <thead className="bg-gray-800 text-white">
-            <tr>
-                <th className="py-2 px-4 border-b bg-gray-700 cursor-pointer">
-                    <input
-                        type="checkbox"
-                        checked={selectedSuggestions.length === (suggestions?.length || 0)}
-                        onChange={handleSelectAll}
-                    />
-                </th>
-                <th onClick={() => handleSort('title')} className="py-2 px-4 border-b bg-gray-700 cursor-pointer">
-                    Title {renderArrow('title')}
-                </th>
-                <th onClick={() => handleSort('description')} className="py-2 px-4 border-b bg-gray-700 cursor-pointer">
-                    Description {renderArrow('description')}
-                </th>
-                <th className="py-2 px-4 border-b bg-gray-700">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {sortedSuggestions.map(suggestion => (
-                <tr key={suggestion._id} className="hover:bg-gray-100">
-                    <td className="py-2 px-4 border-b">
-                        <input
-                            type="checkbox"
-                            checked={selectedSuggestions.includes(suggestion._id)}
-                            onChange={() => handleSelectSuggestion(suggestion._id)}
-                        />
-                    </td>
-                    <td className="py-2 px-4 border-b">{suggestion.title}</td>
-                    <td className="py-2 px-4 border-b">{suggestion.description}</td>
-                    <td className="py-2 px-4 border-b flex items-center space-x-2">
-                        <Link href={`/suggestion/editsuggestion/${suggestion._id}`}>
-                            <FaEdit className="text-blue-500 cursor-pointer hover:text-blue-700" />
-                        </Link>
-                        <FaEye
-                            onClick={() => router.push(`/suggestion/viewsuggestion/${suggestion._id}`)}
-                            className="text-green-500 cursor-pointer hover:text-green-700"
-                        />
-                        <FaTrash
-                            onClick={() => handleDelete(suggestion._id)}
-                            className="text-red-500 cursor-pointer hover:text-red-700"
-                        />
-                    </td>
-                </tr>
-            ))}
-        </tbody>
-    </table> */}
+      
 
       <table className="min-w-full border-collapse">
         <thead className="bg-eisha text-white">
@@ -197,7 +155,7 @@ const SuggestionsList = () => {
           </tr>
         </thead>
         <tbody className="bg-[#212C44] text-white items-center justify-center">
-          {suggestions.map((suggestion, index) => (
+          {filteredSuggestions.map((suggestion, index) => (
             <tr key={suggestion._id}>
               <td className="py-2 px-4 border-b text-center">{(page - 1) * limit + index + 1}</td>
 

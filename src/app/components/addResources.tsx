@@ -175,9 +175,9 @@ const ResourceForm: React.FC<ResourceFormProps> = ({ id }) => {
               required
             >
               <span className="text-red-500"> *</span>
-              <option className="" value="">Select a type</option>
-              <option value="pdf">PDF</option>
-              <option value="video">Video</option>
+              <option className="bg-transparent text-black" value="">Select a type</option>
+              <option className="bg-transparent text-black" value="pdf">PDF</option>
+              <option className="bg-transparent text-black" value="video">Video</option>
              
               <option value="image">Book</option>
             </select>

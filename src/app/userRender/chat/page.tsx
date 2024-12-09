@@ -108,7 +108,7 @@ const AllChats = () => {
   }, [currentConversation, token, setMessages]);
 
   return (
-    <div className="flex flex-col h-[calc(100%-250px)] bg-gray-100">
+    <div className="flex flex-col h-[calc(100%-250px)] bg-custom-image">
       <Header />
       <div className="flex-1 flex flex-col">
         <main className="flex-1 p-4 h-[calc(100vh-250px)] overflow-hidden mt-24 flex">

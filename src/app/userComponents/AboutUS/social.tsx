@@ -9,8 +9,9 @@ export default function SocialContactUs() {
   const gmailUrl = 'mailto:eishakamran313@gmail.com'; // Replace with your Gmail address
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center bg-cover bg-center" 
-         style={{ backgroundImage: "url('/socialMedia.png')" }}>
+    <div className="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-custom-image" 
+        //  style={{ backgroundImage: "url('/socialMedia.png')" }}
+         >
       
       <div className="absolute inset-0 bg-black opacity-50"></div>
 

@@ -14,11 +14,13 @@ const tools: Tool[] = [
   { name: 'Unity', img: '/unity.png' },
   { name: 'Mantine', img: '/mantine.png' },
   { name: 'Sketch', img: '/sketch.png' },
-  { name: 'Figma', img: '/figma' },
+  { name: 'Figma', img: '/figma.jpg' },
+  { name: 'VS Code', img: '/vs.jpg' },
+  { name: 'MongoDB', img: '/mongo.jpg' },
+  { name: 'CSS', img: '/css.jpg' },
+  { name: 'Tailwind', img: '/tailwing.jpg' }, 
+     { name: 'unity', img: '/unity.jpg' },
 
-  { name: 'Sketch', img: '/sketch.png' },  { name: 'Sketch', img: '/sketch.png' },  { name: 'Sketch', img: '/sketch.png' },
-//   { name: 'Next.js', img: '/path/to/nextjs-icon.png' },
-//   { name: 'MongoDB', img: '/path/to/mongodb-icon.png' },
   
 ];
 

@@ -8,20 +8,20 @@ import { ContactCarousel } from '@/app/userComponents/Privacy/contactCarousel';
 
 export default function Home() {
   return (
-    <main className="relative flex flex-col items-center justify-center min-h-screen">
+    <main className="relative bg-custom-image flex flex-col items-center justify-center min-h-screen">
       <Header />
-      <ContactCarousel />
+      {/* <ContactCarousel /> */}
       
       
-      <div className="container mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-eisha text-white p-8 rounded-md">
+      <div className="container mt-28 mx-auto p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className=" text-white p-8 rounded-md">
           <ContactInfo />
         </div>
-        <div className="bg-white p-6 rounded-md shadow-md">
+        <div className="bg-[#293347] p-6 rounded-md shadow-md mt-24">
           <ContactForm />
         </div>
       </div>
-      <div className="bg-white p-6 rounded-md shadow-md">
+      <div className=" p-6 rounded-md shadow-md mt-20">
       <SocialContactUs />
       </div>
       <Footer />

@@ -85,8 +85,8 @@ const ChangePasswordForm: React.FC = () => {
   };
 
   return (
-    <Box maw={500} mx="auto" p="md">
-      <form onSubmit={form.onSubmit(handleSubmit)} className="bg-white text-black p-6 rounded-lg shadow-lg">
+    <Box maw={500} mx="auto" p="md" className="flex justify-center">
+      <form onSubmit={form.onSubmit(handleSubmit)} className="bg-gray-900 text-white p-6 rounded-lg shadow-lg">
         <Text ta="center" mb="lg" w={500} size="xl">
           Change Password
         </Text>
@@ -94,6 +94,11 @@ const ChangePasswordForm: React.FC = () => {
           <Grid.Col span={12}>
             <PasswordInput
               label="Current Password"
+              classNames={{
+                input:
+                  "w-full text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-white/30 bg-transparent hover:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none",
+                label: "text-white mb-2 font-medium",
+              }}
               placeholder="********"
               visibilityToggleIcon={({ reveal }) => (reveal ? <FaEyeSlash /> : <FaEye />)}
               visible={showCurrentPassword}
@@ -106,6 +111,11 @@ const ChangePasswordForm: React.FC = () => {
           <Grid.Col span={12}>
             <PasswordInput
               label="New Password"
+              classNames={{
+                input:
+                  "w-full text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-white/30 bg-transparent hover:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none",
+                label: "text-white mb-2 font-medium",
+              }}
               placeholder="********"
               visibilityToggleIcon={({ reveal }) => (reveal ? <FaEyeSlash /> : <FaEye />)}
               visible={showNewPassword}
@@ -118,6 +128,11 @@ const ChangePasswordForm: React.FC = () => {
           <Grid.Col span={12}>
             <PasswordInput
               label="Confirm New Password"
+              classNames={{
+                input:
+                  "w-full text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-white/30 bg-transparent hover:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none",
+                label: "text-white mb-2 font-medium",
+              }}
               placeholder="********"
               visibilityToggleIcon={({ reveal }) => (reveal ? <FaEyeSlash /> : <FaEye />)}
               visible={showConfirmPassword}

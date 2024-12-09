@@ -64,7 +64,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ title, resources }) =
   <div key={resource._id} className={`p-2 w-full ${ resource.type === "quote" ? "" : "sm:w-1/2 md:w-1/3 lg:w-1/4"}`}>
     {resource.type === "quote" ? (
       
-      <div className="p-4 bg-[#7E7E7E3B] rounded-lg shadow-md text-center w-full relative">
+      <div className="p-4  rounded-lg shadow-md text-center w-full relative">
         {/* <p className="text-lg italic font-semibold text-white">
           "{resource.content}"
         </p> */}
@@ -72,7 +72,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ title, resources }) =
   &quot;{resource.content}&quot;
 </p>
 
-        <span className="absolute bottom-2 right-4 text-sm text-gray-400">
+        <span className="absolute bottom-2 right-4 text-sm text-white">
           - {resource.name}
         </span>
       </div>
@@ -82,7 +82,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ title, resources }) =
         className="rounded bg-[#7E7E7E3B] shadow-md hover:shadow-lg transition cursor-pointer h-56 flex flex-col justify-between items-center"
         onClick={() => setModalResource(resource)}
       >
-        <div className="w-full h-40 bg-gray-200 rounded-lg overflow-hidden">
+        <div className="w-full h-40  rounded-lg overflow-hidden">
             
           {(resource.type === "movie" || resource.type === "documentary") && (
             <ReactPlayer
@@ -96,7 +96,7 @@ const ResourceSection: React.FC<ResourceSectionProps> = ({ title, resources }) =
         </div>
         <div className="w-full text-center">
           <h3 className="text-sm font-semibold truncate">{resource.name}</h3>
-          <p className="text-xs text-gray-600 truncate">{resource.description}</p>
+          <p className="text-xs text-white truncate">{resource.description}</p>
         </div>
       </div>
     )}

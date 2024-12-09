@@ -71,7 +71,7 @@ const DocumentSection: React.FC<DocumentSectionProps> = ({
 
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
     {displayedDocuments.map((doc) => (
-      <div key={doc._id} className="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
+      <div key={doc._id} className="bg-[#293347] shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105">
         <Link href={`/userRender/view-resource/${doc._id}/resourceDetails`} passHref>
           <div className="p-4 flex flex-col items-center space-y-2 cursor-pointer">
             {doc.type === 'pdf' ? (

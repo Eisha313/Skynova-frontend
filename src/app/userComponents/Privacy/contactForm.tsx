@@ -155,30 +155,34 @@ const ContactForm = () => {
   };
 
   return (
-    <form className="space-y-4" onSubmit={handleSubmit}>
+    <form className="space-y-4 text-white " onSubmit={handleSubmit}>
       <h2 className="text-2xl font-bold mb-6">Get in touch</h2>
 
       <div>
-        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Your name</label>
+        <label htmlFor="name" className="block text-sm font-medium text-white">Your name</label>
         <input
           type="text"
           id="name"
           name="name"
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          // className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          className="w-full text-white px-4 py-2 rounded-md flex items-center justify-center border-2  border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
           value={formData.name}
           onChange={handleChange}
         />
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="email" className="block text-sm font-medium text-white">
           Your email <span className="text-red-500">*</span>
         </label>
         <input
           type="email"
           id="email"
           name="email"
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          // className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          className="w-full text-white px-4 py-2 rounded-md flex items-center justify-center border-2  border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
           value={formData.email}
           onChange={handleChange}
           required
@@ -186,7 +190,7 @@ const ContactForm = () => {
       </div>
 
       <div className="flex flex-col mb-4">
-        <label className="block text-sm font-medium text-gray-700">
+        <label className="block text-sm font-medium text-white">
           Subject <span className="text-red-500">*</span>
         </label>
         <div className="flex items-center mt-5 ml-10">
@@ -217,12 +221,14 @@ const ContactForm = () => {
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700">Your message</label>
+        <label htmlFor="message" className="block text-sm font-medium text-white">Your message</label>
         <textarea
           id="message"
           name="message"
           rows={4}
-          className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          // className="mt-1 block w-full p-2 border border-gray-300 rounded-md"
+          className="w-full text-white px-4 py-2 rounded-md flex items-center justify-center border-2  border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
+
           value={formData.message}
           onChange={handleChange}
         />
