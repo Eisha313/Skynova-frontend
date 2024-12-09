@@ -50,7 +50,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
   }>({ key: null, direction: "asc" });
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [quizzesPerPage] = useState<number>(5); 
+  const [quizzesPerPage] = useState<number>(9); 
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -74,23 +74,6 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
     fetchQuizzes();
   }, []);
 
-  // const handleQuizClick = async (quizId: string) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizzes/viewNonVerbalQuiz/${quizId}`,
-  //       { credentials: "include" }
-  //     );
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //       setSelectedQuiz(data);
-  //       setIsModalOpen(true);
-  //     } else {
-  //       console.error("Failed to fetch quiz details");
-  //     }
-  //   } catch (error) {
-  //     console.error("Error fetching quiz details:", error);
-  //   }
-  // };
   const handleQuizClick = async (quizId: string) => {
     try {
       const response = await fetch(
@@ -99,17 +82,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
       );
       if (response.ok) {
         const data = await response.json();
-  
-        // Transform API response to match expected type
-        const transformedData = {
-          ...data,
-          questions: data.questions.map((q: any) => ({
-            ...q,
-            options: q.option, // Map 'option' to 'options'
-          })),
-        };
-  
-        setSelectedQuiz(transformedData);
+        setSelectedQuiz(data);
         setIsModalOpen(true);
       } else {
         console.error("Failed to fetch quiz details");
@@ -119,7 +92,6 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
     }
   };
   
-
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedQuiz(null);
@@ -362,7 +334,7 @@ const ManageNonverbalQuizzes: React.FC<ManageNonverbalQuizzesProps> = ({
           isOpen={isModalOpen}
           onClose={handleCloseModal}
           quiz={selectedQuiz}
-          // quiz={selectedQuiz as NonverbalQuizModalProps['quiz']}
+         
         />
       )}
     </div>

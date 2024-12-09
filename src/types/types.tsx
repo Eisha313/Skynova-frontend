@@ -39,7 +39,8 @@ export interface Resource {
   export interface Question {
     _id?: string;
     text: string;
-    // options: string[];
+    
+     image?: string;
     options: Option[];
     answer: string;
     quizId?: string;
