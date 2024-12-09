@@ -14,7 +14,7 @@
 //   text: string;
 //   options: Option[];
 //   answer: string;
-//   questionImage?: string;
+//   image?: string;
 // }
 
 // interface QuizDetail {
@@ -42,6 +42,7 @@
 //   const [score, setScore] = useState<number | null>(null);
 //   const [totalQuestions, setTotalQuestions] = useState<number>(0);
 //   const [showModal, setShowModal] = useState(false);
+//   const [enlargedImage, setEnlargedImage] = useState<string | null>(null); // State for enlarged image modal
 //   const router = useRouter();
 
 //   useEffect(() => {
@@ -137,7 +138,7 @@
 
 //   return (
 //     <div className="bg-[#212C44] p-8 flex flex-col justify-center items-center text-white">
-//       {/* Progress Bar */}
+     
 //       <div className="w-full max-w-lg mb-4">
 //         <div className="flex justify-between text-sm mb-1">
 //           <span className="flex justify-center">Question:{currentQuestion + 1} of {totalQuestions}</span>
@@ -151,42 +152,63 @@
 //         </div>
 //       </div>
 
-//       {/* Question Image and Text */}
-//       <div className="text-center">
-//         {quiz.questions[currentQuestion].questionImage && (
-//           <Image
-//             src={quiz.questions[currentQuestion].questionImage}
-//             alt={`Question ${currentQuestion + 1} image`}
-//             width={128}
-//             height={128}
-//             className="object-cover mb-2"
-//           />
-//         )}
-//         <h2 className="text-xl mb-6">{quiz.questions[currentQuestion].text}</h2>
-//       </div>
+     
+      
 
-//       {/* Options */}
-//       <div className="grid grid-cols-2 gap-4 mb-6">
-//         {quiz.questions[currentQuestion].options.map((option, index) => (
-//           <label
-//             key={index}
-//             className={`p-4 border border-white rounded-lg cursor-pointer transition-all duration-300 ${
-//               selectedOption === option.label ? 'bg-blue-500' : ''
-//             } hover:bg-blue-400 flex flex-col items-center`}
-//             onClick={() => {
-//               setSelectedOption(option.label);
-//               setAnswers((prevAnswers) => {
-//                 const updatedAnswers = [...prevAnswers];
-//                 updatedAnswers[currentQuestion] = option.label;
-//                 return updatedAnswers;
-//               });
-//             }}
-//           >
-//             <Image src={option.image} alt={`Option ${option.label}`} width={64} height={64} />
-//             <span>{option.label}</span>
-//           </label>
-//         ))}
-//       </div>
+    
+// <div className="text-center">
+//   {quiz?.questions?.[currentQuestion]?.image && (
+//     <Image
+//       src={quiz.questions[currentQuestion].image}
+//       alt={`Question ${currentQuestion + 1} image`}
+//       width={128}
+//       height={128}
+//       className="object-cover mb-2 cursor-pointer"
+//       onClick={() => {
+//         if (quiz.questions[currentQuestion].image) {
+//           setEnlargedImage(quiz.questions[currentQuestion].image);
+//         }
+//       }} 
+//     />
+//   )}
+//   <h2 className="text-xl mb-6">
+//     {quiz?.questions?.[currentQuestion]?.text || 'Loading question...'}
+//   </h2>
+// </div>
+
+
+
+// <div className="grid grid-cols-2 gap-4 mb-6">
+//   {quiz?.questions?.[currentQuestion]?.options?.map((option, index) => (
+//     <label
+//       key={index}
+//       className={`flex flex-col items-center p-6 border border-white rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 ${
+//         selectedOption === option.label ? 'bg-blue-500' : ''
+//       }`}
+//       onClick={() => {
+//         setSelectedOption(option.label);
+//         setAnswers((prevAnswers) => {
+//           const updatedAnswers = [...prevAnswers];
+//           updatedAnswers[currentQuestion] = option.label;
+//           return updatedAnswers;
+//         });
+//       }}
+//     >
+//       <Image
+//         src={option.image}
+//         alt={`Option ${option.label}`}
+//         width={128}
+//         height={128}
+//         onClick={(e) => {
+//           e.stopPropagation();
+//           setEnlargedImage(option.image);
+//         }} // Enlarge option image on click
+//       />
+//       <span className="mt-2 text-center">{option.label}</span> {/* Centered label below image */}
+//     </label>
+//   ))}
+// </div>
+
 
 //       {/* Navigation Buttons */}
 //       <div className="flex justify-between w-full max-w-md">
@@ -215,7 +237,7 @@
 //         )}
 //       </div>
 
-//       {/* Submission Confirmation Modal */}
+    
 //       {showModal && (
 //         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
 //           <div className="bg-white p-6 rounded-lg shadow-lg text-black">
@@ -240,6 +262,21 @@
 //           </div>
 //         </div>
 //       )}
+
+      
+//       {enlargedImage && (
+//         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
+//           <div className="bg-white p-4 rounded-lg shadow-lg">
+//             <Image src={enlargedImage} alt="Enlarged Option" width={500} height={500} className="object-contain" />
+//             <button
+//               onClick={() => setEnlargedImage(null)}
+//               className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
+//             >
+//               Close
+//             </button>
+//           </div>
+//         </div>
+//       )}
 //     </div>
 //   );
 // };
@@ -248,7 +285,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import Image from 'next/image';
+import Image from "next/image";
 import { useUser } from "@/app/components/context/userContext";
 
 interface Option {
@@ -288,7 +325,6 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
   const [score, setScore] = useState<number | null>(null);
   const [totalQuestions, setTotalQuestions] = useState<number>(0);
   const [showModal, setShowModal] = useState(false);
-  const [enlargedImage, setEnlargedImage] = useState<string | null>(null); // State for enlarged image modal
   const router = useRouter();
 
   useEffect(() => {
@@ -384,10 +420,10 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
 
   return (
     <div className="bg-[#212C44] p-8 flex flex-col justify-center items-center text-white">
-     
+      {/* Progress Bar and Timer */}
       <div className="w-full max-w-lg mb-4">
         <div className="flex justify-between text-sm mb-1">
-          <span className="flex justify-center">Question:{currentQuestion + 1} of {totalQuestions}</span>
+          <span className="flex justify-center">Question: {currentQuestion + 1} of {totalQuestions}</span>
           <span>Time Left: {Math.floor(timeLeft / 60)}:{timeLeft % 60}</span>
         </div>
         <div className="w-full bg-gray-700 rounded-full h-2.5">
@@ -398,63 +434,49 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
         </div>
       </div>
 
-     
-      
+      {/* Question Text and Image */}
+      <div className="text-center">
+        {quiz?.questions?.[currentQuestion]?.questionImage && (
+          <Image
+            src={quiz.questions[currentQuestion].questionImage}
+            alt={`Question ${currentQuestion + 1} image`}
+            width={200}
+            height={200}
+            className="object-cover mb-4"
+          />
+        )}
+        <h2 className="text-xl mb-6">
+          {quiz?.questions?.[currentQuestion]?.text || "Loading question..."}
+        </h2>
+      </div>
 
-    
-<div className="text-center">
-  {quiz?.questions?.[currentQuestion]?.questionImage && (
-    <Image
-      src={quiz.questions[currentQuestion].questionImage}
-      alt={`Question ${currentQuestion + 1} image`}
-      width={128}
-      height={128}
-      className="object-cover mb-2 cursor-pointer"
-      onClick={() => {
-        if (quiz.questions[currentQuestion].questionImage) {
-          setEnlargedImage(quiz.questions[currentQuestion].questionImage);
-        }
-      }} 
-    />
-  )}
-  <h2 className="text-xl mb-6">
-    {quiz?.questions?.[currentQuestion]?.text || 'Loading question...'}
-  </h2>
-</div>
-
-
-
-<div className="grid grid-cols-2 gap-4 mb-6">
-  {quiz?.questions?.[currentQuestion]?.options?.map((option, index) => (
-    <label
-      key={index}
-      className={`flex flex-col items-center p-6 border border-white rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 ${
-        selectedOption === option.label ? 'bg-blue-500' : ''
-      }`}
-      onClick={() => {
-        setSelectedOption(option.label);
-        setAnswers((prevAnswers) => {
-          const updatedAnswers = [...prevAnswers];
-          updatedAnswers[currentQuestion] = option.label;
-          return updatedAnswers;
-        });
-      }}
-    >
-      <Image
-        src={option.image}
-        alt={`Option ${option.label}`}
-        width={128}
-        height={128}
-        onClick={(e) => {
-          e.stopPropagation();
-          setEnlargedImage(option.image);
-        }} // Enlarge option image on click
-      />
-      <span className="mt-2 text-center">{option.label}</span> {/* Centered label below image */}
-    </label>
-  ))}
-</div>
-
+      {/* Options */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        {quiz?.questions?.[currentQuestion]?.options?.map((option, index) => (
+          <label
+            key={index}
+            className={`flex flex-col items-center p-6 border border-white rounded-lg cursor-pointer transition-all duration-300 transform hover:scale-105 ${
+              selectedOption === option.label ? "bg-blue-500" : ""
+            }`}
+            onClick={() => {
+              setSelectedOption(option.label);
+              setAnswers((prevAnswers) => {
+                const updatedAnswers = [...prevAnswers];
+                updatedAnswers[currentQuestion] = option.label;
+                return updatedAnswers;
+              });
+            }}
+          >
+            <Image
+              src={option.image}
+              alt={`Option ${option.label}`}
+              width={128}
+              height={128}
+            />
+            <span className="mt-2 text-center">{option.label}</span>
+          </label>
+        ))}
+      </div>
 
       {/* Navigation Buttons */}
       <div className="flex justify-between w-full max-w-md">
@@ -470,6 +492,7 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
           <button
             onClick={() => setCurrentQuestion(currentQuestion + 1)}
             className="bg-blue-500 px-4 py-2 rounded-lg ml-auto"
+            disabled={!selectedOption}
           >
             Next
           </button>
@@ -477,13 +500,14 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
           <button
             onClick={() => setShowModal(true)}
             className="bg-green-500 px-4 py-2 rounded-lg ml-auto"
+            disabled={!selectedOption}
           >
             Submit
           </button>
         )}
       </div>
 
-      {/* Submission Confirmation Modal */}
+      {/* Submit Confirmation Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
           <div className="bg-white p-6 rounded-lg shadow-lg text-black">
@@ -505,21 +529,6 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
                 Submit
               </button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Enlarged Image Modal */}
-      {enlargedImage && (
-        <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
-          <div className="bg-white p-4 rounded-lg shadow-lg">
-            <Image src={enlargedImage} alt="Enlarged Option" width={500} height={500} className="object-contain" />
-            <button
-              onClick={() => setEnlargedImage(null)}
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg"
-            >
-              Close
-            </button>
           </div>
         </div>
       )}

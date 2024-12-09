@@ -24,7 +24,7 @@ const EditPage = ({params}:{
         <Header />  
         
         
-        <main className="flex-1 p-4 bg-white">
+        <main className="flex-1 p-4 bg-custom-image">
           <NonverbalQuizEdit id={id}/>
         </main>
       </div>

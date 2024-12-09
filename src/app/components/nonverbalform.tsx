@@ -94,7 +94,7 @@ const NonverbalQuizForm = () => {
 
       if (response.ok) {
         console.log("Quiz marked as completed");
-        router.back(); // Navigate back to the previous page
+        router.back();
       } else {
         console.error("Failed to mark quiz as completed");
       }
@@ -114,7 +114,7 @@ const NonverbalQuizForm = () => {
             onAddQuestion={handleAddQuestion}
           />
 
-          {/* Questions List with Serial Numbers */}
+         
           {questions.length > 0 && (
             <div className="mt-6">
               <h3 className="text-lg font-semibold mb-4">Added Questions:</h3>
