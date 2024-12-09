@@ -1,5 +1,6 @@
 
 import React from 'react';
+import Link from 'next/link';
 
 const SkyNovaSection: React.FC = () => {
   return (
@@ -22,9 +23,11 @@ const SkyNovaSection: React.FC = () => {
             <p className="text-gray-300">
               Sky Nova features quizzes to assess pilot knowledge and skills. It reduces risks and costs, with various aircraft and scenarios. It makes flying practice or adventure fun and easy. Just fasten your seat belt, wear your virtual headset, and fly away. Sky Nova is the ultimate training tool. You can explore the skies with endless possibilities. With Sky Nova, the sky is truly the limit.
             </p>
-            <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
+            <Link href="/signup">
+          <button className="bg-teal-500 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded-lg transition duration-300">
               Join Now
             </button>
+            </Link>
           </div>
 
           <div className="md:w-1/2 mt-10 md:mt-0 md:ml-10">

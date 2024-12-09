@@ -8,7 +8,7 @@ const missions = [
     objective: "Land within 500ft of runway threshold",
     difficulty: "Medium",
     reward: "500 Flight Points",
-    image: "/jahaz.svg",
+    image: "/spaceship.svg",
   },
   {
     title: "Skybound",
@@ -16,7 +16,7 @@ const missions = [
     objective: "Reach 30,000ft within 5 minutes",
     difficulty: "Easy",
     reward: "500 Flight Points",
-    image: "/jahaz.svg",
+    image: "/planeee.svg",
   },
   {
     title: "Strike Eagle",

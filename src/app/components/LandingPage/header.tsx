@@ -59,6 +59,8 @@ const Header: React.FC = () => {
           { name: "Home", path: "/" },
           { name: "Resources", path: "/userRender/view-resource" },
           { name: "Competency Evaluation", path: "/userRender/competency" },
+          { name: "Jets", path: "/jets" },
+          { name: "Cockpits", path: "/cockpits" },
           { name: "Quiz", path: "/userRender/quiz" },
           ...(firstName
             ? [

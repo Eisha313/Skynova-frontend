@@ -28,7 +28,7 @@ export default function Home() {
       <WelcomeAviators/>
       <SkyNovaSection/>
       <VirtualAvionics/>
-      <ProcessSection />
+      {/* <ProcessSection /> */}
       <VRMissions/>
       <Carousel/>
       <OurTeam/>

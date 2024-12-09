@@ -22,7 +22,7 @@ const page = () => {
           />
           <a href="/cockpits/f16-cockpit"
             className="absolute bottom-0 left-0 w-full bg-[#1286B5] text-white border-none cursor-pointer transition-colors duration-300 hover:bg-[#0303D4] h-15 font-bold text-lg z-2"
-          // onClick={() => router.push("/SpecificCockpit")}
+          
           >
             View in 3D
           </a>
@@ -38,7 +38,7 @@ const page = () => {
           />
           <a href="/cockpits/jf17-cockpit"
             className="absolute bottom-0 left-0 w-full bg-[#1286B5] text-white border-none cursor-pointer transition-colors duration-300 hover:bg-[#0303D4] h-15 font-bold text-lg z-2"
-          // onClick={() => router.push("/JF17cockpit")}
+          
           >
             View in 3D
           </a>

@@ -129,6 +129,7 @@ export const roleBasedRoutes = {
     "/results/viewresults[id]/detailResult",
     "/results/viewresults[id]/editResult",
     "/quizPage",
+    '/jets/f6-jet',
     "/community/[id]/questiondetail",
     " /userRender/viewCommunityQuestions/[id]/questionDetail",
     "/userRender/viewCommunityQuestions",
