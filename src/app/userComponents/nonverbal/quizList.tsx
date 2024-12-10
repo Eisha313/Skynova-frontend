@@ -1,9 +1,8 @@
-
 // "use client";
 
 // import React, { useEffect, useState } from "react";
 // import Link from "next/link";
-// import { useUser } from "@/app/components/context/userContext"; 
+// import { useUser } from "@/app/components/context/userContext";
 
 // export interface Quiz {
 //   _id: string;
@@ -71,20 +70,17 @@
 
 //         const resultsData: QuizResult[] = await resultResponse.json();
 
-       
 //         const attemptedQuizIds = new Set(
 //           resultsData
 //             .filter((result) => result.userId?._id === _id)
 //             .map((result) => result.quizId._id)
 //         );
 
-      
-       
 //         const quizzesWithAttemptedFlag = quizzesData.map((quiz: Quiz) => ({
 //           ...quiz,
 //           attempted: quiz.attempted || attemptedQuizIds.has(quiz._id),
 //       }));
-      
+
 //         // Check if all quizzes are attempted
 //         if (Array.from(attemptedQuizIds).filter((id) => Boolean(id)).length === quizzesData.length) {
 //           goToNextStep();
@@ -187,11 +183,7 @@ interface QuizResult {
   };
 }
 
-const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
-  onSelectQuiz,
-  shouldRecheckList,
-  goToNextStep,
-}) => {
+const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz, shouldRecheckList, goToNextStep }) => {
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -242,20 +234,16 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
 
         // Create a set of attempted quizzes and a map for result availability
         const attemptedQuizIds = new Set(
-          resultsData
-            .filter((result) => result.userId?._id === _id)
-            .map((result) => result.quizId._id)
+          resultsData.filter((result) => result.userId?._id === _id).map((result) => result.quizId?._id)
         );
 
-        const resultAvailabilityMap = new Map(
-          resultsData.map((result) => [result.quizId._id, true])
-        );
+        const resultAvailabilityMap = new Map(resultsData.map((result) => [result.quizId?._id, true]));
 
         // Update quizzes with attempted and resultAvailable flags
         const quizzesWithFlags = quizzesData.map((quiz: Quiz) => ({
           ...quiz,
-          attempted: quiz.attempted || attemptedQuizIds.has(quiz._id),
-          resultAvailable: resultAvailabilityMap.has(quiz._id),
+          attempted: quiz.attempted || attemptedQuizIds.has(quiz?._id),
+          resultAvailable: resultAvailabilityMap.has(quiz?._id),
         }));
 
         // Check if all quizzes are attempted
@@ -309,11 +297,7 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
               className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
               onClick={() => onSelectQuiz(quiz)}
             >
-              {quiz.attempted
-                ? quiz.resultAvailable
-                  ? "View Result"
-                  : "Result not available yet"
-                : "Attempt Quiz"}
+              {quiz.attempted ? (quiz.resultAvailable ? "View Result" : "Result not available yet") : "Attempt Quiz"}
             </button>
           ) : (
             <Link
@@ -327,17 +311,11 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({
             >
               <button
                 className={`px-4 py-2 rounded-lg hover:bg-blue-600 ${
-                  quiz.attempted && !quiz.resultAvailable
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-blue-500 text-white"
+                  quiz.attempted && !quiz.resultAvailable ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 text-white"
                 }`}
                 disabled={quiz.attempted && !quiz.resultAvailable}
               >
-                {quiz.attempted
-                  ? quiz.resultAvailable
-                    ? "View Result"
-                    : "Result not available yet"
-                  : "Attempt Quiz"}
+                {quiz.attempted ? (quiz.resultAvailable ? "View Result" : "Result not available yet") : "Attempt Quiz"}
               </button>
             </Link>
           )}

@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import { useUser } from "@/app/components/context/userContext";
@@ -25,32 +24,36 @@ const QuizReport: React.FC = () => {
   useEffect(() => {
     const fetchReportData = async () => {
       try {
-        const response = await fetch(
-          `https://sky-nova-8ccaddc754ce.herokuapp.com/finalReports/viewReport`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        const response = await fetch(`https://sky-nova-8ccaddc754ce.herokuapp.com/finalReports/viewReport`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.ok) {
           const data = await response.json();
-          
-        
-          const firstReport = data[0]; 
 
-          if (firstReport) {
+          console.log("All Reports", data);
+
+          console.log("My ID", _id);
+
+          const myReports = data.filter((report: any) => report.medicalDetails.userId === _id);
+
+          console.log("My Reports", myReports);
+
+          const latestReport = myReports[myReports.length - 1];
+
+          if (latestReport) {
             const formattedReport: ReportData = {
-              height: firstReport.medicalDetails.height,
-              heightUnit: firstReport.medicalDetails.heightUnit,
-              weight: firstReport.medicalDetails.weight,
-              weightUnit: firstReport.medicalDetails.weightUnit,
-              eyesight: firstReport.medicalDetails.eyesight,
-              verbalScore: firstReport.verbalQuizResult.marks,
-              nonverbalScore: firstReport.nonVerbalQuizResult.marks,
-              verbalTotal: 2, 
-              nonverbalTotal: 2, 
+              height: latestReport.medicalDetails?.height,
+              heightUnit: latestReport.medicalDetails?.heightUnit,
+              weight: latestReport.medicalDetails?.weight,
+              weightUnit: latestReport.medicalDetails?.weightUnit,
+              eyesight: latestReport.medicalDetails?.eyesight,
+              verbalScore: latestReport.verbalQuizResult?.marks,
+              nonverbalScore: latestReport.nonVerbalQuizResult?.marks,
+              verbalTotal: 2,
+              nonverbalTotal: 2,
             };
 
             setReportData(formattedReport);
@@ -101,83 +104,65 @@ const QuizReport: React.FC = () => {
 
   return (
     <div className="bg-[#081839]p-8 min-h-screen flex flex-col items-center justify-center">
-  <div
-    id="report-content"
-    className="bg-[#212C44] p-8 rounded-lg shadow-xl w-full max-w-4xl space-y-6"
-  >
-    
-    <h1 className="text-3xl font-extrabold text-center text-white mb-8">
-      Competency Evaluation Report
-    </h1>
+      <div id="report-content" className="bg-[#212C44] p-8 rounded-lg shadow-xl w-full max-w-4xl space-y-6">
+        <h1 className="text-3xl font-extrabold text-center text-white mb-8">Competency Evaluation Report</h1>
 
-    
-    <div className=" p-6 rounded-md shadow-sm">
-      <h2 className="text-2xl font-semibold text-white mb-4">
-        Personal Information
-      </h2>
-      <div className="grid grid-cols-2 gap-4">
-        <p className="text-lg text-[#A6A6A6]">
-          <span className="font-medium">Height:</span> {reportData.height}{" "}
-          {reportData.heightUnit}
-        </p>
-        <p className="text-lg text-[#A6A6A6]">
-          <span className="font-medium">Weight:</span> {reportData.weight}{" "}
-          {reportData.weightUnit}
-        </p>
-        <p className="text-lg text-[#A6A6A6] col-span-2">
-          <span className="font-medium">Eyesight:</span> {reportData.eyesight}
-        </p>
-      </div>
-    </div>
-
-    
-    <div className=" p-6 rounded-md shadow-sm">
-      <h2 className="text-2xl font-semibold text-white mb-4">Quiz Results</h2>
-      <div className="grid grid-cols-2 gap-6">
-       
-        <div>
-          <h3 className="text-xl font-medium text-white mb-2">Verbal Quiz</h3>
-          <p className="text-lg text-[#A6A6A6]">
-            <span className="font-semibold">Score:</span>{" "}
-            {reportData.verbalScore}/{reportData.verbalTotal}
-          </p>
-          <p className="text-lg text-[#A6A6A6]">
-            <span className="font-semibold">Percentage:</span>{" "}
-            {((reportData.verbalScore / reportData.verbalTotal) * 100).toFixed(2)}%
-          </p>
+        <div className=" p-6 rounded-md shadow-sm">
+          <h2 className="text-2xl font-semibold text-white mb-4">Personal Information</h2>
+          <div className="grid grid-cols-2 gap-4">
+            <p className="text-lg text-[#A6A6A6]">
+              <span className="font-medium">Height:</span> {reportData.height} {reportData.heightUnit}
+            </p>
+            <p className="text-lg text-[#A6A6A6]">
+              <span className="font-medium">Weight:</span> {reportData.weight} {reportData.weightUnit}
+            </p>
+            <p className="text-lg text-[#A6A6A6] col-span-2">
+              <span className="font-medium">Eyesight:</span> {reportData.eyesight}
+            </p>
+          </div>
         </div>
 
-        
-        <div>
-          <h3 className="text-xl font-medium text-white mb-2">Nonverbal Quiz</h3>
-          <p className="text-lg text-[#A6A6A6] ">
-            <span className="font-semibold">Score:</span>{" "}
-            {reportData.nonverbalScore}/{reportData.nonverbalTotal}
-          </p>
-          <p className="text-lg text-[#A6A6A6]">
-            <span className="font-semibold">Percentage:</span>{" "}
-            {((reportData.nonverbalScore / reportData.nonverbalTotal) * 100).toFixed(2)}%
-          </p>
+        <div className=" p-6 rounded-md shadow-sm">
+          <h2 className="text-2xl font-semibold text-white mb-4">Quiz Results</h2>
+          <div className="grid grid-cols-2 gap-6">
+            <div>
+              <h3 className="text-xl font-medium text-white mb-2">Verbal Quiz</h3>
+              <p className="text-lg text-[#A6A6A6]">
+                <span className="font-semibold">Score:</span> {reportData.verbalScore}/{reportData.verbalTotal}
+              </p>
+              <p className="text-lg text-[#A6A6A6]">
+                <span className="font-semibold">Percentage:</span>{" "}
+                {((reportData.verbalScore / reportData.verbalTotal) * 100).toFixed(2)}%
+              </p>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-medium text-white mb-2">Nonverbal Quiz</h3>
+              <p className="text-lg text-[#A6A6A6] ">
+                <span className="font-semibold">Score:</span> {reportData.nonverbalScore}/{reportData.nonverbalTotal}
+              </p>
+              <p className="text-lg text-[#A6A6A6]">
+                <span className="font-semibold">Percentage:</span>{" "}
+                {((reportData.nonverbalScore / reportData.nonverbalTotal) * 100).toFixed(2)}%
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div className=" p-6 rounded-md shadow-sm">
+          <h2 className="text-2xl font-semibold text-white mb-2">Status</h2>
+          <p className="text-xl text-blue-500">{status}</p>
         </div>
       </div>
+
+      <button
+        onClick={handleDownloadPdf}
+        className="mt-8 bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
+      >
+        Download PDF
+      </button>
     </div>
-
-
-    <div className=" p-6 rounded-md shadow-sm">
-      <h2 className="text-2xl font-semibold text-white mb-2">Status</h2>
-      <p className="text-xl text-blue-500">{status}</p>
-    </div>
-  </div>
-
- 
-  <button
-    onClick={handleDownloadPdf}
-    className="mt-8 bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
-  >
-    Download PDF
-  </button>
-</div>
-  )
+  );
 };
 
 export default QuizReport;
