@@ -33,7 +33,7 @@
 //   <h2 id="quiz-title" className="text-xl font-bold mb-4">
 //     {quizDetails.title}
 //   </h2>
-  
+
 //   <label htmlFor="quiz-description" className="block text-gray-600 text-sm mb-2">
 //     Description
 //   </label>
@@ -68,9 +68,9 @@
 //   );
 // };
 // export default QuizModal
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
 interface QuizModalProps {
   quizDetails: {
@@ -87,23 +87,18 @@ interface QuizModalProps {
   onClose: () => void;
 }
 
-const QuizModal = ({
-  quizDetails,
-  isOpen,
-  onClose,
-}: {
-  quizDetails: any;
-  isOpen: boolean;
-  onClose: () => void;
-}) => {
+const QuizModal = ({ quizDetails, isOpen, onClose }: { quizDetails: any; isOpen: boolean; onClose: () => void }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50">
-      <div className="bg-custom-image py-4 text-white rounded-xl shadow-lg max-w-2xl w-full p-8 relative">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-60 flex justify-center items-center z-50 overflow-y-auto"
+      onClick={onClose}
+    >
+      <div className="bg-custom-image py-4 text-white rounded-xl shadow-lg max-w-2xl w-full p-8 relative overflow-y-auto">
         {/* Close Button */}
         <button
-          className="absolute top-4 right-4 text-white hover:text-gray-900 transition"
+          className="absolute top-4 right-4 text-white hover:text-gray-900 transition z-10"
           onClick={onClose}
           aria-label="Close"
         >
@@ -112,19 +107,14 @@ const QuizModal = ({
 
         {/* Modal Content */}
         <div className="text-center">
-          <h2 className="text-2xl font-extrabold text-indigo-600 mb-2">
-            {quizDetails.title}
-          </h2>
+          <h2 className="text-2xl font-extrabold text-indigo-600 mb-2">{quizDetails.title}</h2>
           <p className="text-white text-sm mb-6">{quizDetails.description}</p>
         </div>
 
         <div>
           {quizDetails.questions && quizDetails.questions.length > 0 ? (
             quizDetails.questions.map((question: any, index: number) => (
-              <div
-                key={question._id}
-                className="mb-8 p-4 bg-[#212C44] rounded-lg shadow-sm"
-              >
+              <div key={question._id} className="mb-8 p-4 bg-[#212C44] rounded-lg shadow-sm">
                 <h3 className="font-semibold text-lg mb-2">
                   {index + 1}. {question.text}
                 </h3>
@@ -136,17 +126,13 @@ const QuizModal = ({
                   ))}
                 </ul>
                 <p className="text-sm mt-3">
-                  <span className="font-semibold text-green-600">
-                    Correct Answer:
-                  </span>{' '}
+                  <span className="font-semibold text-green-600">Correct Answer:</span>{" "}
                   <span className="text-white">{question.answer}</span>
                 </p>
               </div>
             ))
           ) : (
-            <p className="text-gray-400 italic">
-              No questions available for this quiz.
-            </p>
+            <p className="text-gray-400 italic">No questions available for this quiz.</p>
           )}
         </div>
       </div>
