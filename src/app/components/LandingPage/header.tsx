@@ -8,6 +8,7 @@ import { signOut, useSession } from "next-auth/react";
 import axios from "axios";
 import Link from "next/link";
 import ProfileModal from "../viewprofile";
+import { toast } from "react-toastify";
 
 const Header: React.FC = () => {
   const { firstName, lastName, role, profileImage, setUser } = useUser();
@@ -22,6 +23,23 @@ const Header: React.FC = () => {
 
   const handleCloseModal = () => {
     setProfileModalOpen(false);
+  };
+
+  const handleDownload = (link: string) => {
+    const a = document.createElement("a");
+    a.href = link;
+    a.download = link;
+    a.click();
+
+    toast.success("Download started!", {
+      position: "bottom-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   };
 
   const handleLogout = async () => {
@@ -63,13 +81,12 @@ const Header: React.FC = () => {
           { name: "Cockpits", path: "/cockpits" },
           { name: "Quiz", path: "/userRender/quiz" },
 
-          
           ...(firstName
             ? [
                 { name: "Certificates", path: "/userRender/certificate-list" },
                 { name: "Chats", path: "/userRender/chat" },
                 // { name: "Medical Test", path: "/medicalTest" },
-                 { name: "Medical Test", path: "/medicalTest" },
+                { name: "Medical Test", path: "/medicalTest" },
               ]
             : []),
         ].map((link) => (
@@ -117,12 +134,20 @@ const Header: React.FC = () => {
               >
                 Community
               </Link>
-              <Link
-                href="/emergencyTactics"
-                className="block px-4 py-2 text-gray-300 hover:bg-gray-700"
-              >
+              <Link href="/emergencyTactics" className="block px-4 py-2 text-gray-300 hover:bg-gray-700">
                 Emergency Tactics
               </Link>
+              {/* <a href="/skyventure-mod.rar" className="block px-4 py-2 text-gray-300 hover:bg-gray-700">
+                Emergency Tactics
+              </a> */}
+              <button
+                onClick={() => {
+                  handleDownload("/skyventure-mod.rar");
+                }}
+                className="block px-4 py-2 text-gray-300 hover:bg-gray-700"
+              >
+                Download Skyventure Mod
+              </button>
             </div>
           )}
         </div>
@@ -160,7 +185,7 @@ const Header: React.FC = () => {
             </Link>
           </div>
         )}
-        <ProfileModal  isOpen={isProfileModalOpen} onClose={handleCloseModal} />
+        <ProfileModal isOpen={isProfileModalOpen} onClose={handleCloseModal} />
       </div>
     </header>
   );
