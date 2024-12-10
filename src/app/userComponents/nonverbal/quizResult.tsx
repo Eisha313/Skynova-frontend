@@ -193,8 +193,8 @@ const NonVerbalQuizResult: React.FC<{ id: string; goBackToList: () => void }> = 
     const fetchResult = async () => {
       try {
         const response = await fetch(
-          // `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
-          `http://localhost:4000/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
+          `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
+          // `http://localhost:4000/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
           {
             method: "GET",
             headers: {

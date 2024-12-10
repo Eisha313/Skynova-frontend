@@ -28,8 +28,8 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
     const fetchResults = async () => {
       try {
         const response = await fetch(
-          // `https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`,
-          `http://localhost:4000/verbalQuizResult/viewVerbalQuizResult/${id}`,
+          `https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`,
+          // `http://localhost:4000/verbalQuizResult/viewVerbalQuizResult/${id}`,
           {
             method: "GET",
             headers: {
