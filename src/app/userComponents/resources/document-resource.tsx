@@ -85,7 +85,7 @@ const DocumentSection: React.FC<DocumentSectionProps> = ({ searchTerm, showAll }
               )}
               <div className="text-white  px-4 py-2">
                 <p className="font-semibold text-lg">{doc.title}</p>
-                <p className="text-sm">{toTitleCase(doc.description || "No description")}</p>
+                <p className="text-sm line-clamp-2">{toTitleCase(doc.description || "No description")}</p>
               </div>
             </div>
           </Link>
