@@ -28,7 +28,8 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
     const fetchResults = async () => {
       try {
         const response = await fetch(
-          `https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`,
+          // `https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/viewVerbalQuizResult/${id}`,
+          `http://localhost:4000/verbalQuizResult/viewVerbalQuizResult/${id}`,
           {
             method: "GET",
             headers: {
@@ -62,9 +63,9 @@ const DetailedResult: React.FC<{ id: string }> = ({ id }) => {
         {results.map((result, resultIndex) => (
           <div key={resultIndex} className="mb-8">
             <h2 className="text-xl mb-4">
-              Score: {result.marks} / {result.quizId.questions.length}
+              Score: {result.marks} / {result.quizId?.questions?.length || 1}
             </h2>
-            {result.quizId.questions.map((question, index) => (
+            {result.quizId?.questions?.map((question, index) => (
               <div key={index} className="mb-6">
                 <p className="mb-2">
                   Question {index + 1}: {question.text}

@@ -163,7 +163,7 @@ interface Option {
 
 interface Question {
   text: string;
-  questionImage?: string;
+  image?: string;
   options: Option[];
   answer: string;
 }
@@ -193,7 +193,8 @@ const NonVerbalQuizResult: React.FC<{ id: string; goBackToList: () => void }> = 
     const fetchResult = async () => {
       try {
         const response = await fetch(
-          `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
+          // `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
+          `http://localhost:4000/nonVerbalQuizResult/viewNonVerbalQuizResult/${id}`,
           {
             method: "GET",
             headers: {
@@ -236,23 +237,23 @@ const NonVerbalQuizResult: React.FC<{ id: string; goBackToList: () => void }> = 
 
   return (
     <div className="bg-[#212C44] p-8 text-white mt-20">
-      <h1 className="text-3xl font-bold mb-6 text-center">Result: {result?.quizId.title}</h1>
+      <h1 className="text-3xl font-bold mb-6 text-center">Result: {result?.quizId?.title}</h1>
       <div className="mb-4">
         <p className="text-2xl text-center font-bold">
-          Score: {result?.marks}/{result?.quizId.questions.length}
+          Score: {result?.marks}/{result?.quizId?.questions?.length}
         </p>
       </div>
       <div className="space-y-6">
-        {result?.quizId.questions.map((question, index) => (
+        {result?.quizId?.questions.map((question, index) => (
           <div key={index} className="border p-6 rounded-lg space-y-4">
             <div className="font-bold mb-2 flex items-center">
               {index + 1}. {question.text}
-              {question.questionImage && (
+              {question.image && (
                 <img
-                  src={question.questionImage}
+                  src={question.image}
                   alt="Question"
                   className="ml-4 w-20 h-20 object-cover cursor-pointer"
-                  onClick={() => question.questionImage && handleImageClick(question.questionImage)}
+                  onClick={() => question.image && handleImageClick(question.image)}
                 />
               )}
             </div>
