@@ -100,7 +100,7 @@ const Sidebar = () => {
         <NavItem href="/userRender/privacy/contact" text="contact" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/AboutUs" text="About" icon={<FaCogs />} currentPath={currentPath} />
         <NavItem href="/userRender/Chatbot" text="Chatbot" icon={<FaCogs />} currentPath={currentPath} /> */}
-          <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} />
+          {/* <NavItem href="/userRender/nonverbal" text="Non Verbal Test" icon={<FaCogs />} currentPath={currentPath} /> */}
         </div>
       </div>
     </DropdownProvider>
