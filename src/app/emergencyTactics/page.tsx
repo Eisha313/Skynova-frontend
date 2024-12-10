@@ -49,7 +49,7 @@ export default function CommunicationControlTower() {
                 <strong>Unique Number Pronunciation:</strong> Numbers are pronounced uniquely to avoid miscommunication. Examples include niner for nine and fife for five.
               </li>
               <li>
-                <strong>Concise Phraseology:</strong> Standardized phrases like "Cleared for takeoff" and "Hold short" minimize ambiguity. Pilots respond with terms like Roger (received) and Wilco (will comply).
+                <strong>Concise Phraseology:</strong> Standardized phrases like Cleared for takeoff and Hold short minimize ambiguity. Pilots respond with terms like Roger (received) and Wilco (will comply).
               </li>
               <li>
                 <strong>Universal Time (UTC):</strong> All communication uses Coordinated Universal Time (UTC) to prevent confusion across time zones.
@@ -72,7 +72,7 @@ export default function CommunicationControlTower() {
 
             <h3 className="text-2xl font-semibold">3. Emergency Protocols</h3>
             <p className="text-lg">
-              In emergency situations, clear communication is critical. Pilots must use the **MAYDAY** call
+              In emergency situations, clear communication is critical. Pilots must use the MAYDAY call
               (repeated three times) for life-threatening emergencies or PAN-PAN for urgent but non-critical
               situations.
             </p>
