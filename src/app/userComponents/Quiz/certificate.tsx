@@ -61,7 +61,7 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
           title={certificate.type}
           description={certificate.description}
           date={new Date().toLocaleDateString()}
-          // qrValue="/"
+          
           qrValue={`https://skynova-frontend.vercel.app/userRender/certificate-list/${id}/certificateDetails`}
         />
       </div>

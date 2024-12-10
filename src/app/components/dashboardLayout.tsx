@@ -20,6 +20,9 @@ interface Stats {
   totalQuizzes: number;
   totalResources: number;
   totalSuggestions: number;
+  totalCertificates:number;
+  totalverbalQuizzes:number,
+  totalnonVerbalQuizzes:number,
 }
 
 const Dashboard: React.FC = () => {
@@ -31,6 +34,10 @@ const Dashboard: React.FC = () => {
     totalQuizzes: 0,
     totalResources: 0,
     totalSuggestions: 0,
+    totalCertificates:0,
+    totalverbalQuizzes:0,
+    totalnonVerbalQuizzes:0,
+    
   });
 
   useEffect(() => {
@@ -44,6 +51,9 @@ const Dashboard: React.FC = () => {
           quizzesRes,
           resourcesRes,
           suggestionsRes,
+          certificatesRes,
+          nonVerbalQuizzesRes,
+          verbalQuizzesRes,
         ] = await Promise.all([
           axios.get(`${baseURL}/aviators/countAviators`,{ withCredentials: true }),
           axios.get(`${baseURL}/jets/countJets`,{ withCredentials: true }),
@@ -52,7 +62,10 @@ const Dashboard: React.FC = () => {
           axios.get(`${baseURL}/quizzes/countQuizzes`,{ withCredentials: true }),
           axios.get(`${baseURL}/resources/countResources`,{ withCredentials: true }),
           axios.get(`${baseURL}/suggestions/countSuggestions`,{ withCredentials: true }),
-         
+          axios.get(`${baseURL}/suggestions/countSuggestions`,{ withCredentials: true }),
+          axios.get(`${baseURL}/certificates/countCertificates`,{ withCredentials: true }),
+          axios.get(`${baseURL}/nonVerbalQuizzes/countNonVerbalQuizzes`,{ withCredentials: true }),
+          axios.get(`${baseURL}/verbalQuizzes/countVerbalQuizzes`,{ withCredentials: true }),
         ]);
 
         console.log('Aviators:', aviatorsRes.data);
@@ -62,6 +75,11 @@ const Dashboard: React.FC = () => {
         console.log('Quizzes:', quizzesRes.data);
         console.log('Resources:', resourcesRes.data);
         console.log('Suggestions:', suggestionsRes.data);
+        console.log('Suggestions:', suggestionsRes.data);
+         console.log('Certificates:', certificatesRes.data);
+         console.log('VerbalQuizzes:', verbalQuizzesRes.data);
+         console.log('NonVerbalQuizzes:', nonVerbalQuizzesRes.data);
+         
 
         setStats({
           totalAviators: aviatorsRes.data.aviatorCount,
@@ -71,6 +89,10 @@ const Dashboard: React.FC = () => {
           totalQuizzes: quizzesRes.data['Quiz Count'],
           totalResources: resourcesRes.data['Resource Count'],
           totalSuggestions: suggestionsRes.data['Suggestion Count'],
+          totalCertificates:certificatesRes.data['Suggestion Count'],
+          totalnonVerbalQuizzes: nonVerbalQuizzesRes.data['Non Verbal Quiz Count'],
+            totalverbalQuizzes: verbalQuizzesRes.data['Verbal Quiz Count'],
+
         });
       } catch (error: unknown) {
         if (axios.isAxiosError(error)) {
@@ -100,24 +122,25 @@ const Dashboard: React.FC = () => {
             count={stats.totalAviators}
             link="/viewuser"
           />
+
           <InfoContainer
             icon={<FaQuestionCircle />}
             heading="Manage Jets"
             count={stats.totalJets}
             link="/viewjets"
           />
-          <InfoContainer
+          {/* <InfoContainer
             icon={<FaQuestionCircle />}
             heading="Manage Cockpits"
             count={stats.totalCockpits}
             link="/cockpits"
-          />
-          <InfoContainer
+          /> */}
+          {/* <InfoContainer
             icon={<FaQuestionCircle />}
             heading="Manage Missions"
             count={stats.totalMissions}
             link="/missions"
-          />
+          /> */}
           <InfoContainer
             icon={<FaQuestionCircle />}
             heading="Manage Quizzes"
@@ -136,6 +159,25 @@ const Dashboard: React.FC = () => {
             count={stats.totalSuggestions}
             link="/suggestion/viewsuggestion"
           />
+           <InfoContainer
+            icon={<FaQuestionCircle />}
+            heading="Manage Certificate"
+            count={stats.totalSuggestions}
+            link="/certificate-page"
+          />
+          <InfoContainer
+            icon={<FaQuestionCircle />}
+            heading="Manage Nonverbal Quizzes"
+            count={stats.totalnonVerbalQuizzes}
+            link="/nonverbalquiz"
+          />
+          <InfoContainer
+            icon={<FaQuestionCircle />}
+            heading="Manage Verbal Quizzes"
+            count={stats.totalverbalQuizzes}
+            link="/verbalquiz"
+          />
+          
         </div>
         <div className="mt-8 flex justify-center">
           <div className="w-full max-w-4xl">
