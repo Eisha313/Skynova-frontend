@@ -156,6 +156,14 @@ export const roleBasedRoutes = {
     "/userRender/changePassword",
     "/userRender/changePassword",
     "/userRender/chat",
+    "/medicalTest",
+    '/reflexTest',
+    '/eyeTest',
+    '/memoryTest',
+    '/emergencyTactics'
+    ,
+    '/handGestures',
+    '/aviationCharts'
 
   ],
 };

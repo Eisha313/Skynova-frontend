@@ -63,8 +63,8 @@ const ResultList: React.FC = () => {
   const handleDelete = async (id: string, type: string) => {
     const endpoint =
       type === "verbal"
-        ? `https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/delete/${id}`
-        : `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/delete/${id}`;
+        ? `https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizResult/deleteVerbalQuizResult/${id}`
+        : `https://sky-nova-8ccaddc754ce.herokuapp.com/nonVerbalQuizResult/deleteNonVerbalQuizResult/${id}`;
 
     const response = await fetch(endpoint, {
       method: "DELETE",
@@ -75,7 +75,7 @@ const ResultList: React.FC = () => {
     });
 
     if (response.ok) {
-      // Remove the deleted result from the state
+      
       setResults((prevResults) => prevResults.filter((result) => result._id !== id));
       setFilteredResults((prevResults) => prevResults.filter((result) => result._id !== id));
     } else {

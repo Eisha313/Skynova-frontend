@@ -93,9 +93,9 @@ const Certificate: React.FC<CertificateProps> = ({ title, description, date, qrV
     if (title.toLowerCase().includes('basic')) {
       return 'text-blue-700 border-blue-600';
     } else if (title.toLowerCase().includes('medium')) {
-      return 'text-green-700 border-green-600';
+      return 'text-blue-900 border-blue-600';
     } else if (title.toLowerCase().includes('advanced')) {
-      return 'text-orange-800 border-orange-600';
+      return 'text-eisha border-eisha-600';
     } else {
       return 'text-blue-500 border-black'; 
     }
@@ -105,9 +105,9 @@ const Certificate: React.FC<CertificateProps> = ({ title, description, date, qrV
     if (title.toLowerCase().includes('basic')) {
       return 'text-blue-700';
     } else if (title.toLowerCase().includes('medium')) {
-      return 'text-green-700';
+      return 'text-blue-900';
     } else if (title.toLowerCase().includes('advanced')) {
-      return 'text-orange-700';
+      return 'text-eisha';
     } else {
       return 'text-blue-500'; 
     }
@@ -115,16 +115,16 @@ const Certificate: React.FC<CertificateProps> = ({ title, description, date, qrV
 
   return (
     <div className="relative p-12 max-w-3xl mx-auto shadow-lg overflow-hidden">
-      {/* Border Image */}
+      
       <div className="absolute inset-0">
         <Image src="/border1.jpg" alt="Certificate Border" layout="fill" objectFit="fill" />
       </div>
 
-      {/* Certificate Content */}
+     
       <div className="relative z-10 p-12 bg-white border-4 border-transparent rounded-3xl">
         <div className="flex items-center mb-6">
           <div className="relative mr-6">
-            <div className="w-32 h-32 bg-yellow-700 rounded-full flex items-center justify-center">
+            <div className="w-32 h-32 bg-custom-image rounded-full flex items-center justify-center">
               <Image src="/skylogo.svg" alt="Skynova Logo" width={120} height={120} />
             </div>
           </div>

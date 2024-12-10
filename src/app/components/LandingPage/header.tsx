@@ -49,7 +49,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50  bg-opacity-80 shadow-lg p-4 flex justify-between items-center">
+    <header className="top-0 left-0 w-full z-50  bg-opacity-80 shadow-lg p-4 flex justify-between items-center">
       <div className="flex items-center">
         <Image src="/skylogo.svg" alt="Logo" height={60} width={100} className="mr-4" />
       </div>
@@ -62,10 +62,14 @@ const Header: React.FC = () => {
           { name: "Jets", path: "/jets" },
           { name: "Cockpits", path: "/cockpits" },
           { name: "Quiz", path: "/userRender/quiz" },
+
+          
           ...(firstName
             ? [
                 { name: "Certificates", path: "/userRender/certificate-list" },
                 { name: "Chats", path: "/userRender/chat" },
+                // { name: "Medical Test", path: "/medicalTest" },
+                 { name: "Medical Test", path: "/medicalTest" },
               ]
             : []),
         ].map((link) => (
@@ -112,6 +116,12 @@ const Header: React.FC = () => {
                 className="block px-4 py-2 text-gray-300 hover:bg-gray-700"
               >
                 Community
+              </Link>
+              <Link
+                href="/emergencyTactics"
+                className="block px-4 py-2 text-gray-300 hover:bg-gray-700"
+              >
+                Emergency Tactics
               </Link>
             </div>
           )}
