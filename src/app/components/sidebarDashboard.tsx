@@ -75,7 +75,7 @@ const Sidebar = () => {
             <NavItem href="/verbalquiz" text="Verbal Quiz" icon={<FaBrain />} currentPath={currentPath} />
             <NavItem href="/nonverbalquiz" text="NonVerbal Quiz" icon={<FaBook />} currentPath={currentPath} />
           </NavItem>
-          <NavItem text="WingsOfGloy" icon={<FaTasks />} currentPath={currentPath}>
+          <NavItem text="Wings Of Glory" icon={<FaTasks />} currentPath={currentPath}>
             <NavItem href="/wings/Hero" text="Heroes" icon={<FaBrain />} currentPath={currentPath} />
             <NavItem href="/wings/wingsResources" text="View Resource" icon={<FaBook />} currentPath={currentPath} />
           </NavItem>
