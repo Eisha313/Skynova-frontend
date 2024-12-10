@@ -1,4 +1,3 @@
-
 // "use client";
 // import React, { useEffect, useState } from "react";
 // import { useRouter } from "next/navigation";
@@ -138,7 +137,7 @@
 
 //   return (
 //     <div className="bg-[#212C44] p-8 flex flex-col justify-center items-center text-white">
-     
+
 //       <div className="w-full max-w-lg mb-4">
 //         <div className="flex justify-between text-sm mb-1">
 //           <span className="flex justify-center">Question:{currentQuestion + 1} of {totalQuestions}</span>
@@ -152,10 +151,6 @@
 //         </div>
 //       </div>
 
-     
-      
-
-    
 // <div className="text-center">
 //   {quiz?.questions?.[currentQuestion]?.image && (
 //     <Image
@@ -168,15 +163,13 @@
 //         if (quiz.questions[currentQuestion].image) {
 //           setEnlargedImage(quiz.questions[currentQuestion].image);
 //         }
-//       }} 
+//       }}
 //     />
 //   )}
 //   <h2 className="text-xl mb-6">
 //     {quiz?.questions?.[currentQuestion]?.text || 'Loading question...'}
 //   </h2>
 // </div>
-
-
 
 // <div className="grid grid-cols-2 gap-4 mb-6">
 //   {quiz?.questions?.[currentQuestion]?.options?.map((option, index) => (
@@ -209,7 +202,6 @@
 //   ))}
 // </div>
 
-
 //       {/* Navigation Buttons */}
 //       <div className="flex justify-between w-full max-w-md">
 //         {currentQuestion > 0 && (
@@ -237,7 +229,6 @@
 //         )}
 //       </div>
 
-    
 //       {showModal && (
 //         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
 //           <div className="bg-white p-6 rounded-lg shadow-lg text-black">
@@ -263,7 +254,6 @@
 //         </div>
 //       )}
 
-      
 //       {enlargedImage && (
 //         <div className="fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
 //           <div className="bg-white p-4 rounded-lg shadow-lg">
@@ -297,7 +287,7 @@ interface Question {
   text: string;
   options: Option[];
   answer: string;
-  questionImage?: string;
+  image?: string;
 }
 
 interface QuizDetail {
@@ -423,31 +413,30 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
       {/* Progress Bar and Timer */}
       <div className="w-full max-w-lg mb-4">
         <div className="flex justify-between text-sm mb-1">
-          <span className="flex justify-center">Question: {currentQuestion + 1} of {totalQuestions}</span>
-          <span>Time Left: {Math.floor(timeLeft / 60)}:{timeLeft % 60}</span>
+          <span className="flex justify-center">
+            Question: {currentQuestion + 1} of {totalQuestions}
+          </span>
+          <span>
+            Time Left: {Math.floor(timeLeft / 60)}:{timeLeft % 60}
+          </span>
         </div>
         <div className="w-full bg-gray-700 rounded-full h-2.5">
-          <div
-            className="bg-blue-500 h-2.5 rounded-full"
-            style={{ width: `${progress}%` }}
-          ></div>
+          <div className="bg-blue-500 h-2.5 rounded-full" style={{ width: `${progress}%` }}></div>
         </div>
       </div>
 
       {/* Question Text and Image */}
       <div className="text-center">
-        {quiz?.questions?.[currentQuestion]?.questionImage && (
+        {quiz?.questions?.[currentQuestion]?.image && (
           <Image
-            src={quiz.questions[currentQuestion].questionImage}
+            src={quiz.questions[currentQuestion].image}
             alt={`Question ${currentQuestion + 1} image`}
             width={200}
             height={200}
             className="object-cover mb-4"
           />
         )}
-        <h2 className="text-xl mb-6">
-          {quiz?.questions?.[currentQuestion]?.text || "Loading question..."}
-        </h2>
+        <h2 className="text-xl mb-6">{quiz?.questions?.[currentQuestion]?.text || "Loading question..."}</h2>
       </div>
 
       {/* Options */}
@@ -467,12 +456,7 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
               });
             }}
           >
-            <Image
-              src={option.image}
-              alt={`Option ${option.label}`}
-              width={128}
-              height={128}
-            />
+            <Image src={option.image} alt={`Option ${option.label}`} width={128} height={128} />
             <span className="mt-2 text-center">{option.label}</span>
           </label>
         ))}
@@ -481,10 +465,7 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
       {/* Navigation Buttons */}
       <div className="flex justify-between w-full max-w-md">
         {currentQuestion > 0 && (
-          <button
-            onClick={() => setCurrentQuestion(currentQuestion - 1)}
-            className="bg-blue-500 px-4 py-2 rounded-lg"
-          >
+          <button onClick={() => setCurrentQuestion(currentQuestion - 1)} className="bg-blue-500 px-4 py-2 rounded-lg">
             Previous
           </button>
         )}
@@ -513,10 +494,7 @@ const NonVerbalQuizAttempt: React.FC<QuizAttemptProps> = ({ quizId, goBack, goTo
           <div className="bg-white p-6 rounded-lg shadow-lg text-black">
             <h2 className="text-xl font-bold mb-4">Are you sure you want to submit the quiz?</h2>
             <div className="flex justify-between">
-              <button
-                className="bg-red-500 text-white px-4 py-2 rounded-lg"
-                onClick={() => setShowModal(false)}
-              >
+              <button className="bg-red-500 text-white px-4 py-2 rounded-lg" onClick={() => setShowModal(false)}>
                 Cancel
               </button>
               <button

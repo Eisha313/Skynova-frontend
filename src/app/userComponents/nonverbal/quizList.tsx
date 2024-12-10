@@ -234,17 +234,24 @@ const NonVerbalQuizList: React.FC<NonVerbalQuizListProps> = ({ onSelectQuiz, sho
 
         // Create a set of attempted quizzes and a map for result availability
         const attemptedQuizIds = new Set(
-          resultsData.filter((result) => result.userId?._id === _id).map((result) => result.quizId?._id)
+          resultsData
+            .filter((result) => result && result.userId && result.userId?._id === _id)
+            .filter((result) => result && result.quizId && result.quizId._id)
+            .map((result) => result.quizId._id)
         );
+
+        console.log("Attempted quiz IDs:", attemptedQuizIds); // Check the attempted quiz IDs
 
         const resultAvailabilityMap = new Map(resultsData.map((result) => [result.quizId?._id, true]));
 
         // Update quizzes with attempted and resultAvailable flags
         const quizzesWithFlags = quizzesData.map((quiz: Quiz) => ({
           ...quiz,
-          attempted: quiz.attempted || attemptedQuizIds.has(quiz?._id),
-          resultAvailable: resultAvailabilityMap.has(quiz?._id),
+          attempted: attemptedQuizIds.has(quiz._id),
+          resultAvailable: resultAvailabilityMap.has(quiz._id),
         }));
+
+        console.log("Quizzes with flags:", quizzesWithFlags); // Check the quizzes with flags
 
         // Check if all quizzes are attempted
         if (quizzesWithFlags.every((quiz: Quiz) => quiz.attempted)) {
