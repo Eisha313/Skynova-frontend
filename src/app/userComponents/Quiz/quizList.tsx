@@ -1,4 +1,3 @@
-
 // "use client";
 // import React, { useEffect, useState } from "react";
 // import Link from "next/link";
@@ -59,7 +58,6 @@
 //             // const result = resultsData.find((res: any) => res.quizId._id === quiz._id);
 //             // const results = resultsData.filter((res: any) => res.quizId._id === quiz._id);
 //             const results = resultsData.filter((res: any) => res.quizId._id === quiz._id && res.userId._id === _id);
-
 
 //             if (results.length > 0) {
 //               console.log(
@@ -245,7 +243,9 @@ const QuizList: React.FC = () => {
           const updatedQuizzes = quizzesWithFlags.map((quiz: any) => {
             // const result = resultsData.find((res: any) => res.quizId._id === quiz._id);
             // const results = resultsData.filter((res: any) => res.quizId._id === quiz._id);
-            const results = resultsData.filter((res: any) => res.quizId._id === quiz._id && res.userId._id === _id);
+            const results = resultsData.filter(
+              (res: any) => res && res.quizId && res.quizId._id === quiz._id && res.userId._id === _id
+            );
 
             if (results.length > 0) {
               console.log(
