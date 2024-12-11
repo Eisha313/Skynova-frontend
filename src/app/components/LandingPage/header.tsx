@@ -67,7 +67,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="top-0 left-0 w-full z-50  bg-opacity-80 shadow-lg p-4 flex justify-between items-center">
+    <header className=" absolute top-0 left-0 w-full z-50  bg-opacity-80 shadow-lg p-4 flex justify-between items-center">
       <div className="flex items-center">
         <Image src="/skylogo.svg" alt="Logo" height={60} width={100} className="mr-4" />
       </div>
