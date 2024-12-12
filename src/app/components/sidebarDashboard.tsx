@@ -69,7 +69,7 @@ const Sidebar = () => {
           </NavItem>
           <NavItem href="/view-resource" text="Manage Resources" icon={<FaTasks />} currentPath={currentPath}></NavItem>
           <NavItem href="/quizPage" text="Manage Quizzes" icon={<FaPlane />} currentPath={currentPath} />
-          <NavItem href="/viewjets" text="Manage Jets" icon={<FaPlane />} currentPath={currentPath} />
+          {/* <NavItem href="/viewjets" text="Manage Jets" icon={<FaPlane />} currentPath={currentPath} /> */}
           <NavItem href="/certificate-page" text="Manage Certificate" icon={<FaCogs />} currentPath={currentPath} />
           <NavItem text="Manage Aptitude Tests" icon={<FaTasks />} currentPath={currentPath}>
             <NavItem href="/verbalquiz" text="Verbal Quiz" icon={<FaBrain />} currentPath={currentPath} />
@@ -78,7 +78,9 @@ const Sidebar = () => {
           <NavItem text="Wings Of Glory" icon={<FaTasks />} currentPath={currentPath}>
             <NavItem href="/wings/Hero" text="Heroes" icon={<FaBrain />} currentPath={currentPath} />
             <NavItem href="/wings/wingsResources" text="View Resource" icon={<FaBook />} currentPath={currentPath} />
+            
           </NavItem>
+          <NavItem href="/medicalList" text="Medical Details" icon={<FaBook />} currentPath={currentPath} />
           {/*<NavItem href="/community" text="Manage Community" icon={<FaCogs />} currentPath={currentPath} />
         {/* <NavItem href="/notification/viewNotification" text="Manage Notification" icon={<FaCogs />} currentPath={currentPath} /> */}
           {/* <NavItem href="/complaints/viewComplaints" text="Manage Complaints" icon={<FaCogs />} currentPath={currentPath} /> */}

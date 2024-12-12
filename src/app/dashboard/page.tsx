@@ -13,7 +13,7 @@ const DashboardPage = () => {
         <main className=" flex-1 overflow-auto   p-4">
           <Dashboard />
         </main>
-        <Footer />
+       
       </div>
     </div>
   );

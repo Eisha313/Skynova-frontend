@@ -101,6 +101,7 @@ export const roleBasedRoutes = {
     "/userRender/quiz/[id]/attempt",
     "/userRender/quiz/certificate-list",
     "/userRender/chat",
+    "/medicalList"
   ],
   Aviator: [
     "/login",
@@ -191,4 +192,8 @@ export const publicRoutes = [
   "/jets/j10c-jet",
   "/userRender/view-resource/[id]/resourceDetails",
   "/userRender/view-resource/[id]/editResource",
+  '/userRender/view-resource',
+  '/userRender/competency',
+  '/userRender/viewCommunityQuestions',
+  '/userRender/viewCommunityQuestions/[id]/questionDetail'
 ];

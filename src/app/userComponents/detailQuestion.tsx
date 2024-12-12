@@ -120,7 +120,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
     );
 
   return (
-    <div className="max-w-5xl mx-auto mt-8 p-6 bg-tranparent rounded-lg shadow-md">
+    <div className="max-w-5xl mx-auto mt-24 p-6 bg-tranparent rounded-lg shadow-md">
       {/* Question Section */}
       <div className=" p-6 rounded-lg shadow-lg mb-6 border border-white/30">
         <h1 className="text-3xl font-bold text-white">{question.title}</h1>
@@ -167,7 +167,7 @@ const QuestionDetail: React.FC<QuestionDetailProps> = ({ id }) => {
             </div>
           ))
         ) : (
-          <p className="text-white-500">No answers yet. Be the first to answer!</p>
+          <p className="text-white">No answers yet. Be the first to answer!</p>
         )}
       </div>
 
