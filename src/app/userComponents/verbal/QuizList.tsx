@@ -8,7 +8,7 @@ export interface Quiz {
   _id: string;
   title: string;
   description: string;
-  attempted: boolean; 
+  attempted: boolean | undefined; 
 }
 
 interface QuizListProps {
@@ -34,6 +34,7 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz, shouldRecheckList, go
 
   useEffect(() => { 
     const abortController = new AbortController();
+    let isMounted = true;
     const fetchQuizzes = async () => {
       try {
         
@@ -91,12 +92,17 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz, shouldRecheckList, go
         }
         setError('Failed to fetch quizzes.');
         setLoading(false);
+      }finally {
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
   
     fetchQuizzes();
   
     return () => {
+      isMounted = false;
       abortController.abort();
     }
   }, [token, shouldRecheckList, _id]);  
@@ -106,9 +112,10 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz, shouldRecheckList, go
 
   return (
     <div className="bg-[#212C44]  p-8  rounded-lg">
-
-      {quizzes.map((quiz, index) => (
-        <div key={quiz._id} className="flex justify-between items-center p-4 mb-4 border border-[#A49898] rounded-lg text-[#A49898]">
+console.log('quizzes before map:', quizzes);
+      {quizzes.length > 0 && quizzes.map((quiz, index) => (
+        quiz &&(
+        <div key={quiz?._id} className="flex justify-between items-center p-4 mb-4 border border-[#A49898] rounded-lg text-[#A49898]">
           <div className="flex items-center">
             <span className="text-lg font-bold mr-4">{index + 1}</span>
             <div>
@@ -131,6 +138,7 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz, shouldRecheckList, go
             </Link>
           )}  
         </div>
+        )
       ))}
     </div>
   );
