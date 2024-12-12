@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useUser } from "@/app/components/context/userContext";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import Link from "next/link";
 
 interface ReportData {
   height: string;
@@ -23,6 +24,10 @@ const QuizReport: React.FC = () => {
   const { _id, token } = useUser();
   const [reportData, setReportData] = useState<ReportData | null>(null);
   const [status, setStatus] = useState<string>("Loading...");
+  const [verbalResults, setVerbalResults] = useState<any[]>([]);
+  const [nonVerbalResults, setNonVerbalResults] = useState<any[]>([]);
+  // const anchorRefs = React.useRef<(HTMLAnchorElement | null)[]>({});
+  const anchorRefs = React.useRef<{ [key: string]: HTMLAnchorElement | null }>({});
 
   const calculateStatus = (data: ReportData) => {
     const verbalPercentage = (data.verbalScore / data.verbalTotal) * 100;
@@ -90,6 +95,9 @@ const QuizReport: React.FC = () => {
         console.log("Form Data", formData);
         console.log("Verbal Data", verbalData);
         console.log("Non Verbal Data", nonVerbalData);
+
+        setVerbalResults(verbalData);
+        setNonVerbalResults(nonVerbalData);
 
         const totalVerbalScore = verbalData.reduce((sum: number, quiz: any) => sum + quiz.marks, 0);
         const nonVerbalScore = nonVerbalData.reduce((sum: number, quiz: any) => sum + quiz.marks, 0);
@@ -221,6 +229,13 @@ const QuizReport: React.FC = () => {
     const reportElement = document.getElementById("report-content");
     if (!reportElement) return;
 
+    // Hide all anchor tags before taking screenshot
+    Object.values(anchorRefs.current).forEach((ref) => {
+      if (ref) {
+        ref.style.display = "none";
+      }
+    });
+
     const canvas = await html2canvas(reportElement);
     const imgData = canvas.toDataURL("image/png");
     const pdf = new jsPDF("p", "mm", "a4");
@@ -229,6 +244,13 @@ const QuizReport: React.FC = () => {
 
     pdf.addImage(imgData, "PNG", 0, 0, imgWidth, imgHeight);
     pdf.save("quiz_report.pdf");
+
+    // Show all anchor tags after taking screenshot
+    Object.values(anchorRefs.current).forEach((ref) => {
+      if (ref) {
+        ref.style.display = "block";
+      }
+    });
   };
 
   if (!reportData) {
@@ -285,6 +307,77 @@ const QuizReport: React.FC = () => {
         <div className=" p-6 rounded-md shadow-sm">
           <h2 className="text-2xl font-semibold text-white mb-2">Status</h2>
           <p className="text-xl text-blue-500">{reportData.result}</p>
+        </div>
+
+        {/* List of all Verbal Quizzes */}
+        <div className=" p-6 rounded-md shadow-sm">
+          <h2 className="text-2xl font-semibold text-white mb-4">Verbal Quizzes</h2>
+          <div className="grid gap-6">
+            {verbalResults.map((quiz, index) => (
+              <div key={index} className="flex justify-between items-center">
+                <div>
+                  <h3 className="text-xl font-medium text-white mb-2">
+                    {index + 1} - {quiz.quizId.title}
+                  </h3>
+                  <p className="text-lg text-[#A6A6A6]">
+                    <span className="font-semibold">Score:</span> {quiz.marks}/{quiz.quizId?.questions.length}
+                  </p>
+                  <p className="text-lg text-[#A6A6A6]">
+                    <span className="font-semibold">Percentage:</span>{" "}
+                    {((quiz.marks / quiz.quizId?.questions.length) * 100).toFixed(2)}%
+                  </p>
+                </div>
+                <div>
+                  <Link
+                    // @ts-ignore
+                    ref={(ref) => (anchorRefs.current[quiz._id] = ref)}
+                    href={`/userRender/quiz/${quiz._id}/result?type=verbal`}
+                    className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
+                  >
+                    Result
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* List of all Nonverbal Quizzes */}
+        <div className=" p-6 rounded-md shadow-sm">
+          <h2 className="text-2xl font-semibold text-white mb-4">Nonverbal Quizzes</h2>
+          <div className="grid gap-6">
+            {nonVerbalResults.map(
+              (quiz, index) => (
+                console.log("Quiz", quiz),
+                (
+                  <div key={index} className="flex justify-between items-center">
+                    <div>
+                      <h3 className="text-xl font-medium text-white mb-2">
+                        {index + 1} - {quiz.quizId.title}
+                      </h3>
+                      <p className="text-lg text-[#A6A6A6]">
+                        <span className="font-semibold">Score:</span> {quiz.marks}/{quiz.quizId?.questions.length}
+                      </p>
+                      <p className="text-lg text-[#A6A6A6]">
+                        <span className="font-semibold">Percentage:</span>{" "}
+                        {((quiz.marks / quiz.quizId?.questions.length) * 100).toFixed(2)}%
+                      </p>
+                    </div>
+                    <div>
+                      <Link
+                        // @ts-ignore
+                        ref={(ref) => (anchorRefs.current[quiz._id] = ref)}
+                        href={`/userRender/quiz/${quiz._id}/result?type=non-verbal`}
+                        className="bg-blue-600 text-white font-semibold px-6 py-3 rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-200"
+                      >
+                        Result
+                      </Link>
+                    </div>
+                  </div>
+                )
+              )
+            )}
+          </div>
         </div>
       </div>
 
