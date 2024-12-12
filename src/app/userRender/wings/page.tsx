@@ -6,7 +6,7 @@ const ViewQuestions = () => {
     <div className="flex h-screen">
       <div className="flex-1 flex flex-col">
         <Header />
-        <main className="flex-1 p-4 bg-gray h-screen overflow-auto">
+        <main className="flex-1   h-screen overflow-auto">
           <MainResourceDisplay />
         </main>
       </div>

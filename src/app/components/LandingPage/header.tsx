@@ -67,7 +67,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className=" absolute top-0 left-0 w-full z-50  bg-opacity-80 shadow-lg p-4 flex justify-between items-center">
+    <header className=" absolute top-0 left-0 w-full z-50  bg-opacity-80 p-4 flex justify-between items-center">
       <div className="flex items-center">
         <Image src="/skylogo.svg" alt="Logo" height={60} width={100} className="mr-4" />
       </div>
@@ -79,7 +79,7 @@ const Header: React.FC = () => {
           { name: "Competency Evaluation", path: "/userRender/competency" },
           { name: "Jets", path: "/jets" },
           { name: "Cockpits", path: "/cockpits" },
-          { name: "Quiz", path: "/userRender/quiz" },
+          
 
           ...(firstName
             ? [
@@ -87,6 +87,7 @@ const Header: React.FC = () => {
                 { name: "Chats", path: "/userRender/chat" },
                 // { name: "Medical Test", path: "/medicalTest" },
                 { name: "Medical Test", path: "/medicalTest" },
+                { name: "Quiz", path: "/userRender/quiz" },
               ]
             : []),
         ].map((link) => (

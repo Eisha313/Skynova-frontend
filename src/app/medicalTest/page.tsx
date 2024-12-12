@@ -1,10 +1,12 @@
 'use client';
 import { FaRegEye, FaBrain, FaRegClock } from 'react-icons/fa'; // Importing icons
+import Header from '../components/LandingPage/header';
 import Link from 'next/link';
 
 export default function TestSelection() {
   return (
     <div className="flex justify-center items-center min-h-screen bg-[#081839]">
+      <Header/>
       <div className="flex space-x-8">
         {/* Reflex Test Card */}
         <div className="w-60 h-80 bg-[#212C44] rounded-lg shadow-lg hover:border-2 hover:border-[#5AA0BC] transition duration-100 ease-in-out cursor-pointer flex flex-col">

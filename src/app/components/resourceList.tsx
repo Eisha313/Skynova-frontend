@@ -138,10 +138,10 @@ const ResourceList: React.FC = () => {
   };
 
   return (
-    <div className=" mx-auto p-4 bg-hassan">
+    <div className=" mx-auto  p-4 bg-hassan">
       {error && <p className="text-red-500">{error}</p>}
-      <div className="flex flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
-        <h2 className="text-xl font-semibold text-white text-center">All Resources</h2>
+      <div className="flex mt-24 flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
+        <h2 className="text-xl font-semibold text-white text-center ">All Resources</h2>
         <div className="flex flex-1 justify-end space-x-2">
           <Search onSearchChange={handleSearchChange} searchTerm={searchTerm} clearSearch={clearSearch} />
           <select value={filterType} onChange={e => setFilterType(e.target.value)} className="px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none">
