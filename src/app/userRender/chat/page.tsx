@@ -44,7 +44,7 @@ const AllChats = () => {
 
           conversation.conversationId = userId && myId ? (userId > myId ? userId + myId : myId + userId) : "";
         });
-        setConversations && setConversations(data);
+        setConversations && setConversations(dataWithConversationId);
       })
       .catch((error) => {
         console.error("Error fetching aviator:", error);
@@ -92,7 +92,7 @@ const AllChats = () => {
         .then((res) => res.json())
         .then((data) => {
           console.log("Fetched Messages:", data);
-          setMessages && setMessages(data);
+          setMessages && setMessages(data ? data : []);
         })
         .catch((error) => {
           console.error("Error fetching messages:", error);
@@ -180,6 +180,7 @@ const AllChats = () => {
                     </div>
                   ) : (
                     messages &&
+                    messages.length &&
                     messages.map((message) => (
                       <div
                         key={message._id}
