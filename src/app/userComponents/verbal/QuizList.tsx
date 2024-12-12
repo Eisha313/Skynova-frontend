@@ -112,7 +112,7 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz, shouldRecheckList, go
 
   return (
     <div className="bg-[#212C44]  p-8  rounded-lg">
-console.log('quizzes before map:', quizzes);
+console.log(quizzes before map:, quizzes);
       {quizzes.length > 0 && quizzes.map((quiz, index) => (
         quiz &&(
         <div key={quiz?._id} className="flex justify-between items-center p-4 mb-4 border border-[#A49898] rounded-lg text-[#A49898]">
