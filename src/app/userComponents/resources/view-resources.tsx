@@ -180,15 +180,15 @@ const ResourcePage: React.FC = () => {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0B1121] text-white">
+    <div className="relative  min-h-screen bg-[#0B1121] text-white">
       <div className="background-image-overlay" />
       <div className="page-overlay" />
       <div className="max-w-screen-xl  mx-auto px-4 py-12 z-10 relative">
         <header className="text-center mb-12">
           <div className="flex items-center justify-center mb-4">
-            <div className="h-1 bg-[#5AA0BC] w-12 sm:w-16 lg:w-20 rounded"></div>
-            <h1 className="mx-4 text-4xl font-extrabold font-inter">SkyNova Resources</h1>
-            <div className="h-1 bg-[#5AA0BC] w-12 sm:w-16 lg:w-20 rounded"></div>
+            <div className="h-1 bg-[#5AA0BC] w-12 sm:w-16 lg:w-20 rounded mt-24"></div>
+            <h1 className="mx-4 text-4xl font-extrabold font-inter mt-24">SkyNova Resources</h1>
+            <div className="h-1 bg-[#5AA0BC] w-12 sm:w-16 lg:w-20 rounded mt-24"></div>
           </div>
           <p className="text-gray-300 text-lg">Browse videos and documents to find the information you need.</p>
         </header>

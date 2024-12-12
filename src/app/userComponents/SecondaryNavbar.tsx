@@ -125,7 +125,7 @@ export default function SecondaryNavbar() {
   }, []); // Run once on mount
 
   return (
-    <div className="flex justify-center mt-[60px] py-12 space-x-8">
+    <div className="flex justify-center   pt-[170px] pb-12 space-x-8">
       <Link href="/emergencyTactics">
         <button
           className={`w-[332px] h-[70px] rounded-[30px] border-2 text-lg font-semibold ${

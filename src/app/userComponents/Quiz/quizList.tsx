@@ -298,7 +298,7 @@ const QuizList: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-900 min-h-screen p-8">
+    <div className="bg-gray-900 min-h-screen p-8 ">
       {quizzes.length === 0 ? (
         <div>No quizzes available</div>
       ) : (
@@ -306,9 +306,11 @@ const QuizList: React.FC = () => {
           const isClickable = index === 0 || quizzes[index - 1]?.attempted;
 
           return (
+            
+            
             <div
               key={quiz._id}
-              className="flex justify-between items-center p-4 mb-4 border border-white rounded-lg text-white"
+              className="flex justify-between mt-20 items-center p-4 mb-4 border border-white rounded-lg text-white"
             >
               <div className="flex items-center">
                 <span className="text-lg font-bold mr-4">{index + 1}</span>

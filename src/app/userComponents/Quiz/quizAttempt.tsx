@@ -549,7 +549,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
   if (showCompletionScreen && score !== null) {
     const isPassed = score > totalQuestions / 2;
     return (
-      <div className="bg-gray-900 min-h-screen p-8 flex flex-col justify-center items-center text-white">
+      <div className="bg-gray-900 min-h-screen  flex flex-col justify-center items-center text-white">
         <div className="text-6xl mb-4">{isPassed ? "🎉" : "😢"}</div>
         <div className="text-lg mb-4">
           Score: {score}/{totalQuestions}
@@ -625,9 +625,9 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
     //       {currentQuestion === quiz.questions.length - 1 ? 'Submit' : 'Next'}
     //     </button>
     //   </div>
-    <div className="bg-gray-900 min-h-screen flex items-center justify-center text-white relative">
+    <div className="bg-gray-900 min-h-screen  flex items-center justify-center text-white relative">
       {/* Timer */}
-      <div className="absolute top-4 right-4 text-lg font-bold bg-gray-800 px-4 py-2 rounded-lg shadow-lg border border-gray-700">
+      <div className="absolute top-4 right-4 text-lg font-bold mt-20 bg-gray-800 px-4 py-2 rounded-lg shadow-lg border border-gray-700">
         Time Left: {Math.floor(timeLeft / 60)}m {timeLeft % 60}s
       </div>
 

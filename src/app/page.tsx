@@ -55,7 +55,7 @@ import Testimonials from "./components/LandingPage/testimonials";
 import Footer from "./components/LandingPage/footer";
 
 export default function Home() {
-  const { _id } = useUser(); // Get user data
+  const { _id } = useUser(); 
 
   return (
     <main className="relative flex flex-col items-stretch justify-center min-h-screen">

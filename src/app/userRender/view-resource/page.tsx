@@ -8,7 +8,7 @@ const ResourceRender = () => {
     <main className="relative flex flex-col">
       <Header />
 
-      <div className="flex-1 w-full overflow-y-auto">
+      <div className="flex-1  w-full overflow-y-auto">
         <ResourcePage />
       </div>
 

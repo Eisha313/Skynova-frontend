@@ -1,6 +1,5 @@
 import React from "react";
-import Header from "@/app/components/header";
-import Sidebar from "@/app/components/sidebarDashboard";
+import Header from "@/app/components/LandingPage/header";
 import QuizAttempt from "@/app/userComponents/Quiz/quizAttempt";
 
 interface PageProps {
@@ -16,8 +15,8 @@ const EditPage = ({ params }: PageProps) => {
     <div className="flex h-screen">
       {/* <Sidebar /> */}
       <div className="flex-1 flex flex-col">
-        {/* <Header /> */}
-        <main className="flex-1 p-4 bg-white">
+        <Header />
+        <main className="flex-1  bg-white">
           <QuizAttempt id={id} />
         </main>
       </div>

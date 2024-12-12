@@ -14,7 +14,7 @@ export default function CommunicationControlTower() {
 
 <div className='bg-custom-image'>
 <Header/>
-<SecondaryNavbar/>
+<SecondaryNavbar />
       
       <div className= "max-w-6xl mx-auto flex justify-center items-center">
         <iframe
