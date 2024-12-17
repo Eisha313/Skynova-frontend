@@ -101,7 +101,7 @@ export const roleBasedRoutes = {
     "/userRender/quiz/[id]/attempt",
     "/userRender/quiz/certificate-list",
     "/userRender/chat",
-    "/medicalList"
+    "/medicalList",
   ],
   Aviator: [
     "/login",
@@ -130,7 +130,7 @@ export const roleBasedRoutes = {
     "/results/viewresults[id]/detailResult",
     "/results/viewresults[id]/editResult",
     "/quizPage",
-    '/jets/f6-jet',
+    "/jets/f6-jet",
     "/community/[id]/questiondetail",
     " /userRender/viewCommunityQuestions/[id]/questionDetail",
     "/userRender/viewCommunityQuestions",
@@ -158,14 +158,12 @@ export const roleBasedRoutes = {
     "/userRender/changePassword",
     "/userRender/chat",
     "/medicalTest",
-    '/reflexTest',
-    '/eyeTest',
-    '/memoryTest',
-    '/emergencyTactics'
-    ,
-    '/handGestures',
-    '/aviationCharts'
-
+    "/reflexTest",
+    "/eyeTest",
+    "/memoryTest",
+    "/emergencyTactics",
+    "/handGestures",
+    "/aviationCharts",
   ],
 };
 
@@ -192,8 +190,9 @@ export const publicRoutes = [
   "/jets/j10c-jet",
   "/userRender/view-resource/[id]/resourceDetails",
   "/userRender/view-resource/[id]/editResource",
-  '/userRender/view-resource',
-  '/userRender/competency',
-  '/userRender/viewCommunityQuestions',
-  '/userRender/viewCommunityQuestions/[id]/questionDetail'
+  "/userRender/view-resource",
+  "/userRender/competency",
+  "/userRender/viewCommunityQuestions",
+  "/userRender/viewCommunityQuestions/[id]/questionDetail",
+  "/emergencyTactics",
 ];
