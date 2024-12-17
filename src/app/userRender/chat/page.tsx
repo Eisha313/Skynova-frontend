@@ -43,6 +43,8 @@ const AllChats = () => {
           const myId = _id;
 
           conversation.conversationId = userId && myId ? (userId > myId ? userId + myId : myId + userId) : "";
+
+          return conversation;
         });
         setConversations && setConversations(dataWithConversationId);
       })
