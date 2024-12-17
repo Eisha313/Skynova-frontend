@@ -24,7 +24,7 @@ const WingsResourcesTable = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(10);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false); 
   const [resourceToDelete, setResourceToDelete] = useState<string | null>(null);
 
@@ -190,7 +190,7 @@ const WingsResourcesTable = () => {
               <td className="py-2 px-4 text-center">{index + 1}</td>
               <td className="py-2 px-4 text-center">{resource.name}</td>
               <td className="py-2 px-4 text-center">{resource.type}</td>
-              <td className="py-2 px-4 text-center">{resource.description}</td>
+              <td className="py-2 px-4 text-center max-w-xs overflow-hidden whitespace-nowrap text-ellipsis">{resource.description}</td>
               
               <td className="py-2 px-4 text-center">{resource.content}</td>
               

@@ -163,6 +163,7 @@ const HeroesTable = () => {
     placeholder="Search..."
    className="px-4 py-2 text-white border border-white/30 rounded-xl bg-transparent hover:border-[#5AA0BC] active:border-[#5AA0BC] focus-visible:border-[#5AA0BC] transition-all outline-none"
   />
+
   <select 
     value={filterType} 
     onChange={e => setFilterType(e.target.value)} 
@@ -173,6 +174,8 @@ const HeroesTable = () => {
     <option className='bg-transparent text-black' value="movie">Movies</option>
     <option className='bg-transparent text-black' value="quote">Quotes</option>
   </select>
+
+
   <button
     onClick={generatePDF}
     className="text-white px-4 py-2 rounded-md flex items-center justify-center border-2 border-gray-300 hover:border-current transition-all duration-300"
@@ -192,7 +195,7 @@ const HeroesTable = () => {
         <thead className="bg-eisha text-white">
           <tr>
             
-             {['Sr No ','Name', 'Image', 'Description','Medal' ,'Accomplishments','Type','Actions'].map(header => (
+             {['Sr No ','Name', 'Image', 'Medal','Accomplishments' ,'Description','Type','Actions'].map(header => (
               <th
                 key={header}
                 className="py-2 px-4 border-b text-center cursor-pointer"
@@ -225,12 +228,12 @@ const HeroesTable = () => {
   />
 )}</div>
               </td>
-              <td className="py-2 px-4">{hero.medals}</td>
-              <td className="py-2 px-4">{hero.accomplishments}</td>
+              <td className="py-2 px-4 max-w-xs overflow-hidden whitespace-nowrap text-ellipsis">{hero.medals}</td>
+              <td className="py-2 px-4 max-w-xs overflow-hidden whitespace-nowrap text-ellipsis">{hero.accomplishments}</td>
               
 
               
-              <td className="py-2 px-4">{hero.description.replace(/"/g, '&quot;')}</td>
+              <td className="py-2 px-4 max-w-xs overflow-hidden whitespace-nowrap text-ellipsis">{hero.description.replace(/"/g, '&quot;')}</td>
 
               <td className="py-2 px-4">
                 {[...hero.movies.map(() => 'Movie'), ...hero.documentaries.map(() => 'Documentary'), ...hero.quotes.map(() => 'Quote')].join(', ')}

@@ -12,7 +12,7 @@ const EditCertificatePage: React.FC = () => {
   const params = useParams();
   const { id } = params;
 
-  // Ensure id is a string
+  
   const editId = Array.isArray(id) ? id[0] : id;
 
   return (
