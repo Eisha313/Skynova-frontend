@@ -58,11 +58,11 @@ const Stats = () => {
   });
 
   return (
-    <div ref={ref} className="bg-[#0B132B] text-white py-12 px-8 flex justify-center gap-8">
+    <div ref={ref} className="bg-[#0B132B] text-white py-12 px-8  flex justify-center gap-8">
       {statsData.map((stat, index) => (
         <div
           key={index}
-          className="flex flex-col items-center bg-[#1C2541] py-8 px-6 rounded-lg shadow-lg w-[300px] h-[200px] justify-center" // Ensuring equal height and width
+          className="flex flex-col items-center bg-[#1C2541] py-8 mt-24 px-6 rounded-lg shadow-lg w-[300px] h-[200px] justify-center" // Ensuring equal height and width
         >
           <h2 className="text-4xl font-bold">
             {inView ? (

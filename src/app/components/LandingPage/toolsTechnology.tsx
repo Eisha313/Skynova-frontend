@@ -19,7 +19,7 @@ const tools: Tool[] = [
   { name: 'MongoDB', img: '/mongo.jpg' },
   { name: 'CSS', img: '/css.jpg' },
   { name: 'Tailwind', img: '/tailwind.jpg' }, 
-     { name: 'unity', img: '/unity.jpg' },
+  { name: 'unity', img: '/unity.jpg' },
 
   
 ];
