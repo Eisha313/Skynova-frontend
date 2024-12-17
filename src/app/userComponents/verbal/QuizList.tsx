@@ -111,7 +111,6 @@ const QuizList: React.FC<QuizListProps> = ({ onSelectQuiz, shouldRecheckList, go
 
   return (
     <div className="bg-[#212C44]  p-8  rounded-lg">
-      console.log(quizzes before map:, quizzes);
       {quizzes.length > 0 &&
         quizzes.map(
           (quiz, index) =>
