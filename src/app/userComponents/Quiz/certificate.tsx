@@ -56,7 +56,7 @@ const CertificateDetails: React.FC<CertificateDetailsProps> = ({ id }) => {
           Download Certificate
         </button>
       </div>
-      <div ref={certificateRef} className="bg-white shadow-md rounded p-4">
+      <div ref={certificateRef} className=" shadow-md rounded p-4">
         <Certificate
           title={certificate.type}
           description={certificate.description}
