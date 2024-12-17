@@ -76,7 +76,7 @@ const Header: React.FC = () => {
         {[
           { name: "Home", path: "/" },
           { name: "Resources", path: "/userRender/view-resource" },
-          { name: "Competency Evaluation", path: "/userRender/competency" },
+        
           { name: "Jets", path: "/jets" },
           { name: "Cockpits", path: "/cockpits" },
           
@@ -88,6 +88,7 @@ const Header: React.FC = () => {
                 // { name: "Medical Test", path: "/medicalTest" },
                 { name: "Medical Test", path: "/medicalTest" },
                 { name: "Quiz", path: "/userRender/quiz" },
+                { name: "Competency Evaluation", path: "/userRender/competency" },
               ]
             : []),
         ].map((link) => (
