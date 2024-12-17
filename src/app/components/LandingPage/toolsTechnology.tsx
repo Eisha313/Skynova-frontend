@@ -12,7 +12,7 @@ const tools: Tool[] = [
   { name: 'Adobe XD', img: '/adobe.png' },
   { name: 'Adobe Illustrator', img: '/illustrator.png' },
   { name: 'Unity', img: '/unity.png' },
-  { name: 'Mantine', img: '/mantine.png' },
+  { name: 'Mantine', img: '/mantine2.png' },
   { name: 'Sketch', img: '/sketch.png' },
   { name: 'Figma', img: '/figma.jpg' },
   { name: 'VS Code', img: '/vs.jpg' },
