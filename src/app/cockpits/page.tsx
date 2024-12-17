@@ -1,13 +1,15 @@
 
 import React from "react";
 // import Header from "@/components/Header";
+import Header from "../components/LandingPage/header";
 
 
 const page = () => {
 
   return (
     <div>
-      <p className="text-center text-white text-3xl font-bold mt-8 mb-[-12px]">
+<Header />
+      <p className="text-center text-white text-3xl font-bold mt-24 mt-8 mb-[-12px]">
         COCKPITS
       </p>
       <div className="flex justify-center flex-wrap mt-24 gap-5 px-5">
