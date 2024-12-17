@@ -174,7 +174,7 @@ const MedicalList: React.FC = () => {
   return (
     <div className=" mx-auto  p-4 bg-hassan">
       {error && <p className="text-red-500">{error}</p>}
-      <div className="flex mt-24 flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
+      <div className="flex  flex-col md:flex-row md:justify-between items-center mb-4 space-y-4 md:space-y-0">
         <h2 className="text-xl font-semibold text-white text-center ">All MedicalDetails</h2>
         <div className="flex flex-1 justify-end space-x-2">
           <Search onSearchChange={handleSearchChange} searchTerm={searchTerm} clearSearch={clearSearch} />

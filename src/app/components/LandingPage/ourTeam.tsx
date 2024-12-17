@@ -21,7 +21,7 @@ const OurTeam = () => {
           <div className="bg-[#1E2638] rounded-2xl shadow-lg text-center">
             <div className="w-full h-full aspect-[1]  mx-auto relative">
               <Image
-                src="/Elisa.png"
+                src="/eish.jpg"
                 alt="Eisha"
                 width={600}
                 height={600}

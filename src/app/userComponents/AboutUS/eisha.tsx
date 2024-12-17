@@ -16,7 +16,7 @@ const MyProfile = () => {
       </div>
       <div className="w-full lg:w-6/12 flex-shrink-0">
         <img
-          src="/avatar.png"
+          src="/eish.jpg"
           alt="My Profile"
           className="w-full h-auto object-cover rounded-md shadow-md"
         />
