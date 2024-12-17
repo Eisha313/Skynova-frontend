@@ -71,12 +71,7 @@ const WingsResourcesTable = () => {
   const clearSearch = () => {
     setSearchTerm('');
   };
-  // const filteredResources = sortedResources.filter(resource =>
-  //   (resource.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     resource.type.toLowerCase().includes(searchTerm.toLowerCase()) ||
-  //     resource.description.toLowerCase().includes(searchTerm.toLowerCase())) &&
-  //   (filterType ? resource.type === filterType : true)
-  // );
+
   const filteredResources = sortedResources.filter(resource => {
     const name = resource.name || ""; // Default to an empty string if undefined
     const type = resource.type || "";
