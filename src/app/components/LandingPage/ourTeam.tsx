@@ -16,7 +16,7 @@ const OurTeam = () => {
           <div className="w-20 h-2 bg-blue-500 rounded-md"></div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-28 mt-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-28 mt-10 flex-wrap">
           {/** Team Member 1 */}
           <div className="bg-[#1E2638] rounded-2xl shadow-lg text-center">
             <div className="w-full h-full aspect-[1]  mx-auto relative">

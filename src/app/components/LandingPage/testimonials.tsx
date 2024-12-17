@@ -27,7 +27,7 @@ const testimonialsData = [
 
 const Testimonials = () => {
   return (
-    <div className="bg-[#0B132B] text-white py-16 px-8">
+    <div className="bg-[#0B132B] text-white py-16 px-8 ">
       <div className="flex items-center justify-center mb-8 mt-5">
         <div className="w-16 h-1 bg-blue-500"></div>
         <h2 className="text-xl font-semibold tracking-widest mx-4">
@@ -35,7 +35,7 @@ const Testimonials = () => {
         </h2>
         <div className="w-16 h-1 bg-blue-500"></div>
       </div>
-      <div className="flex justify-center gap-10 mt-4">
+      <div className="flex justify-center gap-10 mt-4 flex flex-wrap justify-center  p-6">
         {testimonialsData.map((testimonial, index) => (
           <div
             key={index}

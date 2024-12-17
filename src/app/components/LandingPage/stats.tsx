@@ -58,7 +58,7 @@ const Stats = () => {
   });
 
   return (
-    <div ref={ref} className="bg-[#0B132B] text-white py-12 px-8  flex justify-center gap-8">
+    <div ref={ref} className="bg-[#0B132B] text-white py-12 px-8  flex justify-center flex-wrap gap-8">
       {statsData.map((stat, index) => (
         <div
           key={index}
