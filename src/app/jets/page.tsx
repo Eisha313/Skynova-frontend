@@ -4,12 +4,10 @@ import Header from "../components/LandingPage/header";
 import { useRouter } from "next/router";
 // import Header from "../components/LandingPage/header";
 
-
 const page = () => {
   // const router = useRouter()
 
   return (
-    
     <div>
       <Header />
       <p className="text-center text-3xl text-white font-bold mt-36 mb-[-12]">AIRCRAFTS</p>
@@ -21,7 +19,7 @@ const page = () => {
           <img className="absolute top-14 left-0 w-full h-72 object-cover z-10" src="/F16.svg" alt="Rafale" />
           <a
             href="/jets/f16-jet"
-            className="absolute bottom-0 left-0 w-full bg-blue-600 text-white border-none cursor-pointer transition duration-300 h-16 font-bold text-lg z-20 hover:bg-blue-800"
+            className="absolute grid place-items-center bottom-0 left-0 w-full bg-blue-600 text-white border-none cursor-pointer transition duration-300 h-12 font-bold text-lg z-20 hover:bg-blue-800"
           >
             View in 3D
           </a>
@@ -33,7 +31,7 @@ const page = () => {
           <img className="absolute top-14 left-0 w-full h-72 object-cover z-10" src="/j10c.svg" alt="F-16" />
           <a
             href="/jets/j10c-jet"
-            className="absolute bottom-0 left-0 w-full bg-blue-600 text-white border-none cursor-pointer transition duration-300 h-16 font-bold text-lg z-20"
+            className="absolute grid place-items-center bottom-0 left-0 w-full bg-blue-600 text-white border-none cursor-pointer transition duration-300 h-12 font-bold text-lg z-20"
           >
             View in 3D
           </a>
@@ -45,7 +43,7 @@ const page = () => {
           <img className="absolute top-14 left-0 w-full h-72 object-cover z-10" src="/jf17.svg" alt="JF-17-Thunder" />
           <a
             href="/jets/jf17-jet"
-            className="absolute bottom-0 left-0 w-full bg-blue-600 text-white border-none cursor-pointer transition duration-300 h-16 font-bold text-lg z-20 hover:bg-blue-800"
+            className="absolute grid place-items-center bottom-0 left-0 w-full bg-blue-600 text-white border-none cursor-pointer transition duration-300 h-12 font-bold text-lg z-20 hover:bg-blue-800"
             // onClick={() => router.push("/JF17")}
           >
             View in 3D
