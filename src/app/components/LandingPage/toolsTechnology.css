@@ -1,11 +1,28 @@
 .tools-and-technologies .embla {
-    overflow: hidden;
-  }
-  .tools-and-technologies .embla__container {
-    display: flex;
-  }
+  overflow: hidden;
+}
+.tools-and-technologies .embla__container {
+  display: flex;
+}
+.tools-and-technologies .embla__slide {
+  flex: 0 0 10%;
+  min-width: 0;
+}
+
+@media (max-width: 1024px) {
   .tools-and-technologies .embla__slide {
-    flex: 0 0 10%;
-    min-width: 0;
+    flex: 0 0 15%;
   }
-  
+}
+
+@media (max-width: 768px) {
+  .tools-and-technologies .embla__slide {
+    flex: 0 0 20%;
+  }
+}
+
+@media (max-width: 480px) {
+  .tools-and-technologies .embla__slide {
+    flex: 0 0 30%;
+  }
+}
