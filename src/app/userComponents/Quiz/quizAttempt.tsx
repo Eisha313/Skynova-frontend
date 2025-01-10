@@ -141,7 +141,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
       res.passed = res.quizId?.questions
         ? res.quizId?.questions?.length === 0
           ? true
-          : res.marks > res.quizId?.questions?.length / 2
+          : res.marks >= Math.floor(res.quizId?.questions?.length *0.8)
         : false;
       return res;
     });
@@ -166,7 +166,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
     console.log("Result Score:", resultScore);
 
     let certificateTitle = "";
-    if (resultScore > totalQuestions / 2) {
+    if (resultScore >=Math.floor( totalQuestions *0.8) ){
       if (completedQuizCount === 1) {
         certificateTitle = "Basic ";
       } else if (completedQuizCount === 2) {
