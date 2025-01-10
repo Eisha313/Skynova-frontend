@@ -85,7 +85,7 @@ const Header: React.FC = () => {
             ? [
                 { name: "Certificates", path: "/userRender/certificate-list" },
                 { name: "Chats", path: "/userRender/chat" },
-                // { name: "Medical Test", path: "/medicalTest" },
+                
                 { name: "Medical Test", path: "/medicalTest" },
                 { name: "Quiz", path: "/userRender/quiz" },
                 { name: "Competency Evaluation", path: "/userRender/competency" },

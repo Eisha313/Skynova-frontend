@@ -94,13 +94,13 @@ const QuizModal: React.FC<QuizModalProps> = ({ isOpen, onClose, quizDetails }) =
     >
       <div
         className="bg-[#212C44] p-6 rounded-lg shadow-lg w-4/5 max-w-lg text-white relative max-h-screen overflow-y-auto"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
+        onClick={(e) => e.stopPropagation()} 
       >
-        {/* Title and Description */}
+        
         <h2 className="text-2xl mt-12 font-bold mb-4">{quizDetails.title}</h2>
         <p className="mb-4">{quizDetails.description}</p>
 
-        {/* Questions List */}
+       
         {quizDetails.questions.length === 0 ? (
           <p className="italic text-gray-400">No questions available for this quiz.</p>
         ) : (

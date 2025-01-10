@@ -24,7 +24,7 @@ const VerbalQuizForm = () => {
       if (response.ok) {
         const data = await response.json();
         const quiz = data.find((quiz: { title: string; _id: string }) => quiz.title === title);
-        return quiz?._id || null; // Adjust to use _id
+        return quiz?._id || null; 
       } else {
         console.error('Failed to fetch quizzes');
         return null;
@@ -41,7 +41,7 @@ const VerbalQuizForm = () => {
       return;
     }
 
-    setError(null); // Clear any previous error
+    setError(null); 
 
     try {
       const response = await fetch('https://sky-nova-8ccaddc754ce.herokuapp.com/verbalQuizzes/createVerbalQuiz', {
@@ -56,10 +56,10 @@ const VerbalQuizForm = () => {
       if (response.ok) {
         const data = await response.json();
         console.log('Quiz created:', data);
-        const fetchedQuizId = await fetchQuizIdByTitle(title); // Fetch quiz ID based on title
+        const fetchedQuizId = await fetchQuizIdByTitle(title); 
         if (fetchedQuizId) {
           setQuizCreated(true);
-          setQuizId(fetchedQuizId); // Set the quiz ID
+          setQuizId(fetchedQuizId); 
         } else {
           setError('Failed to fetch quiz ID.');
         }
