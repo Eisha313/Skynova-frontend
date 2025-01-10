@@ -225,7 +225,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
   }
 
   if (showCompletionScreen && score !== null) {
-    const isPassed = score > totalQuestions * 0.8;
+    const isPassed = score >= totalQuestions * 0.8;
     return (
       <div className="bg-gray-900 min-h-screen  flex flex-col justify-center items-center text-white">
         <div className="text-6xl mb-4">{isPassed ? "🎉" : "😢"}</div>
