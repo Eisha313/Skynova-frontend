@@ -1,5 +1,5 @@
-'use client';
-import { useState } from 'react';
+"use client";
+import { useState } from "react";
 
 interface TestImage {
   url: string;
@@ -9,12 +9,12 @@ interface TestImage {
 export default function ColorBlindnessTest() {
   const [showIntro, setShowIntro] = useState(true);
   const [images] = useState<TestImage[]>([
-    { url: '/number1.png', answer: '5' },
-    { url: '/number2.png', answer: '8' },
-    { url: '/number3.png', answer: '6' },
-    { url: '/number4.png', answer: '6' },
-    { url: '/number5.png', answer: '1' },
-    { url: '/number6.png', answer: '6' },
+    { url: "/number1.png", answer: "5" },
+    { url: "/number2.png", answer: "8" },
+    { url: "/number3.png", answer: "6" },
+    { url: "/number4.png", answer: "4" },
+    { url: "/number5.png", answer: "1" },
+    { url: "/number6.png", answer: "6" },
   ]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [score, setScore] = useState(0);
@@ -32,7 +32,7 @@ export default function ColorBlindnessTest() {
     } else {
       setTestEnded(true);
       setShowPopup(true);
-      setIsPassed(score + 1 > 3); 
+      setIsPassed(score + 1 > 3);
     }
   };
 
@@ -52,11 +52,7 @@ export default function ColorBlindnessTest() {
       {showIntro ? (
         <div className="w-[70%] max-w-[70%] bg-[#212C44] rounded-lg p-6 shadow-lg flex mx-auto">
           <div className="w-1/2 h-full">
-            <img
-              src="/colorblind.webp"
-              alt="Intro Image"
-              className="w-full h-full object-cover rounded-l-lg"
-            />
+            <img src="/colorblind.webp" alt="Intro Image" className="w-full h-full object-cover rounded-l-lg" />
           </div>
           <div className="w-1/2 p-6 flex flex-col justify-between text-white">
             <div>
@@ -90,9 +86,7 @@ export default function ColorBlindnessTest() {
               </div>
               <div className="w-1/2 flex flex-col items-center">
                 <h2 className="text-2xl font-semibold text-white mb-4">Color Blindness Test</h2>
-                <p className="text-white text-lg mb-4">
-                  Spot the number in the image and click the matching button.
-                </p>
+                <p className="text-white text-lg mb-4">Spot the number in the image and click the matching button.</p>
                 <div className="grid grid-cols-5 gap-6">
                   {[...Array(10)].map((_, i) => (
                     <button
@@ -124,16 +118,16 @@ export default function ColorBlindnessTest() {
             <div className="absolute inset-0 bg-black bg-opacity-75 flex justify-center items-center">
               <div className="bg-white p-6 rounded-lg text-center">
                 <h3 className="text-2xl font-semibold text-gray-800">
-                  {isPassed ? 'Congratulations!' : 'Test Failed'}
+                  {isPassed ? "Congratulations!" : "Test Failed"}
                 </h3>
                 <p className="text-lg text-gray-600 mt-4">
                   {isPassed
-                    ? 'You successfully passed the color blindness test.'
-                    : 'You have failed. Please try again.'}
+                    ? "You successfully passed the color blindness test."
+                    : "You have failed. Please try again."}
                 </p>
                 <img
-                  src={isPassed ? '/Pass.png' : '/Fail.png'}
-                  alt={isPassed ? 'Success' : 'Failure'}
+                  src={isPassed ? "/Pass.png" : "/Fail.png"}
+                  alt={isPassed ? "Success" : "Failure"}
                   className="w-20 h-20 mt-4 mx-auto"
                 />
                 <button
