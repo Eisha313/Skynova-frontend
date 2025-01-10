@@ -373,6 +373,7 @@ const QuizReport: React.FC = () => {
                         Result
                       </Link>
                     </div>
+                    
                   </div>
                 )
               )
