@@ -33,7 +33,7 @@ const QuizReport: React.FC = () => {
     const verbalPercentage = (data.verbalScore / data.verbalTotal) * 100;
     const nonverbalPercentage = (data.nonverbalScore / data.nonverbalTotal) * 100;
 
-    if (verbalPercentage >= 50 && nonverbalPercentage >= 50) {
+    if (verbalPercentage >= 80 && nonverbalPercentage >= 80) {
       return "Pass";
     } else {
       return "Fail";
@@ -258,7 +258,7 @@ const QuizReport: React.FC = () => {
   }
 
   return (
-    <div className="bg-[#081839]p-8 min-h-screen flex flex-col items-center justify-center">
+    <div className="bg-[#081839]p-8 min-h-screen flex flex-col items-center justify-center mt-24">
       <div id="report-content" className="bg-[#212C44] p-8 rounded-lg shadow-xl w-full max-w-4xl space-y-6">
         <h1 className="text-3xl font-extrabold text-center text-white mb-8">Competency Evaluation Report</h1>
 
@@ -281,7 +281,7 @@ const QuizReport: React.FC = () => {
           <h2 className="text-2xl font-semibold text-white mb-4">Quiz Results</h2>
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <h3 className="text-xl font-medium text-white mb-2">Verbal Quiz</h3>
+              <h3 className="text-xl font-medium text-white mb-2">Overall Verbal Result</h3>
               <p className="text-lg text-[#A6A6A6]">
                 <span className="font-semibold">Score:</span> {reportData.verbalScore}/{reportData.verbalTotal}
               </p>
@@ -289,10 +289,14 @@ const QuizReport: React.FC = () => {
                 <span className="font-semibold">Percentage:</span>{" "}
                 {((reportData.verbalScore / reportData.verbalTotal) * 100).toFixed(2)}%
               </p>
+              <p className="text-lg text-[#A6A6A6]">
+                <span className="font-semibold">Result:</span>{" "}
+                {reportData.verbalScore / reportData.verbalTotal >= 0.8 ? "Pass" : "Fail"}
+              </p>
             </div>
 
             <div>
-              <h3 className="text-xl font-medium text-white mb-2">Nonverbal Quiz</h3>
+              <h3 className="text-xl font-medium text-white mb-2">Overall Nonverbal Result</h3>
               <p className="text-lg text-[#A6A6A6] ">
                 <span className="font-semibold">Score:</span> {reportData.nonverbalScore}/{reportData.nonverbalTotal}
               </p>
@@ -300,13 +304,19 @@ const QuizReport: React.FC = () => {
                 <span className="font-semibold">Percentage:</span>{" "}
                 {((reportData.nonverbalScore / reportData.nonverbalTotal) * 100).toFixed(2)}%
               </p>
+              <p className="text-lg text-[#A6A6A6]">
+                <span className="font-semibold">Result:</span>{" "}
+                {reportData.nonverbalScore / reportData.nonverbalTotal >= 0.8 ? "Pass" : "Fail"}
+              </p>
             </div>
           </div>
         </div>
 
         <div className=" p-6 rounded-md shadow-sm">
           <h2 className="text-2xl font-semibold text-white mb-2">Status</h2>
-          <p className="text-xl text-blue-500">{reportData.result}</p>
+          <p className="text-xl text-white">
+            Overall Result: <span className="text-blue-500">{reportData.result}</span>
+          </p>
         </div>
 
         {/* List of all Verbal Quizzes */}
@@ -325,6 +335,10 @@ const QuizReport: React.FC = () => {
                   <p className="text-lg text-[#A6A6A6]">
                     <span className="font-semibold">Percentage:</span>{" "}
                     {((quiz.marks / quiz.quizId?.questions.length) * 100).toFixed(2)}%
+                  </p>
+                  <p className="text-lg text-[#A6A6A6]">
+                    <span className="font-semibold">Result:</span>{" "}
+                    {quiz.marks / quiz.quizId?.questions.length >= 0.8 ? "Pass" : "Fail"}
                   </p>
                 </div>
                 <div>
@@ -361,6 +375,10 @@ const QuizReport: React.FC = () => {
                       <p className="text-lg text-[#A6A6A6]">
                         <span className="font-semibold">Percentage:</span>{" "}
                         {((quiz.marks / quiz.quizId?.questions.length) * 100).toFixed(2)}%
+                      </p>
+                      <p className="text-lg text-[#A6A6A6]">
+                        <span className="font-semibold">Result:</span>{" "}
+                        {quiz.marks / quiz.quizId?.questions.length >= 0.8 ? "Pass" : "Fail"}
                       </p>
                     </div>
                     <div>

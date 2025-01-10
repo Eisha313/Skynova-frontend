@@ -248,13 +248,6 @@ const QuizList: React.FC = () => {
             );
 
             if (results.length > 0) {
-              console.log(
-                "results[results.length - 1].marks < 100 && results.length < 2 for quiz",
-                quiz.title,
-
-                results[results.length - 1].marks < 100 && results.length < 2
-              );
-
               const lastAttemptMarks = results[results.length - 1].marks;
               const totalQuestions = quiz.questions.length;
 
@@ -306,8 +299,6 @@ const QuizList: React.FC = () => {
           const isClickable = index === 0 || quizzes[index - 1]?.attempted;
 
           return (
-            
-            
             <div
               key={quiz._id}
               className="flex justify-between mt-20 items-center p-4 mb-4 border border-white rounded-lg text-white"
