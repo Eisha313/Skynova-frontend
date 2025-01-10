@@ -1,4 +1,3 @@
-
 "use client";
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -141,7 +140,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
       res.passed = res.quizId?.questions
         ? res.quizId?.questions?.length === 0
           ? true
-          : res.marks >= Math.floor(res.quizId?.questions?.length *0.8)
+          : res.marks >= res.quizId?.questions?.length * 0.8
         : false;
       return res;
     });
@@ -166,7 +165,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
     console.log("Result Score:", resultScore);
 
     let certificateTitle = "";
-    if (resultScore >=Math.floor( totalQuestions *0.8) ){
+    if (resultScore >= totalQuestions * 0.8) {
       if (completedQuizCount === 1) {
         certificateTitle = "Basic ";
       } else if (completedQuizCount === 2) {
@@ -226,7 +225,7 @@ const QuizAttempt: React.FC<{ id: string }> = ({ id }) => {
   }
 
   if (showCompletionScreen && score !== null) {
-    const isPassed = score > totalQuestions / 2;
+    const isPassed = score > totalQuestions * 0.8;
     return (
       <div className="bg-gray-900 min-h-screen  flex flex-col justify-center items-center text-white">
         <div className="text-6xl mb-4">{isPassed ? "🎉" : "😢"}</div>
