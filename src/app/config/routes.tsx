@@ -195,4 +195,6 @@ export const publicRoutes = [
   "/userRender/viewCommunityQuestions",
   "/userRender/viewCommunityQuestions/[id]/questionDetail",
   "/emergencyTactics",
+  "/handGestures",
+  "/aviationCharts",
 ];
